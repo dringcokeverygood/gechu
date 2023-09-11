@@ -69,6 +69,11 @@ module.exports = {
 				'950': '#292929',
 			},
 		},
+		extend: {
+			fontFamily: {
+				dungGeunMo: ['DungGeunMo'],
+			},
+		},
 	},
 	plugins: [],
 };
