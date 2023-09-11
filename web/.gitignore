@@ -38,3 +38,6 @@ out/
 
 ### property ###
 *.yml
+
+### idea ###
+*.idea
