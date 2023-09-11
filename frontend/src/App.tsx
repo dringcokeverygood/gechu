@@ -1,10 +1,10 @@
 import React from 'react';
-import RootRouter from './routes/RootRouter';
+import RootRouterContainer from './routes/containers/RootRouterContainer';
 
 function App() {
 	return (
 		<div className="App">
-			<RootRouter />
+			<RootRouterContainer />
 		</div>
 	);
 }
