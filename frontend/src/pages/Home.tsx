@@ -1,7 +1,13 @@
 import React from 'react';
+import HeaderContainer from '../components/Common/containers/HeaderContainer';
 
 const Home = () => {
-	return <div className="font-bold underline">Home</div>;
+	return (
+		<>
+			<HeaderContainer />
+			<div className="font-bold underline">Home</div>
+		</>
+	);
 };
 
 export default Home;
