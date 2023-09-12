@@ -4,6 +4,7 @@ import Header from '../Header';
 const HeaderContainer = () => {
 	const searchWordRef = useRef('');
 	const [searchWord, setSearchWord] = useState('');
+	const isLogin = true;
 
 	const onChangeSearchWord = useCallback(
 		(
@@ -31,6 +32,7 @@ const HeaderContainer = () => {
 
 	return (
 		<Header
+			isLogin={isLogin}
 			searchWord={searchWord}
 			searchWordRef={searchWordRef}
 			onChangeSearchWord={onChangeSearchWord}
