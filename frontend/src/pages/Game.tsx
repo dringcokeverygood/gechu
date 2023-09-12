@@ -1,12 +1,14 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import GameDetailContainer from '../components/Games/containers/GameDetailContainer';
-import GameReviewContainer from '../components/Games/containers/GameReviewContainer';
+import GameTabsContainer from '../components/Games/containers/GameTabsContainer';
 
 const Game=()=>{
     return (
-        <div className='container flex flex-col justify-center '>
+        <div className='container flex flex-col justify-center'>
             <GameDetailContainer/>
-            <GameReviewContainer/>
+            <GameTabsContainer/>
+            <Outlet/>
         </div>
         );
 }

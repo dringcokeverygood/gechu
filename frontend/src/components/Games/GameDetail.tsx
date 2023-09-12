@@ -1,14 +1,14 @@
 import React from 'react';
-import { GameContent } from './containers/GameDetailContainer';
+import { GameInfo } from './containers/GameDetailContainer';
 
-const GameDetail = ({ content }: { content: GameContent }) => {
+const GameDetail = ({ content }: { content: GameInfo }) => {
 	return (
 		<div>
-			<h1 className="text-green-500 text-3xl font-dungGeunMo">{content.gameTitle}</h1>
-			<table className="border-solid border-2 border-blue-600 w-full">
+			<h1 className="text-white-200 text-3xl font-dungGeunMo">{content.gameTitle}</h1>
+			<table className="border-solid border-2 border-blue-600 w-full text-white-200 text-sm">
 				<tbody>
 					<tr>
-						<td>개발</td>
+						<td >개발</td>
 						<td>{content.develop}</td>
 					</tr>
 					<tr>
@@ -18,6 +18,10 @@ const GameDetail = ({ content }: { content: GameContent }) => {
 					<tr>
 						<td>메타스코어</td>
 						<td>{content.metaScore}</td>
+					</tr>
+					<tr>
+						<td>오픈스코어</td>
+						<td>{content.openScore}</td>
 					</tr>
 				</tbody>
 			</table>
