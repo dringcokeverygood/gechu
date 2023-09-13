@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      uri: http://config_server:8888
+      name: api-gateway
