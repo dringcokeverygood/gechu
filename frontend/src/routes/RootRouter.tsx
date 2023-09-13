@@ -12,9 +12,10 @@ const RootRouter = () => {
 			<Routes>
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
-					<Route path="/game-detail" element={<Game />}></Route>
-					<Route index element={<GameReviewContainer/>}></Route>
-					{/* <Route path="articles" element={}></Route> */}
+					<Route path="/game-detail" element={<Game />}>
+						<Route index element={<GameReviewContainer/>}/>
+						{/* <Route path="articles" element={}/> */}
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
 import GameDetailContainer from '../components/Games/containers/GameDetailContainer';
 import GameTabsContainer from '../components/Games/containers/GameTabsContainer';
 
@@ -8,7 +8,7 @@ const Game=()=>{
         <div className='container flex flex-col justify-center'>
             <GameDetailContainer/>
             <GameTabsContainer/>
-            <Outlet/>
+            {/* <Outlet/> */}
         </div>
         );
 }

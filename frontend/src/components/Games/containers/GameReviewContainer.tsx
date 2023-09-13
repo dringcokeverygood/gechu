@@ -34,8 +34,8 @@ const GameReviewContainer = () => {
     ];
     return (
         <div>
-            {reviews.map((review)=>{
-                return <GameReview content={review}/>
+            {reviews.map((review, idx)=>{
+                return <GameReview key={idx} content={review}/>
             })}
         </div>
     )
