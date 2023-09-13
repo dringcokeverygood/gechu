@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/Login/LoginPage';
 import LoginCallBackPage from '../pages/Login/LoginCallBackPage';
-import HomePage from '../pages/Home/HomePage';
+
+import LayoutWithHeader from '../pages/LayoutWithHeader';
+import HomePageContainer from '../pages/Home/Containers/HomePageContainer';
 
 const RootRouter = () => {
 	return (
@@ -13,7 +15,9 @@ const RootRouter = () => {
 					path="/login/oauth2/code/kakao"
 					element={<LoginCallBackPage />}
 				></Route>
-				<Route path="/" element={<HomePage />}></Route>
+				<Route path="/" element={<LayoutWithHeader />}>
+					<Route index element={<HomePageContainer />} />
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	);
