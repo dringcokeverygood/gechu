@@ -23,7 +23,7 @@ const Header = ({
 	onSearch,
 }: Props) => {
 	return (
-		<div className="flex w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
+		<div className="fixed left-0 top-0 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
 			<Link to={`/`} className="flex items-center gap-5">
 				<img src={images.logo} className="h-[50px] w-20" />
 				<div className="font-dungGeunMo text-[40px]">gechu</div>
@@ -61,7 +61,7 @@ const Header = ({
 				</div>
 				{isLogin ? (
 					<Popover className="relative">
-						<Popover.Button>
+						<Popover.Button className="outline-none">
 							<img
 								src={images.defaultProfile}
 								className="h-[45px] w-[45px] rounded-full"
