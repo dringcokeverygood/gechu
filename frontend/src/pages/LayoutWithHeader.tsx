@@ -6,7 +6,9 @@ const LayoutWithHeader = () => {
 	return (
 		<>
 			<HeaderContainer />
-			<Outlet />
+			<div className="mt-20">
+				<Outlet />
+			</div>
 		</>
 	);
 };
