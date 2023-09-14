@@ -2,7 +2,7 @@ import React from 'react';
 import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
 import GameArticleList from '../GameArticleList';
 
-const GameArticleContainer = () => {
+const GameArticleListContainer = () => {
 	const articles: GameArticlePreviewType[] = [
 		{
 			seq: 1,
@@ -64,4 +64,4 @@ const GameArticleContainer = () => {
 	);
 };
 
-export default GameArticleContainer;
+export default GameArticleListContainer;
