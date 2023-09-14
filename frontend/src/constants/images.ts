@@ -1,7 +1,4 @@
 export const images = {
-	// logo: '/assets/images/logo.png',
-	// navigation: {},
-	// profile: {},
 	dummy: {
 		gameImg1: 'assets/images/game-img1.jpg',
 		gameImg2: 'assets/images/game-img2.jpg',
