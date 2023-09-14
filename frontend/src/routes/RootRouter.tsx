@@ -5,6 +5,7 @@ import LayoutWithHeader from '../pages/LayoutWithHeader';
 import Home from '../pages/Home';
 import Game from '../pages/Game';
 import GameReviewContainer from '../components/Games/containers/GameReviewContainer';
+import GameListPage from '../pages/GameListPage';
 import GameArticleListContainer from '../components/Games/containers/GameArticleListContainer';
 
 const RootRouter = () => {
@@ -18,6 +19,7 @@ const RootRouter = () => {
 						<Route path="reviews" element={<GameReviewContainer />} />
 						<Route path="articles" element={<GameArticleListContainer />} />
 					</Route>
+					<Route path="/game-list" element={<GameListPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
