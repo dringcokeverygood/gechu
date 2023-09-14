@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameArticlePreviewType } from './containers/GameArticleListContainer';
+import { GameArticlePreviewType } from '../../typedef/Game/games.types';
 
 const GameArticlePreviewCard = ({
 	article,
