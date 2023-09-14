@@ -30,13 +30,13 @@ const GameRecommendContainer = () => {
 
 	const visibleImages = slideImages.slice(slideIndex, slideIndex + 4);
 
-	const handleNextSlide = () => {
+	const onClickSlideNext = () => {
 		if (slideIndex + 4 < slideImages.length) {
 			setSlideIndex(slideIndex + 4);
 		}
 	};
 
-	const handlePreviousSlide = () => {
+	const onClickSlidePre = () => {
 		if (slideIndex > 0) {
 			setSlideIndex(slideIndex - 4);
 		}
@@ -45,8 +45,8 @@ const GameRecommendContainer = () => {
 	return (
 		<GameRecommend
 			visibleImages={visibleImages}
-			handlePreviousSlide={handlePreviousSlide}
-			handleNextSlide={handleNextSlide}
+			onClickSlidePre={onClickSlidePre}
+			onClickSlideNext={onClickSlideNext}
 		/>
 	);
 };
