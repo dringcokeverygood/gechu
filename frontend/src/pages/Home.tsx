@@ -1,10 +1,10 @@
 import React from 'react';
-import GameCardContainer from '../components/Common/containers/GameCardContainer';
+import MainPageContainer from '../components/Main/Containers/MainPageContainer';
 
 const Home = () => {
 	return (
-		<div className="flex h-96 justify-center gap-6 bg-white-950">
-			<GameCardContainer />
+		<div className="flex w-full justify-center bg-white-950 text-white-100">
+			<MainPageContainer />
 		</div>
 	);
 };
