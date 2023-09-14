@@ -5,6 +5,7 @@ import LayoutWithHeader from '../pages/LayoutWithHeader';
 import Home from '../pages/Home';
 import Game from '../pages/Game';
 import GameReviewContainer from '../components/Games/containers/GameReviewContainer';
+import GameListPage from '../pages/GameListPage';
 
 const RootRouter = () => {
 	return (
@@ -13,9 +14,10 @@ const RootRouter = () => {
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
 					<Route path="/game-detail" element={<Game />}>
-						<Route index element={<GameReviewContainer/>}/>
+						<Route index element={<GameReviewContainer />} />
 						{/* <Route path="articles" element={}/> */}
 					</Route>
+					<Route path="/game-list" element={<GameListPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
