@@ -3,7 +3,7 @@ import RootRouterContainer from './routes/containers/RootRouterContainer';
 
 function App() {
 	return (
-		<div className="App">
+		<div className="App bg-white-950 h-screen">
 			<RootRouterContainer />
 		</div>
 	);
