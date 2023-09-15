@@ -18,17 +18,27 @@ const HeaderContainer = () => {
 		[],
 	);
 
-	const onSearch = useCallback(
+	const handleSearch = () => {
+		console.log('검색');
+		setSearchWord('');
+	};
+
+	const onKeyUpForSearch = useCallback(
 		(e: React.KeyboardEvent<HTMLInputElement>) => {
 			if (e.key === 'Enter') {
 				if (searchWord) {
-					console.log('검색');
-					setSearchWord('');
+					handleSearch();
 				}
 			}
 		},
 		[searchWord],
 	);
+
+	const onClickSearchBtn = useCallback(() => {
+		if (searchWord) {
+			handleSearch();
+		}
+	}, [searchWord]);
 
 	return (
 		<Header
@@ -36,7 +46,8 @@ const HeaderContainer = () => {
 			searchWord={searchWord}
 			searchWordRef={searchWordRef}
 			onChangeSearchWord={onChangeSearchWord}
-			onSearch={onSearch}
+			onKeyUpForSearch={onKeyUpForSearch}
+			onClickSearchBtn={onClickSearchBtn}
 		/>
 	);
 };
