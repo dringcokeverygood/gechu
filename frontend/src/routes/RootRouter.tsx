@@ -7,6 +7,7 @@ import Game from '../pages/Game';
 import GameReviewContainer from '../components/Games/containers/GameReviewContainer';
 import GameListPage from '../pages/GameListPage';
 import GameArticleListContainer from '../components/Games/containers/GameArticleListContainer';
+import GameArticleContainer from '../components/Games/containers/GameArticleContainer';
 
 const RootRouter = () => {
 	return (
@@ -18,6 +19,7 @@ const RootRouter = () => {
 						<Route path="" element={<Navigate replace to="reviews" />} />
 						<Route path="reviews" element={<GameReviewContainer />} />
 						<Route path="articles" element={<GameArticleListContainer />} />
+						<Route path="articles/:seq" element={<GameArticleContainer />} />
 					</Route>
 					<Route path="/game-list" element={<GameListPage />} />
 				</Route>
