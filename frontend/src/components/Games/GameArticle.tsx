@@ -1,5 +1,6 @@
 import React from 'react';
 import { GameArticleType } from '../../typedef/Game/games.types';
+import GameCommentListContainer from './containers/GameCommentListContainer';
 
 const GameArticle = ({ article }: { article: GameArticleType }) => {
 	return (
@@ -15,6 +16,8 @@ const GameArticle = ({ article }: { article: GameArticleType }) => {
 			<div className="font-dungGeunMo text-2xl">{article.articleTitle}</div>
 			<img src={article.imageUrl} alt="article-image" className="pb-4" />
 			<div>{article.content}</div>
+			<div className="font-dungGeunMo">댓글 00개</div>
+			<GameCommentListContainer />
 		</div>
 	);
 };
