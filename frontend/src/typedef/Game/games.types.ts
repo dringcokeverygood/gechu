@@ -52,3 +52,12 @@ export type GameArticleType = {
 	imageUrl: string;
 	createDate: string;
 };
+
+export type GameCommentType = {
+	seq: number;
+	articleSeq: number;
+	userSeq: number;
+	userNickname: string;
+	content: string;
+	createDate: string;
+};

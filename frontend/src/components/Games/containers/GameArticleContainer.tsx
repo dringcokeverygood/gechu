@@ -3,6 +3,7 @@ import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
 
 const GameArticleContainer = () => {
+	//추후 seq기반으로 fetch해오기
 	const article: GameArticleType = {
 		seq: 1,
 		gameSeq: 1,
