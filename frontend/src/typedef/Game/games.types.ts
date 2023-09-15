@@ -57,3 +57,12 @@ export type GameListType = {
 	platformFilter: FilterType;
 	games: GamePreviewType[];
 };
+
+export type GameCommentType = {
+	seq: number;
+	articleSeq: number;
+	userSeq: number;
+	userNickname: string;
+	content: string;
+	createDate: string;
+};

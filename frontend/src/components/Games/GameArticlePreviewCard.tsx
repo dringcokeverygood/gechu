@@ -7,7 +7,7 @@ const GameArticlePreviewCard = ({
 	article: GameArticlePreviewType;
 }) => {
 	return (
-		<div className="mb-4 flex h-[280px] flex-col space-y-2 rounded-md bg-white-900 px-2 py-2 text-white-200">
+		<div className="mb-4 flex h-[280px] flex-col space-y-2 rounded-md bg-white-900 px-2 py-2 text-white-200 hover:bg-white-800">
 			<div className="flex flex-row items-center space-x-4">
 				<img
 					className="inline-block h-10 w-10 rounded-full ring-2 ring-red-600"
