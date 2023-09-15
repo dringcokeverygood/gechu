@@ -1,14 +1,44 @@
 import React from 'react';
 import SideFilterBar from './components/SideFilterBar';
-import { AllFilters } from '../../typedef/Game/filter.types';
+import GameCardContainer from '../Common/containers/GameCardContainer';
+import CFilterLabel from '../Common/CFilterLabel';
+import { GameListType } from '../../typedef/Game/games.types';
 
-const GameList = ({ genreFilter, platformFilter }: AllFilters) => {
+const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
 	return (
-		<div className="flex">
+		<div className="flex w-[1200px] justify-center gap-[100px]">
 			<SideFilterBar
 				genreFilter={genreFilter}
 				platformFilter={platformFilter}
 			/>
+
+			<div className="flex w-[768px] flex-col gap-6">
+				<div className="flex max-w-full flex-wrap gap-3 pt-6">
+					{Object.keys(genreFilter.filterState).map(
+						(genre) =>
+							genreFilter.filterState[genre].flag && (
+								<CFilterLabel
+									id={genre}
+									text={genreFilter.filterState[genre].text}
+								/>
+							),
+					)}
+					{Object.keys(platformFilter.filterState).map(
+						(platform) =>
+							platformFilter.filterState[platform].flag && (
+								<CFilterLabel
+									id={platform}
+									text={platformFilter.filterState[platform].text}
+								/>
+							),
+					)}
+				</div>
+				<div className="grid grid-cols-3 gap-6">
+					{games.map((game) => (
+						<GameCardContainer key={game.gameSeq} game={game} />
+					))}
+				</div>
+			</div>
 		</div>
 	);
 };
