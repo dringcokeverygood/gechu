@@ -3,6 +3,7 @@ import { images } from '../../constants/images';
 import { Link, NavLink } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { RiSearchLine } from 'react-icons/ri';
 
 type Props = {
 	isLogin: boolean;
@@ -12,7 +13,8 @@ type Props = {
 		e: React.ChangeEvent<HTMLInputElement>,
 		type: React.MutableRefObject<string>,
 	) => void;
-	onSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+	onKeyUpForSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+	onClickSearchBtn: () => void;
 };
 
 const Header = ({
@@ -20,7 +22,8 @@ const Header = ({
 	searchWord,
 	searchWordRef,
 	onChangeSearchWord,
-	onSearch,
+	onKeyUpForSearch,
+	onClickSearchBtn,
 }: Props) => {
 	return (
 		<div className="fixed left-0 top-0 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
@@ -54,10 +57,12 @@ const Header = ({
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
 							onChangeSearchWord(e, searchWordRef)
 						}
-						onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => onSearch(e)}
+						onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) =>
+							onKeyUpForSearch(e)
+						}
 						placeholder="SEARCH"
 					/>
-					<img src={images.search} />
+					<RiSearchLine size={20} onClick={onClickSearchBtn} />
 				</div>
 				{isLogin ? (
 					<Popover className="relative">
