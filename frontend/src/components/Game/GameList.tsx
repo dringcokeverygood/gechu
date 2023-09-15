@@ -1,11 +1,14 @@
 import React from 'react';
 import SideFilterBar from './components/SideFilterBar';
-import { FilterType } from '../../typedef/Game/checkbox.types';
+import { AllFilters } from '../../typedef/Game/filter.types';
 
-const GameList = ({ genreFilter }: { genreFilter: FilterType }) => {
+const GameList = ({ genreFilter, platformFilter }: AllFilters) => {
 	return (
 		<div className="flex">
-			<SideFilterBar genreFilter={genreFilter} />
+			<SideFilterBar
+				genreFilter={genreFilter}
+				platformFilter={platformFilter}
+			/>
 		</div>
 	);
 };

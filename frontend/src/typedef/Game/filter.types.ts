@@ -16,3 +16,8 @@ export type FilterType = {
 	filterState: FilterObject;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type AllFilters = {
+	genreFilter: FilterType;
+	platformFilter: FilterType;
+};
