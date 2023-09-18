@@ -19,7 +19,9 @@ const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
 							genreFilter.filterState[genre].flag && (
 								<CFilterLabel
 									id={genre}
+									key={`Label${genre}`}
 									text={genreFilter.filterState[genre].text}
+									onClick={genreFilter.onClick}
 								/>
 							),
 					)}
@@ -28,7 +30,9 @@ const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
 							platformFilter.filterState[platform].flag && (
 								<CFilterLabel
 									id={platform}
+									key={`Label${platform}`}
 									text={platformFilter.filterState[platform].text}
+									onClick={platformFilter.onClick}
 								/>
 							),
 					)}

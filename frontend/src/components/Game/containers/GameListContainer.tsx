@@ -40,6 +40,20 @@ const GameListContainer = () => {
 		});
 	};
 
+	const onClickLabelGenreXdBtn = (e: React.MouseEvent<SVGElement>) => {
+		const genre = (e.target as Element).id;
+
+		if (genreFilterState[genre] !== undefined) {
+			setGenreFilterState({
+				...genreFilterState,
+				[genre]: {
+					...genreFilterState[genre],
+					flag: !genreFilterState[genre].flag,
+				},
+			});
+		}
+	};
+
 	// 플랫폼별 필터링을 위한 state
 	const [platformFilterState, setPlatformFilterState] = useState<FilterObject>({
 		Stream: {
@@ -76,14 +90,30 @@ const GameListContainer = () => {
 		});
 	};
 
+	const onClickLabelPlatformXBtn = (e: React.MouseEvent<SVGElement>) => {
+		const platform = (e.target as Element).id;
+
+		if (platformFilterState[platform] !== undefined) {
+			setPlatformFilterState({
+				...platformFilterState,
+				[platform]: {
+					...platformFilterState[platform],
+					flag: !platformFilterState[platform].flag,
+				},
+			});
+		}
+	};
+
 	const genreFilter: FilterType = {
 		filterState: genreFilterState,
 		onChange: onChangeGenreFilterState,
+		onClick: onClickLabelGenreXdBtn,
 	};
 
 	const platformFilter: FilterType = {
 		filterState: platformFilterState,
 		onChange: onChangePlatformFilter,
+		onClick: onClickLabelPlatformXBtn,
 	};
 
 	const dummy: GamePreviewType[] = [

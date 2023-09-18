@@ -15,6 +15,7 @@ export interface FilterObject {
 export type FilterType = {
 	filterState: FilterObject;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onClick: (e: React.MouseEvent<SVGElement>) => void;
 };
 
 export type AllFilters = {

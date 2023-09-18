@@ -14,7 +14,7 @@ const SideFilterBar = ({ genreFilter, platformFilter }: AllFilters) => {
 
 				{Object.keys(genreFilter.filterState).map((genre) => (
 					<CCheckbox
-						key={genre}
+						key={`Filter${genre}`}
 						id={genre}
 						text={genreFilter.filterState[genre].text}
 						checked={genreFilter.filterState[genre].flag}
@@ -28,7 +28,7 @@ const SideFilterBar = ({ genreFilter, platformFilter }: AllFilters) => {
 
 				{Object.keys(platformFilter.filterState).map((platform) => (
 					<CCheckbox
-						key={platform}
+						key={`Filter${platform}`}
 						id={platform}
 						text={platformFilter.filterState[platform].text}
 						checked={platformFilter.filterState[platform].flag}
