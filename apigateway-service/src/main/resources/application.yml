@@ -12,7 +12,7 @@ spring:
   application:
     name: gateway
   rabbitmq:
-    host: http://j9d203.p.ssafy.io
+    host: 172.17.0.3
     port: 5672
     username: guest
     password: guest
