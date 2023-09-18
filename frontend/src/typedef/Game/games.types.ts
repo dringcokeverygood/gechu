@@ -1,10 +1,9 @@
+import { FilterType } from './filter.types';
+
 export type GamePreviewType = {
 	gameSeq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
-	develop: string;
-	publish: string;
-	createDate: string;
 	estimatePercent: number;
 	genre: string;
 	platform: string;
@@ -51,6 +50,12 @@ export type GameArticleType = {
 	content: string;
 	imageUrl: string;
 	createDate: string;
+};
+
+export type GameListType = {
+	genreFilter: FilterType;
+	platformFilter: FilterType;
+	games: GamePreviewType[];
 };
 
 export type GameCommentType = {
