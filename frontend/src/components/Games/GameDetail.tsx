@@ -3,14 +3,17 @@ import { GameInfoType } from '../../typedef/Game/games.types';
 
 const GameDetail = ({ content }: { content: GameInfoType }) => {
 	return (
-		<div>
-			<div className="flex h-40 w-full justify-center bg-white-800">
-				<img
-					src="https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1842&q=80"
-					alt="game-title-image"
-					className="h-fill"
-				/>
-			</div>
+		<div className="flex flex-col border-2 border-solid border-white-100 md:mx-32 lg:mx-36 xl:mx-40">
+			<img
+				src="https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1842&q=80"
+				alt="game-title-image"
+				className="h-48 w-full"
+			></img>
+			{/* <img
+				src="https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1842&q=80"
+				alt="game-title-image"
+				className="h-40"
+			></img> */}
 			<h1 className="font-dungGeunMo text-3xl text-white-200">
 				{content.gameTitle}
 			</h1>
