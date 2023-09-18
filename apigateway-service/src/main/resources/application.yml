@@ -1,33 +1,15 @@
 server:
   port: 9001
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://j9d203.p.ssafy.io:8761/eureka
-
 spring:
   application:
     name: gateway
+  profiles:
+    active: dev
   rabbitmq:
     host: 172.17.0.3
     port: 5672
     username: guest
     password: guest
-  cloud:
-    gateway:
-      routes:
-        - id: web
-          uri: lb://WEB
-          predicates:
-            - Path=/web/**
-          filters:
-            - RewritePath=/web/(?<segment>.*), /$\{segment}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+  config:
+    import: optional:configserver:http://j9d203.p.ssafy.io:8888
