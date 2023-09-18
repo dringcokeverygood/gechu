@@ -3,13 +3,20 @@ server:
 
 spring:
   application:
-    name: crawl-service
+    name: crawl
 
   rabbitmq:
-    host:
+    host: http://j9d203.p.ssafy.io
     port: 5672
     username: guest
     password: guest
+
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://j9d203.p.ssafy.io:8888
+  devtools:
+    add-properties: false
 
 eureka:
   client:
@@ -22,4 +29,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, busrefresh, info, metrics, prometheus
+        include: "*"
