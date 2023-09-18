@@ -21,6 +21,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('springCloudVersion', "2021.0.8")
+}
+
 dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
