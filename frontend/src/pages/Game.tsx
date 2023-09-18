@@ -3,13 +3,13 @@ import React from 'react';
 import GameDetailContainer from '../components/Games/containers/GameDetailContainer';
 import GameTabsContainer from '../components/Games/containers/GameTabsContainer';
 
-const Game=()=>{
-    return (
-        <div className='container flex flex-col justify-center'>
-            <GameDetailContainer/>
-            <GameTabsContainer/>
-            {/* <Outlet/> */}
-        </div>
-        );
-}
+const Game = () => {
+	return (
+		<div className="">
+			<GameDetailContainer />
+			<GameTabsContainer />
+			{/* <Outlet/> */}
+		</div>
+	);
+};
 export default Game;

@@ -8,7 +8,7 @@ import { Tab } from '@headlessui/react';
 const GameTabs = ({ tabs }: { tabs: GameTabItem[] }) => {
 	const navigate = useNavigate();
 	return (
-		<div>
+		<div className="md:mx-32 lg:mx-36 xl:mx-40">
 			{/* <ul className="text-white-200">
         {tabs.map((tab, idx)=>{return <li key={idx} className="float-left px-2 mt-2">{tab.tabTitle}</li>})}
     </ul> */}
