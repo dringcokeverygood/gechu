@@ -15,9 +15,3 @@ spring:
     active: dev
   config:
     import: optional:configserver:http://j9d203.p.ssafy.io:8888
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
