@@ -29,9 +29,9 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 				</div>
 				<div className="flex items-center gap-2 font-bold">
 					{game.estimatePercent > 50 ? (
-						<MdThumbUp size={20} color="#7390ff" />
+						<MdThumbUp size={20} className="fill-blue-500" />
 					) : (
-						<MdThumbDown size={20} color="#FF5964" />
+						<MdThumbDown size={20} className="fill-red-400" />
 					)}
 					{game.estimatePercent} %
 				</div>
