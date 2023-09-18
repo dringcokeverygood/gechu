@@ -1,0 +1,25 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: crawl-service
+
+  rabbitmq:
+    host:
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://j9d203.p.ssafy.io:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh, info, metrics, prometheus
