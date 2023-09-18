@@ -10,24 +10,24 @@ eureka:
 
 spring:
   application:
-    name: apigateway-service
+    name: gateway
   rabbitmq:
-    host:
+    host: http://j9d203.p.ssafy.io
     port: 5672
     username: guest
     password: guest
   cloud:
     gateway:
       routes:
-        - id: web-service
-          uri: lb://WEB-SERVICE
+        - id: web
+          uri: lb://WEB
           predicates:
-            - Path=/web-service/**
+            - Path=/web/**
           filters:
-            - RewritePath=/web-service/(?<segment>.*), /$\{segment}
+            - RewritePath=/web/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh
+        include: "*"
