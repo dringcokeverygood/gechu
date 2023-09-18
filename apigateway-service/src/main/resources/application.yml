@@ -6,7 +6,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone:
+      defaultZone: http://j9d203.p.ssafy.io:8761/eureka
 
 spring:
   application:
@@ -30,4 +30,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httptrace, busrefresh, info, metrics, prometheus
+        include: refresh, health, beans, httptrace, busrefresh
