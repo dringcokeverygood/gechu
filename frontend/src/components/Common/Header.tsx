@@ -26,7 +26,7 @@ const Header = ({
 	onClickSearchBtn,
 }: Props) => {
 	return (
-		<div className="fixed left-0 top-0 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
+		<div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
 			<Link to={`/`} className="flex items-center gap-5">
 				<img src={images.logo} className="h-[50px] w-20" />
 				<div className="font-dungGeunMo text-[40px]">gechu</div>
@@ -84,7 +84,7 @@ const Header = ({
 							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
 									<Link
-										to={`/`}
+										to={`/my-page`}
 										className="flex items-center gap-2 p-4 text-white-950 hover:bg-white-200"
 									>
 										<img

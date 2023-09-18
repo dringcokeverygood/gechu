@@ -4,10 +4,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LayoutWithHeader from '../pages/LayoutWithHeader';
 import Home from '../pages/Home';
 import Game from '../pages/Game';
+import MyPage from '../pages/MyPage';
+
 import GameReviewContainer from '../components/Games/containers/GameReviewContainer';
 import GameListPage from '../pages/GameListPage';
 import GameArticleListContainer from '../components/Games/containers/GameArticleListContainer';
 import GameArticleContainer from '../components/Games/containers/GameArticleContainer';
+
+// 마이페이지
+import DashBoardContainer from '../components/MyPage/containers/DashBoardContainer';
 
 const RootRouter = () => {
 	return (
@@ -22,6 +27,9 @@ const RootRouter = () => {
 						<Route path="articles/:seq" element={<GameArticleContainer />} />
 					</Route>
 					<Route path="/game-list" element={<GameListPage />} />
+					<Route path="/my-page" element={<MyPage />}>
+						<Route index element={<DashBoardContainer />} />
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>

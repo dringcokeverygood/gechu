@@ -66,3 +66,9 @@ export type GameCommentType = {
 	content: string;
 	createDate: string;
 };
+
+export type LikeGameItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+};
