@@ -1,7 +1,7 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react';
 import { images } from '../../constants/images';
 
-interface SearchResultProps {
+type SearchResultProps = {
 	searchWord: string;
 	onChangeSearchWord: (e: ChangeEvent<HTMLInputElement>) => void;
 	onKeyUpForSearch: (e: KeyboardEvent<HTMLInputElement>) => void;
@@ -10,7 +10,7 @@ interface SearchResultProps {
 	setActiveTab: (tab: string) => void;
 	categories: string[];
 	content: JSX.Element | null;
-}
+};
 
 const SearchResult = ({
 	searchWord,
@@ -45,11 +45,11 @@ const SearchResult = ({
 		<div className="mt-4 w-full">
 			<div onChange={(index) => console.log('선택 탭 변경: ', index)}>
 				{/* 탭 버튼 */}
-				<div className="flex border border-b-2">
+				<div className="flex ">
 					{categories.map((category) => (
 						<button
 							key={category}
-							className={`h-16 w-28 border-b border-solid  text-xl font-semibold ${
+							className={`h-16 w-32 border-b border-solid font-dungGeunMo  text-2xl ${
 								activeTab === category
 									? ' border-b-red-700 text-white-100'
 									: 'border-b-white-400 text-white-400 hover:p-6 '
