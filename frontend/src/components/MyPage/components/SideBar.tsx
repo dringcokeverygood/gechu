@@ -35,7 +35,7 @@ const SideBar = () => {
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:user" width={24} height={24} />
-						<div>회원 정보</div>
+						<div className="font-dungGeunMo">회원 정보</div>
 					</NavLink>
 				</li>
 				<li>
@@ -44,7 +44,7 @@ const SideBar = () => {
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:edit" width="24" height="24" />
-						<div>게시글 관리</div>
+						<div className="font-dungGeunMo">게시글 관리</div>
 					</NavLink>
 				</li>
 				<li>
@@ -57,7 +57,7 @@ const SideBar = () => {
 							width="24"
 							height="24"
 						/>
-						<div>댓글 관리</div>
+						<div className="font-dungGeunMo">댓글 관리</div>
 					</NavLink>
 				</li>
 				<li>
@@ -66,7 +66,7 @@ const SideBar = () => {
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:heart" width="24" height="24" />
-						<div>리뷰 관리</div>
+						<div className="font-dungGeunMo">리뷰 관리</div>
 					</NavLink>
 				</li>
 			</ul>
