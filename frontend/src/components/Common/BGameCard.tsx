@@ -13,7 +13,7 @@ const BGameCard = ({ game }: { game: GamePreviewType }) => {
 				<img
 					src={game.gameTitleImageUrl}
 					alt="게임 사진"
-					className="h-[282px] w-[282px] rounded-t-md"
+					className="h-[282px] w-[282px] rounded-t-md object-cover"
 				/>
 			) : (
 				<div className="flex h-[282px] w-[282px] items-center justify-center rounded-t-md bg-white-200 p-5 font-dungGeunMo text-white-400">
@@ -22,7 +22,7 @@ const BGameCard = ({ game }: { game: GamePreviewType }) => {
 					</span>
 				</div>
 			)}
-			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-b-md bg-white-100 p-3 text-white-100 text-white-950">
+			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-b-md bg-white-100 p-3 text-white-950">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
 				<div className="truncate font-dungGeunMo">
 					{game.genre} {game.platform}

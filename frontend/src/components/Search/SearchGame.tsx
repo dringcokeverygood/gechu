@@ -21,7 +21,7 @@ const SearchGame = ({ platformFilter, games }: GameCardProps) => {
 
 			<div className="flex w-[1200px] flex-col justify-center">
 				<div className="flex w-[768px] flex-col gap-6">
-					<div className="flex max-w-full flex-wrap gap-3 pt-6">
+					<div className="flex max-w-full flex-wrap gap-3 ">
 						{Object.keys(platformFilter.filterState).map(
 							(platform) =>
 								platformFilter.filterState[platform].flag && (
