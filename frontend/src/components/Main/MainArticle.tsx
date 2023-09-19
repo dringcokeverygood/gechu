@@ -6,12 +6,12 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
-type GameNewsProps = {
+type MainNewsProps = {
 	newsList: GameNewsPreviewType[];
 	onClickNewTab: (url: string) => void;
 };
 
-const GameArticle = ({ newsList, onClickNewTab }: GameNewsProps) => {
+const MainArticle = ({ newsList, onClickNewTab }: MainNewsProps) => {
 	return (
 		<div className="flex max-w-[1200px] flex-col items-center gap-5">
 			{/* 헤더 */}
@@ -80,4 +80,4 @@ const GameArticle = ({ newsList, onClickNewTab }: GameNewsProps) => {
 	);
 };
 
-export default GameArticle;
+export default MainArticle;
