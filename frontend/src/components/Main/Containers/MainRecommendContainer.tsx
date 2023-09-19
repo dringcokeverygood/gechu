@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { images } from '../../../constants/images';
-import GameRecommend from '../GameRecommend';
+import MainRecommend from '../MainRecommend';
 
-const GameRecommendContainer = () => {
+const MainRecommendContainer = () => {
 	const [slideIndex, setSlideIndex] = useState(0);
 
 	const slideImages = [
@@ -43,7 +43,7 @@ const GameRecommendContainer = () => {
 	};
 
 	return (
-		<GameRecommend
+		<MainRecommend
 			visibleImages={visibleImages}
 			onClickSlidePre={onClickSlidePre}
 			onClickSlideNext={onClickSlideNext}
@@ -51,4 +51,4 @@ const GameRecommendContainer = () => {
 	);
 };
 
-export default GameRecommendContainer;
+export default MainRecommendContainer;
