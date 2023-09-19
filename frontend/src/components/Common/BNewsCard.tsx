@@ -9,7 +9,7 @@ const BNewsCard = ({ news }: { news: GameNewsPreviewType }) => {
 	return (
 		<div
 			onClick={() => onClickNewTab(news.url)}
-			className="flex w-[282px] flex-col hover:z-10 hover:scale-110 hover:transform"
+			className="flex w-[282px] cursor-pointer flex-col hover:z-10 hover:scale-110 hover:transform"
 		>
 			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-t-md bg-white-100 p-3  text-white-950">
 				<div className="truncate font-dungGeunMo">{news.headline}</div>

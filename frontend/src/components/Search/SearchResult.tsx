@@ -62,10 +62,11 @@ const SearchResult = ({
 							{category}
 						</button>
 					))}
+					<button className="h-16 flex-1 cursor-default border-b border-solid border-b-white-400"></button>
 				</div>
 
 				{/* 탭 내용 */}
-				<div className="mt-2">{content}</div>
+				<div className="my-16">{content}</div>
 			</div>
 		</div>
 	</div>

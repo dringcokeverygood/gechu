@@ -6,7 +6,7 @@ const BArticleCard = ({ article }: { article: GameArticleType }) => {
 	return (
 		<Link
 			to={`/game-detail/${article.gameSeq}`}
-			className="flex w-[282px] flex-col hover:z-10 hover:scale-110 hover:transform"
+			className="flex w-[282px] cursor-pointer flex-col hover:z-10 hover:scale-110 hover:transform"
 		>
 			{/* 이미지 */}
 			{article.imageUrl ? (

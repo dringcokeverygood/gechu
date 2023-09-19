@@ -7,7 +7,7 @@ const BGameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
 		<Link
 			to={`/game-detail/${game.gameSeq}`}
-			className="flex w-[282px] flex-col hover:z-10 hover:scale-110 hover:transform"
+			className="flex w-[282px] cursor-pointer flex-col hover:z-10 hover:scale-110 hover:transform"
 		>
 			{game.gameTitleImageUrl ? (
 				<img

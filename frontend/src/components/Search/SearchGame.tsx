@@ -16,8 +16,7 @@ const SearchGame = ({ platformFilter, games }: GameCardProps) => {
 
 	return (
 		<div>
-			<p>게임 검색 api 호출 </p>
-			<p>검색 결과</p>
+			{/* <p>게임 검색 api 호출 </p> */}
 
 			<div className="flex w-[1200px] flex-col justify-center">
 				<div className="flex w-[768px] flex-col gap-6">
