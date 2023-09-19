@@ -1,7 +1,7 @@
 import React from 'react';
-import GameNews from '../GameNews';
+import MainNews from '../MainNews';
 
-const GameNewsContainer = () => {
+const MainNewsContainer = () => {
 	const newsList = [
 		{
 			news_seq: 1,
@@ -60,7 +60,7 @@ const GameNewsContainer = () => {
 		window.open(url, '-blank', 'noopener, noreferrer');
 	};
 
-	return <GameNews newsList={newsList} onClickNewTab={onClickNewTab} />;
+	return <MainNews newsList={newsList} onClickNewTab={onClickNewTab} />;
 };
 
-export default GameNewsContainer;
+export default MainNewsContainer;
