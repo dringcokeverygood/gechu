@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import DashBoard from '../DashBoard';
 import { LikeGameItemType } from '../../../typedef/Game/games.types';
+import { DashBoardType } from '../../../typedef/MyPage/myPage.types';
 
 const DashBoardContainer = () => {
 	const dummy: LikeGameItemType[] = [
@@ -30,9 +31,21 @@ const DashBoardContainer = () => {
 			gameTitleImageUrl: '',
 		},
 	];
+
+	const [modalFlag, setModalFlag] = useState(false);
+	const onChangeModalFlag = useCallback(() => {
+		setModalFlag(!modalFlag);
+	}, [modalFlag]);
+
+	const content: DashBoardType = {
+		LikeGames: dummy,
+		modalFlag: modalFlag,
+		onClick: onChangeModalFlag,
+	};
+
 	return (
 		<div>
-			<DashBoard games={dummy} />
+			<DashBoard content={content} />
 		</div>
 	);
 };

@@ -83,34 +83,35 @@ const Header = ({
 						>
 							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
-									<Link
+									<Popover.Button
+										as={Link}
 										to={`/my-page`}
-										className="flex items-center gap-2 p-4 text-white-950 hover:bg-white-200"
+										className="flex items-center gap-2 p-4 text-white-950 transition duration-150 ease-in-out hover:bg-white-200"
 									>
 										<img
 											src={images.defaultProfile}
 											className="h-[45px] w-[45px] rounded-full"
 										/>
 										<div className="font-dungGeunMo">닉네임</div>
-									</Link>
+									</Popover.Button>
 									<div className="bg-gray-50 text-white-950">
 										<ul className="flex flex-col">
-											<li className="px-4 py-2 hover:bg-white-200">
-												<Link to={'/'}>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button as={Link} to={'/'}>
 													<div className="font-dungGeunMo">내 정보</div>
-												</Link>
+												</Popover.Button>
 											</li>
-											<li className="px-4 py-2 hover:bg-white-200">
-												<Link to={'/'}>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button as={Link} to={'/'}>
 													<div className="font-dungGeunMo">내 게시물</div>
-												</Link>
+												</Popover.Button>
 											</li>
-											<li className="px-4 py-2 hover:bg-white-200">
-												<Link to={'/'}>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button as={Link} to={'/'}>
 													<div className="font-dungGeunMo">내 리뷰</div>
-												</Link>
+												</Popover.Button>
 											</li>
-											<li className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700 hover:bg-white-200">
+											<li className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700 transition duration-150 ease-in-out hover:bg-white-200">
 												로그아웃
 											</li>
 										</ul>
