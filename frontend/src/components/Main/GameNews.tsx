@@ -1,13 +1,13 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
-import { NewsCardType } from '../../typedef/main.types';
+import { GameNewsPreviewType } from '../../typedef/main.types';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
 type GameNewsProps = {
-	newsList: NewsCardType[];
+	newsList: GameNewsPreviewType[];
 	onClickNewTab: (url: string) => void;
 };
 
