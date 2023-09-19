@@ -1,8 +1,8 @@
 import React from 'react';
-import MainRecommendContainer from './containers/MainRecommendContainer';
-import MainTrendContainer from './containers/MainTrendContainer';
-import MainNewsContainer from './containers/MainNewsContainer';
-import MainArticleContainer from './containers/MainArticleContainer';
+import MainRecommendContainer from './Containers/MainRecommendContainer';
+import MainTrendContainer from './Containers/MainTrendContainer';
+import MainNewsContainer from './Containers/MainNewsContainer';
+import MainArticleContainer from './Containers/MainArticleContainer';
 
 const MainPage = () => {
 	return (
