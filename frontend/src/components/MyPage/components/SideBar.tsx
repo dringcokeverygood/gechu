@@ -5,13 +5,20 @@ import { MdOutlineModeEditOutline, MdModeEditOutline } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
 
+import { SideBarType } from '../../../typedef/MyPage/myPage.types';
+
 const navLinkClassName = (isActive: boolean) => {
 	return `flex items-center gap-6 px-5 py-4 ${
 		isActive ? 'border-r-[5px] border-solid border-blue-700' : ''
 	}`;
 };
 
-const SideBar = () => {
+const SideBar = ({
+	fileInput,
+	onChangeProfile,
+	onClickUploadImgBtn,
+	onClickUpdateNickname,
+}: SideBarType) => {
 	return (
 		<div className="flex w-[250px] flex-col items-center justify-center text-white-100">
 			<div className="flex w-full items-center justify-between px-5 py-4">
@@ -22,11 +29,22 @@ const SideBar = () => {
 					/>
 					<MdOutlineModeEditOutline
 						size={16}
-						className="absolute bottom-0 right-0 rounded-full border-[1px] border-solid border-white-200 bg-white-100 fill-white-950 p-[1px]"
+						onClick={onClickUploadImgBtn}
+						className="absolute bottom-0 right-0 cursor-pointer rounded-full border-[1px] border-solid border-white-200 bg-white-100 fill-white-950 p-[1px]"
+					/>
+					<input
+						type="file"
+						ref={fileInput}
+						onChange={onChangeProfile}
+						className="hidden"
 					/>
 				</div>
 				<div className="w-[80px] break-all font-dungGeunMo">닉네임</div>
-				<MdModeEditOutline size={16} />
+				<MdModeEditOutline
+					size={16}
+					onClick={onClickUpdateNickname}
+					className="cursor-pointer"
+				/>
 			</div>
 			<ul className="w-full">
 				<li>
