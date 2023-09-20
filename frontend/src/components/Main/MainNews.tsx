@@ -1,17 +1,17 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
-import { NewsCardType } from '../../typedef/main.types';
+import { GameNewsPreviewType } from '../../typedef/main.types';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
-type GameNewsProps = {
-	newsList: NewsCardType[];
+type MainNewsProps = {
+	newsList: GameNewsPreviewType[];
 	onClickNewTab: (url: string) => void;
 };
 
-const GameNews = ({ newsList, onClickNewTab }: GameNewsProps) => {
+const MainNews = ({ newsList, onClickNewTab }: MainNewsProps) => {
 	return (
 		<div className="flex max-w-[1200px] flex-col items-center gap-5">
 			{/* 헤더 */}
@@ -80,4 +80,4 @@ const GameNews = ({ newsList, onClickNewTab }: GameNewsProps) => {
 	);
 };
 
-export default GameNews;
+export default MainNews;

@@ -11,6 +11,9 @@ import GameReviewContainer from '../components/Games/containers/GameReviewContai
 import GameListPage from '../pages/GameListPage';
 import GameArticleListContainer from '../components/Games/containers/GameArticleListContainer';
 import GameArticleContainer from '../components/Games/containers/GameArticleContainer';
+import SearchPage from '../pages/SearchPage';
+import GameRecommendPage from '../pages/GameRecommendPage';
+import GameNewsPage from '../pages/GameNewsPage';
 
 // 마이페이지
 import DashBoardContainer from '../components/MyPage/containers/DashBoardContainer';
@@ -30,12 +33,15 @@ const RootRouter = () => {
 						<Route path="articles" element={<GameArticleListContainer />} />
 						<Route path="articles/:seq" element={<GameArticleContainer />} />
 					</Route>
+					<Route path="/game-recommend" element={<GameRecommendPage />} />
 					<Route path="/game-list" element={<GameListPage />} />
 					<Route path="/my-page" element={<MyPage />}>
 						<Route index element={<DashBoardContainer />} />
 						<Route path="article-manage" element={<ArticleManageContainer />} />
 						<Route path="review-manage" element={<ReviewManageContainer />} />
 					</Route>
+					<Route path="/game-news" element={<GameNewsPage />} />
+					<Route path="/search" element={<SearchPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

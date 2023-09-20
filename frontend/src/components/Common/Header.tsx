@@ -34,7 +34,10 @@ const Header = ({
 			<div className="flex items-center gap-8">
 				<ul className="flex gap-6">
 					<li>
-						<NavLink to={'/'} className="font-dungGeunMo text-[20px]">
+						<NavLink
+							to={'/game-recommend'}
+							className="font-dungGeunMo text-[20px]"
+						>
 							RECOMMEND
 						</NavLink>
 					</li>
@@ -44,7 +47,7 @@ const Header = ({
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/'} className="font-dungGeunMo text-[20px]">
+						<NavLink to={'/game-news'} className="font-dungGeunMo text-[20px]">
 							NEWS
 						</NavLink>
 					</li>

@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useRef } from 'react';
 import Header from '../Header';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderContainer = () => {
 	const searchWordRef = useRef('');
 	const [searchWord, setSearchWord] = useState('');
 	const isLogin = true;
+	const navigate = useNavigate();
 
 	const onChangeSearchWord = useCallback(
 		(
@@ -20,7 +22,9 @@ const HeaderContainer = () => {
 
 	const handleSearch = () => {
 		console.log('검색');
+		console.log(searchWord);
 		setSearchWord('');
+		navigate('/search');
 	};
 
 	const onKeyUpForSearch = useCallback(

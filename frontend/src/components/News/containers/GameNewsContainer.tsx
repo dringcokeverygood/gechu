@@ -2,13 +2,13 @@ import React from 'react';
 import GameNews from '../GameNews';
 
 const GameNewsContainer = () => {
-	const newsList = [
+	const dummy = [
 		{
-			seq: 1,
+			news_seq: 1,
 			game_seq: 1,
 			headline: '한국닌텐도, 「별의 커비 30주년 팝업 스토어」 개최',
 			content:
-				'한국닌텐도㈜(http://www.nintendo.co.kr)는 2023년에도 「별의 커비 30주년 팝업 스토어」를 개최한다고 발표했다. 팝업 스토어는 신촌 U플렉스 지하 2층에서 2023년 2월 17일에 오픈되며 2023년 3월 2일까지 진행된다. 대표 상품 라인업 팝업 스토어는 「별의 커비」를 테마로 한 아기자기한 인테리어로 꾸며질 예정이며, 300종류 이상의 다양한 「별의 커비」 관련 상품들을 선보인다.',
+				'대충 가독성 좋으려면 알아서 기사 링크 눌러서 들어가서 보시오 알빠아님 어쩔티미 저쩔냉장고 이걸로 대충 만족해라 커비너무기엽다 길게... 몇줄까지 나와야하지.. .줄 넘어가면 높이도 바뀌나... 한국닌텐도㈜(http://www.nintendo.co.kr)는 2023년에도 「별의 커비 30주년 팝업 스토어」를 개최한다고 발표했다. 팝업 스토어는 신촌 U플렉스 지하 2층에서 2023년 2월 17일에 오픈되며 2023년 3월 2일까지 진행된다. 대표 상품 라인업 팝업 스토어는 「별의 커비」를 테마로 한 아기자기한 인테리어로 꾸며질 예정이며, 300종류 이상의 다양한 「별의 커비」 관련 상품들을 선보인다.',
 			company: 'Nintendo',
 			url: 'https://www.nintendo.co.kr/news/article/b1U0M2l1cjA5VUhxMkxuUGZuc0Zsdz09',
 			image_url:
@@ -16,7 +16,7 @@ const GameNewsContainer = () => {
 			upload_date: '2023.2.2',
 		},
 		{
-			seq: 2,
+			news_seq: 2,
 			game_seq: 1,
 			headline:
 				'「별의 커비 30주년」을 되돌아보는, 커비와 함께한 1년간을 소개합니다.',
@@ -29,7 +29,7 @@ const GameNewsContainer = () => {
 			upload_date: '2023.3.24',
 		},
 		{
-			seq: 3,
+			news_seq: 3,
 			game_seq: 1,
 			headline:
 				'「TETRIS® 99」 제31회 테트1 컵 별의 커비 Wii 디럭스 컬래버레이션 축제!',
@@ -42,7 +42,30 @@ const GameNewsContainer = () => {
 			upload_date: '2023.4.18',
 		},
 		{
-			seq: 4,
+			news_seq: 4,
+			game_seq: 2,
+			headline:
+				'『슈퍼 마리오브라더스 원더』의 예약 판매 일정 및 구입 특전 안내',
+			content:
+				'『슈퍼 마리오브라더스 원더』의 예약 판매 일정 및 구입 특전 안내 2023년 10월 20일(금)에 발매되는 「슈퍼 마리오브라더스 원더」의 예약 판매가 9월 1일(금)에 시작됩니다.『슈퍼 마리오브라더스 원더』 구매처별 조기 구입 특전 「슈퍼 마리오브라더스 원더」를 구입하면 받을 수 있는 특전을 아래와 같이 소개합니다.',
+			company: 'Nintendo',
+			url: 'https://www.nintendo.co.kr/news/article/3ONcJWHWDzXrqIsC9krmQ7',
+			image_url:
+				'https://images.ctfassets.net/sjvy5j5nlcjk/32gjAEo6LDQcnHvuRw67bH/35e75e7cc721e5ab9aa87b3260ee01ba/__.jpg?w=1400&fm=webp',
+			upload_date: '2023.9.1',
+		},
+		{
+			news_seq: 5,
+			game_seq: 2,
+			headline: '5번째 뉴스 타이틀,',
+			content: ' 뉴스 내용 ',
+			company: 'Nintendo',
+			url: 'https://www.nintendo.co.kr/news/article/3ONcJWHWDzXrqIsC9krmQ7',
+			image_url: ' ',
+			upload_date: '2023.9.1',
+		},
+		{
+			news_seq: 6,
 			game_seq: 2,
 			headline:
 				'『슈퍼 마리오브라더스 원더』의 예약 판매 일정 및 구입 특전 안내',
@@ -56,11 +79,11 @@ const GameNewsContainer = () => {
 		},
 	];
 
-	const onClickNewTab = (url: string) => {
-		window.open(url, '-blank', 'noopener, noreferrer');
-	};
-
-	return <GameNews newsList={newsList} onClickNewTab={onClickNewTab} />;
+	return (
+		<div>
+			<GameNews newsList={dummy} />
+		</div>
+	);
 };
 
 export default GameNewsContainer;
