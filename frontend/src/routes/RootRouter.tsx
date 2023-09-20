@@ -10,6 +10,7 @@ import GameArticleListContainer from '../components/Games/containers/GameArticle
 import GameArticleContainer from '../components/Games/containers/GameArticleContainer';
 import SearchPage from '../pages/SearchPage';
 import GameRecommendPage from '../pages/GameRecommendPage';
+import GameNewsPage from '../pages/GameNewsPage';
 
 const RootRouter = () => {
 	return (
@@ -25,6 +26,7 @@ const RootRouter = () => {
 					</Route>
 					<Route path="/game-recommend" element={<GameRecommendPage />} />
 					<Route path="/game-list" element={<GameListPage />} />
+					<Route path="/game-news" element={<GameNewsPage />} />
 					<Route path="/search" element={<SearchPage />} />
 				</Route>
 			</Routes>
