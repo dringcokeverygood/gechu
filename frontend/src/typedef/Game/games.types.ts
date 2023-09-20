@@ -66,3 +66,17 @@ export type GameCommentType = {
 	content: string;
 	createDate: string;
 };
+
+export type LikeGameItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+};
+
+export type EstimatedGameItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+	preference: { like: boolean; unlike: boolean };
+	onClickPref: (e: React.MouseEvent) => void;
+};

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { images } from '../../../constants/images';
-import GameTrend from '../GameTrend';
+import MainTrend from '../MainTrend';
 
-const GameTrendContainer = () => {
+const MainTrendContainer = () => {
 	const [slideIndex, setSlideIndex] = useState(0);
 
 	const slideImages = [
@@ -43,7 +43,7 @@ const GameTrendContainer = () => {
 	};
 
 	return (
-		<GameTrend
+		<MainTrend
 			visibleImages={visibleImages}
 			onClickSlidePre={onClickSlidePre}
 			onClickSlideNext={onClickSlideNext}
@@ -51,4 +51,4 @@ const GameTrendContainer = () => {
 	);
 };
 
-export default GameTrendContainer;
+export default MainTrendContainer;

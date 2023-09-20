@@ -6,15 +6,15 @@ interface SlideProps {
 	onClickSlideNext: () => void;
 }
 
-const GameRecommend = ({
+const MainTrend = ({
 	visibleImages,
 	onClickSlidePre,
 	onClickSlideNext,
 }: SlideProps) => {
 	return (
-		<div className="my-5 flex max-w-[1200px] flex-col items-center gap-4 overflow-hidden">
+		<div className="my-5 flex max-w-[1200px] flex-col items-center gap-4 ">
 			{/* 헤더 */}
-			<p className="flex h-12 font-dungGeunMo text-[40px]">현재 추천 게임</p>
+			<p className="h-12 flex-1 font-dungGeunMo text-[40px]">현재 유행 게임</p>
 
 			{/* 슬라이드 */}
 			<div className=" flex items-center gap-6 py-10">
@@ -54,4 +54,4 @@ const GameRecommend = ({
 	);
 };
 
-export default GameRecommend;
+export default MainTrend;
