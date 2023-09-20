@@ -10,7 +10,7 @@ export type ManageCardItemType = {
 	gameSeq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
-	type: string; // article, comment, review 중에 뭔지
+	type: string; // articles, comment, reviews 중에 뭔지
 	itemSeq: number; // article, comment, review의 seq
 	title: string;
 	content: string;

@@ -5,29 +5,40 @@ import { MdMoreVert } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
-import { images } from '../../../constants/images';
 
 // article인지 comment인지 review인지 구분할 값 필요(navigate용)
 const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 	return (
 		<div className="flex h-[250px] w-full gap-6 rounded-xl bg-white-100 p-6 text-white-950">
 			<div className="h-full w-[200px]">
-				<img
-					// src={item.gameTitleImageUrl}
-					src={images.defaultProfile}
-					alt={item.gameTitle}
-					className="h-full w-full object-cover"
-				/>
+				<Link to={`/game-detail/${item.gameSeq}`}>
+					{item.gameTitleImageUrl ? (
+						<img
+							src={item.gameTitleImageUrl}
+							alt={item.gameTitle}
+							className="h-full w-full object-cover"
+						/>
+					) : (
+						<div className="flex h-full w-full items-center justify-center bg-white-200 text-white-400">
+							{item.gameTitle}
+						</div>
+					)}
+				</Link>
 			</div>
 			<div className="flex flex-1 flex-col gap-4">
 				<div className="flex w-full items-center justify-between">
-					<p className="font-dungGeunMo text-[20px]">{item.gameTitle}</p>
+					<Link
+						to={`/game-detail/${item.gameSeq}`}
+						className="font-dungGeunMo text-[20px]"
+					>
+						{item.gameTitle}
+					</Link>
 					<Menu
 						as="div"
 						className="relative inline-block bg-white-100 text-left"
 					>
 						<div>
-							<Menu.Button>
+							<Menu.Button className="rounded-full transition duration-100 ease-out hover:bg-white-200">
 								<MdMoreVert size={28} />
 							</Menu.Button>
 						</div>
@@ -83,15 +94,26 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 				</div>
 
 				<div className="flex h-full w-full flex-col gap-3">
-					{item.title && (
-						<p className="w-[728px] truncate font-bold">
-							{item.title}
-							ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+					<Link
+						to={
+							item.type === 'articles'
+								? `/game-detail/${item.type}/${item.itemSeq}`
+								: item.type === 'reviews'
+								? `/game-detail/${item.type}`
+								: `/game-detail/${item.gameSeq}`
+						}
+						className="flex h-full w-full flex-col gap-3"
+					>
+						{item.title && (
+							<p className="w-[728px] truncate font-bold">
+								{item.title}
+								ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+							</p>
+						)}
+						<p className="line-clamp-5 w-[728px] overflow-hidden whitespace-pre-wrap break-all">
+							{item.content}
 						</p>
-					)}
-					<p className="line-clamp-5 w-[728px] overflow-hidden whitespace-pre-wrap break-all">
-						{item.content}
-					</p>
+					</Link>
 				</div>
 				<div>
 					<p className="text-[12px] text-white-400">{item.createDate}</p>

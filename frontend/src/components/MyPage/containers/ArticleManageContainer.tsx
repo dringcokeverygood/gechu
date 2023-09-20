@@ -9,7 +9,7 @@ const ArticleManageContainer = () => {
 			gameSeq: 1,
 			gameTitle: '젤다의 전설',
 			gameTitleImageUrl: '',
-			type: 'article',
+			type: 'articles',
 			itemSeq: 1,
 			title: '젤다는 전설이다',
 			content: '대박대박',
