@@ -86,11 +86,14 @@ public class IgdbApiService {
 				}
 
 				for (GameApiDto gameApiDto : gameApiDtos) {
+					if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
+						gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
 					GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
 					setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
 					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
 				}
+				log.info("test");
 
 			} catch (RequestException e) {
 				log.warn("games:  API 요청입니다.");
