@@ -97,9 +97,9 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 					<Link
 						to={
 							item.type === 'articles'
-								? `/game-detail/${item.type}/${item.itemSeq}`
+								? `/game-detail/${item.gameSeq}/${item.type}/${item.itemSeq}`
 								: item.type === 'reviews'
-								? `/game-detail/${item.type}`
+								? `/game-detail/${item.gameSeq}/${item.type}`
 								: `/game-detail/${item.gameSeq}`
 						}
 						className="flex h-full w-full flex-col gap-3"
