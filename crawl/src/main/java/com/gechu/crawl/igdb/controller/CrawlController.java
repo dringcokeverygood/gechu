@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.igdb.exceptions.RequestException;
-import com.gechu.crawl.igdb.service.CrawlGameService;
+import com.gechu.crawl.igdb.service.IgdbApiService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -12,11 +12,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CrawlController {
 
-	private final CrawlGameService crawlGameService;
+	private final IgdbApiService igdbApiService;
 
 	@GetMapping("/")
 	public String test() throws RequestException {
-		crawlGameService.crawl(10000000, 10000002, 1);
+		igdbApiService.addGames(260000, 280000, 500);
 		return null;
+	}
+
+	@GetMapping("/platforms")
+	public void setPlatforms() {
+		igdbApiService.addPlatforms();
+	}
+
+	@GetMapping("/genres")
+	public void setGenres() {
+		igdbApiService.addGenres();
 	}
 }
