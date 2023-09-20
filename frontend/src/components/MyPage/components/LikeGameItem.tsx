@@ -13,7 +13,7 @@ const LikeGameItem = ({ game }: { game: LikeGameItemType }) => {
 				src={
 					game.gameTitleImageUrl
 						? game.gameTitleImageUrl
-						: images.defaultProfile
+						: images.dummy.gameImg1
 				}
 				className="h-full w-full rounded-full object-cover"
 			/>

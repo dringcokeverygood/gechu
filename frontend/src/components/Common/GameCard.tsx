@@ -24,7 +24,7 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 			)}
 			<div className="flex w-full flex-col gap-2 overflow-hidden p-3 text-white-100">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
-				<div className="truncate font-dungGeunMo">
+				<div className="truncate">
 					{game.genre} {game.platform}
 				</div>
 				<div className="flex items-center gap-2 font-bold">

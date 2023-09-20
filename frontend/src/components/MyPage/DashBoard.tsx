@@ -21,7 +21,7 @@ const DashBoard = ({ content }: { content: DashBoardType }) => {
 				</button>
 			</div>
 
-			<div className="h-max-[500px] grid w-full grid-cols-4 justify-items-center overflow-auto rounded-3xl bg-white-100 px-7 pb-9">
+			<div className="h-max-[500px] grid w-full grid-cols-5 justify-items-center overflow-auto rounded-3xl bg-white-100 px-7 pb-9">
 				{content.LikeGames.map((game) => (
 					<LikeGameItem key={game.gameSeq} game={game} />
 				))}
