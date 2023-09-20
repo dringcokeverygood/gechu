@@ -6,6 +6,13 @@ export type DashBoardType = {
 	onClick: (e: React.MouseEvent) => void;
 };
 
+export type SideBarType = {
+	fileInput: React.MutableRefObject<HTMLInputElement>;
+	onClickUploadImgBtn: (e: React.MouseEvent) => void;
+	onClickUpdateNickname: () => void;
+	onChangeProfile: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
 export type ManageCardItemType = {
 	gameSeq: number;
 	gameTitle: string;

@@ -1,10 +1,10 @@
-import SideBar from '../components/MyPage/components/SideBar';
+import SideBarContainer from '../components/MyPage/containers/SideBarContainer';
 import { Outlet } from 'react-router-dom';
 
 const MyPage = () => {
 	return (
 		<div className="flex items-start">
-			<SideBar />
+			<SideBarContainer />
 			<div className="flex w-full justify-center">
 				<Outlet />
 			</div>
