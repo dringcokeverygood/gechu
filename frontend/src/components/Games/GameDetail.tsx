@@ -1,4 +1,8 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { CircularProgressbar } from 'react-circular-progressbar';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-circular-progressbar/dist/styles.css';
 import { GameInfoType } from '../../typedef/Game/games.types';
 
 const GameDetail = ({ content }: { content: GameInfoType }) => {
@@ -9,34 +13,49 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 				alt="game-title-image"
 				className="h-48 w-full"
 			></img>
-			{/* <img
-				src="https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1842&q=80"
-				alt="game-title-image"
-				className="h-40"
-			></img> */}
-			<h1 className="font-dungGeunMo text-3xl text-white-200">
+			<h1 className="py-3 font-dungGeunMo text-3xl text-white-200">
 				{content.gameTitle}
 			</h1>
-			<table className="w-full text-sm text-white-200">
-				<tbody>
-					<tr>
-						<td>개발</td>
-						<td>{content.develop}</td>
-					</tr>
-					<tr>
-						<td>퍼블리싱</td>
-						<td>{content.publish}</td>
-					</tr>
-					<tr>
-						<td>메타스코어</td>
-						<td>{content.metaScore}</td>
-					</tr>
-					<tr>
-						<td>오픈스코어</td>
-						<td>{content.openScore}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div className="flex flex-row pb-4 text-sm text-white-200">
+				<div className="flex w-36 flex-col">
+					<p>개발</p>
+					<p>퍼블리싱</p>
+					<p>플랫폼</p>
+					<p>장르</p>
+				</div>
+				<div className="flex w-full flex-col">
+					<p>{content.develop}</p>
+					<p>{content.publish}</p>
+					<p>PC, Xbox</p>
+					<p>액션, 퍼즐</p>
+				</div>
+				<div className="flex w-fit flex-col items-center space-y-2 px-4">
+					<img
+						className="max-h-12"
+						src="https://11bitstudios.com/wp-content/uploads/2021/03/1280px-Metacritic_logo.svg-1.png"
+						alt=""
+					/>
+					<div className="w-[72px]">
+						<CircularProgressbar
+							value={content.metaScore}
+							text={`${content.metaScore}/100`}
+						/>
+					</div>
+				</div>
+				<div className="flex flex-col items-center space-y-2 px-4">
+					<img
+						className="max-h-12"
+						src="https://www.seekpng.com/png/full/243-2436783_proud-to-be-an-opencritic-contributer-peace-symbols.png"
+						alt=""
+					/>
+					<div className="w-[72px]">
+						<CircularProgressbar
+							value={content.openScore}
+							text={`${content.openScore}/100`}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };
