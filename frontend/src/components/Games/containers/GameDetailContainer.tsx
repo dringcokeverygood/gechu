@@ -10,8 +10,8 @@ const GameDetailContainer = () => {
 		gameTitle: '게임제목',
 		develop: '개발사명',
 		publish: '유통사명',
-		metaScore: 100,
-		openScore: 100,
+		metaScore: 98,
+		openScore: 75,
 	};
 
 	return <GameDetail content={content} />;
