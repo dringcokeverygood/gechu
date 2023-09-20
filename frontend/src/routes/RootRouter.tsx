@@ -15,6 +15,7 @@ import GameArticleContainer from '../components/Games/containers/GameArticleCont
 // 마이페이지
 import DashBoardContainer from '../components/MyPage/containers/DashBoardContainer';
 import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
+import ReviewManageContainer from '../components/MyPage/containers/ReviewManageContainer';
 
 const RootRouter = () => {
 	return (
@@ -33,6 +34,7 @@ const RootRouter = () => {
 					<Route path="/my-page" element={<MyPage />}>
 						<Route index element={<DashBoardContainer />} />
 						<Route path="article-manage" element={<ArticleManageContainer />} />
+						<Route path="review-manage" element={<ReviewManageContainer />} />
 					</Route>
 				</Route>
 			</Routes>

@@ -106,7 +106,7 @@ const Header = ({
 												</Popover.Button>
 											</li>
 											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
-												<Popover.Button as={Link} to={'/'}>
+												<Popover.Button as={Link} to={'/my-page/review-manage'}>
 													<div className="font-dungGeunMo">내 리뷰</div>
 												</Popover.Button>
 											</li>

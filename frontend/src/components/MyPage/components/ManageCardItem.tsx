@@ -4,6 +4,7 @@ import { ManageCardItemType } from '../../../typedef/MyPage/myPage.types';
 import { MdMoreVert } from 'react-icons/md';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
+import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 // article인지 comment인지 review인지 구분할 값 필요(navigate용)
@@ -26,13 +27,30 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 				</Link>
 			</div>
 			<div className="flex flex-1 flex-col gap-4">
-				<div className="flex w-full items-center justify-between">
-					<Link
-						to={`/game-detail/${item.gameSeq}`}
-						className="font-dungGeunMo text-[20px]"
-					>
-						{item.gameTitle}
-					</Link>
+				<div className="flex w-full items-center justify-between ">
+					<div className="flex items-center gap-3">
+						<Link
+							to={`/game-detail/${item.gameSeq}`}
+							className="font-dungGeunMo text-[20px]"
+						>
+							{item.gameTitle}
+						</Link>
+						{item.type === 'reviews' && item.like ? (
+							<p
+								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-blue-500 px-2 py-1 font-dungGeunMo text-[16px] text-blue-500`}
+							>
+								좋아요 <MdThumbUpOffAlt size={16} id="like" />
+							</p>
+						) : item.type === 'reviews' && item.unlike ? (
+							<p
+								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-red-400 px-2 py-1 font-dungGeunMo text-[16px] text-red-400`}
+							>
+								싫어요 <MdThumbDownOffAlt size={16} id="unlike" />
+							</p>
+						) : (
+							<></>
+						)}
+					</div>
 					<Menu
 						as="div"
 						className="relative inline-block bg-white-100 text-left"

@@ -63,7 +63,7 @@ const SideBar = () => {
 				</li>
 				<li>
 					<NavLink
-						to={`/`}
+						to={`/my-page/review-manage`}
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:heart" width="24" height="24" />

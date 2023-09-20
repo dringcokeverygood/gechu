@@ -15,4 +15,6 @@ export type ManageCardItemType = {
 	title: string;
 	content: string;
 	createDate: string;
+	like: boolean;
+	unlike: boolean;
 };
