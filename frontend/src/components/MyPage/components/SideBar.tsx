@@ -50,7 +50,7 @@ const SideBar = () => {
 				</li>
 				<li>
 					<NavLink
-						to={`/`}
+						to={`/my-page/comment-manage`}
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon

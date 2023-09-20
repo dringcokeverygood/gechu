@@ -19,6 +19,7 @@ import GameNewsPage from '../pages/GameNewsPage';
 import DashBoardContainer from '../components/MyPage/containers/DashBoardContainer';
 import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
 import ReviewManageContainer from '../components/MyPage/containers/ReviewManageContainer';
+import CommentManageContainer from '../components/MyPage/containers/CommentManageContainer';
 
 const RootRouter = () => {
 	return (
@@ -39,6 +40,7 @@ const RootRouter = () => {
 						<Route index element={<DashBoardContainer />} />
 						<Route path="article-manage" element={<ArticleManageContainer />} />
 						<Route path="review-manage" element={<ReviewManageContainer />} />
+						<Route path="comment-manage" element={<CommentManageContainer />} />
 					</Route>
 					<Route path="/game-news" element={<GameNewsPage />} />
 					<Route path="/search" element={<SearchPage />} />

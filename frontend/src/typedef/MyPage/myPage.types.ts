@@ -10,11 +10,21 @@ export type ManageCardItemType = {
 	gameSeq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
-	type: string; // articles, comment, reviews 중에 뭔지
-	itemSeq: number; // article, comment, review의 seq
+	type: string; // articles, reviews 중에 뭔지
+	itemSeq: number; // article, review의 seq
 	title: string;
 	content: string;
 	createDate: string;
 	like: boolean;
 	unlike: boolean;
+};
+
+export type ManageCommentCardItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+	commentSeq: number;
+	articleSeq: number;
+	content: string;
+	createDate: string;
 };
