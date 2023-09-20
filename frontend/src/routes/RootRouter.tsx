@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ScrollToTop from './ScrollToTop';
 
 import LayoutWithHeader from '../pages/LayoutWithHeader';
 import Home from '../pages/Home';
@@ -13,10 +14,12 @@ import GameArticleContainer from '../components/Games/containers/GameArticleCont
 
 // 마이페이지
 import DashBoardContainer from '../components/MyPage/containers/DashBoardContainer';
+import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
 
 const RootRouter = () => {
 	return (
 		<BrowserRouter>
+			<ScrollToTop />
 			<Routes>
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
@@ -29,6 +32,7 @@ const RootRouter = () => {
 					<Route path="/game-list" element={<GameListPage />} />
 					<Route path="/my-page" element={<MyPage />}>
 						<Route index element={<DashBoardContainer />} />
+						<Route path="article-manage" element={<ArticleManageContainer />} />
 					</Route>
 				</Route>
 			</Routes>

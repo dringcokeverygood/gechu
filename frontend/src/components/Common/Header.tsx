@@ -83,26 +83,25 @@ const Header = ({
 						>
 							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
-									<Popover.Button
-										as={Link}
-										to={`/my-page`}
-										className="flex items-center gap-2 p-4 text-white-950 transition duration-150 ease-in-out hover:bg-white-200"
-									>
+									<div className="flex items-center gap-2 p-4 text-white-950 ">
 										<img
 											src={images.defaultProfile}
 											className="h-[45px] w-[45px] rounded-full"
 										/>
 										<div className="font-dungGeunMo">닉네임</div>
-									</Popover.Button>
+									</div>
 									<div className="bg-gray-50 text-white-950">
 										<ul className="flex flex-col">
 											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
-												<Popover.Button as={Link} to={'/'}>
+												<Popover.Button as={Link} to={`/my-page`}>
 													<div className="font-dungGeunMo">내 정보</div>
 												</Popover.Button>
 											</li>
 											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
-												<Popover.Button as={Link} to={'/'}>
+												<Popover.Button
+													as={Link}
+													to={'/my-page/article-manage'}
+												>
 													<div className="font-dungGeunMo">내 게시물</div>
 												</Popover.Button>
 											</li>

@@ -32,6 +32,7 @@ const SideBar = () => {
 				<li>
 					<NavLink
 						to={`/my-page`}
+						end
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:user" width={24} height={24} />
@@ -40,7 +41,7 @@ const SideBar = () => {
 				</li>
 				<li>
 					<NavLink
-						to={`/`}
+						to={`/my-page/article-manage`}
 						className={({ isActive }) => navLinkClassName(isActive)}
 					>
 						<Icon icon="pixelarticons:edit" width="24" height="24" />
