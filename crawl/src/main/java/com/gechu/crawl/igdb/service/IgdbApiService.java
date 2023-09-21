@@ -100,36 +100,39 @@ public class IgdbApiService {
 					gameDtos.add(gameDto);
 					if (gameDtos.size() >= 10) {
 						gameService.insertAllGames(gameDtos);
+						gameDtos.clear();
 					}
 					for (Integer genreId : gameApiDto.getGenres()) {
 						gameGenreDtos.add(GameGenreDto.builder().gameSeq(gameId).genreSeq(genreId).build());
 					}
 					if (gameGenreDtos.size() >= 10) {
 						gameGenreService.insertAllGameGenres(gameGenreDtos);
+						gameGenreDtos.clear();
 					}
 					for (Integer platformId : gameApiDto.getPlatforms()) {
 						gamePlatformDtos.add(GamePlatformDto.builder().gameSeq(gameId).platformSeq(platformId).build());
 					}
 					if (gamePlatformDtos.size() >= 10) {
 						gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
+						gamePlatformDtos.clear();
 					}
 
-					// gameService.insertGame(gameDto);
-					// gameGenreService.insertGameGenre(gameApiDto);
-					// gamePlatformService.insertGamePlatform(gameApiDto);
 
 				}
 				gameService.insertAllGames(gameDtos);
 				gameGenreService.insertAllGameGenres(gameGenreDtos);
 				gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
-				log.info("games: 범위 내의 API요청 및 데이터베이스 등록 완료");
+				gameDtos.clear();
+				gameGenreDtos.clear();
+				gamePlatformDtos.clear();
+				log.info("games: {} ~ {} 범위 내의 API요청 및 데이터베이스 등록 완료", i, i + range);
 
 			} catch (RequestException e) {
-				log.warn("games:  API 요청입니다.");
+				log.warn("games: 잘못된 API 요청입니다.");
 			} catch (JsonProcessingException e) {
 				log.warn("games: json format is incorrect");
 			}
-			log.info("games: 전체 API요청 및 데이터베이스 등록 완료");
+			log.info("games: 전체 API요청 및 데이터베이스 등록 완료, 범위: {} ~ {}", start, end);
 		}
 	}
 	public List<GameApiDto> crawlGamesByIdFromTo(int from, int to) throws RequestException, JsonProcessingException {
