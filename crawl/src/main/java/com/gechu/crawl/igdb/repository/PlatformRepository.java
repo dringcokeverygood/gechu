@@ -7,4 +7,5 @@ import com.gechu.crawl.igdb.entity.PlatformEntity;
 
 @Repository
 public interface PlatformRepository extends JpaRepository<PlatformEntity, Long> {
+	public PlatformEntity findByPlatformSlug(String slug);
 }

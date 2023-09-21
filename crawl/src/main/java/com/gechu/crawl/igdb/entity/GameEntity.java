@@ -14,18 +14,20 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "game")
+@Builder
 public class GameEntity {
 
 	@Id
-	@GeneratedValue
-	private Long seq;
+	private Integer seq;
 
 	@NotNull
 	private String gameTitle;

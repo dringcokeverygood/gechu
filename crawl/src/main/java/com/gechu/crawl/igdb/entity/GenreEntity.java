@@ -10,20 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.gechu.crawl.igdb.dto.GenreDto;
 import com.sun.istack.NotNull;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "genre")
+@Builder
 public class GenreEntity {
 
 	@Id
-	@GeneratedValue
-	private Long seq;
+	private Integer seq;
 
 	@NotNull
 	private String genreName;
@@ -32,4 +35,12 @@ public class GenreEntity {
 
 	@OneToMany(mappedBy = "genreEntity", cascade = CascadeType.REMOVE)
 	private List<GameGenreEntity> gameGenreEntityList = new ArrayList<>();
+
+	public static GenreDto toDto(GenreEntity genreEntity) {
+		return GenreDto.builder()
+			.seq(genreEntity.getSeq())
+			.genreName(genreEntity.getGenreName())
+			.genreSlug(genreEntity.getGenreSlug())
+			.build();
+	}
 }

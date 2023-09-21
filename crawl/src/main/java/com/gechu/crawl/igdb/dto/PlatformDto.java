@@ -13,16 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PlatformApiDto {
-	private Integer id;
-	private String name;
-	private String slug;
+public class PlatformDto {
+	private Integer seq;
+	private String platformName;
+	private String platformSlug;
 
-	public static PlatformEntity toEntity(PlatformApiDto platformApiDto) {
+	public static PlatformEntity toEntity(PlatformDto platformDto) {
 		return PlatformEntity.builder()
-			.seq(platformApiDto.getId())
-			.platformName(platformApiDto.getName())
-			.platformSlug(platformApiDto.getSlug())
+			.seq(platformDto.getSeq())
+			.platformName(platformDto.getPlatformName())
+			.platformSlug(platformDto.getPlatformSlug())
 			.build();
 	}
 }

@@ -42,11 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class IgdbApiService {
 
-	private final GameGenreRepository gameGenreRepository;
-	private final GamePlatformRepository gamePlatformRepository;
-	private final GameRepository gameRepository;
-	private final GenreRepository genreRepository;
-	private final PlatformRepository platformRepository;
+	private final GameService gameService;
+	private final GenreService genreService;
+	private final PlatformService platformService;
 
 	@Value("${twitch.CLIENT_ID}")
 	private String CLIENT_ID;
@@ -76,6 +74,8 @@ public class IgdbApiService {
 			throw new RangeOverException("range must be greater than 0 and less than 501");
 		}
 
+		int gameCnt = 0;
+
 		for (int i = start; i < end; i = i + range) {
 			log.info("API call start, from: {}, end: {}", i, i + range);
 			try {
@@ -88,13 +88,15 @@ public class IgdbApiService {
 				for (GameApiDto gameApiDto : gameApiDtos) {
 					if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
 						gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
-					GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
-					setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
-					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
-					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
-					log.info("gameDto: {}", gameApiDto.getId());
+					// GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
+					// setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
+					// gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
+					// gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
+					gameCnt++;
+					// log.info("gameDto: {}", gameApiDto.getId());
 				}
-				log.info("test");
+				log.info("게임수 중간 집계: {}", gameCnt);
+				// log.info("test");
 
 			} catch (RequestException e) {
 				log.warn("games:  API 요청입니다.");
@@ -102,11 +104,12 @@ public class IgdbApiService {
 				log.warn("games: json format is incorrect");
 			}
 		}
-	}
 
+		log.info("게임 수: {}", gameCnt);
+	}
 	public List<GameApiDto> crawlGamesByIdFromTo(int from, int to) throws RequestException, JsonProcessingException {
 		APICalypse apiCalypse = new APICalypse()
-			.fields("id, involved_companies, platforms, genres, keywords, name, release_dates, artworks, slug")
+			.fields("id, involved_companies, platforms, genres, name, release_dates, artworks, slug")
 			.limit(to - from)
 			.where(String.format("id >= %d & id < %d", from, to))
 			.sort("id", Sort.ASCENDING);
@@ -127,11 +130,14 @@ public class IgdbApiService {
 			List<PlatformApiDto> platformApiDtos = objectMapper.readValue(json,
 				new TypeReference<List<PlatformApiDto>>() {
 				});
-			log.info("template add success");
+
+			platformApiDtos.forEach(platformService::insertPlatforms);
+
+			log.info("platforms add success");
 		} catch (RequestException e) {
-			log.warn("templates: Invalid API request");
+			log.warn("platforms: Invalid API request");
 		} catch (JsonProcessingException e) {
-			log.warn("templates: json format is incorrect");
+			log.warn("platforms: json format is incorrect");
 		}
 	}
 
@@ -145,6 +151,9 @@ public class IgdbApiService {
 			String json = JsonRequestKt.jsonGenres(wrapper, apiCalypse);
 			List<GenreApiDto> genreApiDtos = objectMapper.readValue(json, new TypeReference<List<GenreApiDto>>() {
 			});
+
+			genreApiDtos.forEach(genreService::insertGenres);
+
 			log.info("genre add success");
 		} catch (RequestException e) {
 			log.warn("genre: Invalid API request");

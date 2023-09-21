@@ -17,7 +17,6 @@ public class GameApiDto {
 	private String slug;
 	private List<Integer> platforms;
 	private List<Integer> genres;
-	private List<Integer> keywords;
 	private List<Integer> involved_companies;
 	private List<Integer> artworks;
 	private List<Integer> release_dates;
