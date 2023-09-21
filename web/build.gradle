@@ -42,6 +42,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.security:spring-security-oauth2-client:5.7.5'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 	// mysql
 	implementation 'mysql:mysql-connector-java:8.0.26'
