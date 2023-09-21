@@ -11,7 +11,10 @@ const RootRouter = () => {
 			<Routes>
 				<Route path="/" element={<Home />}></Route>
 				<Route path="/login" element={<LoginPage />}></Route>
-				<Route path="/oauth2/redirect" element={<LoginCallBackPage />}></Route>
+				<Route
+					path="/oauth2/code/kakao"
+					element={<LoginCallBackPage />}
+				></Route>
 			</Routes>
 		</BrowserRouter>
 	);
