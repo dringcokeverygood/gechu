@@ -66,7 +66,9 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 									'bg-white h-full w-full rounded-r-xl p-3 hover:bg-white-200',
 								)}
 								onClick={() =>
-									onClickArticle(`/game-detail/articles/${article.seq}`)
+									onClickArticle(
+										`/game-detail/${article.gameSeq}/articles/${article.seq}`,
+									)
 								}
 							>
 								<div className="">
