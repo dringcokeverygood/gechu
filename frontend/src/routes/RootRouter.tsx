@@ -20,6 +20,8 @@ import DashBoardContainer from '../components/MyPage/containers/DashBoardContain
 import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
 import ReviewManageContainer from '../components/MyPage/containers/ReviewManageContainer';
 import CommentManageContainer from '../components/MyPage/containers/CommentManageContainer';
+import LoginPage from '../components/Login/LoginPage';
+import LoginCallBackPage from '../components/Login/LoginCallBackPage';
 
 const RootRouter = () => {
 	return (
@@ -28,6 +30,9 @@ const RootRouter = () => {
 			<Routes>
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
+					<Route path="/login" element={<LoginPage />}>
+						<Route path="oauth2/code/kakao" element={<LoginCallBackPage />} />
+					</Route>
 					<Route path="/game-detail/:seq" element={<Game />}>
 						<Route path="" element={<Navigate replace to="reviews" />} />
 						<Route path="reviews" element={<GameReviewContainer />} />
