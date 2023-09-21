@@ -35,17 +35,8 @@ const GameTabs = ({ tabs }: { tabs: GameTabItem[] }) => {
 						&nbsp;
 					</button>
 				</Tab.List>
-				<Tab.Panels className="text-white-200">
+				<Tab.Panels className="pb-2 text-white-200">
 					<Outlet />
-					{/* <Tab.Panel>
-						<GameReviewContainer />
-					</Tab.Panel>
-					<Tab.Panel>
-						<GameArticleListContainer />
-					</Tab.Panel>
-					<Tab.Panel>
-						<div>게임뉴스임</div>
-					</Tab.Panel> */}
 				</Tab.Panels>
 			</Tab.Group>
 		</div>
