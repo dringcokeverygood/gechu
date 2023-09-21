@@ -1,7 +1,18 @@
 import React from 'react';
 import MainNews from '../MainNews';
+import { useNavigate } from 'react-router-dom';
 
 const MainNewsContainer = () => {
+	const navigate = useNavigate();
+
+	const onClickBtn = () => {
+		navigate('/game-news');
+	};
+
+	const onClickNewTab = (url: string) => {
+		window.open(url, '-blank', 'noopener, noreferrer');
+	};
+
 	const newsList = [
 		{
 			news_seq: 1,
@@ -56,11 +67,13 @@ const MainNewsContainer = () => {
 		},
 	];
 
-	const onClickNewTab = (url: string) => {
-		window.open(url, '-blank', 'noopener, noreferrer');
-	};
-
-	return <MainNews newsList={newsList} onClickNewTab={onClickNewTab} />;
+	return (
+		<MainNews
+			newsList={newsList}
+			onClickNewTab={onClickNewTab}
+			onClickBtn={onClickBtn}
+		/>
+	);
 };
 
 export default MainNewsContainer;
