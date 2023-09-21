@@ -74,9 +74,9 @@ public class IgdbApiService {
 			throw new RangeOverException("range must be greater than 0 and less than 501");
 		}
 
-		List<GameDto> gameDtos = new ArrayList<>();
+		/*List<GameDto> gameDtos = new ArrayList<>();
 		List<GameGenreDto> gameGenreDtos = new ArrayList<>();
-		List<GamePlatformDto> gamePlatformDtos = new ArrayList<>();
+		List<GamePlatformDto> gamePlatformDtos = new ArrayList<>();*/
 
 		for (int i = start; i < end; i = i + range) {
 			log.info("API call start, from: {}, end: {}", i, i + range);
@@ -95,10 +95,14 @@ public class IgdbApiService {
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
 					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
 
-					Integer gameId = gameApiDto.getId();
+					// Integer gameId = gameApiDto.getId();
+					// gameDtos.add(gameDto);
 
-					gameDtos.add(gameDto);
-					if (gameDtos.size() >= 10) {
+					gameService.insertGame(gameDto);
+					gameGenreService.insertGameGenre(gameApiDto);
+					gamePlatformService.insertGamePlatform(gameApiDto);
+
+					/*if (gameDtos.size() >= 10) {
 						gameService.insertAllGames(gameDtos);
 						gameDtos.clear();
 					}
@@ -115,16 +119,16 @@ public class IgdbApiService {
 					if (gamePlatformDtos.size() >= 10) {
 						gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
 						gamePlatformDtos.clear();
-					}
+					}*/
 
 
 				}
-				gameService.insertAllGames(gameDtos);
+				/*gameService.insertAllGames(gameDtos);
 				gameGenreService.insertAllGameGenres(gameGenreDtos);
 				gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
 				gameDtos.clear();
 				gameGenreDtos.clear();
-				gamePlatformDtos.clear();
+				gamePlatformDtos.clear();*/
 				log.info("games: {} ~ {} 범위 내의 API요청 및 데이터베이스 등록 완료", i, i + range);
 
 			} catch (RequestException e) {

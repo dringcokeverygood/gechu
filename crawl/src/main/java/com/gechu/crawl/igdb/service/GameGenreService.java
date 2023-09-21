@@ -1,5 +1,6 @@
 package com.gechu.crawl.igdb.service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
