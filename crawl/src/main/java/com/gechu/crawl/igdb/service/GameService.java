@@ -1,5 +1,8 @@
 package com.gechu.crawl.igdb.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,14 @@ public class GameService {
 
 	private final GameRepository gameRepository; // 초기화 필수
 
-	public GameEntity insertGame(GameDto gameDto) {
+	public void insertGame(GameDto gameDto) {
 		GameEntity gameEntity = GameDto.toEntity(gameDto);
 		gameRepository.save(gameEntity);
-		return gameEntity;
+	}
+
+	public void insertAllGames(List<GameDto> gameDtoList) {
+		List<GameEntity> gameEntities = gameDtoList.stream().map(GameDto::toEntity).collect(Collectors.toList());
+		gameRepository.saveAll(gameEntities);
+		gameDtoList.clear();
 	}
 }

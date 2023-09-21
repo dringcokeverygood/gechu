@@ -1,12 +1,13 @@
 package com.gechu.crawl.igdb.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.gechu.crawl.igdb.dto.GameApiDto;
+import com.gechu.crawl.igdb.dto.GameGenreDto;
 import com.gechu.crawl.igdb.entity.GameGenreEntity;
-import com.gechu.crawl.igdb.entity.GamePlatformEntity;
 import com.gechu.crawl.igdb.repository.GameGenreRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,11 @@ public class GameGenreService {
 				.genreSeq(genreSeq)
 				.build());
 		}
+	}
+
+	public void insertAllGameGenres(List<GameGenreDto> gameGenreDtos) {
+		List<GameGenreEntity> gameGenreEntities = gameGenreDtos.stream().map(GameGenreDto::toEntity).collect(Collectors.toList());
+		gameGenreRepository.saveAll(gameGenreEntities);
+		gameGenreDtos.clear();
 	}
 }

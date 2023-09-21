@@ -14,10 +14,9 @@ public class CrawlController {
 
 	private final IgdbApiService igdbApiService;
 
-	@GetMapping("/")
-	public String test() throws RequestException {
-		igdbApiService.addGames(0, 1000, 500);
-		return null;
+	@GetMapping("/games")
+	public void test() throws RequestException {
+		igdbApiService.addGames(0, 270000, 500);
 	}
 
 	@GetMapping("/platforms")

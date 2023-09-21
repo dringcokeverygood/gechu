@@ -1,8 +1,8 @@
 package com.gechu.crawl.igdb.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -25,6 +25,8 @@ import com.gechu.crawl.igdb.dto.CompanyApiDto;
 import com.gechu.crawl.igdb.dto.CoverApiDto;
 import com.gechu.crawl.igdb.dto.GameApiDto;
 import com.gechu.crawl.igdb.dto.GameDto;
+import com.gechu.crawl.igdb.dto.GameGenreDto;
+import com.gechu.crawl.igdb.dto.GamePlatformDto;
 import com.gechu.crawl.igdb.dto.GenreApiDto;
 import com.gechu.crawl.igdb.dto.InvolvedCompanyApiDto;
 import com.gechu.crawl.igdb.dto.PlatformApiDto;
@@ -72,6 +74,10 @@ public class IgdbApiService {
 			throw new RangeOverException("range must be greater than 0 and less than 501");
 		}
 
+		List<GameDto> gameDtos = new ArrayList<>();
+		List<GameGenreDto> gameGenreDtos = new ArrayList<>();
+		List<GamePlatformDto> gamePlatformDtos = new ArrayList<>();
+
 		for (int i = start; i < end; i = i + range) {
 			log.info("API call start, from: {}, end: {}", i, i + range);
 			try {
@@ -89,11 +95,33 @@ public class IgdbApiService {
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
 					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
 
-					gameService.insertGame(gameDto);
-					gameGenreService.insertGameGenre(gameApiDto);
-					gamePlatformService.insertGamePlatform(gameApiDto);
+					Integer gameId = gameApiDto.getId();
+
+					gameDtos.add(gameDto);
+					if (gameDtos.size() >= 10) {
+						gameService.insertAllGames(gameDtos);
+					}
+					for (Integer genreId : gameApiDto.getGenres()) {
+						gameGenreDtos.add(GameGenreDto.builder().gameSeq(gameId).genreSeq(genreId).build());
+					}
+					if (gameGenreDtos.size() >= 10) {
+						gameGenreService.insertAllGameGenres(gameGenreDtos);
+					}
+					for (Integer platformId : gameApiDto.getPlatforms()) {
+						gamePlatformDtos.add(GamePlatformDto.builder().gameSeq(gameId).platformSeq(platformId).build());
+					}
+					if (gamePlatformDtos.size() >= 10) {
+						gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
+					}
+
+					// gameService.insertGame(gameDto);
+					// gameGenreService.insertGameGenre(gameApiDto);
+					// gamePlatformService.insertGamePlatform(gameApiDto);
 
 				}
+				gameService.insertAllGames(gameDtos);
+				gameGenreService.insertAllGameGenres(gameGenreDtos);
+				gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
 				log.info("games: 범위 내의 API요청 및 데이터베이스 등록 완료");
 
 			} catch (RequestException e) {
