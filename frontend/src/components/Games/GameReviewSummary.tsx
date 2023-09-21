@@ -34,7 +34,8 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 			},
 		},
 		responsive: true,
-		aspectRatio: 12,
+		aspectRatio: 24,
+		maintainAspectRatio: false,
 		layout: {
 			padding: 0,
 		},
@@ -70,22 +71,27 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 	};
 	return (
 		<div className="flex flex-col py-2 text-white-200">
-			<div className="flex flex-row justify-between font-dungGeunMo text-lg">
-				<div>{reviewCnt}건</div>
-				<div>작성하기</div>
-			</div>
-			<div className="flex h-32 flex-row items-center justify-center space-x-2">
+			<div className="flex h-24 flex-row items-center justify-center space-x-2">
 				<div className="flex flex-row items-center justify-between space-x-2 font-dungGeunMo text-xl text-blue-400">
 					<MdThumbUp />
 					{likeRate}%
 				</div>
-				<div className="flex w-full flex-row items-center">
-					<Bar options={options} data={data} />
+				<div className="flex h-8 w-[600px] flex-row items-center justify-center">
+					<Bar
+						options={options}
+						data={data}
+						className="flex justify-center"
+						// style={{ height: '40px', width: '800px' }}
+					/>
 				</div>
 				<div className="flex flex-row-reverse items-center font-dungGeunMo  text-xl text-red-400">
 					<MdThumbDown />
 					{dislikeRate}%
 				</div>
+			</div>
+			<div className="flex flex-row justify-between font-dungGeunMo text-lg">
+				<div>{reviewCnt}건</div>
+				<div>작성하기</div>
 			</div>
 		</div>
 	);
