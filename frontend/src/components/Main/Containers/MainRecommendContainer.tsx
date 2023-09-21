@@ -10,6 +10,10 @@ const MainRecommendContainer = () => {
 		navigate('/game-recommend');
 	};
 
+	const onClickGame = (url: string) => {
+		navigate(url);
+	};
+
 	const dummy: GamePreviewType[] = [
 		{
 			gameSeq: 1,
@@ -192,7 +196,13 @@ const MainRecommendContainer = () => {
 		},
 	];
 
-	return <MainRecommend games={dummy} onClickBtn={onClickBtn} />;
+	return (
+		<MainRecommend
+			games={dummy}
+			onClickBtn={onClickBtn}
+			onClickGame={onClickGame}
+		/>
+	);
 };
 
 export default MainRecommendContainer;
