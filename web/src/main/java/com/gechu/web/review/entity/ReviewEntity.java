@@ -23,9 +23,6 @@ public class ReviewEntity {
 	@Id
 	@GeneratedValue
 	private Long seq;
-
 	private String text;
-
-	@OneToOne(mappedBy = "estimate")
-	private EstimateEntity estimateEntity;
+	private Long estimateSeq;
 }

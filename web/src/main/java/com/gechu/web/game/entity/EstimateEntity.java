@@ -24,10 +24,7 @@ public class EstimateEntity {
 	@Id
 	@GeneratedValue
 	private Long seq;
+	private Long userSeq;
 	private Integer gameSeq;
 	private String like;
-
-	@OneToOne
-	@JoinColumn(name = "review_seq")
-	private ReviewEntity reviewEntity;
 }
