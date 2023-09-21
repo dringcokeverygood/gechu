@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import com.gechu.web.game.entity.EstimateEntity;
 
+import com.gechu.web.review.dto.ReviewDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,4 +26,15 @@ public class ReviewEntity {
 	private Long seq;
 	private String text;
 	private Long estimateSeq;
+
+	public ReviewDto toDto(ReviewEntity reviewEntity) {
+		if(reviewEntity == null) {
+			return null;
+		}
+		return ReviewDto.builder()
+				.seq(reviewEntity.getSeq())
+				.text(reviewEntity.getText())
+				.estimateSeq(reviewEntity.getEstimateSeq())
+				.build();
+	}
 }
