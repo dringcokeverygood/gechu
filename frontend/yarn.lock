@@ -3536,6 +3536,11 @@ chart.js@^4.4.0:
   dependencies:
     "@kurkle/color" "^0.3.0"
 
+chartjs-plugin-stacked100@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/chartjs-plugin-stacked100/-/chartjs-plugin-stacked100-1.4.0.tgz#bf984db53a151da41a6197498a11a3c0f80e4f2e"
+  integrity sha512-49oWqcja9E++uVgmYE1AY8t1g56vZhhkt9CXO/eCMnuoTRjlJPD3lznMyemkZMEVpRoAujMw07eVLJcJnpcUKA==
+
 check-types@^11.2.3:
   version "11.2.3"
   resolved "https://registry.npmjs.org/check-types/-/check-types-11.2.3.tgz"

@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.0.0",
     "axios": "^1.5.0",
     "chart.js": "^4.4.0",
+    "chartjs-plugin-stacked100": "^1.4.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-circular-progressbar": "^2.1.0",

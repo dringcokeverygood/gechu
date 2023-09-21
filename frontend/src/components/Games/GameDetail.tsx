@@ -17,15 +17,17 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 				{content.gameTitle}
 			</h1>
 			<div className="flex flex-row pb-4 text-sm text-white-200">
-				<div className="flex w-36 flex-col">
+				<div className="flex w-36 flex-col space-y-1">
 					<p>개발</p>
 					<p>퍼블리싱</p>
+					<p>발매일</p>
 					<p>플랫폼</p>
 					<p>장르</p>
 				</div>
-				<div className="flex w-full flex-col">
+				<div className="flex w-full flex-col  space-y-1">
 					<p>{content.develop}</p>
 					<p>{content.publish}</p>
+					<p>2023.09.21</p>
 					<p>PC, Xbox</p>
 					<p>액션, 퍼즐</p>
 				</div>

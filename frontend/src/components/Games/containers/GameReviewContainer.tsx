@@ -26,7 +26,7 @@ const GameReviewContainer = () => {
 	];
 	const estimateRate = {
 		likeCnt: 100,
-		dislikeCnt: 500,
+		dislikeCnt: 200,
 	};
 	return (
 		<div>
@@ -35,10 +35,6 @@ const GameReviewContainer = () => {
 				likeCnt={estimateRate.likeCnt}
 				dislikeCnt={estimateRate.dislikeCnt}
 			/>
-			{/* <div className="flex flex-row justify-between">
-				<div>{reviews.length}건</div>
-				<div>작성하기</div>
-			</div> */}
 			{reviews.map((review) => {
 				return <GameReview key={review.seq} review={review} />;
 			})}
