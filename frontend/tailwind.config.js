@@ -68,6 +68,15 @@ module.exports = {
 				'900': '#3d3d3d',
 				'950': '#292929',
 			},
+			transparent: 'transparent',
+		},
+		extend: {
+			fontFamily: {
+				dungGeunMo: ['DungGeunMo'],
+			},
+			backgroundImage: {
+				'check-icon': 'url(../public/assets/images/ic-checkmark.png)',
+			},
 		},
 	},
 	plugins: [],
