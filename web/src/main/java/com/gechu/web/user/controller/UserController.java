@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/user/auth")
+@RequestMapping("/api/web")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -24,15 +24,15 @@ public class UserController {
         return ResponseEntity.ok(token);
     }
 
-    @PostMapping("/{provider}")
-    public Mono<ResponseEntity<?>> authenticateWithProvider(@PathVariable String provider, @RequestBody Map<String, String> authData) {
-        String code = authData.get("code");
+    @PostMapping("/auth")
+    public Mono<ResponseEntity<?>> authenticateWithProvider(@RequestParam String code) {
+//        String code = authData.get("code");
 
         if (code == null || code.isEmpty()) {
             return Mono.just(ResponseEntity.badRequest().body("인가 코드가 비어있습니다"));
         }
 
-        if ("kakao".equalsIgnoreCase(provider)) {
+        if ("kakao".equalsIgnoreCase("kakao")) {
             return authenticateWithKakao(code);
         }
 
@@ -51,6 +51,7 @@ public class UserController {
                     // 액세스 토큰을 이용하여 사용자 정보 가져오기
                     return userService.getUserInfoFromKakao(accessToken)
                             .flatMap(userInfo -> {
+                                System.out.println(userInfo);
                                 if (userInfo == null) {
                                     return Mono.just(ResponseEntity.badRequest().body("카카오로부터 사용자 정보를 불러오는데 실패했습니다."));
                                 }
