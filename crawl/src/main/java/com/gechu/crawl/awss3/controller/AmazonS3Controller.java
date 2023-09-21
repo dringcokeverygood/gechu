@@ -1,6 +1,6 @@
-package com.gechu.crawl.controller;
+package com.gechu.crawl.awss3.controller;
 
-import com.gechu.crawl.service.AwsS3Service;
+import com.gechu.crawl.awss3.service.AwsS3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
