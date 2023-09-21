@@ -2,6 +2,7 @@ package com.gechu.crawl.igdb.dto;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.TimeZone;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +13,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ReleaseDateDto {
 	private Integer id;
@@ -20,6 +22,17 @@ public class ReleaseDateDto {
 	private LocalDateTime createDate;
 
 	public void setDateTime() {
-		this.createDate = LocalDateTime.ofInstant(Instant.ofEpochSecond(date), TimeZone.getDefault().toZoneId());
+		if (date == null) {
+			date = 0l;
+		}
+
+		TimeZone timeZone = TimeZone.getDefault();
+
+		if (timeZone != null) {
+			this.createDate = LocalDateTime.ofInstant(Instant.ofEpochSecond(date), timeZone.toZoneId());
+		} else {
+			TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+			this.createDate = LocalDateTime.ofInstant(Instant.ofEpochSecond(date), ZoneOffset.UTC);
+		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.gechu.crawl.igdb.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -25,8 +24,6 @@ import com.gechu.crawl.igdb.dto.CompanyApiDto;
 import com.gechu.crawl.igdb.dto.CoverApiDto;
 import com.gechu.crawl.igdb.dto.GameApiDto;
 import com.gechu.crawl.igdb.dto.GameDto;
-import com.gechu.crawl.igdb.dto.GameGenreDto;
-import com.gechu.crawl.igdb.dto.GamePlatformDto;
 import com.gechu.crawl.igdb.dto.GenreApiDto;
 import com.gechu.crawl.igdb.dto.InvolvedCompanyApiDto;
 import com.gechu.crawl.igdb.dto.PlatformApiDto;
