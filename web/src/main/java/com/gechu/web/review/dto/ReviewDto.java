@@ -1,4 +1,4 @@
-package com.gechu.web.review.db.dto;
+package com.gechu.web.review.dto;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.gechu.web.review.db.repository;
+package com.gechu.web.review.repository;
 
 import org.springframework.stereotype.Repository;
 

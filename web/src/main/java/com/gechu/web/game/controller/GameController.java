@@ -1,4 +1,4 @@
-package com.gechu.web.game.api.controller;
+package com.gechu.web.game.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.gechu.web.game.api.service;
+package com.gechu.web.game.service;
 
 import org.springframework.stereotype.Service;
 

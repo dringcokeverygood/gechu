@@ -1,4 +1,4 @@
-package com.gechu.web.game.db.repository;
+package com.gechu.web.game.repository;
 
 import org.springframework.stereotype.Repository;
 
