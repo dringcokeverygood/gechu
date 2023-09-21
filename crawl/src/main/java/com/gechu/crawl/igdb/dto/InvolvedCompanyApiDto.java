@@ -12,10 +12,7 @@ import lombok.Setter;
 public class InvolvedCompanyApiDto {
 
 	private Long id;
-	private Long company;
+	private Integer company;
 	private Boolean developer;
-	private Boolean porting;
 	private Boolean publisher;
-	private Boolean supporting;
-	private Long game;
 }

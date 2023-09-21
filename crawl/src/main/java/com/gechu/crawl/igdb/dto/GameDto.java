@@ -21,7 +21,7 @@ public class GameDto {
 
 	public static GameDto initByGameApiDto(GameApiDto gameApiDto) {
 		return GameDto.builder()
-			.gameTitle(gameApiDto.getSlug())
+			.gameTitle(gameApiDto.getName())
 			.gameSlug(gameApiDto.getSlug())
 			.build();
 	}

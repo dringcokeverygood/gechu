@@ -86,8 +86,8 @@ public class IgdbApiService {
 				}
 
 				for (GameApiDto gameApiDto : gameApiDtos) {
-					if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
-						gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
+					// if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
+					// 	gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
 					GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
 					setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
@@ -234,14 +234,14 @@ public class IgdbApiService {
 		return returnVal;
 	}
 
-	private String getCompany(Long companyId) {
+	private String getCompany(Integer companyId) {
 		APICalypse apiCalypse = new APICalypse()
 			.fields("slug")
 			.limit(500)
 			.where(String.format("id = %d", companyId));
 		List<CompanyApiDto> companyApiDtos = null;
 		try {
-			String json = JsonRequestKt.jsonGenres(wrapper, apiCalypse);
+			String json = JsonRequestKt.jsonCompanies(wrapper, apiCalypse);
 			companyApiDtos = objectMapper.readValue(json, new TypeReference<List<CompanyApiDto>>() {
 			});
 			log.info("company call success");

@@ -10,5 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class CompanyApiDto {
+	private Integer id;
 	private String slug;
 }
