@@ -5,8 +5,12 @@ import { CategoryScale, LinearScale, BarElement, Chart } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Bar } from 'react-chartjs-2';
 import { MdThumbUp, MdThumbDown } from 'react-icons/md';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Icon } from '@iconify/react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
 
-Chart.register(CategoryScale, LinearScale, BarElement);
+Chart.register(CategoryScale, LinearScale, BarElement, ChartjsPluginStacked100);
 
 interface GameReviewSummaryProps {
 	reviewCnt: number;
@@ -25,16 +29,18 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 }) => {
 	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
 	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
+
 	const options = {
 		indexAxis: 'y' as const,
 		plugins: {
-			tooltip: {
-				enabled: true,
-				mode: 'index' as const,
+			stacked100: {
+				enable: true,
+				replaceTooltipLabel: false,
 			},
 		},
 		responsive: true,
-		aspectRatio: 12,
+		aspectRatio: 24,
+		maintainAspectRatio: false,
 		layout: {
 			padding: 0,
 		},
@@ -42,6 +48,10 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 			x: {
 				stacked: true,
 				display: false,
+				// ticks: {
+				// 	beginAtZero: true,
+				// 	max: 100,
+				// },
 			},
 			y: {
 				stacked: true,
@@ -58,6 +68,7 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 				data: [likeCnt],
 				borderRadius: 16,
 				borderSkipped: 'middle' as const,
+				barThickness: 20,
 			},
 			{
 				label: '싫어요',
@@ -65,27 +76,35 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 				data: [dislikeCnt],
 				borderRadius: 16,
 				borderSkipped: 'middle' as const,
+				barThickness: 20,
 			},
 		],
 	};
 	return (
-		<div className="flex flex-col py-2 text-white-200">
-			<div className="flex flex-row justify-between font-dungGeunMo text-lg">
-				<div>{reviewCnt}건</div>
-				<div>작성하기</div>
-			</div>
-			<div className="flex h-32 flex-row items-center justify-center space-x-2">
-				<div className="flex flex-row items-center justify-between space-x-2 font-dungGeunMo text-xl text-blue-400">
+		<div className="flex flex-col pb-2 text-white-200">
+			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
+				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />
-					{likeRate}%
+					<p className="px-2 font-dungGeunMo">{likeRate}%</p>
 				</div>
-				<div className="flex w-full flex-row items-center">
-					<Bar options={options} data={data} />
+				<div className="flex w-full flex-row items-center justify-center">
+					<Bar
+						options={options}
+						data={data}
+						className="flex justify-center"
+						// style={{ height: '40px', width: '800px' }}
+					/>
 				</div>
-				<div className="flex flex-row-reverse items-center font-dungGeunMo  text-xl text-red-400">
+				<div className="flex flex-row-reverse items-center text-2xl text-red-400">
 					<MdThumbDown />
-					{dislikeRate}%
+					<p className="px-2 font-dungGeunMo">{dislikeRate}%</p>
 				</div>
+			</div>
+			<div className="flex flex-row items-center justify-start space-x-4 text-xl">
+				<div className="font-dungGeunMo">{reviewCnt}건</div>
+				<button>
+					<Icon icon="pixelarticons:edit-box" />
+				</button>
 			</div>
 		</div>
 	);
