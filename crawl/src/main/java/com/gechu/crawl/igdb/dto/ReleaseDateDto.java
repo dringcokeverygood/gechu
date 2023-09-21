@@ -15,6 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class ReleaseDateDto {
+	private Integer id;
 	private Long date;
 	private LocalDateTime createDate;
 

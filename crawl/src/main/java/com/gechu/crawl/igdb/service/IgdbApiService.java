@@ -86,12 +86,13 @@ public class IgdbApiService {
 				}
 
 				for (GameApiDto gameApiDto : gameApiDtos) {
-					// if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
-					// 	gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
+					if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
+						gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
 					GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
 					setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
 					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
+					log.info("gameDto: {}", gameApiDto.getId());
 				}
 				log.info("test");
 
@@ -105,7 +106,7 @@ public class IgdbApiService {
 
 	public List<GameApiDto> crawlGamesByIdFromTo(int from, int to) throws RequestException, JsonProcessingException {
 		APICalypse apiCalypse = new APICalypse()
-			.fields("id, involved_companies, platforms, genres, keywords, name, release_dates, artworks")
+			.fields("id, involved_companies, platforms, genres, keywords, name, release_dates, artworks, slug")
 			.limit(to - from)
 			.where(String.format("id >= %d & id < %d", from, to))
 			.sort("id", Sort.ASCENDING);
@@ -173,7 +174,7 @@ public class IgdbApiService {
 					gameDto.setPublish(getCompany(involvedCompanyApiDto.getCompany()));
 				}
 			}
-			log.info("involvedCompanies call success");
+			// log.info("involvedCompanies call success");
 		} catch (RequestException e) {
 			log.warn("involvedCompanies: Invalid API request");
 		} catch (JsonProcessingException e) {
@@ -196,7 +197,7 @@ public class IgdbApiService {
 
 			returnVal = String.format("https://images.igdb.com/igdb/image/upload/t_cover_big/%s.png",
 				coverApiDtos.get(0).getImage_id());
-			log.info("title_image call success");
+			// log.info("title_image call success");
 		} catch (RequestException e) {
 			log.warn("title_image: Invalid API request");
 		} catch (JsonProcessingException e) {
@@ -224,7 +225,7 @@ public class IgdbApiService {
 
 			returnVal = releaseDateDto.getCreateDate();
 
-			log.info("releaseDate call success");
+			// log.info("releaseDate call success");
 		} catch (RequestException e) {
 			log.warn("releaseDate: Invalid API request");
 		} catch (JsonProcessingException e) {
@@ -244,7 +245,7 @@ public class IgdbApiService {
 			String json = JsonRequestKt.jsonCompanies(wrapper, apiCalypse);
 			companyApiDtos = objectMapper.readValue(json, new TypeReference<List<CompanyApiDto>>() {
 			});
-			log.info("company call success");
+			// log.info("company call success");
 		} catch (RequestException e) {
 			log.warn("company: Invalid API request");
 		} catch (JsonProcessingException e) {

@@ -10,5 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class CoverApiDto {
+	private Integer id;
 	private String image_id;
 }

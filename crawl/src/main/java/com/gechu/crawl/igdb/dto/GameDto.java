@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class GameDto {
+	private Integer Id;
 	private String gameTitle;
 	private String gameSlug;
 	private String gameTitleImageUrl;
