@@ -25,8 +25,8 @@ const GameReviewContainer = () => {
 		},
 	];
 	const estimateRate = {
-		likeCnt: 100,
-		dislikeCnt: 200,
+		likeCnt: 77,
+		dislikeCnt: 22,
 	};
 	return (
 		<div>
