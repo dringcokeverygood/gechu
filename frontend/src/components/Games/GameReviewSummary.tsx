@@ -81,7 +81,7 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 		],
 	};
 	return (
-		<div className="flex flex-col py-2 text-white-200">
+		<div className="flex flex-col pb-2 text-white-200">
 			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
 				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />
@@ -100,7 +100,7 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 					<p className="px-2 font-dungGeunMo">{dislikeRate}%</p>
 				</div>
 			</div>
-			<div className="flex flex-row justify-start space-x-4 text-lg">
+			<div className="flex flex-row items-center justify-start space-x-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
 				<button>
 					<Icon icon="pixelarticons:edit-box" />
