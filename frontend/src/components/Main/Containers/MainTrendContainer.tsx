@@ -1,8 +1,15 @@
 import React from 'react';
 import MainTrend from '../MainTrend';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { useNavigate } from 'react-router-dom';
 
 const MainTrendContainer = () => {
+	const navigate = useNavigate();
+
+	const onClickGame = (url: string) => {
+		navigate(url);
+	};
+
 	const dummy: GamePreviewType[] = [
 		{
 			gameSeq: 1,
@@ -185,7 +192,7 @@ const MainTrendContainer = () => {
 		},
 	];
 
-	return <MainTrend games={dummy} />;
+	return <MainTrend games={dummy} onClickGame={onClickGame} />;
 };
 
 export default MainTrendContainer;
