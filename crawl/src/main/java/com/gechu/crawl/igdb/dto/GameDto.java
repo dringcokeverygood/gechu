@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class GameDto {
-	private Integer Id;
+	private Integer seq;
 	private String gameTitle;
 	private String gameSlug;
 	private String gameTitleImageUrl;
@@ -26,6 +26,7 @@ public class GameDto {
 
 	public static GameDto initByGameApiDto(GameApiDto gameApiDto) {
 		return GameDto.builder()
+			.seq(gameApiDto.getId())
 			.gameTitle(gameApiDto.getName())
 			.gameSlug(gameApiDto.getSlug())
 			.build();
@@ -35,7 +36,7 @@ public class GameDto {
 		return GameEntity.builder()
 			.gameTitle(gameDto.getGameTitle())
 			.gameSlug(gameDto.getGameSlug())
-			.seq(gameDto.getId())
+			.seq(gameDto.getSeq())
 			.develop(gameDto.getDevelop())
 			.publish(gameDto.getPublish())
 			.createDate(gameDto.getCreateDate())

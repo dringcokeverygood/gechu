@@ -15,8 +15,9 @@ public class GameService {
 
 	private final GameRepository gameRepository; // 초기화 필수
 
-	public void insertGame(GameDto gameDto) {
+	public GameEntity insertGame(GameDto gameDto) {
 		GameEntity gameEntity = GameDto.toEntity(gameDto);
 		gameRepository.save(gameEntity);
+		return gameEntity;
 	}
 }

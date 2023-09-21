@@ -16,7 +16,7 @@ public class CrawlController {
 
 	@GetMapping("/")
 	public String test() throws RequestException {
-		igdbApiService.addGames(0, 270000, 500);
+		igdbApiService.addGames(0, 1000, 500);
 		return null;
 	}
 

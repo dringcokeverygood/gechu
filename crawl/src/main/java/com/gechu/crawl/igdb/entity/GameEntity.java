@@ -42,11 +42,5 @@ public class GameEntity {
 	private String steamScore;
 
 	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
-	List<GameGenreEntity> gameGenreEntityList = new ArrayList<>();
-
-	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
-	List<GamePlatformEntity> gamePlatformEntityList = new ArrayList<>();
-
-	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
 	List<NewsEntity> newsEntityList = new ArrayList<>();
 }

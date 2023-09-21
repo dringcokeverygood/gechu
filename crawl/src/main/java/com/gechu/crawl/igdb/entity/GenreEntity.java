@@ -32,9 +32,6 @@ public class GenreEntity {
 	@NotNull
 	private String genreSlug;
 
-	@OneToMany(mappedBy = "genreEntity", cascade = CascadeType.REMOVE)
-	private List<GameGenreEntity> gameGenreEntityList = new ArrayList<>();
-
 	public static GenreDto toDto(GenreEntity genreEntity) {
 		return GenreDto.builder()
 			.seq(genreEntity.getSeq())

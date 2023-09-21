@@ -33,9 +33,6 @@ public class PlatformEntity {
 	@NotNull
 	private String platformSlug;
 
-	@OneToMany(mappedBy = "platformEntity", cascade = CascadeType.REMOVE)
-	private List<GamePlatformEntity> gamePlatformEntityList = new ArrayList<>();
-
 	public static PlatformDto toDto(PlatformEntity platformEntity) {
 		return PlatformDto.builder()
 			.seq(platformEntity.getSeq())

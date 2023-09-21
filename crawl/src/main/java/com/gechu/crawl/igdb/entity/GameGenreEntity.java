@@ -8,24 +8,22 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "game_genre")
+@Builder
 public class GameGenreEntity {
 
 	@Id
 	@GeneratedValue
 	private Long seq;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "genre_seq")
-	private GenreEntity genreEntity;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "game_seq")
-	private GameEntity gameEntity;
+	private Integer genreSeq;
+	private Integer gameSeq;
 }

@@ -2,6 +2,7 @@ package com.gechu.crawl.igdb.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -28,11 +29,6 @@ import com.gechu.crawl.igdb.dto.GenreApiDto;
 import com.gechu.crawl.igdb.dto.InvolvedCompanyApiDto;
 import com.gechu.crawl.igdb.dto.PlatformApiDto;
 import com.gechu.crawl.igdb.dto.ReleaseDateDto;
-import com.gechu.crawl.igdb.repository.GameGenreRepository;
-import com.gechu.crawl.igdb.repository.GamePlatformRepository;
-import com.gechu.crawl.igdb.repository.GameRepository;
-import com.gechu.crawl.igdb.repository.GenreRepository;
-import com.gechu.crawl.igdb.repository.PlatformRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +41,8 @@ public class IgdbApiService {
 	private final GameService gameService;
 	private final GenreService genreService;
 	private final PlatformService platformService;
+	private final GameGenreService gameGenreService;
+	private final GamePlatformService gamePlatformService;
 
 	@Value("${twitch.CLIENT_ID}")
 	private String CLIENT_ID;
@@ -74,8 +72,6 @@ public class IgdbApiService {
 			throw new RangeOverException("range must be greater than 0 and less than 501");
 		}
 
-		int gameCnt = 0;
-
 		for (int i = start; i < end; i = i + range) {
 			log.info("API call start, from: {}, end: {}", i, i + range);
 			try {
@@ -88,24 +84,25 @@ public class IgdbApiService {
 				for (GameApiDto gameApiDto : gameApiDtos) {
 					if (gameApiDto.getSlug() == null || gameApiDto.getPlatforms() == null || gameApiDto.getGenres() == null || gameApiDto.getInvolved_companies() == null ||
 						gameApiDto.getArtworks() == null || gameApiDto.getRelease_dates() == null) continue;
-					// GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
-					// setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
-					// gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
-					// gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
-					gameCnt++;
-					// log.info("gameDto: {}", gameApiDto.getId());
+					GameDto gameDto = GameDto.initByGameApiDto(gameApiDto);
+					setPublishAndDevelopByInvolvedCompanies(gameDto, gameApiDto.getInvolved_companies());
+					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
+					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
+
+					gameService.insertGame(gameDto);
+					gameGenreService.insertGameGenre(gameApiDto);
+					gamePlatformService.insertGamePlatform(gameApiDto);
+
 				}
-				log.info("게임수 중간 집계: {}", gameCnt);
-				// log.info("test");
+				log.info("games: 범위 내의 API요청 및 데이터베이스 등록 완료");
 
 			} catch (RequestException e) {
 				log.warn("games:  API 요청입니다.");
 			} catch (JsonProcessingException e) {
 				log.warn("games: json format is incorrect");
 			}
+			log.info("games: 전체 API요청 및 데이터베이스 등록 완료");
 		}
-
-		log.info("게임 수: {}", gameCnt);
 	}
 	public List<GameApiDto> crawlGamesByIdFromTo(int from, int to) throws RequestException, JsonProcessingException {
 		APICalypse apiCalypse = new APICalypse()
