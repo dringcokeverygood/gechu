@@ -31,16 +31,29 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public Mono<ResponseEntity<?>> authenticateWithProvider(@RequestParam String code) {
+    public Mono<ResponseEntity<?>> authenticateWithProvider(@RequestParam String code, HttpServletRequest request) {
 //        String code = authData.get("code");
         log.info("로그인 요청 컨트롤러");
+
+        Enumeration<String> headerNames = request.getHeaderNames();
+
+        log.info("게이트웨이를 거친 요청의 헤더 목록 시작");
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            log.info("{}: {}", headerName, request.getHeader(headerName));
+        }
+        log.info("게이트웨이를 거친 요청의 헤더 목록 종료");
 
         if (code == null || code.isEmpty()) {
             return Mono.just(ResponseEntity.badRequest().body("인가 코드가 비어있습니다"));
         }
 
-        if ("kakao".equalsIgnoreCase("kakao")) {
-            return authenticateWithKakao(code);
+        try {
+            if ("kakao".equalsIgnoreCase("kakao")) {
+                return authenticateWithKakao(code);
+            }
+        } catch (Exception e) {
+            log.info("에러 터짐");
         }
 
         return Mono.just(ResponseEntity.badRequest().body("카카오 로그인만 가능합니다."));
