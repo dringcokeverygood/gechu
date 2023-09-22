@@ -272,7 +272,7 @@ public class IgdbApiService {
 		}
 
 		if (returnVal == null) {
-			return LocalDateTime.MIN;
+			return LocalDateTime.now();
 		}
 
 		return returnVal;
