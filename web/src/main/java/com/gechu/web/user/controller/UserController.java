@@ -97,7 +97,7 @@ public class UserController {
                 });
     }
 
-    @GetMapping("/user/{userSeq}/reviews")
+    @GetMapping("/users/{userSeq}/estimates")
     public ResponseEntity<?> findLikeGames(@PathVariable Long userSeq, HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
