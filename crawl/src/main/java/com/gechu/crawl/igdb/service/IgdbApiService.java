@@ -98,6 +98,7 @@ public class IgdbApiService {
 					gameService.insertGame(gameDto);
 					gameGenreService.insertGameGenre(gameApiDto);
 					gamePlatformService.insertGamePlatform(gameApiDto);
+					log.info("{}번 게임 삽입 완료", gameApiDto.getId());
 
 					/*if (gameDtos.size() >= 10) {
 						gameService.insertAllGames(gameDtos);
