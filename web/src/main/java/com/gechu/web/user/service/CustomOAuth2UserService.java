@@ -1,7 +1,8 @@
 package com.gechu.web.user.service;
 
 import com.gechu.web.config.OAuthAttributes;
-import com.gechu.web.user.entity.Users;
+import com.gechu.web.user.entity.Role;
+import com.gechu.web.user.entity.UsersEntity;
 import com.gechu.web.user.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
 @Service
@@ -34,7 +34,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        Users user = saveOrUpdate(attributes);
+        UsersEntity user = saveOrUpdate(attributes);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
@@ -43,11 +43,13 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    private Users saveOrUpdate(OAuthAttributes attributes) {
-        Users user = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getProvider()))
-                .orElse(attributes.toEntity());
-
-        return userRepository.save(user);
+    private UsersEntity saveOrUpdate(OAuthAttributes attributes) {
+        return userRepository.findByUserId(attributes.getUserId())
+                .map(entity -> entity.update(attributes.getName()))
+                .orElseGet(() -> {
+                    UsersEntity user = attributes.toEntity();
+                    user.setRole(Role.USER);
+                    return userRepository.save(user);
+                });
     }
 }

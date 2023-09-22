@@ -1,5 +1,6 @@
 package com.gechu.web.game.controller;
 
+<<<<<<< HEAD
 import com.gechu.web.game.dto.GameDetailDto;
 import com.gechu.web.game.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,13 @@ public class GameController {
 
         return new ResponseEntity<>(resultMap, status);
     }
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/games")
+public class GameController {
+
+>>>>>>> feature/be/social_login
 }
