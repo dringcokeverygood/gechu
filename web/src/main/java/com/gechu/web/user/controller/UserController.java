@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -28,6 +29,7 @@ public class UserController {
     @PostMapping("/auth")
     public Mono<ResponseEntity<?>> authenticateWithProvider(@RequestParam String code) {
 //        String code = authData.get("code");
+        log.info("로그인 요청 컨트롤러");
 
         if (code == null || code.isEmpty()) {
             return Mono.just(ResponseEntity.badRequest().body("인가 코드가 비어있습니다"));
@@ -55,13 +57,14 @@ public class UserController {
     }
 
     private Mono<ResponseEntity<?>> authenticateWithKakao(String code) {
+        log.info("authenticateWithKakao 실행");
         return userService.getAccessTokenFromKakao(code)
                 .flatMap(accessToken -> {
                     if (accessToken == null) {
                         return Mono.just(ResponseEntity.badRequest().body("카카오로부터 액세스 토큰을 얻는데 실패했습니다."));
                     }
 
-                    log.info(accessToken);
+                    log.info("accessToken: {}",accessToken);
 
                     // 액세스 토큰을 이용하여 사용자 정보 가져오기
                     return userService.getUserInfoFromKakao(accessToken)
