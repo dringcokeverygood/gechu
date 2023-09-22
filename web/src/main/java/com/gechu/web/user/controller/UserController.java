@@ -4,6 +4,7 @@ import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.service.UserService;
 import com.gechu.web.user.util.JwtToken;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -37,6 +39,20 @@ public class UserController {
 
         return Mono.just(ResponseEntity.badRequest().body("카카오 로그인만 가능합니다."));
     }
+    @PostMapping("/api/web/auth")
+    public Mono<ResponseEntity<?>> authenticateWithProvider2(@RequestParam String code) {
+//        String code = authData.get("code");
+
+        if (code == null || code.isEmpty()) {
+            return Mono.just(ResponseEntity.badRequest().body("인가 코드가 비어있습니다"));
+        }
+
+        if ("kakao".equalsIgnoreCase("kakao")) {
+            return authenticateWithKakao(code);
+        }
+
+        return Mono.just(ResponseEntity.badRequest().body("카카오 로그인만 가능합니다."));
+    }
 
     private Mono<ResponseEntity<?>> authenticateWithKakao(String code) {
         return userService.getAccessTokenFromKakao(code)
@@ -45,7 +61,7 @@ public class UserController {
                         return Mono.just(ResponseEntity.badRequest().body("카카오로부터 액세스 토큰을 얻는데 실패했습니다."));
                     }
 
-                    System.out.println(accessToken);
+                    log.info(accessToken);
 
                     // 액세스 토큰을 이용하여 사용자 정보 가져오기
                     return userService.getUserInfoFromKakao(accessToken)

@@ -4,6 +4,7 @@ import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.repository.UserRepository;
 import com.gechu.web.user.util.JwtToken;
 import com.gechu.web.user.util.JwtTokenProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Slf4j
 @Transactional
 public class UserService {
 
@@ -44,7 +46,7 @@ public class UserService {
         params.add("code", code);
         params.add("grant_type", "authorization_code");
 
-        System.out.println("오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?");
+        log.info("오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?오나?");
         return webClient.post()
                 .uri("/oauth/token")
                 .body(BodyInserters.fromFormData(params))
@@ -72,7 +74,7 @@ public class UserService {
     }
 
     public Mono<KakaoUserInfo> getUserInfoFromKakao(String accessToken) {
-        System.out.println("오나?");
+        log.info("오나?");
         WebClient kakaoApiWebClient = WebClient.create("https://kapi.kakao.com");
 
         return kakaoApiWebClient.get()
