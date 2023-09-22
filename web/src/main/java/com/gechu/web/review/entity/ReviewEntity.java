@@ -3,10 +3,7 @@ package com.gechu.web.review.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.gechu.web.game.entity.EstimateEntity;
 
 import com.gechu.web.review.dto.ReviewDto;
 import lombok.AllArgsConstructor;

@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -30,6 +27,23 @@ public class ReviewController {
 
         try {
             reviewService.insertReview(reviewDto);
+            resultMap.put("success", true);
+            status = HttpStatus.CREATED;
+        }  catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", "게시글 등록 실패");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            reviewService.updateReview(reviewDto);
             resultMap.put("success", true);
             status = HttpStatus.CREATED;
         }  catch (Exception e) {

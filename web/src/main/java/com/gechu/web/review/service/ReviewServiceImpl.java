@@ -23,4 +23,12 @@ public class ReviewServiceImpl implements ReviewService{
                 .estimateSeq(reviewDto.getEstimateSeq())
                 .build());
     }
+
+    @Override
+    public void updateReview(ReviewDto reviewDto) {
+        reviewRepository.save(ReviewEntity.builder()
+                .text(reviewDto.getText())
+                .estimateSeq(reviewDto.getEstimateSeq())
+                .build());
+    }
 }
