@@ -13,6 +13,8 @@ public class GameDetailDto {
     private String gameTitleImageUrl;
     private String develop;
     private String publish;
+    private String platform;
+    private String genre;
     private String createDate;
     private Integer metaScore;
     private Integer openScore;
