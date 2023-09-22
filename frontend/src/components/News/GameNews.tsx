@@ -4,18 +4,32 @@ import { GameNewsPreviewType } from '../../typedef/main.types';
 
 type NewsCardProps = {
 	newsList: GameNewsPreviewType[];
+	onClickNewTab: (url: string) => void;
 };
 
-const GameNews = ({ newsList }: NewsCardProps) => {
+const GameNews = ({ newsList, onClickNewTab }: NewsCardProps) => {
 	return (
 		<div className=" w-[1200px]">
 			{newsList.length > 0 && (
-				<div className="my-10 flex">
-					<img src={newsList[0].image_url} alt="" className="w-5/12" />
-					<div className="flex w-7/12 flex-col pl-4">
-						<p className="font-dungGeunMo text-4xl">{newsList[0].headline}</p>
-						<p className="mt-5 flex-1 text-xl">{newsList[0].content}</p>
-						<p className="text-base">
+				<div
+					className="my-10 flex cursor-pointer"
+					onClick={() => onClickNewTab(newsList[0].url)}
+				>
+					<img
+						src={newsList[0].image_url}
+						alt=""
+						className="h-80 w-5/12 object-cover"
+					/>
+					<div className="flex h-80 w-7/12 flex-col pl-4">
+						<p className="line-clamp-2 font-dungGeunMo text-4xl">
+							{newsList[0].headline}
+						</p>
+						<div className="mt-4 flex-1">
+							<p className="line-clamp-[8] flex-1 break-words text-xl leading-tight">
+								{newsList[0].content}
+							</p>
+						</div>{' '}
+						<p className=" text-end text-base">
 							{newsList[0].upload_date} {newsList[0].company}
 						</p>
 					</div>
