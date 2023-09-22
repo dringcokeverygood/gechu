@@ -20,6 +20,8 @@ import DashBoardContainer from '../components/MyPage/containers/DashBoardContain
 import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
 import ReviewManageContainer from '../components/MyPage/containers/ReviewManageContainer';
 import CommentManageContainer from '../components/MyPage/containers/CommentManageContainer';
+import LoginPage from '../components/Login/LoginPage';
+import LoginCallBackPage from '../components/Login/LoginCallBackPage';
 
 const RootRouter = () => {
 	return (
@@ -28,22 +30,27 @@ const RootRouter = () => {
 			<Routes>
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
-					<Route path="/game-detail/:seq" element={<Game />}>
+					<Route path="login" element={<LoginPage />} />
+					<Route
+						path="login/oauth2/code/kakao"
+						element={<LoginCallBackPage />}
+					/>
+					<Route path="game-detail/:seq" element={<Game />}>
 						<Route path="" element={<Navigate replace to="reviews" />} />
 						<Route path="reviews" element={<GameReviewContainer />} />
 						<Route path="articles" element={<GameArticleListContainer />} />
 						<Route path="articles/:seq" element={<GameArticleContainer />} />
 					</Route>
-					<Route path="/game-recommend" element={<GameRecommendPage />} />
-					<Route path="/game-list" element={<GameListPage />} />
-					<Route path="/my-page" element={<MyPage />}>
+					<Route path="game-recommend" element={<GameRecommendPage />} />
+					<Route path="game-list" element={<GameListPage />} />
+					<Route path="my-page" element={<MyPage />}>
 						<Route index element={<DashBoardContainer />} />
 						<Route path="article-manage" element={<ArticleManageContainer />} />
 						<Route path="review-manage" element={<ReviewManageContainer />} />
 						<Route path="comment-manage" element={<CommentManageContainer />} />
 					</Route>
-					<Route path="/game-news" element={<GameNewsPage />} />
-					<Route path="/search" element={<SearchPage />} />
+					<Route path="game-news" element={<GameNewsPage />} />
+					<Route path="search" element={<SearchPage />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
