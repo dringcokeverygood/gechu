@@ -32,6 +32,8 @@ public class UserController {
 
     @PostMapping("/auth")
     public Mono<ResponseEntity<?>> authenticateWithProvider(@RequestParam String code, HttpServletRequest request) {
+
+        code = code.split(",")[0];
 //        String code = authData.get("code");
         log.info("로그인 요청 컨트롤러");
 
