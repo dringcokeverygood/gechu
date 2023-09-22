@@ -84,7 +84,7 @@ const Header = ({
 							leaveFrom="opacity-100 translate-y-0"
 							leaveTo="opacity-0 translate-y-1"
 						>
-							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
+							<Popover.Panel className="absolute left-1/2 z-30 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
 									<div className="flex items-center gap-2 p-4 text-white-950 ">
 										<img
