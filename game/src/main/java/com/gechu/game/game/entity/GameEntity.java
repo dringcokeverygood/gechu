@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.domain.Persistable;
 
+import com.gechu.game.game.dto.GameResponseDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,5 +59,15 @@ public class GameEntity implements Persistable<Integer> {
 	@Override
 	public boolean isNew() {
 		return true;
+	}
+
+
+	public static GameResponseDto toDtoUser(GameEntity gameEntity) {
+		return GameResponseDto.builder()
+			.gameTitle(gameEntity.getGameTitle())
+			.gameSlug(gameEntity.getGameSlug())
+			.seq(gameEntity.getSeq())
+			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
+			.build();
 	}
 }

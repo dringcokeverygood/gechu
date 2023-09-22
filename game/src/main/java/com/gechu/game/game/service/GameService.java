@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.gechu.game.game.dto.GameDto;
+import com.gechu.game.game.dto.GameResponseDto;
 import com.gechu.game.game.entity.GameEntity;
 import com.gechu.game.game.repository.GameRepository;
 
@@ -26,5 +27,11 @@ public class GameService {
 		List<GameEntity> gameEntities = gameDtoList.stream().map(GameDto::toEntity).collect(Collectors.toList());
 		gameRepository.saveAll(gameEntities);
 		gameDtoList.clear();
+	}
+
+	public List<GameResponseDto> findAllBySeqIn(List<Integer> seqs) {
+		List<GameEntity> gameEntities = gameRepository.findAllBySeqIn(seqs);
+
+		return gameEntities.stream().map(GameEntity::toDtoUser).collect(Collectors.toList());
 	}
 }
