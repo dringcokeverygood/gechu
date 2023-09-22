@@ -98,6 +98,7 @@ public class IgdbApiService {
 					gameService.insertGame(gameDto);
 					gameGenreService.insertGameGenre(gameApiDto);
 					gamePlatformService.insertGamePlatform(gameApiDto);
+					log.info("{}번 게임 삽입 완료", gameApiDto.getId());
 
 					/*if (gameDtos.size() >= 10) {
 						gameService.insertAllGames(gameDtos);
@@ -270,6 +271,10 @@ public class IgdbApiService {
 			log.warn("releaseDate: json format is incorrect");
 		}
 
+		if (returnVal == null) {
+			return LocalDateTime.MIN;
+		}
+
 		return returnVal;
 	}
 
@@ -288,6 +293,9 @@ public class IgdbApiService {
 			log.warn("company: Invalid API request");
 		} catch (JsonProcessingException e) {
 			log.warn("company: json format is incorrect");
+		}
+		if (companyApiDtos.size() == 0) {
+			return "unknown-company";
 		}
 
 		return companyApiDtos.get(0).getSlug();
