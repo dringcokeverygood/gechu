@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/igdb")
+@RequestMapping("/igdb")
 public class IgdbAPIController {
 
 	private final IgdbApiService igdbApiService;
