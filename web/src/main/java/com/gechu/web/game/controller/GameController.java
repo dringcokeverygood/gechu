@@ -33,11 +33,11 @@ public class GameController {
             //서비스호출
 //        GameDetailDto gameDetail = gameService.findGameDetails(gameSeq);
             status = HttpStatus.OK;
-            resultMap.put("message", "success");
+            resultMap.put("success", true);
         }catch (Exception e){
             e.printStackTrace();
             status = HttpStatus.BAD_REQUEST;
-            resultMap.put("message", "fail");
+            resultMap.put("success", false);
         }
         return new ResponseEntity<>(resultMap, status);
     }
@@ -50,10 +50,11 @@ public class GameController {
         try{
             //리뷰dto리스트와 estimateRate{likeCnt, dislikeCnt} 필요
             status = HttpStatus.OK;
+            resultMap.put("success", true);
         }catch(Exception e){
             e.printStackTrace();
             status = HttpStatus.BAD_REQUEST;
-            resultMap.put("message", "fail");
+            resultMap.put("success", false);
         }
 
         return new ResponseEntity<>(resultMap, status);
@@ -67,10 +68,11 @@ public class GameController {
         try{
             //gameSeq에 해당하는 게시글 리스트
             status = HttpStatus.OK;
+            resultMap.put("success", true);
         }catch(Exception e){
             e.printStackTrace();
             status = HttpStatus.BAD_REQUEST;
-            resultMap.put("message", "fail");
+            resultMap.put("success", false);
         }
 
         return new ResponseEntity<>(resultMap, status);
