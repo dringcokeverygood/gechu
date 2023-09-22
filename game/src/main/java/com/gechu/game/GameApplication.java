@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableScheduling
-public class CrawlApplication {
+public class GameApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrawlApplication.class, args);
+		SpringApplication.run(GameApplication.class, args);
 	}
 
 }
