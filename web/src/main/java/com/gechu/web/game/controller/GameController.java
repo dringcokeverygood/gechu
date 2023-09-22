@@ -2,6 +2,7 @@ package com.gechu.web.game.controller;
 
 import com.gechu.web.game.dto.GameDetailDto;
 import com.gechu.web.game.service.GameService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/game-detail")
 public class GameController {
 
-    @Autowired
-    GameService gameService;
+    private final GameService gameService;
 
     @GetMapping("/{gameSeq}")
     public ResponseEntity<?> findGameDetails(@PathVariable Long gameSeq) {
