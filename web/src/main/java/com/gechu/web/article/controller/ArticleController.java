@@ -10,17 +10,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/articles")
 @RequiredArgsConstructor
 public class ArticleController {
 
     private final ArticleService articleService;
-    
-    @GetMapping("/articles/{articleSeq}")
-    public ResponseEntity<?> findArticle(Long articleSeq) {
 
+    @GetMapping("/{articleSeq}")
+    public ResponseEntity<?> findArticle(Long articleSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        }  catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
     }
     @PostMapping("")
     public ResponseEntity<?> insertArticle(){
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
 
+        try {
+
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        }  catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
     }
 }
