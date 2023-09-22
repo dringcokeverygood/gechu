@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class GameController {
 
 	@GetMapping
-	public ResponseEntity<?> findGames(@RequestParam int[] platforms, @RequestParam int[] genres) {
+	public ResponseEntity<?> findGames(@RequestParam(required = false) int[] platforms, @RequestParam(required = false) int[] genres) {
 
 		List<String> genreDummies = new ArrayList<>();
 		genreDummies.add("puzzle");
