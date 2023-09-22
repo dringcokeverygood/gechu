@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/games")
+@RequestMapping(value = "/games")
 public class GameController {
 
 	@GetMapping
