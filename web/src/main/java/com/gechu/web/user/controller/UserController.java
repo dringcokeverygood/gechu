@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/web")
 @RequiredArgsConstructor
 public class UserController {
 
