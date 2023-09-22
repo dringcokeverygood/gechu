@@ -14,9 +14,8 @@ public class EstimateServiceImpl implements EstimateService{
     @Override
     public void insertEstimate(EstimateDto estimateDto) {
         estimateRepository.save(EstimateEntity.builder()
-                .userSeq(estimateDto.getUserSeq())
                 .gameSeq(estimateDto.getGameSeq())
-                .like(estimateDto.getLike())
+                .userLike(estimateDto.getLike())
                 .build());
     }
 
@@ -25,6 +24,6 @@ public class EstimateServiceImpl implements EstimateService{
         EstimateEntity estimateEntity = estimateRepository.findBySeq(gameSeq)
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 평가 정보가 없습니다."));
 
-        return estimateEntity.getLike();
+        return estimateEntity.getUserLike();
     }
 }
