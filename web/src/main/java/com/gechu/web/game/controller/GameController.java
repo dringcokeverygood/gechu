@@ -42,12 +42,30 @@ public class GameController {
     }
 
     @GetMapping("/{gameSeq}/reviews")
-    public ResponseEntity<?> findGameReviews(@PathVariable Long gameSeq){
+    public ResponseEntity<?> findGameReviews(@PathVariable Long gameSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         try{
             //리뷰dto리스트와 estimateRate{likeCnt, dislikeCnt} 필요
+            status = HttpStatus.OK;
+        }catch(Exception e){
+            e.printStackTrace();
+            status = HttpStatus.BAD_REQUEST;
+            resultMap.put("message", "fail");
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @GetMapping("/{gameSeq}/articles")
+    public ResponseEntity<?> findGameArticles(@PathVariable Long gameSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try{
+            //gameSeq에 해당하는 게시글 리스트
+            status = HttpStatus.OK;
         }catch(Exception e){
             e.printStackTrace();
             status = HttpStatus.BAD_REQUEST;
