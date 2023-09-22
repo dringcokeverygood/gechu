@@ -104,5 +104,4 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 		</div>
 	);
 };
-
 export default GameReviewSummary;
