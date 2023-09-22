@@ -2,13 +2,17 @@ import React from 'react';
 import GameNews from '../GameNews';
 
 const GameNewsContainer = () => {
+	const onClickNewTab = (url: string) => {
+		window.open(url, '-blank', 'noopener, noreferrer');
+	};
+
 	const dummy = [
 		{
 			news_seq: 1,
 			game_seq: 1,
 			headline: '한국닌텐도, 「별의 커비 30주년 팝업 스토어」 개최',
 			content:
-				'대충 가독성 좋으려면 알아서 기사 링크 눌러서 들어가서 보시오 알빠아님 어쩔티미 저쩔냉장고 이걸로 대충 만족해라 커비너무기엽다 길게... 몇줄까지 나와야하지.. .줄 넘어가면 높이도 바뀌나... 한국닌텐도㈜(http://www.nintendo.co.kr)는 2023년에도 「별의 커비 30주년 팝업 스토어」를 개최한다고 발표했다. 팝업 스토어는 신촌 U플렉스 지하 2층에서 2023년 2월 17일에 오픈되며 2023년 3월 2일까지 진행된다. 대표 상품 라인업 팝업 스토어는 「별의 커비」를 테마로 한 아기자기한 인테리어로 꾸며질 예정이며, 300종류 이상의 다양한 「별의 커비」 관련 상품들을 선보인다.',
+				'한국닌텐도㈜(http://www.nintendo.co.kr)는 2023년에도 「별의 커비 30주년 팝업 스토어」를 개최한다고 발표했다. 팝업 스토어는 신촌 U플렉스 지하 2층에서 2023년 2월 17일에 오픈되며 2023년 3월 2일까지 진행된다. 대표 상품 라인업 팝업 스토어는 「별의 커비」를 테마로 한 아기자기한 인테리어로 꾸며질 예정이며, 300종류 이상의 다양한 「별의 커비」 관련 상품들을 선보인다.',
 			company: 'Nintendo',
 			url: 'https://www.nintendo.co.kr/news/article/b1U0M2l1cjA5VUhxMkxuUGZuc0Zsdz09',
 			image_url:
@@ -81,7 +85,7 @@ const GameNewsContainer = () => {
 
 	return (
 		<div>
-			<GameNews newsList={dummy} />
+			<GameNews newsList={dummy} onClickNewTab={onClickNewTab} />
 		</div>
 	);
 };
