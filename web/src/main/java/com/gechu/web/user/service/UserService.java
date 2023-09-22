@@ -46,9 +46,6 @@ public class UserService {
         params.add("code", code);
         params.add("grant_type", "authorization_code");
 
-        log.info("서비스에서 getAccessTokenFromKakao 메서드 호출");
-        log.info("인코딩 확인 redirect_uri: {}", KAKAO_REDIRECT_URI);
-        log.info("code: {}", code);
         return webClient.post()
                 .uri("/oauth/token")
                 .body(BodyInserters.fromFormData(params))
@@ -76,7 +73,6 @@ public class UserService {
     }
 
     public Mono<KakaoUserInfo> getUserInfoFromKakao(String accessToken) {
-        log.info("getUserInfoFromKakao 호출");
         WebClient kakaoApiWebClient = WebClient.create("https://kapi.kakao.com");
 
         return kakaoApiWebClient.get()
