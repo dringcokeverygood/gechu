@@ -270,6 +270,10 @@ public class IgdbApiService {
 			log.warn("releaseDate: json format is incorrect");
 		}
 
+		if (returnVal == null) {
+			return LocalDateTime.MIN;
+		}
+
 		return returnVal;
 	}
 
@@ -288,6 +292,9 @@ public class IgdbApiService {
 			log.warn("company: Invalid API request");
 		} catch (JsonProcessingException e) {
 			log.warn("company: json format is incorrect");
+		}
+		if (companyApiDtos.size() == 0) {
+			return "unknown-company";
 		}
 
 		return companyApiDtos.get(0).getSlug();
