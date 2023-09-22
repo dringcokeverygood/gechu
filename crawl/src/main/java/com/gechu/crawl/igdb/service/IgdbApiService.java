@@ -243,6 +243,10 @@ public class IgdbApiService {
 			log.warn("title_image: json format is incorrect");
 		}
 
+		if (returnVal == null) {
+			return "unknown-image-url";
+		}
+
 		return returnVal;
 	}
 
@@ -294,7 +298,7 @@ public class IgdbApiService {
 		} catch (JsonProcessingException e) {
 			log.warn("company: json format is incorrect");
 		}
-		if (companyApiDtos.size() == 0) {
+		if (companyApiDtos == null || companyApiDtos.size() == 0) {
 			return "unknown-company";
 		}
 
