@@ -15,10 +15,10 @@ const tabGroup: GameTabItem[] = [
 		tabTitle: '게시글',
 		tabPath: 'articles',
 	},
-	{
-		tabTitle: '뉴스',
-		tabPath: 'news',
-	},
+	// {
+	// 	tabTitle: '뉴스',
+	// 	tabPath: 'news',
+	// },
 ];
 
 const GameTabsContainer = () => {
