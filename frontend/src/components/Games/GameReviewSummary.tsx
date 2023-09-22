@@ -100,7 +100,11 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 					<p className="px-2 font-dungGeunMo">{dislikeRate}%</p>
 				</div>
 			</div>
+<<<<<<< frontend/src/components/Games/GameReviewSummary.tsx
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
+=======
+			<div className="flex flex-row items-center justify-start space-x-4 text-xl">
+>>>>>>> frontend/src/components/Games/GameReviewSummary.tsx
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
 				<button>
 					<Icon icon="pixelarticons:edit-box" />

@@ -4,9 +4,10 @@ import Slick from '../Common/Slick';
 
 type TrendProps = {
 	games: GamePreviewType[];
+	onClickGame: (url: string) => void;
 };
 
-const MainTrend = ({ games }: TrendProps) => {
+const MainTrend = ({ games, onClickGame }: TrendProps) => {
 	return (
 		<div className="flex max-w-[1200px] flex-col items-center gap-5">
 			{/* 헤더 */}
@@ -19,7 +20,11 @@ const MainTrend = ({ games }: TrendProps) => {
 			{/* 슬라이드 */}
 			<Slick>
 				{games.map((game) => (
-					<div key={`trend${game.gameSeq}`} className="flex  w-72 py-3">
+					<div
+						key={`trend${game.gameSeq}`}
+						className="flex  w-72 py-3"
+						onClick={() => onClickGame(`/game-detail/${game.gameSeq}`)}
+					>
 						<div className="group flex justify-center">
 							<img
 								className="h-64 w-64  object-cover object-center group-hover:opacity-40"
