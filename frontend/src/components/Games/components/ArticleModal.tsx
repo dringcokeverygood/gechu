@@ -1,11 +1,15 @@
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
-import SelectGameItemContainer from '../MyPage/containers/EstimatedGameItemContainer';
+import SelectGameItemContainer from '../../MyPage/containers/EstimatedGameItemContainer';
 
-const InputModal = () => {
+type Props = {
+	onChangeModalFlag: () => void;
+};
+
+const ArticleModal = ({ onChangeModalFlag }: Props) => {
 	return (
-		<div className="fixed left-0 top-0 z-50 flex h-full w-full text-white-950">
+		<div className="fixed left-0 top-0 z-50 flex h-full w-full  text-white-950">
 			<div className="h-full w-full bg-white-950 bg-opacity-50 "></div>
 			<div
 				className="fixed left-1/2 top-1/2 flex h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8 rounded-xl bg-white-100 px-16 pb-16 pt-16
@@ -16,6 +20,7 @@ const InputModal = () => {
 					width="32"
 					height="32"
 					className="absolute right-8 top-8"
+					onClick={onChangeModalFlag}
 				/>
 				<div className="flex flex-col items-center gap-4 text-center">
 					<p className="font-dungGeunMo text-[48px]">선호 게임 선택</p>
@@ -35,4 +40,4 @@ const InputModal = () => {
 	);
 };
 
-export default InputModal;
+export default ArticleModal;

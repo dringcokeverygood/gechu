@@ -6,6 +6,7 @@ const GameArticleListContainer = () => {
 	const [modalFlag, setModalFlag] = useState(false);
 	const onChangeModalFlag = useCallback(() => {
 		setModalFlag(!modalFlag);
+		console.log('모달', modalFlag);
 	}, [modalFlag]);
 
 	const articles: GameArticlePreviewType[] = [
@@ -115,6 +116,7 @@ const GameArticleListContainer = () => {
 		// </div>
 		<GameArticleList
 			articles={articles}
+			modalFlag={modalFlag}
 			onChangeModalFlag={onChangeModalFlag}
 		/>
 	);
