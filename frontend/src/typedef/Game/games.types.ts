@@ -5,8 +5,8 @@ export type GamePreviewType = {
 	gameTitle: string;
 	gameTitleImageUrl: string;
 	estimatePercent: number;
-	genre: string;
-	platform: string;
+	genre: string[];
+	platform: string[];
 };
 
 export type GameInfoType = {

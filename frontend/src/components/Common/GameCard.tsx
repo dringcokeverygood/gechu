@@ -7,7 +7,7 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
 		<Link
 			to={`/game-detail/${game.gameSeq}`}
-			className="flex w-[240px] flex-col"
+			className="flex h-[332px] w-[240px] flex-col"
 		>
 			{game.gameTitleImageUrl ? (
 				<img
@@ -22,10 +22,13 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 					</span>
 				</div>
 			)}
-			<div className="flex w-full flex-col gap-2 overflow-hidden p-3 text-white-100">
+			<div className="flex w-full flex-1 flex-col justify-between overflow-hidden p-3 text-white-100">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
 				<div className="truncate">
-					{game.genre} {game.platform}
+					{game.genre.length > 0 && '#' + game.genre[0]}{' '}
+					{game.genre.length > 1 && '#' + game.genre[1]}{' '}
+					{game.platform.length > 0 && '#' + game.platform[0]}{' '}
+					{game.platform.length > 1 && '#' + game.platform[1]}
 				</div>
 				<div className="flex items-center gap-2 font-bold">
 					{game.estimatePercent > 50 ? (

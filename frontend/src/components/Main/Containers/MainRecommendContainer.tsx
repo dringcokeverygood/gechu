@@ -20,8 +20,8 @@ const MainRecommendContainer = () => {
 			gameTitle: '로스트아크',
 			gameTitleImageUrl: 'https://cdn.gamemeca.com/gmdb/g000/72/97/223303.jpg',
 			estimatePercent: 80,
-			genre: '#MMORPG',
-			platform: '#Switch',
+			genre: ['MMORPG'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 2,
@@ -29,8 +29,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://cdn.akamai.steamstatic.com/steam/apps/1627720/header.jpg?t=1695058468',
 			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Pc #Steam',
+			genre: ['오픈월드', '액션'],
+			platform: ['PC', 'Steam'],
 		},
 		{
 			gameSeq: 3,
@@ -38,8 +38,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://cdn.akamai.steamstatic.com/steam/apps/1687000/header.jpg?t=1695120089',
 			estimatePercent: 80,
-			genre: '#어드벤처 #액션',
-			platform: '#Steam ',
+			genre: ['어드벤처', '액션'],
+			platform: ['액션'],
 		},
 		{
 			gameSeq: 4,
@@ -47,8 +47,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.nintendo.co.kr/images/renew/software/switch/ah26a/img_switch_kirbystar_main_visual.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 5,
@@ -56,8 +56,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.nintendo.co.kr/images/renew/software/switch/apy8a/img_switch_apy8a_main_visual.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['switch'],
 		},
 		{
 			gameSeq: 6,
@@ -65,8 +65,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.leagueoflegends.com/static/logo-1200-04b3cefafba917c9c571f9244fd28a1e.png',
 			estimatePercent: 80,
-			genre: '#AOS',
-			platform: '#Pc',
+			genre: ['AOS'],
+			platform: ['PC'],
 		},
 		{
 			gameSeq: 7,
@@ -74,8 +74,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/1/7/17729239eaa5a4c5703851aa9ec2a6a8de4db56e0122d36fff708cbcaf5c7a7b.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 8,
@@ -83,8 +83,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/3/6/36c889bc55718d02d7427a10196ae376b47dddce8235e827ba5745ff7806b057.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 9,
@@ -92,8 +92,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/4/5/4548a5ba4ace2d15bc3940b09b4b74b383c9888844dfedc16ac462ae44ae40a3.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 10,
@@ -101,8 +101,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://i.namu.wiki/i/lwi2Jg0Vjq6TanoRa6nKygWSH_60CqUdamPa3Lgc4d9tZ3UX2PWokZRkYpWypfIxWePI0nn6jIBvos2187Is_DHH9ofbvZaMMhliIjEHtPu5Vj-pH5J6h8z4U0ZeDFbxo_nUbufd2qtDQgsEU97Oww.svg',
 			estimatePercent: 80,
-			genre: '#액션 #FPS',
-			platform: '#Pc',
+			genre: ['액션', 'FPS'],
+			platform: ['PC'],
 		},
 		{
 			gameSeq: 11,
@@ -110,8 +110,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.leagueoflegends.com/static/logo-1200-04b3cefafba917c9c571f9244fd28a1e.png',
 			estimatePercent: 80,
-			genre: '#AOS',
-			platform: '#Pc',
+			genre: ['AOS'],
+			platform: ['PC'],
 		},
 		{
 			gameSeq: 12,
@@ -119,8 +119,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://cdn.akamai.steamstatic.com/steam/apps/1627720/header.jpg?t=1695058468',
 			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Pc #Steam',
+			genre: ['오픈월드', '액션'],
+			platform: ['PC', 'Steam'],
 		},
 		{
 			gameSeq: 13,
@@ -128,8 +128,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://cdn.akamai.steamstatic.com/steam/apps/1687000/header.jpg?t=1695120089',
 			estimatePercent: 80,
-			genre: '#어드벤처 #액션',
-			platform: '#Steam ',
+			genre: ['어드벤처', '액션'],
+			platform: ['액션'],
 		},
 		{
 			gameSeq: 14,
@@ -137,8 +137,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.nintendo.co.kr/images/renew/software/switch/ah26a/img_switch_kirbystar_main_visual.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 15,
@@ -146,8 +146,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://www.nintendo.co.kr/images/renew/software/switch/apy8a/img_switch_apy8a_main_visual.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 16,
@@ -155,8 +155,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/e/7/e74650ccef427c3c3e6ea1c1b4629aabff825835cc261d2b96fb54a88e193c2d.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 17,
@@ -164,8 +164,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/1/7/17729239eaa5a4c5703851aa9ec2a6a8de4db56e0122d36fff708cbcaf5c7a7b.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 18,
@@ -173,8 +173,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/3/6/36c889bc55718d02d7427a10196ae376b47dddce8235e827ba5745ff7806b057.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 19,
@@ -182,8 +182,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/4/5/4548a5ba4ace2d15bc3940b09b4b74b383c9888844dfedc16ac462ae44ae40a3.jpg',
 			estimatePercent: 80,
-			genre: '#액션',
-			platform: '#Switch',
+			genre: ['액션'],
+			platform: ['Switch'],
 		},
 		{
 			gameSeq: 20,
@@ -191,8 +191,8 @@ const MainRecommendContainer = () => {
 			gameTitleImageUrl:
 				'https://i.namu.wiki/i/lwi2Jg0Vjq6TanoRa6nKygWSH_60CqUdamPa3Lgc4d9tZ3UX2PWokZRkYpWypfIxWePI0nn6jIBvos2187Is_DHH9ofbvZaMMhliIjEHtPu5Vj-pH5J6h8z4U0ZeDFbxo_nUbufd2qtDQgsEU97Oww.svg',
 			estimatePercent: 80,
-			genre: '#액션 #FPS',
-			platform: '#Pc',
+			genre: ['액션', 'FPS'],
+			platform: ['PC'],
 		},
 	];
 
