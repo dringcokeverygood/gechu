@@ -14,8 +14,7 @@ const ArticleManageContainer = () => {
 			title: '젤다는 전설이다',
 			content: '대박대박',
 			createDate: '2023.09.01',
-			like: true,
-			unlike: false,
+			like: 'like',
 		},
 	];
 	return (
