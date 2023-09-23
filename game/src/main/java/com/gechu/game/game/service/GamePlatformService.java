@@ -28,11 +28,4 @@ public class GamePlatformService {
 				.build());
 		}
 	}
-
-	public void insertAllGamePlatforms(List<GamePlatformDto> gamePlatformDtos) {
-		List<GamePlatformEntity> gamePlatformEntities = gamePlatformDtos.stream().map(GamePlatformDto::toEntity).collect(
-			Collectors.toList());
-		gamePlatformRepository.saveAll(gamePlatformEntities);
-		gamePlatformDtos.clear();
-	}
 }

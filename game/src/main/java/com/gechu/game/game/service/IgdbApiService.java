@@ -71,10 +71,6 @@ public class IgdbApiService {
 			throw new RangeOverException("range must be greater than 0 and less than 501");
 		}
 
-		/*List<GameDto> gameDtos = new ArrayList<>();
-		List<GameGenreDto> gameGenreDtos = new ArrayList<>();
-		List<GamePlatformDto> gamePlatformDtos = new ArrayList<>();*/
-
 		for (int i = start; i < end; i = i + range) {
 			log.info("API call start, from: {}, end: {}", i, i + range);
 			try {
@@ -92,41 +88,12 @@ public class IgdbApiService {
 					gameDto.setCreateDate(getReleaseDates(gameApiDto.getId()));
 					gameDto.setGameTitleImageUrl(setGameTitleImageUrlByArtworks(gameApiDto.getId()));
 
-					// Integer gameId = gameApiDto.getId();
-					// gameDtos.add(gameDto);
-
 					gameService.insertGame(gameDto);
 					gameGenreService.insertGameGenre(gameApiDto);
 					gamePlatformService.insertGamePlatform(gameApiDto);
 					log.info("{}번 게임 삽입 완료", gameApiDto.getId());
 
-					/*if (gameDtos.size() >= 10) {
-						gameService.insertAllGames(gameDtos);
-						gameDtos.clear();
-					}
-					for (Integer genreId : gameApiDto.getGenres()) {
-						gameGenreDtos.add(GameGenreDto.builder().gameSeq(gameId).genreSeq(genreId).build());
-					}
-					if (gameGenreDtos.size() >= 10) {
-						gameGenreService.insertAllGameGenres(gameGenreDtos);
-						gameGenreDtos.clear();
-					}
-					for (Integer platformId : gameApiDto.getPlatforms()) {
-						gamePlatformDtos.add(GamePlatformDto.builder().gameSeq(gameId).platformSeq(platformId).build());
-					}
-					if (gamePlatformDtos.size() >= 10) {
-						gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
-						gamePlatformDtos.clear();
-					}*/
-
-
 				}
-				/*gameService.insertAllGames(gameDtos);
-				gameGenreService.insertAllGameGenres(gameGenreDtos);
-				gamePlatformService.insertAllGamePlatforms(gamePlatformDtos);
-				gameDtos.clear();
-				gameGenreDtos.clear();
-				gamePlatformDtos.clear();*/
 				log.info("games: {} ~ {} 범위 내의 API요청 및 데이터베이스 등록 완료", i, i + range);
 
 			} catch (RequestException e) {
@@ -272,7 +239,6 @@ public class IgdbApiService {
 
 			returnVal = releaseDateDto.getCreateDate();
 
-			// log.info("releaseDate call success");
 		} catch (RequestException e) {
 			log.warn("releaseDate: Invalid API request");
 		} catch (JsonProcessingException e) {
@@ -296,7 +262,6 @@ public class IgdbApiService {
 			String json = JsonRequestKt.jsonCompanies(wrapper, apiCalypse);
 			companyApiDtos = objectMapper.readValue(json, new TypeReference<List<CompanyApiDto>>() {
 			});
-			// log.info("company call success");
 		} catch (RequestException e) {
 			log.warn("company: Invalid API request");
 		} catch (JsonProcessingException e) {
