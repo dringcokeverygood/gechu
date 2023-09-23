@@ -23,12 +23,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "game", indexes = {
 	@Index(name = "idx_game_slug", columnList = "game_slug")
 })
-@Builder
 public class GameEntity implements Persistable<Integer> {
 
 	@Id
@@ -50,6 +49,18 @@ public class GameEntity implements Persistable<Integer> {
 
 	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
 	List<NewsEntity> newsEntityList = new ArrayList<>();
+
+	@Builder
+	public GameEntity(Integer seq, String gameTitle, String gameSlug, String gameTitleImageUrl, String develop,
+		String publish, LocalDateTime createDate) {
+		this.seq = seq;
+		this.gameTitle = gameTitle;
+		this.gameSlug = gameSlug;
+		this.gameTitleImageUrl = gameTitleImageUrl;
+		this.develop = develop;
+		this.publish = publish;
+		this.createDate = createDate;
+	}
 
 	@Override
 	public Integer getId() {

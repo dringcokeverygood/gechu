@@ -1,6 +1,7 @@
 package com.gechu.game.game.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,21 +12,22 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/igdb")
 public class IgdbAPIController {
 
 	private final IgdbApiService igdbApiService;
 
-	@GetMapping("/igdb/games")
+	@GetMapping("/games")
 	public void test(@RequestParam int start, @RequestParam int end, @RequestParam int range) throws RequestException {
 		igdbApiService.addGames(start, end, range);
 	}
 
-	@GetMapping("/igdb/platforms")
+	@GetMapping("/platforms")
 	public void setPlatforms() {
 		igdbApiService.addPlatforms();
 	}
 
-	@GetMapping("/igdb/genres")
+	@GetMapping("/genres")
 	public void setGenres() {
 		igdbApiService.addGenres();
 	}
