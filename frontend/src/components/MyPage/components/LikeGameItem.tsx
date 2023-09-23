@@ -17,7 +17,7 @@ const LikeGameItem = ({ game }: { game: LikeGameItemType }) => {
 				}
 				className="h-full w-full rounded-full object-cover"
 			/>
-			<p className="absolute left-0 top-0 hidden h-full w-full items-center justify-center rounded-full bg-white-950 bg-opacity-50 font-bold group-hover:flex">
+			<p className="absolute left-0 top-0 hidden h-full w-full items-center justify-center rounded-full bg-white-950 bg-opacity-50 text-center font-bold leading-5 group-hover:flex">
 				{game.gameTitle}
 			</p>
 		</Link>

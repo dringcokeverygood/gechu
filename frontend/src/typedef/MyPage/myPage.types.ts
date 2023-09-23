@@ -22,8 +22,7 @@ export type ManageCardItemType = {
 	title: string;
 	content: string;
 	createDate: string;
-	like: boolean;
-	unlike: boolean;
+	like: string;
 };
 
 export type ManageCommentCardItemType = {

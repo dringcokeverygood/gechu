@@ -12,10 +12,7 @@ const CCheckbox = ({ id, text, checked, onChange }: CheckboxType) => {
 				checked={checked}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
 			/>
-			<label
-				htmlFor={id}
-				className="font-dungGeunMo text-[16px] text-white-100"
-			>
+			<label htmlFor={id} className="text-[16px] text-white-100">
 				{text}
 			</label>
 		</div>
