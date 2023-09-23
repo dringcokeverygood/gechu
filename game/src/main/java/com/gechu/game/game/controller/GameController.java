@@ -1,7 +1,5 @@
 package com.gechu.game.game.controller;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -30,61 +28,51 @@ public class GameController {
 
 		List<GameResponseDto> gameResponseDtos = null;
 
-		try{
-			gameResponseDtos = gameService.findAllBySeqIn(seqs);
-		}catch (Exception e){
+		try {
+			gameResponseDtos = gameService.findAllGamesBySeqIn(seqs);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(gameResponseDtos, HttpStatus.OK);
+	}
+
+	@PostMapping("/list/slug")
+	public ResponseEntity<?> findGamesBySlugs(@RequestBody List<String> slugs) {
+
+		List<GameResponseDto> gameResponseDtos = null;
+
+		try {
+			gameResponseDtos = gameService.findAllGamesBySlugIn(slugs);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(gameResponseDtos, HttpStatus.OK);
 	}
 
 	@GetMapping("/slug")
-	public ResponseEntity<?> findGame(@RequestParam("slug") String gameSlug) {
-		List<String> genreDummies = new ArrayList<>();
-		genreDummies.add("puzzle");
-		genreDummies.add("music");
-		List<String> platformDummies = new ArrayList<>();
-		platformDummies.add("switch");
-		platformDummies.add("ps5");
-		platformDummies.add("win");
+	public ResponseEntity<?> findGameBySlug(@RequestParam("slug") String gameSlug) {
 
-		GameResponseDto gameResponseDto = GameResponseDto.builder()
-			.gameTitle(gameSlug)
-			.gameSlug(gameSlug)
-			.gameTitleImageUrl(
-				"https://img.freepik.com/free-photo/adorable-kitty-looking-like-it-want-to-hunt_23-2149167099.jpg")
-			.seq(1)
-			.publish("LeeChanHeeCompany")
-			.genres(genreDummies)
-			.develop("LeeChanHeeCompany")
-			.platforms(platformDummies)
-			.createDate(LocalDateTime.now())
-			.build();
+		GameResponseDto gameResponseDto = null;
+
+		try {
+			gameResponseDto = gameService.findGameBySlug(gameSlug);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
 	}
-	@GetMapping("/seq")
-	public ResponseEntity<?> findGame(@RequestParam("seq") Integer gameSeq) {
-		List<String> genreDummies = new ArrayList<>();
-		genreDummies.add("puzzle");
-		genreDummies.add("music");
-		List<String> platformDummies = new ArrayList<>();
-		platformDummies.add("switch");
-		platformDummies.add("ps5");
-		platformDummies.add("win");
 
-		GameResponseDto gameResponseDto = GameResponseDto.builder()
-			.gameTitle("Test King: tears of the test")
-			.gameSlug("test-king-tears-of-the-test")
-			.gameTitleImageUrl(
-				"https://img.freepik.com/free-photo/adorable-kitty-looking-like-it-want-to-hunt_23-2149167099.jpg")
-			.seq(gameSeq)
-			.publish("LeeChanHeeCompany")
-			.genres(genreDummies)
-			.develop("LeeChanHeeCompany")
-			.platforms(platformDummies)
-			.createDate(LocalDateTime.now())
-			.build();
+	@GetMapping("/seq")
+	public ResponseEntity<?> findGameBySeq(@RequestParam("seq") Integer seq) {
+
+		GameResponseDto gameResponseDto = null;
+
+		try {
+			gameResponseDto = gameService.findGameBySeq(seq);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
 		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
 	}
