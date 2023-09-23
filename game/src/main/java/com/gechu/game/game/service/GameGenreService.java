@@ -28,10 +28,4 @@ public class GameGenreService {
 				.build());
 		}
 	}
-
-	public void insertAllGameGenres(List<GameGenreDto> gameGenreDtos) {
-		List<GameGenreEntity> gameGenreEntities = gameGenreDtos.stream().map(GameGenreDto::toEntity).collect(Collectors.toList());
-		gameGenreRepository.saveAll(gameGenreEntities);
-		gameGenreDtos.clear();
-	}
 }
