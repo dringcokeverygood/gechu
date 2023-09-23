@@ -39,7 +39,7 @@ const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
 				</div>
 				<div className="grid grid-cols-3 gap-6">
 					{games.map((game) => (
-						<GameCardContainer key={game.gameSeq} game={game} />
+						<GameCardContainer key={game.seq} game={game} />
 					))}
 				</div>
 			</div>

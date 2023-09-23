@@ -6,7 +6,7 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 const BGameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
 		<Link
-			to={`/game-detail/${game.gameSeq}`}
+			to={`/game-detail/${game.seq}`}
 			className="flex w-[282px] cursor-pointer flex-col hover:z-10 hover:scale-110 hover:transform"
 		>
 			{game.gameTitleImageUrl ? (
@@ -25,7 +25,7 @@ const BGameCard = ({ game }: { game: GamePreviewType }) => {
 			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-b-md bg-white-100 p-3 text-white-950">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
 				<div className="truncate font-dungGeunMo">
-					{game.genre} {game.platform}
+					{game.genres} {game.platforms}
 				</div>
 				<div className="flex items-center gap-2 font-bold">
 					{game.estimatePercent > 50 ? (
