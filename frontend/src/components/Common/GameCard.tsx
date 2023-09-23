@@ -6,7 +6,7 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 const GameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
 		<Link
-			to={`/game-detail/${game.gameSeq}`}
+			to={`/game-detail/${game.seq}`}
 			className="flex h-[332px] w-[240px] flex-col"
 		>
 			{game.gameTitleImageUrl ? (
@@ -25,10 +25,10 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 			<div className="flex w-full flex-1 flex-col justify-between overflow-hidden p-3 text-white-100">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
 				<div className="truncate">
-					{game.genre.length > 0 && '#' + game.genre[0]}{' '}
-					{game.genre.length > 1 && '#' + game.genre[1]}{' '}
-					{game.platform.length > 0 && '#' + game.platform[0]}{' '}
-					{game.platform.length > 1 && '#' + game.platform[1]}
+					{game.genres.length > 0 && '#' + game.genres[0]}{' '}
+					{game.genres.length > 1 && '#' + game.genres[1]}{' '}
+					{game.platforms.length > 0 && '#' + game.platforms[0]}{' '}
+					{game.platforms.length > 1 && '#' + game.platforms[1]}
 				</div>
 				<div className="flex items-center gap-2 font-bold">
 					{game.estimatePercent > 50 ? (
