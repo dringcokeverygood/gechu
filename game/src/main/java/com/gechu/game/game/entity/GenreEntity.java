@@ -1,5 +1,8 @@
 package com.gechu.game.game.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -33,5 +36,9 @@ public class GenreEntity {
 			.genreName(genreEntity.getGenreName())
 			.genreSlug(genreEntity.getGenreSlug())
 			.build();
+	}
+
+	public static List<String> toGenreSlugList(List<GenreEntity> genreEntities) {
+		return genreEntities.stream().map(GenreEntity::getGenreSlug).collect(Collectors.toList());
 	}
 }

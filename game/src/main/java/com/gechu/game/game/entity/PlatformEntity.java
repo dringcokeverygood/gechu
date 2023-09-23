@@ -1,5 +1,8 @@
 package com.gechu.game.game.entity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -34,5 +37,9 @@ public class PlatformEntity {
 			.platformName(platformEntity.getPlatformName())
 			.platformSlug(platformEntity.getPlatformSlug())
 			.build();
+	}
+
+	public static List<String> toPlatformSlugList(List<PlatformEntity> platformEntities) {
+		return platformEntities.stream().map(PlatformEntity::getPlatformSlug).collect(Collectors.toList());
 	}
 }
