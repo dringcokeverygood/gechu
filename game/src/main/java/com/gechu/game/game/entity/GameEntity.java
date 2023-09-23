@@ -81,4 +81,15 @@ public class GameEntity implements Persistable<Integer> {
 			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
 			.build();
 	}
+
+	public static GameResponseDto toDtoDetail(GameEntity gameEntity) {
+		return GameResponseDto.builder()
+			.gameTitle(gameEntity.getGameTitle())
+			.gameSlug(gameEntity.getGameSlug())
+			.seq(gameEntity.getSeq())
+			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
+			.develop(gameEntity.getDevelop())
+			.publish(gameEntity.getPublish())
+			.build();
+	}
 }
