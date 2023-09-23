@@ -60,7 +60,7 @@ public class GameService {
 	}
 
 	public GameResponseDto findGameBySlug(String gameSlug) {
-		GameEntity gameEntity = gameRepository.findBySlug(gameSlug);
+		GameEntity gameEntity = gameRepository.findByGameSlug(gameSlug);
 		Integer seq = gameEntity.getSeq();
 
 		GameResponseDto gameResponseDto = GameEntity.toDtoDetail(gameEntity);
