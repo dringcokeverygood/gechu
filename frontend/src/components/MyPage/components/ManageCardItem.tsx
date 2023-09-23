@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react';
 import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-// article인지 comment인지 review인지 구분할 값 필요(navigate용)
+// article인지 review인지 구분할 값 필요(navigate용)
 const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 	return (
 		<div className="flex h-[250px] w-full gap-6 rounded-xl bg-white-100 p-6 text-white-950">
@@ -35,13 +35,13 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 						>
 							{item.gameTitle}
 						</Link>
-						{item.type === 'reviews' && item.like ? (
+						{item.type === 'reviews' && item.like === 'like' ? (
 							<p
 								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-blue-500 px-2 py-1 font-dungGeunMo text-[16px] text-blue-500`}
 							>
 								좋아요 <MdThumbUpOffAlt size={16} id="like" />
 							</p>
-						) : item.type === 'reviews' && item.unlike ? (
+						) : item.type === 'reviews' && item.like === 'dislike' ? (
 							<p
 								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-red-400 px-2 py-1 font-dungGeunMo text-[16px] text-red-400`}
 							>
