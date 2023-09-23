@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "https://j9d203.p.ssafy.io")
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class UserController {
 
@@ -143,7 +143,7 @@ public class UserController {
             reviewList.add(data1);
             reviewList.add(data2);
 
-            resultMap.put("likeList", reviewList);
+            resultMap.put("reviewList", reviewList);
             resultMap.put("success", true);
             status = HttpStatus.OK;
         } catch (Exception e) {
