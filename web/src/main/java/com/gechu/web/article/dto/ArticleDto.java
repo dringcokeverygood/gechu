@@ -3,6 +3,8 @@ package com.gechu.web.article.dto;
 import com.gechu.web.article.entity.ArticleEntity;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -17,7 +19,7 @@ public class ArticleDto {
     private String articleTitle;
     private String content;
     private String imageUrl;
-    private String createDate;
+    private LocalDateTime createDate; //String변환은 언제?
 
     public static ArticleEntity toEntity(ArticleDto articleDto){
         if(articleDto==null)return null;
@@ -28,7 +30,7 @@ public class ArticleDto {
                 .articleTitle(articleDto.getArticleTitle())
                 .articleContent(articleDto.getContent())
                 .imageUrl(articleDto.getImageUrl())
-//                .createDate(articleDto.getCreateDate())
+                .createDate(articleDto.getCreateDate())
                 .build();
 
     }
