@@ -1,29 +1,33 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
-import { NewsCardType } from '../../typedef/main.types';
+import { GameNewsPreviewType } from '../../typedef/main.types';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
-type GameNewsProps = {
-	newsList: NewsCardType[];
+type MainNewsProps = {
+	newsList: GameNewsPreviewType[];
 	onClickNewTab: (url: string) => void;
+	onClickBtn: () => void;
 };
 
-const GameNews = ({ newsList, onClickNewTab }: GameNewsProps) => {
+const MainNews = ({ newsList, onClickNewTab, onClickBtn }: MainNewsProps) => {
 	return (
 		<div className="flex max-w-[1200px] flex-col items-center gap-5">
 			{/* 헤더 */}
 			<div className="flex items-start justify-center gap-24 self-stretch">
 				<p className="h-12 flex-1 font-dungGeunMo text-[40px]">뉴스</p>
-				<button className="w-24 bg-yellow-400 p-3 font-dungGeunMo text-[20px] text-white-950">
+				<button
+					onClick={onClickBtn}
+					className="w-24 rounded-lg bg-yellow-400 p-3 font-dungGeunMo text-[20px] text-white-950"
+				>
 					더보기
 				</button>
 			</div>
 
 			{/* 탭 */}
-			<div className="flex items-center justify-center p-3">
+			<div className="flex w-full items-center justify-center p-3">
 				<Tab.Group>
 					<Tab.List className="flex w-1/2 flex-col items-start self-stretch">
 						{newsList.map((news, index) => (
@@ -57,19 +61,26 @@ const GameNews = ({ newsList, onClickNewTab }: GameNewsProps) => {
 							</Tab>
 						))}
 					</Tab.List>
-					<Tab.Panels className="flex w-1/2 cursor-pointer flex-col items-center self-stretch rounded-r-lg bg-white-100 text-white-950">
+					<Tab.Panels className="flex h-[384px] w-1/2 cursor-pointer flex-col items-center self-stretch rounded-r-lg bg-white-100 text-white-950">
 						{newsList.map((news) => (
 							<Tab.Panel
-								className={classNames(
-									'bg-white h-full rounded-r-xl p-3 hover:bg-white-200',
-								)}
+								className={
+									'bg-white h-full w-full rounded-r-xl p-3 hover:bg-white-200'
+								}
 								onClick={() => onClickNewTab(news.url)}
 							>
-								<div>
-									<p className="mb-5 font-dungGeunMo text-2xl leading-7">
+								<div className="">
+									<p className="mb-5 line-clamp-1 h-6 overflow-hidden overflow-ellipsis text-start font-dungGeunMo text-2xl leading-7">
 										{news.headline}
 									</p>
-									<p className="text-lg">{news.content}</p>
+									<img
+										className="h-64 w-full object-cover"
+										src={news.image_url}
+										alt="뉴스 이미지"
+									/>
+									<p className="h-15 mt-2 line-clamp-2 overflow-ellipsis text-lg">
+										{news.content}
+									</p>
 								</div>
 							</Tab.Panel>
 						))}
@@ -80,4 +91,4 @@ const GameNews = ({ newsList, onClickNewTab }: GameNewsProps) => {
 	);
 };
 
-export default GameNews;
+export default MainNews;

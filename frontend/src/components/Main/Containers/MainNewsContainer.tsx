@@ -1,10 +1,21 @@
 import React from 'react';
-import GameNews from '../GameNews';
+import MainNews from '../MainNews';
+import { useNavigate } from 'react-router-dom';
 
-const GameNewsContainer = () => {
+const MainNewsContainer = () => {
+	const navigate = useNavigate();
+
+	const onClickBtn = () => {
+		navigate('/game-news');
+	};
+
+	const onClickNewTab = (url: string) => {
+		window.open(url, '-blank', 'noopener, noreferrer');
+	};
+
 	const newsList = [
 		{
-			seq: 1,
+			news_seq: 1,
 			game_seq: 1,
 			headline: '한국닌텐도, 「별의 커비 30주년 팝업 스토어」 개최',
 			content:
@@ -16,7 +27,7 @@ const GameNewsContainer = () => {
 			upload_date: '2023.2.2',
 		},
 		{
-			seq: 2,
+			news_seq: 2,
 			game_seq: 1,
 			headline:
 				'「별의 커비 30주년」을 되돌아보는, 커비와 함께한 1년간을 소개합니다.',
@@ -29,7 +40,7 @@ const GameNewsContainer = () => {
 			upload_date: '2023.3.24',
 		},
 		{
-			seq: 3,
+			news_seq: 3,
 			game_seq: 1,
 			headline:
 				'「TETRIS® 99」 제31회 테트1 컵 별의 커비 Wii 디럭스 컬래버레이션 축제!',
@@ -42,7 +53,7 @@ const GameNewsContainer = () => {
 			upload_date: '2023.4.18',
 		},
 		{
-			seq: 4,
+			news_seq: 4,
 			game_seq: 2,
 			headline:
 				'『슈퍼 마리오브라더스 원더』의 예약 판매 일정 및 구입 특전 안내',
@@ -56,11 +67,13 @@ const GameNewsContainer = () => {
 		},
 	];
 
-	const onClickNewTab = (url: string) => {
-		window.open(url, '-blank', 'noopener, noreferrer');
-	};
-
-	return <GameNews newsList={newsList} onClickNewTab={onClickNewTab} />;
+	return (
+		<MainNews
+			newsList={newsList}
+			onClickNewTab={onClickNewTab}
+			onClickBtn={onClickBtn}
+		/>
+	);
 };
 
-export default GameNewsContainer;
+export default MainNewsContainer;

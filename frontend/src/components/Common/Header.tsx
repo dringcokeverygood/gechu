@@ -26,7 +26,7 @@ const Header = ({
 	onClickSearchBtn,
 }: Props) => {
 	return (
-		<div className="fixed left-0 top-0 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
+		<div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
 			<Link to={`/`} className="flex items-center gap-5">
 				<img src={images.logo} className="h-[50px] w-20" />
 				<div className="font-dungGeunMo text-[40px]">gechu</div>
@@ -34,7 +34,10 @@ const Header = ({
 			<div className="flex items-center gap-8">
 				<ul className="flex gap-6">
 					<li>
-						<NavLink to={'/'} className="font-dungGeunMo text-[20px]">
+						<NavLink
+							to={'/game-recommend'}
+							className="font-dungGeunMo text-[20px]"
+						>
 							RECOMMEND
 						</NavLink>
 					</li>
@@ -44,7 +47,7 @@ const Header = ({
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={'/'} className="font-dungGeunMo text-[20px]">
+						<NavLink to={'/game-news'} className="font-dungGeunMo text-[20px]">
 							NEWS
 						</NavLink>
 					</li>
@@ -83,7 +86,7 @@ const Header = ({
 						>
 							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
-									<div className="flex items-center gap-2 p-4 text-white-950">
+									<div className="flex items-center gap-2 p-4 text-white-950 ">
 										<img
 											src={images.defaultProfile}
 											className="h-[45px] w-[45px] rounded-full"
@@ -92,22 +95,33 @@ const Header = ({
 									</div>
 									<div className="bg-gray-50 text-white-950">
 										<ul className="flex flex-col">
-											<li className="px-4 py-2 ">
-												<Link to={'/'} className="font-dungGeunMo">
-													내 정보
-												</Link>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button as={Link} to={`/my-page`}>
+													<div className="font-dungGeunMo">내 정보</div>
+												</Popover.Button>
 											</li>
-											<li className="px-4 py-2 ">
-												<Link to={'/'} className="font-dungGeunMo">
-													내 게시물
-												</Link>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button
+													as={Link}
+													to={'/my-page/article-manage'}
+												>
+													<div className="font-dungGeunMo">내 게시물</div>
+												</Popover.Button>
 											</li>
-											<li className="px-4 py-2 ">
-												<Link to={'/'} className="font-dungGeunMo">
-													내 리뷰
-												</Link>
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button
+													as={Link}
+													to={'/my-page/comment-manage'}
+												>
+													<div className="font-dungGeunMo">내 댓글</div>
+												</Popover.Button>
 											</li>
-											<li className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700">
+											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+												<Popover.Button as={Link} to={'/my-page/review-manage'}>
+													<div className="font-dungGeunMo">내 리뷰</div>
+												</Popover.Button>
+											</li>
+											<li className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700 transition duration-150 ease-in-out hover:bg-white-200">
 												로그아웃
 											</li>
 										</ul>

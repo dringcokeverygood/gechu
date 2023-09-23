@@ -1,6 +1,7 @@
 import React from 'react';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import GameReview from '../GameReview';
+import GameReviewSummary from '../GameReviewSummary';
 
 const GameReviewContainer = () => {
 	const reviews: GameReviewType[] = [
@@ -23,8 +24,17 @@ const GameReviewContainer = () => {
 			content: '멍멍으르렁왈왈',
 		},
 	];
+	const estimateRate = {
+		likeCnt: 77,
+		dislikeCnt: 22,
+	};
 	return (
 		<div>
+			<GameReviewSummary
+				reviewCnt={reviews.length}
+				likeCnt={estimateRate.likeCnt}
+				dislikeCnt={estimateRate.dislikeCnt}
+			/>
 			{reviews.map((review) => {
 				return <GameReview key={review.seq} review={review} />;
 			})}
