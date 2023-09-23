@@ -6,7 +6,7 @@ const LayoutWithHeader = () => {
 	return (
 		<div className="bg-white-950">
 			<HeaderContainer />
-			<div className="pt-20">
+			<div className="py-20">
 				<Outlet />
 			</div>
 		</div>

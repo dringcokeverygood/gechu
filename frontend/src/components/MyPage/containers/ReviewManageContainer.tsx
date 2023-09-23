@@ -11,19 +11,6 @@ interface GetReviewList {
 
 const ReviewManageContainer = () => {
 	const nickname = '자몽';
-	// const items: ManageCardItemType[] = [
-	// 	{
-	// 		gameSeq: 1,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		type: 'reviews',
-	// 		itemSeq: 1,
-	// 		title: '',
-	// 		content: '대박대박',
-	// 		createDate: '2023.09.01',
-	// 		like: 'like',
-	// 	},
-	// ];
 
 	const [myReviews, setMyReviews] = useState<ManageCardItemType[]>([]);
 
