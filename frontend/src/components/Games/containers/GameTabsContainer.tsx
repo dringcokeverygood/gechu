@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import GameTabs from '../GameTabs';
+import { useNavigate } from 'react-router-dom';
 
 export type GameTabItem = {
 	tabTitle: string;
@@ -22,7 +23,21 @@ const tabGroup: GameTabItem[] = [
 ];
 
 const GameTabsContainer = () => {
-	return <GameTabs tabs={tabGroup} />;
+	const navigate = useNavigate();
+	const scrollRef = useRef(null);
+
+	const onClickTab = (url: string) => {
+		navigate(url);
+		// if (scrollRef.current) {
+		// 	window.scrollTo({ top: 380, behavior: 'smooth' });
+		// }
+	};
+
+	return (
+		<div className="menu" ref={scrollRef}>
+			<GameTabs tabs={tabGroup} onClickTab={onClickTab} />
+		</div>
+	);
 };
 
 export default GameTabsContainer;
