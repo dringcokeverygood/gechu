@@ -30,6 +30,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             }
             return chain.filter(exchange).then(Mono.fromRunnable(()->{
                 if (config.isPostLogger()) {
+                    log.info("response Header -> {}", response.getHeaders());
                     log.info("Global Filter End: response code -> {}", response.getStatusCode());
                 }
             }));
