@@ -49,9 +49,7 @@ public class UserController {
         }
 
         try {
-            if ("kakao".equalsIgnoreCase("kakao")) {
-                return authenticateWithKakao(code);
-            }
+            return authenticateWithKakao(code);
         } catch (Exception e) {
             log.info("에러 터짐");
         }
@@ -75,11 +73,7 @@ public class UserController {
             return Mono.just(ResponseEntity.badRequest().body("인가 코드가 비어있습니다"));
         }
 
-        if ("kakao".equalsIgnoreCase("kakao")) {
-            return authenticateWithKakao(code);
-        }
-
-        return Mono.just(ResponseEntity.badRequest().body("카카오 로그인만 가능합니다."));
+        return authenticateWithKakao(code);
     }
 
     private Mono<ResponseEntity<?>> authenticateWithKakao(String code) {
