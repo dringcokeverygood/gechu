@@ -4,7 +4,7 @@ import { GameArticlePreviewType } from '../../typedef/Game/games.types';
 import GameArticlePreviewCard from './GameArticlePreviewCard';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
-import ArticleModal from './components/ArticleModal';
+import ArticleModal from './ArticleModal';
 
 type Props = {
 	articles: GameArticlePreviewType[];

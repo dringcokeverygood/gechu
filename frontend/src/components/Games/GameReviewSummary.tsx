@@ -9,7 +9,7 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 import { Icon } from '@iconify/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
-import ReviewModal from './components/ReviewModal';
+import ReviewModalContainer from './containers/ReviewModalContainer';
 
 Chart.register(CategoryScale, LinearScale, BarElement, ChartjsPluginStacked100);
 
@@ -108,7 +108,9 @@ const GameReviewSummary = ({
 			</div>
 
 			{/* 모달창 */}
-			{modalFlag && <ReviewModal onChangeModalFlag={onChangeModalFlag} />}
+			{modalFlag && (
+				<ReviewModalContainer onChangeModalFlag={onChangeModalFlag} />
+			)}
 		</div>
 	);
 };

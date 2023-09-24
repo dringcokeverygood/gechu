@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
 
 const GameArticleContainer = () => {
+	const [imgModalFlag, setImgModalFlag] = useState(false);
+	const onChangeImgModalFlag = useCallback(() => {
+		setImgModalFlag(!imgModalFlag);
+	}, [imgModalFlag]);
+
 	//추후 seq기반으로 fetch해오기
 	const article: GameArticleType = {
 		seq: 1,
@@ -18,7 +23,13 @@ const GameArticleContainer = () => {
 		createDate: '2023-09-14',
 	};
 
-	return <GameArticle article={article} />;
+	return (
+		<GameArticle
+			article={article}
+			imgModalFlag={imgModalFlag}
+			onChangeModalFlag={onChangeImgModalFlag}
+		/>
+	);
 };
 
 export default GameArticleContainer;
