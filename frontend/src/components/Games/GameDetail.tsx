@@ -15,10 +15,10 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 			></img>
 			<div className="flex flex-row justify-between">
 				<div>
-					<h1 className="py-3 font-dungGeunMo text-3xl text-white-200">
+					<h1 className="py-5 font-dungGeunMo text-3xl text-white-200">
 						{content.gameTitle}
 					</h1>
-					<div className="flex flex-row pb-4 text-sm text-white-200">
+					<div className="flex flex-row gap-2 pb-6 text-base text-white-200">
 						<div className="flex w-36 flex-col space-y-1">
 							<p>개발</p>
 							<p>퍼블리싱</p>

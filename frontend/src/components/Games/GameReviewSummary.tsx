@@ -86,7 +86,7 @@ const GameReviewSummary = ({
 		],
 	};
 	return (
-		<div className="flex flex-col pb-2 text-white-200">
+		<div className="flex flex-col pb-6 text-white-200">
 			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
 				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />

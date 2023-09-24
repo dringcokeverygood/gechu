@@ -31,9 +31,7 @@ const GameTabs = ({ tabs, onClickTab }: GameTabsProps) => {
 							</Tab>
 						);
 					})}
-					<button className="w-fill pointer-events-none h-16 flex-1 border-t border-solid border-t-white-400 focus:outline-none">
-						&nbsp;
-					</button>
+					<button className="w-fill pointer-events-none h-16 flex-1 border-t border-solid border-t-white-400 focus:outline-none" />
 				</Tab.List>
 				<Tab.Panels className="pb-2 text-white-200">
 					<Outlet />
