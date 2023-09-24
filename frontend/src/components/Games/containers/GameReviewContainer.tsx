@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import GameReview from '../GameReview';
 import GameReviewSummary from '../GameReviewSummary';
 
 const GameReviewContainer = () => {
+	const [modalFlag, setModalFlag] = useState(false);
+	const onChangeModalFlag = useCallback(() => {
+		setModalFlag(!modalFlag);
+		console.log('모달', modalFlag);
+	}, [modalFlag]);
+
 	const reviews: GameReviewType[] = [
 		{
 			seq: 1,
@@ -34,6 +40,8 @@ const GameReviewContainer = () => {
 				reviewCnt={reviews.length}
 				likeCnt={estimateRate.likeCnt}
 				dislikeCnt={estimateRate.dislikeCnt}
+				modalFlag={modalFlag}
+				onChangeModalFlag={onChangeModalFlag}
 			/>
 			{reviews.map((review) => {
 				return <GameReview key={review.seq} review={review} />;

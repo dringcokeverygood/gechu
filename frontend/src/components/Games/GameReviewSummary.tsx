@@ -9,6 +9,7 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 import { Icon } from '@iconify/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
+import ReviewModalContainer from './containers/ReviewModalContainer';
 
 Chart.register(CategoryScale, LinearScale, BarElement, ChartjsPluginStacked100);
 
@@ -16,17 +17,21 @@ interface GameReviewSummaryProps {
 	reviewCnt: number;
 	likeCnt: number;
 	dislikeCnt: number;
+	modalFlag: boolean;
+	onChangeModalFlag: () => void;
 }
 // interface BarProps {
 // 	options: ChartOptions<'bar'>;
 // 	data: ChartData<'bar'>;
 // }
 
-const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
+const GameReviewSummary = ({
 	reviewCnt,
 	likeCnt,
+	modalFlag,
+	onChangeModalFlag,
 	dislikeCnt,
-}) => {
+}: GameReviewSummaryProps) => {
 	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
 	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
 
@@ -97,10 +102,15 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 			</div>
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
-				<button>
+				<button onClick={onChangeModalFlag}>
 					<Icon icon="pixelarticons:edit-box" />
 				</button>
 			</div>
+
+			{/* 모달창 */}
+			{modalFlag && (
+				<ReviewModalContainer onChangeModalFlag={onChangeModalFlag} />
+			)}
 		</div>
 	);
 };
