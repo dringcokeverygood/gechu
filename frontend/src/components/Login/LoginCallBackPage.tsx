@@ -1,55 +1,45 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+// 인가코드 백으로 보내는 작업 하는 곳
 
 const LoginCallBackPage = () => {
-	const [profile, setProfile] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const code = new URL(window.location.href).searchParams.get('code');
+	// console.log('code: ', code);
 
-	useEffect(() => {
-		// Kakao API를 통해 프로필 정보 요청
-		fetch('/v1/api/talk/profile')
-			.then((response) => response.json())
-			.then((data) => {
-				setProfile(data);
-				setLoading(false);
-			})
-			.catch((err) => {
-				setError(err);
-				setLoading(false);
-			});
-	}, []);
+	// 요청을 보낼 URL 및 데이터
+	const url = 'https://kauth.kakao.com/oauth/token';
+	const data = {
+		grant_type: 'authorization_code',
+		client_id: process.env.REACT_APP_KAKAO_CLIENT_ID,
+		redirect_uri: 'https://j9d203.p.ssafy.io/login/oauth2/code/kakao',
+		code: code,
+	};
 
-	if (loading) {
-		return (
-			<div className="bg-white-100">
-				<div>
-					<p>로그인 중</p>
-				</div>
+	// Axios를 사용하여 HTTP POST 요청 보내기
+	axios
+		.post(url, null, {
+			params: data,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		})
+		.then((response) => {
+			console.log('응답 데이터:', response.data);
+			// 요청이 성공하면 응답 데이터를 출력합니다.
+		})
+		.catch((error) => {
+			console.error('오류:', error);
+			// 요청이 실패하면 오류를 출력합니다.
+		});
+
+	return (
+		<div className="bg-white-100">
+			<div>
+				<p>로그인 중입니다.</p>
+				<p>잠시만 기다려주세요.</p>
 			</div>
-		);
-	}
-
-	if (error) {
-		return (
-			<div className="bg-white-100">
-				<div>
-					<p>로그인 실패</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (profile) {
-		return (
-			<div className="bg-white-100">
-				<div>
-					<p>로그인 성공</p>
-				</div>
-			</div>
-		);
-	}
-
-	return null;
+		</div>
+	);
 };
 
 export default LoginCallBackPage;
