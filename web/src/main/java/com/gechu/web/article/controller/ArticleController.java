@@ -7,13 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @RestController
 @RequestMapping("/articles")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -36,7 +37,7 @@ public class ArticleController {
         return new ResponseEntity<>(resultMap, status);
     }
     @PostMapping("")
-    public ResponseEntity<?> insertArticle(){
+    public ResponseEntity<?> insertArticle(@RequestBody ArticleDto articleDto, HttpServletRequest request){
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
@@ -51,4 +52,39 @@ public class ArticleController {
         }
         return new ResponseEntity<>(resultMap, status);
     }
+
+    @PutMapping("")
+    public ResponseEntity<?> updateArticle(@RequestBody ArticleDto articleDto, HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        }  catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<?>  deleteArticle(@RequestBody ArticleDto articleDto, HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        }  catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
 }

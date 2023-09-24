@@ -9,4 +9,9 @@ public class ArticleServiceImpl implements ArticleService{
     public ArticleDto findArticle(Long articleSeq) {
         return null;
     }
+
+    @Override
+    public void insertArticle(ArticleDto articleDto) {
+
+    }
 }

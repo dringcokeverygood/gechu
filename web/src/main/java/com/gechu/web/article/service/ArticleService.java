@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ArticleService {
     public ArticleDto findArticle(Long articleSeq);
+    public void insertArticle(ArticleDto articleDto);
 }
