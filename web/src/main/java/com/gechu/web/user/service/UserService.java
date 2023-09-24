@@ -1,6 +1,8 @@
 package com.gechu.web.user.service;
 
 import com.gechu.web.user.entity.KakaoUserInfo;
+import com.gechu.web.user.entity.Role;
+import com.gechu.web.user.entity.UsersEntity;
 import com.gechu.web.user.repository.UserRepository;
 import com.gechu.web.user.util.JwtToken;
 import com.gechu.web.user.util.JwtTokenProvider;
@@ -18,7 +20,6 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -46,9 +47,6 @@ public class UserService {
         params.add("code", code);
         params.add("grant_type", "authorization_code");
 
-        log.info("서비스에서 getAccessTokenFromKakao 메서드 호출");
-        log.info("인코딩 확인 redirect_uri: {}", KAKAO_REDIRECT_URI);
-        log.info("code: {}", code);
         return webClient.post()
                 .uri("/oauth/token")
                 .body(BodyInserters.fromFormData(params))
@@ -76,7 +74,6 @@ public class UserService {
     }
 
     public Mono<KakaoUserInfo> getUserInfoFromKakao(String accessToken) {
-        log.info("getUserInfoFromKakao 호출");
         WebClient kakaoApiWebClient = WebClient.create("https://kapi.kakao.com");
 
         return kakaoApiWebClient.get()
@@ -84,6 +81,25 @@ public class UserService {
                 .header("Authorization", "Bearer " + accessToken)
                 .retrieve()
                 .bodyToMono(Map.class)
-                .map(KakaoUserInfo::new);
+                .map(KakaoUserInfo::new)
+                .flatMap(userInfo -> saveOrUpdateUser(userInfo, accessToken));
+    }
+
+    private Mono<KakaoUserInfo> saveOrUpdateUser(KakaoUserInfo kakaoUserInfo, String accessToken) {
+        // 데이터베이스에 이미 존재하는 사용자인지 확인
+        return Mono.justOrEmpty(repository.findByUserId(kakaoUserInfo.getEmail()))
+                .switchIfEmpty(Mono.defer(() -> Mono.just(new UsersEntity())))  // 없으면 새로운 Users 객체 생성
+                .flatMap(user -> {
+                    if (user.getSeq() == null) {  // 새로운 사용자인 경우
+                        user.setNickName(kakaoUserInfo.getNickName());
+                        user.setUserId(kakaoUserInfo.getEmail());
+                        user.setRole(Role.USER);  // Role은 예시로 사용자 역할을 넣었습니다.
+                    }
+
+                    // 저장은 블로킹 호출이므로 Mono에서 실행하기 위해선 fromRunnable을 사용할 수 있으나,
+                    // 여기서는 일단 save만 호출하고 결과는 kakaoUserInfo로 반환합니다.
+                    repository.save(user);
+                    return Mono.just(kakaoUserInfo);
+                });
     }
 }

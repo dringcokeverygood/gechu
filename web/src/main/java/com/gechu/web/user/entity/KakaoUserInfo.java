@@ -2,11 +2,13 @@ package com.gechu.web.user.entity;
 
 import lombok.AllArgsConstructor;
 import com.gechu.web.user.entity.Gender;
+import lombok.Getter;
 
 import java.util.Map;
 
 
 @AllArgsConstructor
+@Getter
 public class KakaoUserInfo implements Oauth2UserInfo {
     private Map<String, Object> attributes;
 

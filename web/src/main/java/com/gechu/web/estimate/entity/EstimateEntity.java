@@ -1,13 +1,9 @@
 package com.gechu.web.estimate.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.gechu.web.estimate.dto.EstimateDto;
+import com.gechu.web.user.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,9 +19,12 @@ public class EstimateEntity {
     @Id
     @GeneratedValue
     private Long seq;
-    private Long userSeq;
     private Long gameSeq;
-    private String like;
+    private String userLike;
+
+    @ManyToOne
+    @JoinColumn(name = "user_seq")
+    private UsersEntity users;
 
     public EstimateDto toDto(EstimateEntity estimateEntity) {
         if(estimateEntity == null) {
@@ -33,9 +32,9 @@ public class EstimateEntity {
         }
         return EstimateDto.builder()
                 .seq(estimateEntity.getSeq())
-                .userSeq(estimateEntity.getUserSeq())
+                .userSeq(estimateEntity.getUsers().getSeq())
                 .gameSeq(estimateEntity.getGameSeq())
-                .like(estimateEntity.getLike())
+                .like(estimateEntity.getUserLike())
                 .build();
     }
 }
