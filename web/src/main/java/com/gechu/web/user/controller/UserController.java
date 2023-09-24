@@ -5,9 +5,11 @@ import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.service.UserService;
 import com.gechu.web.user.util.JwtToken;
+import com.gechu.web.user.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class UserController {
 
     private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
     @PostMapping("/login")
     public ResponseEntity<JwtToken> loginSuccess(@RequestBody Map<String, String> loginForm) {
@@ -78,8 +83,11 @@ public class UserController {
     }
 
     private Mono<ResponseEntity<?>> authenticateWithKakao(String code) {
-        return userService.getAccessTokenFromKakao(code)
-                .flatMap(accessToken -> {
+        return userService.getTokenFromKakao(code)
+                .flatMap(tokens -> {
+                    String accessToken = tokens.get("accessToken");
+                    String refreshToken = tokens.get("refreshToken");
+
                     if (accessToken == null) {
                         return Mono.just(ResponseEntity.badRequest().body("카카오로부터 액세스 토큰을 얻는데 실패했습니다."));
                     }
@@ -89,11 +97,17 @@ public class UserController {
                     // 액세스 토큰을 이용하여 사용자 정보 가져오기
                     return userService.getUserInfoFromKakao(accessToken)
                             .flatMap(userInfo -> {
-                                System.out.println(userInfo);
                                 if (userInfo == null) {
                                     return Mono.just(ResponseEntity.badRequest().body("카카오로부터 사용자 정보를 불러오는데 실패했습니다."));
                                 }
-                                return Mono.just(ResponseEntity.ok(userInfo));
+
+                                // DTO or Map을 사용해서 응답 데이터를 구성
+                                Map<String, Object> responseData = new HashMap<>();
+                                responseData.put("accessToken", accessToken);
+                                responseData.put("refreshToken", refreshToken);
+                                responseData.put("userInfo", userInfo);
+
+                                return Mono.just(ResponseEntity.ok(responseData));
                             });
                 });
     }
