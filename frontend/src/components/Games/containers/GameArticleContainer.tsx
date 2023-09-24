@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { http } from '../../../utils/http';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
@@ -11,13 +11,30 @@ interface GetArticle {
 }
 
 const GameArticleContainer = () => {
+	const navigate = useNavigate();
+
 	const [imgModalFlag, setImgModalFlag] = useState(false);
 	const onChangeImgModalFlag = useCallback(() => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
-
 	const articleSeq = useParams().seq;
-	// console.log(articleSeq);
+	const onClickBack = () => {
+		navigate(-1);
+	};
+	const [commentText, setCommentText] = useState('');
+
+	const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setCommentText(e.target.value);
+	};
+
+	const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		// Here, you can handle the submission of the comment text, e.g., send it to a server or update the state.
+		// You can add your logic here.
+		// Reset the comment text field after submission.
+		setCommentText('');
+	};
+
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
 		gameSeq: 1,
@@ -57,6 +74,10 @@ const GameArticleContainer = () => {
 			article={article}
 			imgModalFlag={imgModalFlag}
 			onChangeModalFlag={onChangeImgModalFlag}
+			onClickBack={onClickBack}
+			commentText={commentText}
+			handleCommentChange={handleCommentChange}
+			handleSubmitComment={handleSubmitComment}
 		/>
 	);
 };

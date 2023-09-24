@@ -6,6 +6,7 @@ import {
 	MdKeyboardBackspace,
 	MdModeEdit,
 	MdMoreVert,
+	MdSend,
 } from 'react-icons/md';
 import { Menu, Transition } from '@headlessui/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -15,25 +16,41 @@ type Props = {
 	article: GameArticleType;
 	imgModalFlag: boolean;
 	onChangeModalFlag: (e: React.MouseEvent) => void;
+	onClickBack: () => void;
+	commentText: string;
+	handleCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	handleSubmitComment: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-const GameArticle = ({ article, imgModalFlag, onChangeModalFlag }: Props) => {
+const GameArticle = ({
+	article,
+	imgModalFlag,
+	onChangeModalFlag,
+	onClickBack,
+	commentText,
+	handleSubmitComment,
+	handleCommentChange,
+}: Props) => {
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
 			{/* 헤더 */}
-			<div className="flex flex-row items-center space-x-4">
-				<MdKeyboardBackspace size={20} />
+			<div className="flex flex-row items-center space-x-4 ">
+				<MdKeyboardBackspace
+					size={20}
+					onClick={onClickBack}
+					className="h-7 w-7 cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700"
+				/>
 				<img
 					className="inline-block h-10 w-10 rounded-full ring-2 ring-red-600"
 					src="https://images.unsplash.com/photo-1552944150-6dd1180e5999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80"
-					alt=""
+					alt="사진"
 				/>
 				<div className="text-md flex-1 font-dungGeunMo">
 					{article.userNickname}
 				</div>
-				<Menu as="div" className="relative inline-block text-left">
+				<Menu as="div" className="relative inline-block text-left ">
 					<div>
-						<Menu.Button className="rounded-full transition duration-100 ease-out hover:bg-white-700">
+						<Menu.Button className="cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700">
 							<MdMoreVert size={28} />
 						</Menu.Button>
 					</div>
@@ -93,6 +110,25 @@ const GameArticle = ({ article, imgModalFlag, onChangeModalFlag }: Props) => {
 				/>
 				<div>{article.content}</div>
 			</div>
+
+			{/* 댓글 입력폼 */}
+			<form onSubmit={handleSubmitComment}>
+				<div className="flex flex-row items-center space-x-4">
+					<input
+						type="text"
+						placeholder="댓글을 입력하세요"
+						value={commentText}
+						onChange={handleCommentChange}
+						className="flex-1 rounded-full bg-white-200 p-2 text-white-950 hover:bg-white-100"
+					/>
+					<button
+						type="submit"
+						className="text-white rounded-full bg-blue-500 p-2"
+					>
+						<MdSend size={20} />
+					</button>
+				</div>
+			</form>
 
 			{/* 댓글 */}
 			<div className="font-dungGeunMo">댓글 00개</div>
