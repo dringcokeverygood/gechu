@@ -48,22 +48,24 @@ public class WebDriverUtil {
 		// }
 
 		log.info("디렉토리 트리 내의 모든 파일과 디렉토리를 나열 (하위 디렉토리 포함)");
-		Files.walkFileTree(directoryPath, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE, new SimpleFileVisitor<Path>() {
-			@Override
-			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-				log.info("{}", file);
-				return FileVisitResult.CONTINUE;
-			}
+		Files.walkFileTree(directoryPath, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE,
+			new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					if (file.endsWith("chromedriver") || file.endsWith("chromedriver.exe")) {
+						log.info("{}", file);
+					}
+					return FileVisitResult.CONTINUE;
+				}
 
-			@Override
-			public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-				// 파일 접근 오류 처리
-				System.err.println(exc);
-				return FileVisitResult.CONTINUE;
-			}
-		});
+				@Override
+				public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+					// 파일 접근 오류 처리
+					System.err.println(exc);
+					return FileVisitResult.CONTINUE;
+				}
+			});
 	}
-
 
 	public void chrome() {
 		Path currentPath = Paths.get("");
@@ -124,6 +126,7 @@ public class WebDriverUtil {
 		String html = document.body().html();
 		log.info("html: {}", html);
 	}
+
 	private void quit() {
 		driver.close();
 		driver.quit();
