@@ -13,7 +13,7 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 				alt="game-title-image"
 				className="h-48 w-full"
 			></img>
-			<div className="flex flex-row justify-between">
+			<div className="flex flex-row items-center justify-between">
 				<div>
 					<h1 className="py-5 font-dungGeunMo text-3xl text-white-200">
 						{content.gameTitle}

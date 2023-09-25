@@ -6,7 +6,7 @@ import {
 	MdKeyboardBackspace,
 	MdModeEdit,
 	MdMoreVert,
-	MdSend,
+	// MdSend,
 } from 'react-icons/md';
 import { Menu, Transition } from '@headlessui/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -27,9 +27,8 @@ const GameArticle = ({
 	imgModalFlag,
 	onChangeModalFlag,
 	onClickBack,
-	commentText,
-	handleSubmitComment,
-	handleCommentChange,
+	// commentText,
+	handleSubmitComment, // handleCommentChange,
 }: Props) => {
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
@@ -111,27 +110,28 @@ const GameArticle = ({
 				<div>{article.content}</div>
 			</div>
 
+			{/* 댓글 */}
+			<div className="font-dungGeunMo">댓글 00개</div>
+
 			{/* 댓글 입력폼 */}
 			<form onSubmit={handleSubmitComment}>
-				<div className="flex flex-row items-center space-x-4">
-					<input
-						type="text"
-						placeholder="댓글을 입력하세요"
-						value={commentText}
-						onChange={handleCommentChange}
-						className="flex-1 rounded-full bg-white-200 p-2 text-white-950 hover:bg-white-100"
+				<div className="flex space-x-4">
+					<textarea
+						placeholder="댓글을 입력하세요."
+						// value={commentText}
+						// onChange={handleCommentChange}
+						className="h-[80px] flex-1 resize-none rounded-md bg-white-200 p-2 text-white-950 outline-none hover:bg-white-100"
 					/>
 					<button
 						type="submit"
-						className="text-white rounded-full bg-blue-500 p-2"
+						className="text-white flex w-[100px] items-center justify-center rounded-md bg-blue-500 p-2 font-dungGeunMo text-xl"
 					>
-						<MdSend size={20} />
+						{/* <MdSend size={32} /> */}
+						등록
 					</button>
 				</div>
 			</form>
 
-			{/* 댓글 */}
-			<div className="font-dungGeunMo">댓글 00개</div>
 			<GameCommentListContainer />
 
 			{/* 이미지 모달 */}
