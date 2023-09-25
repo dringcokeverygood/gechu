@@ -18,7 +18,6 @@ import java.util.*;
 @RestController
 @RequestMapping("/articles")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "http://localhost:3000")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -29,7 +28,7 @@ public class ArticleController {
         HttpStatus status;
 
         try {
-            ArticleDto dummy = new ArticleDto(articleSeq, articleSeq, (long)1, "김게추", articleSeq+"번 게시글입니다", "더미내용", "", LocalDateTime.now());
+            ArticleDto dummy = new ArticleDto(articleSeq, articleSeq, (long)1,articleSeq+"번 게시글입니다", "더미내용", "", LocalDateTime.now());
             resultMap.put("article", dummy);
             resultMap.put("success", true);
             status = HttpStatus.OK;
