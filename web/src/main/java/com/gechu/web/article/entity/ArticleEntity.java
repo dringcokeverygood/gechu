@@ -32,5 +32,9 @@ public class ArticleEntity {
     private String articleContent;
     private LocalDateTime createDate;
     private String deleted;
+
+    public void updateUser(UsersEntity user) {
+        this.users = user;
+    }
 }
 
