@@ -1,5 +1,7 @@
 package com.gechu.crawl.controller;
 
+import java.io.IOException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +14,12 @@ import lombok.RequiredArgsConstructor;
 public class CrawlTestController {
 
 	private final WebDriverUtil webDriverUtil;
+
+	@GetMapping("/dir")
+	public void dir() throws IOException {
+		webDriverUtil.checkDirectory();
+	}
+
 
 	@GetMapping
 	public void test() {
