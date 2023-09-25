@@ -19,7 +19,7 @@ public class CrawlMetaCritic implements Runnable {
 	private String gameSlug;
 	private int cnt;
 	private WebDriver driver;
-	private String driverPath = "src/main/resources/driver/chromedriver.exe";
+	private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String url = "https://www.metacritic.com/game/";
 
 	public CrawlMetaCritic(int cnt, String gameSlug) {
@@ -81,14 +81,19 @@ public class CrawlMetaCritic implements Runnable {
 		}
 
 		log.info("{} 번 쓰레드 element 크롤링 시작", cnt);
+		StringBuffer sb = new StringBuffer();
 		for (int i = 1; i <= (Math.min(reviewCnt, 1000)); i++) {
 
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
 					+ "]/div/div[1]/div[2]/div/span"));
+
+			sb.append(element.getText());
+			sb.append(' ');
 			// log.info("{}번째 리뷰: {}", i, element.getText());
 			// log.info("log: {}", element.getText());
 		}
+		log.info("{}번 쓰레드의 리뷰정보 전체 출력: {}", cnt, sb);
 		log.info("{} 번 쓰레드 element 크롤링 끝", cnt);
 		driver.quit();
 	}

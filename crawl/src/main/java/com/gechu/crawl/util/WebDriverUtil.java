@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
@@ -19,10 +20,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class WebDriverUtil {
-	private WebDriver driver;
 
-	// @Value("${spring.driver.path}")
-	private String driverPath = "src/main/resources/driver/chromedriver.exe";
+	private WebDriver driver;
+	@Value("${spring.driver.path}")
+	private String driverPath;
 	private static final String url = "https://www.metacritic.com/game/";
 
 	public void chrome() {
@@ -47,7 +48,7 @@ public class WebDriverUtil {
 	}
 
 	public void multiThreading() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 2; i++) {
 			log.info("{}번 쓰레드 실행중", i);
 			Thread thread = new Thread(new CrawlMetaCritic(i, "the-legend-of-zelda-tears-of-the-kingdom"));
 			thread.start();
