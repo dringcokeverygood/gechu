@@ -1,7 +1,7 @@
 package com.gechu.web.config;
 
 import com.gechu.web.user.entity.Role;
-import com.gechu.web.user.entity.Users;
+import com.gechu.web.user.entity.UsersEntity;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,33 +13,11 @@ public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
-    private String email;
+    private String userId;
     private String provider;
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
         return ofKakao("id", attributes);
-    }
-
-    private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String, Object> attributes) {
-        return OAuthAttributes.builder()
-                .name((String) attributes.get("name"))
-                .email((String) attributes.get("email"))
-                .provider("Google")
-                .attributes(attributes)
-                .nameAttributeKey(userNameAttributeName)
-                .build();
-    }
-
-    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
-        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
-
-        return OAuthAttributes.builder()
-                .name((String) response.get("name"))
-                .email((String) response.get("email"))
-                .provider("Naver")
-                .attributes(response)
-                .nameAttributeKey(userNameAttributeName)
-                .build();
     }
 
     private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
@@ -48,19 +26,17 @@ public class OAuthAttributes {
 
         return OAuthAttributes.builder()
                 .name((String) account.get("nickname"))
-                .email((String) response.get("email"))
+                .userId((String) response.get("email"))
                 .provider("Kakao")
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    public Users toEntity() {
-        return Users.builder()
-                .name(name)
-                .email(email)
-                .provider(provider)
-                .role(Role.USER)
+    public UsersEntity toEntity() {
+        return UsersEntity.builder()
+                .userId(userId)
+                .nickName(name)
                 .build();
     }
 }

@@ -96,4 +96,13 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+
+    public String getNickNameFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
 }
