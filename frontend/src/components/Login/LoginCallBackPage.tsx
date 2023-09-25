@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-// 인가코드 백으로 보내는 작업 하는 곳
-
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
