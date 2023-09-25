@@ -1,6 +1,7 @@
 package com.gechu.web.article.dto;
 
 import com.gechu.web.article.entity.ArticleEntity;
+import com.gechu.web.user.entity.UsersEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,6 @@ public class ArticleDto {
     private Long seq;
     private Long gameSeq;
     private Long userSeq;
-    private String userNickname;
     private String articleTitle;
     private String content;
     private String imageUrl;
@@ -26,7 +26,6 @@ public class ArticleDto {
         return ArticleEntity.builder()
                 .seq(articleDto.getSeq())
                 .gameSeq(articleDto.getGameSeq())
-//                .users()
                 .articleTitle(articleDto.getArticleTitle())
                 .articleContent(articleDto.getContent())
                 .imageUrl(articleDto.getImageUrl())
