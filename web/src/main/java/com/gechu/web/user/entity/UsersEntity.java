@@ -46,10 +46,15 @@ public class UsersEntity {
     private String imageUrl;
 
     @Builder
-    public UsersEntity(String userId, String nickName, String imageUrl) {
+    public UsersEntity(Long seq, String userId, String nickName, String imageUrl) {
+        this.seq = seq;
         this.userId = userId;
         this.nickName = nickName;
         this.imageUrl = imageUrl;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setProfiles(String nickName, String userId, Role role) {
