@@ -11,5 +11,5 @@ import com.gechu.web.game.dto.GameResponseDto;
 public interface GameServiceClient {
 
 	@GetMapping("/game/games")
-	public List<GameResponseDto> findGames(List<Integer> gameSeqs);
+	public List<GameResponseDto> findGames();
 }
