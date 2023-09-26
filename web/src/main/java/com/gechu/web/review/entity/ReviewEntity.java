@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor @AllArgsConstructor
 @Entity
@@ -23,6 +25,7 @@ public class ReviewEntity {
 	private Long seq;
 	private String text;
 	private Long estimateSeq;
+	private LocalDateTime createDate;
 
 	public ReviewDto toDto(ReviewEntity reviewEntity) {
 		if(reviewEntity == null) {
@@ -32,6 +35,7 @@ public class ReviewEntity {
 				.seq(reviewEntity.getSeq())
 				.text(reviewEntity.getText())
 				.estimateSeq(reviewEntity.getEstimateSeq())
+				.createDate(reviewEntity.getCreateDate())
 				.build();
 	}
 }
