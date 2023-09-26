@@ -3,6 +3,9 @@ package com.gechu.web.user.service;
 import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
+import com.gechu.web.review.dto.ReviewMyPageDto;
+import com.gechu.web.review.entity.ReviewEntity;
+import com.gechu.web.review.repository.ReviewRepository;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.entity.Role;
 import com.gechu.web.user.entity.UsersEntity;
@@ -40,6 +43,8 @@ public class UserService {
 
     private final ArticleRepository articleRepository;
 
+    private final ReviewRepository reviewRepository;
+
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_APP_KEY;
@@ -69,12 +74,13 @@ public class UserService {
                 });
     }
 
-    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository, ReviewRepository reviewRepository) {
         this.encoder = encoder;
         this.repository = repository;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.articleRepository = articleRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public JwtToken login(String email, String password) {
@@ -117,6 +123,10 @@ public class UserService {
                     return Mono.just(kakaoUserInfo);
                 });
     }
+
+//    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
+//
+//    }
 
     public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
         List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
