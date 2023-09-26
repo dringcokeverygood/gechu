@@ -28,7 +28,7 @@ public class ReviewController {
         try {
             reviewService.insertReview(reviewDto);
             resultMap.put("success", true);
-            status = HttpStatus.CREATED;
+            status = HttpStatus.OK;
         }  catch (Exception e) {
             resultMap.put("success", false);
             resultMap.put("message", "게시글 등록 실패");
