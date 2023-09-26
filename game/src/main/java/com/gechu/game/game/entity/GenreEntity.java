@@ -41,4 +41,8 @@ public class GenreEntity {
 	public static List<String> toGenreSlugList(List<GenreEntity> genreEntities) {
 		return genreEntities.stream().map(GenreEntity::getGenreSlug).collect(Collectors.toList());
 	}
+
+	public static List<String> toGenreNameList(List<GenreEntity> genreEntities) {
+		return genreEntities.stream().map(GenreEntity::getGenreName).collect(Collectors.toList());
+	}
 }

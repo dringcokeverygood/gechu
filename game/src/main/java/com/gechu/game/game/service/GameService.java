@@ -65,8 +65,8 @@ public class GameService {
 
 		GameResponseDto gameResponseDto = GameEntity.toDtoDetail(gameEntity);
 
-		gameResponseDto.setGenres(getGameGenres(seq));
-		gameResponseDto.setPlatforms(getGamePlatforms(seq));
+		setGameGenres(gameResponseDto, seq);
+		setGamePlatforms(gameResponseDto, seq);
 
 		return gameResponseDto;
 	}
@@ -76,13 +76,13 @@ public class GameService {
 
 		GameResponseDto gameResponseDto = GameEntity.toDtoDetail(gameEntity);
 
-		gameResponseDto.setGenres(getGameGenres(gameSeq));
-		gameResponseDto.setPlatforms(getGamePlatforms(gameSeq));
+		setGameGenres(gameResponseDto, gameSeq);
+		setGamePlatforms(gameResponseDto, gameSeq);
 
 		return gameResponseDto;
 	}
 
-	private List<String> getGameGenres(Integer gameSeq) {
+	private void setGameGenres(GameResponseDto gameResponseDto, Integer gameSeq) {
 
 		List<GameGenreEntity> gameGenreEntities = gameGenreRepository.findByGameSeq(gameSeq);
 		List<Integer> genreSeqs = gameGenreEntities.stream()
@@ -91,10 +91,11 @@ public class GameService {
 
 		List<GenreEntity> genreEntities = genreRepository.findBySeqIn(genreSeqs);
 
-		return GenreEntity.toGenreSlugList(genreEntities);
+		gameResponseDto.setGenres(GenreEntity.toGenreNameList(genreEntities));
+		gameResponseDto.setGenreSlugs(GenreEntity.toGenreSlugList(genreEntities));
 	}
 
-	private List<String> getGamePlatforms(Integer gameSeq) {
+	private void setGamePlatforms(GameResponseDto gameResponseDto, Integer gameSeq) {
 
 		List<GamePlatformEntity> gamePlatformEntities = gamePlatformRepository.findByGameSeq(gameSeq);
 		List<Integer> platformSeqs = gamePlatformEntities.stream()
@@ -103,15 +104,16 @@ public class GameService {
 
 		List<PlatformEntity> platformEntities = platformRepository.findBySeqIn(platformSeqs);
 
-		return PlatformEntity.toPlatformSlugList(platformEntities);
+		gameResponseDto.setPlatforms(PlatformEntity.toPlatformNameList(platformEntities));
+		gameResponseDto.setPlatformSlugs(PlatformEntity.toPlatformSlugList(platformEntities));
 	}
 
 	private void setGenresAndPlatforms(List<GameResponseDto> gameResponseDtos) {
 		for (GameResponseDto gameResponseDto : gameResponseDtos) {
 			Integer seq = gameResponseDto.getSeq();
 
-			gameResponseDto.setGenres(getGameGenres(seq));
-			gameResponseDto.setPlatforms(getGamePlatforms(seq));
+			setGameGenres(gameResponseDto, seq);
+			setGamePlatforms(gameResponseDto, seq);
 		}
 	}
 }
