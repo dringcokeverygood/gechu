@@ -44,6 +44,12 @@ const HeaderContainer = () => {
 		}
 	}, [searchWord]);
 
+	const onClickLogout = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('login');
+		console.log('로그아웃');
+	};
+
 	return (
 		<Header
 			isLogin={isLogin}
@@ -52,6 +58,7 @@ const HeaderContainer = () => {
 			onChangeSearchWord={onChangeSearchWord}
 			onKeyUpForSearch={onKeyUpForSearch}
 			onClickSearchBtn={onClickSearchBtn}
+			onClickLogout={onClickLogout}
 		/>
 	);
 };
