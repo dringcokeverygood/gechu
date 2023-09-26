@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -18,6 +20,6 @@ public class ReviewMyPageDto {
     private Long itemSeq;   // reviewSeq
     private String title;
     private String content;
-    private String createDate;
+    private LocalDateTime createDate;
     private String like;
 }
