@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.estimate.repository.EstimateRepository;
@@ -19,6 +21,7 @@ public class EstimateServiceImpl implements EstimateService {
 	private final EstimateRepository estimateRepository;
 
 	@Override
+	@Transactional
 	public Long upsertEstimate(EstimateDto estimateDto) {
 		EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUserSeq(estimateDto.getGameSeq(),
 			estimateDto.getUserSeq());
