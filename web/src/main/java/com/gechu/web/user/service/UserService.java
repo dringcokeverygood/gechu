@@ -124,9 +124,9 @@ public class UserService {
                 });
     }
 
-//    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
-//
-//    }
+    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
+
+    }
 
     public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
         List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
