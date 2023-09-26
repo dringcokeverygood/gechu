@@ -90,6 +90,7 @@ public class GameController {
 		for (int j = i; j < i + 300; j++) {
 			randomGames.add(j);
 		}
+		log.info("랜덤게임 호출 시작");
 
 		try {
 			gameResponseDtos = gameService.findAllGamesBySeqIn(randomGames);
