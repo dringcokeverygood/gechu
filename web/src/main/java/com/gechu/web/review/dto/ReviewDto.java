@@ -25,7 +25,7 @@ public class ReviewDto {
         return ReviewEntity.builder()
                 .seq(reviewDto.getSeq())
                 .text(reviewDto.getText())
-                .estimateEntity(EstimateEntity.builder().seq(reviewDto.getSeq()).build())
+                .estimate(EstimateEntity.builder().seq(reviewDto.getSeq()).build())
                 .createDate(reviewDto.getCreateDate())
                 .build();
     }

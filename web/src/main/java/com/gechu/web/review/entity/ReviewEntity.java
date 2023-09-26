@@ -25,8 +25,8 @@ public class ReviewEntity {
     private String text;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "estimate_seq")
-    private EstimateEntity estimateEntity;
+    @JoinColumn(name = "estimate_seq")
+    private EstimateEntity estimate;
     private LocalDateTime createDate;
 
     public ReviewDto toDto(ReviewEntity reviewEntity) {
@@ -41,6 +41,6 @@ public class ReviewEntity {
     }
 
     public void updateEstimateEntity(EstimateEntity estimateEntity) {
-        this.estimateEntity = estimateEntity;
+        this.estimate = estimateEntity;
     }
 }

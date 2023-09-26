@@ -23,7 +23,7 @@ public class EstimateServiceImpl implements EstimateService {
 	@Override
 	@Transactional
 	public Long upsertEstimate(EstimateDto estimateDto) {
-		EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUserSeq(estimateDto.getGameSeq(),
+		EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_Seq(estimateDto.getGameSeq(),
 			estimateDto.getUserSeq());
 
 		if (estimateEntity != null) {

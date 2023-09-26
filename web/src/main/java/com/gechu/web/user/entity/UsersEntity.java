@@ -3,16 +3,13 @@ package com.gechu.web.user.entity;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.comment.entity.CommentEntity;
 import com.gechu.web.estimate.entity.EstimateEntity;
-import com.gechu.web.review.entity.ReviewEntity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +60,7 @@ public class UsersEntity {
         this.role = role;
     }
 
-    public UsersEntity update(String name) {
+    public UsersEntity updateNickName(String name) {
         this.nickName = name;
         return this;
     }
