@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.gechu.game.game.dto.GameDto;
 import com.gechu.game.game.dto.GameResponseDto;
 import com.gechu.game.game.entity.GameEntity;
-import com.gechu.game.game.entity.GameGenreEntity;
 import com.gechu.game.game.entity.GamePlatformEntity;
 import com.gechu.game.game.entity.GenreEntity;
 import com.gechu.game.game.entity.PlatformEntity;
@@ -19,9 +18,11 @@ import com.gechu.game.game.repository.GenreRepository;
 import com.gechu.game.game.repository.PlatformRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class GameService {
 
 	private final GameRepository gameRepository;
@@ -84,12 +85,7 @@ public class GameService {
 
 	private void setGameGenres(GameResponseDto gameResponseDto, Integer gameSeq) {
 
-		List<GameGenreEntity> gameGenreEntities = gameGenreRepository.findByGameSeq(gameSeq);
-		List<Integer> genreSeqs = gameGenreEntities.stream()
-			.map(GameGenreEntity::getGenreSeq)
-			.collect(Collectors.toList());
-
-		List<GenreEntity> genreEntities = genreRepository.findBySeqIn(genreSeqs);
+		List<GenreEntity> genreEntities = genreRepository.findGenresByGameSeq(gameSeq);
 
 		gameResponseDto.setGenres(GenreEntity.toGenreNameList(genreEntities));
 		gameResponseDto.setGenreSlugs(GenreEntity.toGenreSlugList(genreEntities));
@@ -97,12 +93,7 @@ public class GameService {
 
 	private void setGamePlatforms(GameResponseDto gameResponseDto, Integer gameSeq) {
 
-		List<GamePlatformEntity> gamePlatformEntities = gamePlatformRepository.findByGameSeq(gameSeq);
-		List<Integer> platformSeqs = gamePlatformEntities.stream()
-			.map(GamePlatformEntity::getPlatformSeq)
-			.collect(Collectors.toList());
-
-		List<PlatformEntity> platformEntities = platformRepository.findBySeqIn(platformSeqs);
+		List<PlatformEntity> platformEntities = platformRepository.findPlatformsByGameSeq(gameSeq);
 
 		gameResponseDto.setPlatforms(PlatformEntity.toPlatformNameList(platformEntities));
 		gameResponseDto.setPlatformSlugs(PlatformEntity.toPlatformSlugList(platformEntities));
