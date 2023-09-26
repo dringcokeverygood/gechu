@@ -39,7 +39,7 @@ public class GameService {
 		List<GameEntity> gameEntities = gameRepository.findAllBySeqIn(gameSeqs);
 
 		List<GameResponseDto> gameResponseDtos = gameEntities.stream()
-			.map(GameEntity::toDtoUser)
+			.map(GameEntity::toDtoDetail)
 			.collect(Collectors.toList());
 
 		setGenresAndPlatforms(gameResponseDtos);
