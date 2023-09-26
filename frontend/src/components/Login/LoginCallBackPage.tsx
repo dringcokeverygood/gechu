@@ -1,10 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
-import { LoginAtom } from '../../recoil/LoginAtom';
-
-const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginAtom);
 
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
@@ -25,8 +21,7 @@ const LoginCallBackPage = () => {
 					//백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
 					console.log('res 1', res);
 					localStorage.setItem('token', res.data.accessToken);
-					if (localStorage.getItem('token')) setIsLoggedIn(true);
-					console.log(isLoggedIn);
+					localStorage.setItem('login', 'true');
 					navigate('/');
 				})
 				.catch((err) => {

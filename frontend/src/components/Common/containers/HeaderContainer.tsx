@@ -1,15 +1,12 @@
 import React, { useState, useCallback, useRef } from 'react';
 import Header from '../Header';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { LoginAtom } from '../../../recoil/LoginAtom';
 
 const HeaderContainer = () => {
 	const searchWordRef = useRef('');
 	const [searchWord, setSearchWord] = useState('');
 	const isLogin = true;
 	const navigate = useNavigate();
-	const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginAtom);
 
 	const onChangeSearchWord = useCallback(
 		(
@@ -49,8 +46,7 @@ const HeaderContainer = () => {
 
 	const onClickLogout = () => {
 		localStorage.removeItem('token');
-		setIsLoggedIn(false);
-		console.log(isLoggedIn);
+		localStorage.removeItem('login');
 		console.log('로그아웃');
 	};
 
