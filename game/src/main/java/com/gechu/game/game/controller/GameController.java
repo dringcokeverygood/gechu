@@ -1,10 +1,12 @@
 package com.gechu.game.game.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +17,12 @@ import com.gechu.game.game.dto.GameResponseDto;
 import com.gechu.game.game.service.GameService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/games")
+@Slf4j
 public class GameController {
 
 	private final GameService gameService;
@@ -49,8 +53,8 @@ public class GameController {
 		return new ResponseEntity<>(gameResponseDtos, HttpStatus.OK);
 	}
 
-	@GetMapping("/slug")
-	public ResponseEntity<?> findGameBySlug(@RequestParam("slug") String gameSlug) {
+	@GetMapping("/slug/{gameSlug}")
+	public ResponseEntity<?> findGameBySlug(@PathVariable("gameSlug") String gameSlug) {
 
 		GameResponseDto gameResponseDto = null;
 
@@ -63,8 +67,8 @@ public class GameController {
 		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
 	}
 
-	@GetMapping("/seq")
-	public ResponseEntity<?> findGameBySeq(@RequestParam("seq") Integer seq) {
+	@GetMapping("/seq/{seq}")
+	public ResponseEntity<?> findGameBySeq(@PathVariable("seq") Integer seq) {
 
 		GameResponseDto gameResponseDto = null;
 
@@ -77,4 +81,22 @@ public class GameController {
 		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
 	}
 
+	@GetMapping
+	public ResponseEntity<?> findRandomGames() {
+		List<GameResponseDto> gameResponseDtos = null;
+
+		List<Integer> randomGames = new ArrayList<>();
+		int i = (int) (Math.random() * 266000);
+		for (int j = i; j < i + 300; j++) {
+			randomGames.add(j);
+		}
+
+		try {
+			gameResponseDtos = gameService.findAllGamesBySeqIn(randomGames);
+			log.info("랜덤게임 호출: 총 {}개", gameResponseDtos.size());
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(gameResponseDtos, HttpStatus.OK);
+	}
 }
