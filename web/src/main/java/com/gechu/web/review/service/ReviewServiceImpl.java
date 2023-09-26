@@ -18,17 +18,11 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public void insertReview(ReviewDto reviewDto) {
 
-        reviewRepository.save(ReviewEntity.builder()
-                .text(reviewDto.getText())
-                .estimateSeq(reviewDto.getEstimateSeq())
-                .build());
+        reviewRepository.save(ReviewDto.toEntity(reviewDto));
     }
 
     @Override
     public void updateReview(ReviewDto reviewDto) {
-        reviewRepository.save(ReviewEntity.builder()
-                .text(reviewDto.getText())
-                .estimateSeq(reviewDto.getEstimateSeq())
-                .build());
+        reviewRepository.save(ReviewDto.toEntity(reviewDto));
     }
 }
