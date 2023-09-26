@@ -42,4 +42,8 @@ public class PlatformEntity {
 	public static List<String> toPlatformSlugList(List<PlatformEntity> platformEntities) {
 		return platformEntities.stream().map(PlatformEntity::getPlatformSlug).collect(Collectors.toList());
 	}
+
+	public static List<String> toPlatformNameList(List<PlatformEntity> platformEntities) {
+		return platformEntities.stream().map(PlatformEntity::getPlatformName).collect(Collectors.toList());
+	}
 }

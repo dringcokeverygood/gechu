@@ -24,5 +24,7 @@ public class GameResponseDto {
 	private Integer openScore;
 	private String steamScore;
 	private List<String> platforms;
+	private List<String> platformSlugs;
 	private List<String> genres;
+	private List<String> genreSlugs;
 }
