@@ -1,5 +1,6 @@
 package com.gechu.web.review.dto;
 
+import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.review.entity.ReviewEntity;
 import lombok.*;
 
@@ -24,7 +25,7 @@ public class ReviewDto {
         return ReviewEntity.builder()
                 .seq(reviewDto.getSeq())
                 .text(reviewDto.getText())
-                .estimateSeq(reviewDto.getEstimateSeq())
+                .estimate(EstimateEntity.builder().seq(reviewDto.getSeq()).build())
                 .createDate(reviewDto.getCreateDate())
                 .build();
     }

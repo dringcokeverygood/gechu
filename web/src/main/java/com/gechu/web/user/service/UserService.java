@@ -3,6 +3,9 @@ package com.gechu.web.user.service;
 import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
+import com.gechu.web.review.dto.ReviewMyPageDto;
+import com.gechu.web.review.entity.ReviewEntity;
+import com.gechu.web.review.repository.ReviewRepository;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.entity.Role;
 import com.gechu.web.user.entity.UsersEntity;
@@ -40,6 +43,8 @@ public class UserService {
 
     private final ArticleRepository articleRepository;
 
+    private final ReviewRepository reviewRepository;
+
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_APP_KEY;
@@ -69,12 +74,13 @@ public class UserService {
                 });
     }
 
-    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository, ReviewRepository reviewRepository) {
         this.encoder = encoder;
         this.repository = repository;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.articleRepository = articleRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public JwtToken login(String email, String password) {
@@ -106,9 +112,10 @@ public class UserService {
                 .switchIfEmpty(Mono.defer(() -> Mono.just(new UsersEntity())))  // 없으면 새로운 Users 객체 생성
                 .flatMap(user -> {
                     if (user.getSeq() == null) {  // 새로운 사용자인 경우
-                        user.setNickName(kakaoUserInfo.getNickName());
-                        user.setUserId(kakaoUserInfo.getUserId());
-                        user.setRole(Role.USER);  // Role은 예시로 사용자 역할을 넣었습니다.
+                        user.setProfiles(kakaoUserInfo.getNickName(), kakaoUserInfo.getUserId(), Role.USER);
+                        // user.setNickName(kakaoUserInfo.getNickName());
+                        // user.setUserId(kakaoUserInfo.getUserId());
+                        // user.setRole(Role.USER);  // Role은 예시로 사용자 역할을 넣었습니다.
                     }
 
                     // 저장은 블로킹 호출이므로 Mono에서 실행하기 위해선 fromRunnable을 사용할 수 있으나,
@@ -117,6 +124,10 @@ public class UserService {
                     return Mono.just(kakaoUserInfo);
                 });
     }
+
+//    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
+//
+//    }
 
     public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
         List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);

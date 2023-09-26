@@ -29,8 +29,8 @@ public class EstimateEntity {
 	@JoinColumn(name = "user_seq")
 	private UsersEntity users;
 
-	@OneToOne(mappedBy = "review")
-	ReviewEntity reviewEntity;
+	@OneToOne(mappedBy = "estimate")
+	private ReviewEntity reviewEntity;
 
 	public static EstimateDto toDto(EstimateEntity estimateEntity) {
 		if (estimateEntity == null) {

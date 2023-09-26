@@ -3,16 +3,13 @@ package com.gechu.web.user.entity;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.comment.entity.CommentEntity;
 import com.gechu.web.estimate.entity.EstimateEntity;
-import com.gechu.web.review.entity.ReviewEntity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +18,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Getter
 @Table(name = "users")
-@NoArgsConstructor @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 public class UsersEntity {
 
     @Id
@@ -47,13 +43,24 @@ public class UsersEntity {
     private String imageUrl;
 
     @Builder
-    public UsersEntity(String userId, String nickName, LocalDateTime createDate, LocalDateTime deleteDate, String imageUrl, String deleted) {
+    public UsersEntity(Long seq, String userId, String nickName, String imageUrl) {
+        this.seq = seq;
         this.userId = userId;
         this.nickName = nickName;
         this.imageUrl = imageUrl;
     }
 
-    public UsersEntity update(String name) {
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setProfiles(String nickName, String userId, Role role) {
+        this.nickName = nickName;
+        this.userId = userId;
+        this.role = role;
+    }
+
+    public UsersEntity updateNickName(String name) {
         this.nickName = name;
         return this;
     }
