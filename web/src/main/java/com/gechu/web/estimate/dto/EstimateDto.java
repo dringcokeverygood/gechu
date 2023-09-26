@@ -15,13 +15,12 @@ public class EstimateDto {
     private Long gameSeq;
     private String like;
 
-    public EstimateEntity toEntity(EstimateDto estimateDto, UsersEntity userEntity) {
+    public static EstimateEntity toEntity(EstimateDto estimateDto) {
         if(estimateDto == null) {
             return null;
         }
         return EstimateEntity.builder()
-                .seq(estimateDto.getSeq())
-                .users(userEntity)
+                .users(UsersEntity.builder().seq(estimateDto.getUserSeq()).build())
                 .gameSeq(estimateDto.getGameSeq())
                 .userLike(estimateDto.getLike())
                 .build();

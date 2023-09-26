@@ -4,6 +4,8 @@ import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.comment.entity.CommentEntity;
 import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.review.entity.ReviewEntity;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,10 @@ import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
-@Getter @Setter
+@Getter
 @Table(name = "users")
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
+@Builder
 public class UsersEntity {
 
     @Id
