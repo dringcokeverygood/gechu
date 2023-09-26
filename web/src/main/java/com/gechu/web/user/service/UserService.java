@@ -119,7 +119,7 @@ public class UserService {
     }
 
     public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
-        List<ArticleEntity> list = articleRepository.findByUserSeq(userSeq);
+        List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
 
         return list.stream().map(l -> {
             return ArticleMyPageDto.builder()
