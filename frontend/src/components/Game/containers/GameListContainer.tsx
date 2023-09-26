@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameList from '../GameList';
 import { FilterObject, FilterType } from '../../../typedef/Game/filter.types';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { http } from '../../../utils/http';
 
 const GameListContainer = () => {
 	// 장르별 필터링을 위한 state
@@ -116,48 +117,57 @@ const GameListContainer = () => {
 		onClick: onClickLabelPlatformXBtn,
 	};
 
-	const dummy: GamePreviewType[] = [
-		{
-			gameSeq: 1,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 2,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 3,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 4,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 5,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-	];
+	// const dummy: GamePreviewType[] = [
+	// 	{
+	// 		gameSeq: 1,
+	// 		gameTitle: '젤다의 전설',
+	// 		gameTitleImageUrl: '',
+	// 		estimatePercent: 80,
+	// 		genre: ['오픈월드', '액션'],
+	// 		platform: ['switch'],
+	// 	},
+	// 	{
+	// 		gameSeq: 2,
+	// 		gameTitle: '젤다의 전설',
+	// 		gameTitleImageUrl: '',
+	// 		estimatePercent: 80,
+	// 		genre: ['오픈월드', '액션'],
+	// 		platform: ['switch'],
+	// 	},
+	// 	{
+	// 		gameSeq: 3,
+	// 		gameTitle: '젤다의 전설',
+	// 		gameTitleImageUrl: '',
+	// 		estimatePercent: 80,
+	// 		genre: ['오픈월드', '액션'],
+	// 		platform: ['switch'],
+	// 	},
+	// 	{
+	// 		gameSeq: 4,
+	// 		gameTitle: '젤다의 전설',
+	// 		gameTitleImageUrl: '',
+	// 		estimatePercent: 80,
+	// 		genre: ['오픈월드', '액션'],
+	// 		platform: ['switch'],
+	// 	},
+	// 	{
+	// 		gameSeq: 5,
+	// 		gameTitle: '젤다의 전설',
+	// 		gameTitleImageUrl: '',
+	// 		estimatePercent: 80,
+	// 		genre: [],
+	// 		platform: [],
+	// 	},
+	// ];
+
+	const [dummy, setDummy] = useState<GamePreviewType[]>([]);
+
+	useEffect(() => {
+		http.get<GamePreviewType[]>(`game/games`).then((res) => {
+			console.log(res);
+			setDummy(res);
+		});
+	}, []);
 
 	return (
 		<GameList

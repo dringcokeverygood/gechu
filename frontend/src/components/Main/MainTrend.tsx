@@ -21,9 +21,9 @@ const MainTrend = ({ games, onClickGame }: TrendProps) => {
 			<Slick>
 				{games.map((game) => (
 					<div
-						key={`trend${game.gameSeq}`}
+						key={`trend${game.seq}`}
 						className="flex  w-72 py-3"
-						onClick={() => onClickGame(`/game-detail/${game.gameSeq}`)}
+						onClick={() => onClickGame(`/game-detail/${game.seq}`)}
 					>
 						<div className="group flex justify-center">
 							<img
@@ -33,8 +33,8 @@ const MainTrend = ({ games, onClickGame }: TrendProps) => {
 							/>
 							<div className="text-white absolute flex h-64 w-64 flex-col justify-start p-4 text-xl opacity-0 group-hover:opacity-100">
 								<p>{game.gameTitle}</p>
-								<p>{game.genre}</p>
-								<p>{game.platform}</p>
+								<p>{game.genres}</p>
+								<p>{game.platforms}</p>
 							</div>
 						</div>
 					</div>

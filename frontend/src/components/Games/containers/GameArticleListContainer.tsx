@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
 import GameArticleList from '../GameArticleList';
 
 const GameArticleListContainer = () => {
+	const [modalFlag, setModalFlag] = useState(false);
+	const onChangeModalFlag = useCallback(() => {
+		setModalFlag(!modalFlag);
+		console.log('모달', modalFlag);
+	}, [modalFlag]);
+
 	const articles: GameArticlePreviewType[] = [
 		{
 			seq: 1,
@@ -60,7 +66,11 @@ const GameArticleListContainer = () => {
 		//         return <GameArticlePreviewCard key={idx} article={article}/>
 		//     })}
 		// </div>
-		<GameArticleList articles={articles} />
+		<GameArticleList
+			articles={articles}
+			modalFlag={modalFlag}
+			onChangeModalFlag={onChangeModalFlag}
+		/>
 	);
 };
 

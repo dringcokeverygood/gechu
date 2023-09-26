@@ -37,7 +37,7 @@ const SearchGame = ({ platformFilter, games }: GameCardProps) => {
 
 				<div className="flex flex-wrap content-start items-start justify-start gap-6 self-stretch pb-10 ">
 					{games.map((game) => (
-						<BGameCardContainer key={game.gameSeq} game={game} />
+						<BGameCardContainer key={game.seq} game={game} />
 					))}
 				</div>
 			</div>

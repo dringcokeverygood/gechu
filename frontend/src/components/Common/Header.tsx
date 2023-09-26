@@ -15,6 +15,7 @@ type Props = {
 	) => void;
 	onKeyUpForSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 	onClickSearchBtn: () => void;
+	onClickLogout: () => void;
 };
 
 const Header = ({
@@ -24,6 +25,7 @@ const Header = ({
 	onChangeSearchWord,
 	onKeyUpForSearch,
 	onClickSearchBtn,
+	onClickLogout,
 }: Props) => {
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
@@ -84,7 +86,7 @@ const Header = ({
 							leaveFrom="opacity-100 translate-y-0"
 							leaveTo="opacity-0 translate-y-1"
 						>
-							<Popover.Panel className="absolute left-1/2 z-10 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
+							<Popover.Panel className="absolute left-1/2 z-30 mr-5 mt-2 w-[150px] max-w-sm -translate-x-3/4 transform">
 								<div className="ring-black overflow-hidden rounded-lg bg-white-100 shadow-lg ring-1 ring-opacity-5">
 									<div className="flex items-center gap-2 p-4 text-white-950 ">
 										<img
@@ -121,7 +123,10 @@ const Header = ({
 													<div className="font-dungGeunMo">내 리뷰</div>
 												</Popover.Button>
 											</li>
-											<li className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700 transition duration-150 ease-in-out hover:bg-white-200">
+											<li
+												className="border-t-[1px] border-solid border-white-200 px-4 py-2 font-dungGeunMo text-red-700 transition duration-150 ease-in-out hover:bg-white-200"
+												onClick={onClickLogout}
+											>
 												로그아웃
 											</li>
 										</ul>

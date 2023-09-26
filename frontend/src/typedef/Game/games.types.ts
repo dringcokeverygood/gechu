@@ -1,19 +1,23 @@
 import { FilterType } from './filter.types';
 
 export type GamePreviewType = {
-	gameSeq: number;
+	seq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
 	estimatePercent: number;
-	genre: string;
-	platform: string;
+	genres: string[];
+	platforms: string[];
 };
 
 export type GameInfoType = {
 	seq: number;
 	gameTitle: string;
+	gameTitleImageUrl: string;
 	develop: string;
 	publish: string;
+	createDate: string;
+	platforms: string[];
+	genres: string[];
 	metaScore: number;
 	openScore: number;
 };

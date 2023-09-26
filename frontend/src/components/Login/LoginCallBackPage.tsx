@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-// 인가코드 백으로 보내는 작업 하는 곳
-
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
@@ -21,9 +19,9 @@ const LoginCallBackPage = () => {
 			})
 				.then((res) => {
 					//백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
-					console.log(res);
-					//계속 쓸 정보들( ex: 이름) 등은 localStorage에 저장
-					localStorage.setItem('name', res.data.account.kakaoName);
+					console.log('res 1', res);
+					localStorage.setItem('token', res.data.accessToken);
+					localStorage.setItem('login', 'true');
 					navigate('/');
 				})
 				.catch((err) => {
