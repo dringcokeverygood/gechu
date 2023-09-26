@@ -73,20 +73,21 @@ public class GameEntity implements Persistable<Integer> {
 	}
 
 
-	public static GameResponseDto toDtoUser(GameEntity gameEntity) {
-		return GameResponseDto.builder()
-			.gameTitle(gameEntity.getGameTitle())
-			.gameSlug(gameEntity.getGameSlug())
-			.seq(gameEntity.getSeq())
-			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
-			.build();
-	}
+	// public static GameResponseDto toDtoUser(GameEntity gameEntity) {
+	// 	return GameResponseDto.builder()
+	// 		.gameTitle(gameEntity.getGameTitle())
+	// 		.gameSlug(gameEntity.getGameSlug())
+	// 		.seq(gameEntity.getSeq())
+	// 		.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
+	// 		.build();
+	// }
 
 	public static GameResponseDto toDtoDetail(GameEntity gameEntity) {
 		return GameResponseDto.builder()
 			.gameTitle(gameEntity.getGameTitle())
 			.gameSlug(gameEntity.getGameSlug())
 			.seq(gameEntity.getSeq())
+			.createDate(gameEntity.getCreateDate())
 			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
 			.develop(gameEntity.getDevelop())
 			.publish(gameEntity.getPublish())
