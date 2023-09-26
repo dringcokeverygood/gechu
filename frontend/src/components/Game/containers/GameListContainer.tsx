@@ -163,7 +163,7 @@ const GameListContainer = () => {
 	const [dummy, setDummy] = useState<GamePreviewType[]>([]);
 
 	useEffect(() => {
-		http.get<GamePreviewType[]>(`game/dummy/games`).then((res) => {
+		http.get<GamePreviewType[]>(`game/games`).then((res) => {
 			console.log(res);
 			setDummy(res);
 		});
