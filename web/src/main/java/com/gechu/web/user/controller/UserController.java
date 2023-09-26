@@ -1,5 +1,6 @@
 package com.gechu.web.user.controller;
 
+import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.game.dto.LikeGameItemDto;
 import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.user.entity.KakaoUserInfo;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Path;
 
 @RestController
 @RequiredArgsConstructor
@@ -152,6 +154,33 @@ public class UserController {
             reviewList.add(data2);
 
             resultMap.put("reviewList", reviewList);
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @GetMapping("/users/{userSeq}/articles")
+    public ResponseEntity<?> findMyArticles(@PathVariable Long userSeq, HttpServletRequest request) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+        List<ArticleMyPageDto> articleList;
+
+        try {
+            articleList = new ArrayList<>();
+//            articleList = userService.findMyArticles(userSeq);
+            ArticleMyPageDto data1 = new ArticleMyPageDto((long)1, "", "",  (long)1, "리뷰 제목", "리뷰 내용", LocalDateTime.now());
+            ArticleMyPageDto data2 = new ArticleMyPageDto((long)2, "", "", (long)2, "리뷰 제목", "리뷰 내용",  LocalDateTime.now());
+
+            articleList.add(data1);
+            articleList.add(data2);
+
+            resultMap.put("articleList", articleList);
             resultMap.put("success", true);
             status = HttpStatus.OK;
         } catch (Exception e) {
