@@ -6,6 +6,7 @@ import { MdMoreVert } from 'react-icons/md';
 import { Icon } from '@iconify/react';
 import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import dateFormatting from '../../../utils/dateFormatting';
 
 // article인지 review인지 구분할 값 필요(navigate용)
 const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
@@ -134,7 +135,9 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 					</Link>
 				</div>
 				<div>
-					<p className="text-[12px] text-white-400">{item.createDate}</p>
+					<p className="text-[12px] text-white-400">
+						{dateFormatting(item.createDate)}
+					</p>
 				</div>
 			</div>
 		</div>
