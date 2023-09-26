@@ -23,6 +23,8 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -34,18 +36,9 @@ public class WebDriverUtil {
 	private String driverPath;
 	private static final String url = "https://www.metacritic.com/game/";
 
+	// chromedriver 경로 체크용 함수 (더이상 안씀)
 	public void checkDirectory() throws IOException {
 		Path directoryPath = Paths.get("");
-
-		// // 디렉토리 내의 모든 파일과 디렉토리를 나열
-		// log.info("디렉토리 내의 모든 파일과 디렉토리를 나열");
-		// try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath)) {
-		// 	for (Path file : stream) {
-		// 		log.info("{}", file.getFileName());
-		// 	}
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// }
 
 		log.info("디렉토리 트리 내의 모든 파일과 디렉토리를 나열 (하위 디렉토리 포함)");
 		Files.walkFileTree(directoryPath, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE,
@@ -89,17 +82,16 @@ public class WebDriverUtil {
 	}
 
 	public void multiThreading() {
-		for (int i = 0; i < 2; i++) {
+		ExecutorService executorService = Executors.newFixedThreadPool(5);
+		for (int i = 0; i < 100; i++) {
 			log.info("{}번 쓰레드 실행중", i);
-			Thread thread = new Thread(new CrawlMetaCritic(i, "the-legend-of-zelda-tears-of-the-kingdom"));
-			thread.start();
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-			log.info("{}번 쓰레드 실행종료", i);
+			int taskId = i;
+			CrawlMetaCritic crawlTask = new CrawlMetaCritic(taskId, "the-legend-of-zelda-tears-of-the-kingdom");
+			executorService.execute(crawlTask);
 		}
+		// 스레드 풀 종료
+		executorService.shutdown();
+
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {
