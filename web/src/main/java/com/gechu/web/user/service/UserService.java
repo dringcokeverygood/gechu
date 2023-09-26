@@ -1,5 +1,8 @@
 package com.gechu.web.user.service;
 
+import com.gechu.web.article.dto.ArticleMyPageDto;
+import com.gechu.web.article.entity.ArticleEntity;
+import com.gechu.web.article.repository.ArticleRepository;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.entity.Role;
 import com.gechu.web.user.entity.UsersEntity;
@@ -21,7 +24,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,6 +37,9 @@ public class UserService {
     private final UserRepository repository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final ArticleRepository articleRepository;
+
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String KAKAO_APP_KEY;
@@ -61,11 +69,12 @@ public class UserService {
                 });
     }
 
-    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository) {
         this.encoder = encoder;
         this.repository = repository;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.jwtTokenProvider = jwtTokenProvider;
+        this.articleRepository = articleRepository;
     }
 
     public JwtToken login(String email, String password) {
@@ -107,5 +116,19 @@ public class UserService {
                     repository.save(user);
                     return Mono.just(kakaoUserInfo);
                 });
+    }
+
+    public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
+        List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
+
+        return list.stream().map(l -> {
+            return ArticleMyPageDto.builder()
+                    .gameSeq(l.getGameSeq())
+                    .itemSeq(l.getSeq())
+                    .title(l.getArticleTitle())
+                    .content(l.getArticleContent())
+                    .createDate(l.getCreateDate())
+                    .build();
+        }).collect(Collectors.toList());
     }
 }
