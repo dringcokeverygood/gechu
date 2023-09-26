@@ -21,8 +21,7 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Getter
 @Table(name = "users")
-@NoArgsConstructor @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 public class UsersEntity {
 
     @Id
@@ -47,10 +46,16 @@ public class UsersEntity {
     private String imageUrl;
 
     @Builder
-    public UsersEntity(String userId, String nickName, LocalDateTime createDate, LocalDateTime deleteDate, String imageUrl, String deleted) {
+    public UsersEntity(String userId, String nickName, String imageUrl) {
         this.userId = userId;
         this.nickName = nickName;
         this.imageUrl = imageUrl;
+    }
+
+    public void setProfiles(String nickName, String userId, Role role) {
+        this.nickName = nickName;
+        this.userId = userId;
+        this.role = role;
     }
 
     public UsersEntity update(String name) {
