@@ -12,4 +12,6 @@ public interface EstimateRepository extends JpaRepository<EstimateEntity, Long> 
     List<EstimateEntity> findByGameSeq(Long seq);
 
     EstimateEntity findByGameSeqAndUsers_Seq(Long gameSeq, Long userSeq);
+
+    List<EstimateEntity> findByUsers_Seq(Long userSeq);
 }

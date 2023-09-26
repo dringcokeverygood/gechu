@@ -3,6 +3,8 @@ package com.gechu.web.user.service;
 import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
+import com.gechu.web.estimate.entity.EstimateEntity;
+import com.gechu.web.estimate.repository.EstimateRepository;
 import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.review.entity.ReviewEntity;
 import com.gechu.web.review.repository.ReviewRepository;
@@ -43,7 +45,7 @@ public class UserService {
 
     private final ArticleRepository articleRepository;
 
-    private final ReviewRepository reviewRepository;
+    private final EstimateRepository estimateRepository;
 
 
     @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
@@ -74,13 +76,13 @@ public class UserService {
                 });
     }
 
-    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository, ReviewRepository reviewRepository) {
+    public UserService(BCryptPasswordEncoder encoder, UserRepository repository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, ArticleRepository articleRepository, EstimateRepository estimateRepository) {
         this.encoder = encoder;
         this.repository = repository;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.articleRepository = articleRepository;
-        this.reviewRepository = reviewRepository;
+        this.estimateRepository = estimateRepository;
     }
 
     public JwtToken login(String email, String password) {
@@ -126,13 +128,21 @@ public class UserService {
     }
 
 //    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
+//        List<EstimateEntity> list = estimateRepository.findByUsers_Seq(userSeq);
 //
+//        return list.stream().map(l -> {
+//            // 찬희오빠가 만들어준 메서드를 써서 게임 타이틀과 게임 이미지를 정보를 넣어서 반환해주기
+//            // gameServiceClient 인스턴스만들어서 함수사용
+//            // 즉 프론트에선 게임정보 api를 다시 호출할 필요가 없다!!!!!!
+//        })
 //    }
 
     public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
         List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
 
         return list.stream().map(l -> {
+            // 찬희오빠가 만들어준 메서드를 써서 게임 타이틀과 게임 이미지를 정보를 넣어서 반환해주기
+            // 즉 프론트에선 게임정보 api를 다시 호출할 필요가 없다!!!!!!
             return ArticleMyPageDto.builder()
                     .gameSeq(l.getGameSeq())
                     .itemSeq(l.getSeq())
