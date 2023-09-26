@@ -20,8 +20,8 @@ public class CrawlMetaCritic implements Runnable {
 	private String gameSlug;
 	private int cnt;
 	private WebDriver driver;
-	// private String driverPath = "usr/bin/chrome-linux64/chromedriver";
-	private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
+	private String driverPath = "usr/bin/chrome-linux64/chromedriver";
+	// private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String url = "https://www.metacritic.com/game/";
 
 	public CrawlMetaCritic(int cnt, String gameSlug) {
