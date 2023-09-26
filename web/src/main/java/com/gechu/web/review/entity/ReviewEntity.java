@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,11 +25,12 @@ public class ReviewEntity {
     @GeneratedValue
     private Long seq;
     private String text;
+    @CreationTimestamp
+    private LocalDateTime createDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estimate_seq")
     private EstimateEntity estimate;
-    private LocalDateTime createDate;
 
     public ReviewDto toDto(ReviewEntity reviewEntity) {
         if (reviewEntity == null) {

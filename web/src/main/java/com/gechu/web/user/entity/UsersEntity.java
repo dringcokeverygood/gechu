@@ -3,6 +3,7 @@ package com.gechu.web.user.entity;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.comment.entity.CommentEntity;
 import com.gechu.web.estimate.entity.EstimateEntity;
+import com.gechu.web.user.dto.UserProfileDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -67,5 +68,14 @@ public class UsersEntity {
 
     public String getRoleKey() {
         return this.role.getKey();
+    }
+
+    public static UserProfileDto toDto(UsersEntity users) {
+        return UserProfileDto.builder()
+            .imageUrl(users.getImageUrl())
+            .seq(users.getSeq())
+            .nickName(users.getNickName())
+            .userId(users.getUserId())
+            .build();
     }
 }

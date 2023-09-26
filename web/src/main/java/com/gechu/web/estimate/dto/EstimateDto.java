@@ -1,5 +1,7 @@
 package com.gechu.web.estimate.dto;
 
+import java.time.LocalDateTime;
+
 import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.user.entity.UsersEntity;
 import lombok.*;
@@ -14,6 +16,9 @@ public class EstimateDto {
     private Long userSeq;
     private Long gameSeq;
     private String like;
+    private Long reviewSeq;
+    private String reviewText;
+    private LocalDateTime reviewDate;
 
     public static EstimateEntity toEntity(EstimateDto estimateDto) {
         if(estimateDto == null) {

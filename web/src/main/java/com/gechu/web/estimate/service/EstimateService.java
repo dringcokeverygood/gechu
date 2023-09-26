@@ -9,5 +9,7 @@ import org.springframework.stereotype.Service;
 public interface EstimateService {
 
     Long upsertEstimate(EstimateDto estimateDto);
-    List<EstimateDto> findLikeForGame(Long gameSeq);
+    List<EstimateDto> findEstimatesByGameSeq(Long gameSeq);
+
+    public List<EstimateDto> findEstimatesByUserSeq(Long userSeq);
 }

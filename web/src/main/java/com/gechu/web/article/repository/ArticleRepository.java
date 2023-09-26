@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
     List<ArticleEntity> findByUsers_Seq(Long userSeq);
+    List<ArticleEntity> findByGameSeq(Long gameSeq);
 }

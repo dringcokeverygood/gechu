@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface EstimateRepository extends JpaRepository<EstimateEntity, Long> {
     List<EstimateEntity> findByGameSeq(Long seq);
+    List<EstimateEntity> findByUserSeq(Long seq);
 
     EstimateEntity findByGameSeqAndUsers_Seq(Long gameSeq, Long userSeq);
 }

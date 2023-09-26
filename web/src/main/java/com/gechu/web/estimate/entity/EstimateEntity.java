@@ -20,12 +20,12 @@ import lombok.NoArgsConstructor;
 public class EstimateEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seq;
 	private Long gameSeq;
 	private String userLike;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_seq")
 	private UsersEntity users;
 
@@ -35,6 +35,18 @@ public class EstimateEntity {
 	public static EstimateDto toDto(EstimateEntity estimateEntity) {
 		if (estimateEntity == null) {
 			return null;
+		}
+		if (estimateEntity.getReviewEntity() != null) {
+			ReviewEntity reviewEntity = estimateEntity.getReviewEntity();
+			return EstimateDto.builder()
+				.seq(estimateEntity.getSeq())
+				.userSeq(estimateEntity.getUsers().getSeq())
+				.gameSeq(estimateEntity.getGameSeq())
+				.reviewSeq(reviewEntity.getSeq())
+				.reviewText(reviewEntity.getText())
+				.reviewDate(reviewEntity.getCreateDate())
+				.like(estimateEntity.getUserLike())
+				.build();
 		}
 		return EstimateDto.builder()
 			.seq(estimateEntity.getSeq())

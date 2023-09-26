@@ -29,19 +29,29 @@ public class EstimateServiceImpl implements EstimateService {
 		if (estimateEntity != null) {
 			estimateEntity.updateUserLike(estimateDto.getLike());
 			return estimateEntity.getSeq();
-		} else {
-			EstimateEntity save = estimateRepository.save(EstimateDto.toEntity(estimateDto));
-			return save.getSeq();
 		}
+
+		EstimateEntity save = estimateRepository.save(EstimateDto.toEntity(estimateDto));
+		return save.getSeq();
 	}
 
 	@Override
-	public List<EstimateDto> findLikeForGame(Long gameSeq) {
+	public List<EstimateDto> findEstimatesByGameSeq(Long gameSeq) {
 		List<EstimateEntity> estimateEntities = estimateRepository.findByGameSeq(gameSeq);
 		if (estimateEntities.size() == 0) {
-			List<EstimateDto> estimateDtoList = new ArrayList<>();
-			return estimateDtoList;
+			return new ArrayList<>();
 		}
 		return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
+	}
+
+	public List<EstimateDto> findEstimatesByUserSeq(Long userSeq) {
+		List<EstimateEntity> estimateEntities = estimateRepository.findByUserSeq(userSeq);
+		List<EstimateDto> estimateDtos = new ArrayList<>();
+		for (EstimateEntity estimateEntity : estimateEntities) {
+			if (estimateEntity.getReviewEntity() != null) {
+				estimateDtos.add(EstimateEntity.toDto(estimateEntity));
+			}
+		}
+		return estimateDtos;
 	}
 }
