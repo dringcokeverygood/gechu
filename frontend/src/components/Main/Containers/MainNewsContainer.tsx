@@ -16,7 +16,6 @@ const MainNewsContainer = () => {
 	const newsList = [
 		{
 			news_seq: 1,
-			game_seq: 1,
 			headline: '한국닌텐도, 「별의 커비 30주년 팝업 스토어」 개최',
 			content:
 				'한국닌텐도㈜(http://www.nintendo.co.kr)는 2023년에도 「별의 커비 30주년 팝업 스토어」를 개최한다고 발표했다. 팝업 스토어는 신촌 U플렉스 지하 2층에서 2023년 2월 17일에 오픈되며 2023년 3월 2일까지 진행된다. 대표 상품 라인업 팝업 스토어는 「별의 커비」를 테마로 한 아기자기한 인테리어로 꾸며질 예정이며, 300종류 이상의 다양한 「별의 커비」 관련 상품들을 선보인다.',
@@ -28,7 +27,6 @@ const MainNewsContainer = () => {
 		},
 		{
 			news_seq: 2,
-			game_seq: 1,
 			headline:
 				'「별의 커비 30주년」을 되돌아보는, 커비와 함께한 1년간을 소개합니다.',
 			content:
@@ -41,7 +39,6 @@ const MainNewsContainer = () => {
 		},
 		{
 			news_seq: 3,
-			game_seq: 1,
 			headline:
 				'「TETRIS® 99」 제31회 테트1 컵 별의 커비 Wii 디럭스 컬래버레이션 축제!',
 			content:
@@ -54,7 +51,6 @@ const MainNewsContainer = () => {
 		},
 		{
 			news_seq: 4,
-			game_seq: 2,
 			headline:
 				'『슈퍼 마리오브라더스 원더』의 예약 판매 일정 및 구입 특전 안내',
 			content:

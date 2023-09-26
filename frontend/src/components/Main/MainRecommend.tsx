@@ -29,19 +29,25 @@ const MainRecommend = ({ games, onClickBtn, onClickGame }: TrendProps) => {
 				{games.map((game) => (
 					<div
 						key={`recommend${game.seq}`}
-						className="flex  w-72 py-3"
-						onClick={() => onClickGame(`/game-detail/${game.seq}`)}
+						className=" flex w-1/4 items-center"
 					>
-						<div className="group flex justify-center">
+						<div className="group flex w-full justify-center ">
 							<img
-								className="h-64 w-64  object-cover object-center group-hover:opacity-40"
+								className="h-64 w-64 bg-white-950 object-cover object-center group-hover:opacity-50"
 								src={game.gameTitleImageUrl}
 								alt={game.gameTitle}
 							/>
-							<div className="text-white absolute flex h-64 w-64 flex-col justify-start p-4 text-xl opacity-0 group-hover:opacity-100">
-								<p>{game.gameTitle}</p>
-								<p>{game.genres}</p>
-								<p>{game.platforms}</p>
+							<div className="text-white absolute flex h-full w-64 flex-col justify-between p-5 text-xl opacity-0 group-hover:opacity-100">
+								<p
+									className="mb-2 line-clamp-2 cursor-pointer border-y-2 border-solid bg-white-950 bg-opacity-40 py-2 font-dungGeunMo text-2xl hover:pb-1 hover:pt-3"
+									onClick={() => onClickGame(`/game-detail/${game.seq}`)}
+								>
+									{game.gameTitle}
+								</p>
+								<div className="h-2/3  text-white-200">
+									<p className="mt-5 font-dungGeunMo">장르 : {game.genres}</p>
+									<p className="font-dungGeunMo ">플랫폼 : {game.platforms}</p>
+								</div>
 							</div>
 						</div>
 					</div>

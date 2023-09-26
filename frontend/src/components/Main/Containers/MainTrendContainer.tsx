@@ -101,15 +101,6 @@ const MainTrendContainer = () => {
 			platforms: ['PC'],
 		},
 		{
-			seq: 11,
-			gameTitle: '리그 오브 레전드',
-			gameTitleImageUrl:
-				'https://www.leagueoflegends.com/static/logo-1200-04b3cefafba917c9c571f9244fd28a1e.png',
-			estimatePercent: 80,
-			genres: ['AOS'],
-			platforms: ['PC'],
-		},
-		{
 			seq: 12,
 			gameTitle: 'P의 거짓',
 			gameTitleImageUrl:
@@ -126,69 +117,6 @@ const MainTrendContainer = () => {
 			estimatePercent: 80,
 			genres: ['어드벤처', '액션'],
 			platforms: ['액션'],
-		},
-		{
-			seq: 14,
-			gameTitle: '별의 커비 스타 얼라이어즈',
-			gameTitleImageUrl:
-				'https://www.nintendo.co.kr/images/renew/software/switch/ah26a/img_switch_kirbystar_main_visual.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 15,
-			gameTitle: '슈퍼 커비 헌터즈',
-			gameTitleImageUrl:
-				'https://www.nintendo.co.kr/images/renew/software/switch/apy8a/img_switch_apy8a_main_visual.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 16,
-			gameTitle: '커비 파이터즈 2',
-			gameTitleImageUrl:
-				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/e/7/e74650ccef427c3c3e6ea1c1b4629aabff825835cc261d2b96fb54a88e193c2d.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 17,
-			gameTitle: '별의 커비 디스커버리',
-			gameTitleImageUrl:
-				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/1/7/17729239eaa5a4c5703851aa9ec2a6a8de4db56e0122d36fff708cbcaf5c7a7b.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 18,
-			gameTitle: '커비의 드림 뷔페',
-			gameTitleImageUrl:
-				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/3/6/36c889bc55718d02d7427a10196ae376b47dddce8235e827ba5745ff7806b057.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 19,
-			gameTitle: '별의 커비 Wii 디럭스',
-			gameTitleImageUrl:
-				'https://store.nintendo.co.kr/media/catalog/product/cache/8e3c84988db1fdb90470f4d01453d879/4/5/4548a5ba4ace2d15bc3940b09b4b74b383c9888844dfedc16ac462ae44ae40a3.jpg',
-			estimatePercent: 80,
-			genres: ['액션'],
-			platforms: ['Switch'],
-		},
-		{
-			seq: 20,
-			gameTitle: '발로란트',
-			gameTitleImageUrl:
-				'https://i.namu.wiki/i/lwi2Jg0Vjq6TanoRa6nKygWSH_60CqUdamPa3Lgc4d9tZ3UX2PWokZRkYpWypfIxWePI0nn6jIBvos2187Is_DHH9ofbvZaMMhliIjEHtPu5Vj-pH5J6h8z4U0ZeDFbxo_nUbufd2qtDQgsEU97Oww.svg',
-			estimatePercent: 80,
-			genres: ['액션', 'FPS'],
-			platforms: ['PC'],
 		},
 	];
 
