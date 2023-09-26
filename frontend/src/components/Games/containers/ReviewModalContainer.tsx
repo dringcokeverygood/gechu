@@ -41,12 +41,15 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		}
 	};
 
+	const isButtonActive = preference.like || preference.unlike;
+
 	return (
 		<div>
 			<ReviewModal
 				onClickPref={onClickPref}
 				preference={preference}
 				onChangeModalFlag={onChangeModalFlag}
+				isButtonActive={isButtonActive}
 			/>
 		</div>
 	);
