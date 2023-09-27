@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.gechu.game.game.dto.GameDto;
 import com.gechu.game.game.dto.GameResponseDto;
 import com.gechu.game.game.entity.GameEntity;
-import com.gechu.game.game.entity.GameGenreEntity;
-import com.gechu.game.game.entity.GamePlatformEntity;
 import com.gechu.game.game.entity.GenreEntity;
 import com.gechu.game.game.entity.PlatformEntity;
 import com.gechu.game.game.repository.GameGenreRepository;
@@ -61,7 +59,7 @@ public class GameService {
 		return gameResponseDtos;
 	}
 
-	public GameResponseDto findGameBySlug(String gameSlug) {
+	public GameResponseDto findGameDetailBySlug(String gameSlug) {
 		GameEntity gameEntity = gameRepository.findByGameSlug(gameSlug);
 		Integer seq = gameEntity.getSeq();
 
@@ -73,7 +71,7 @@ public class GameService {
 		return gameResponseDto;
 	}
 
-	public GameResponseDto findGameBySeq(Integer gameSeq) {
+	public GameResponseDto findGameDetailBySeq(Integer gameSeq) {
 		GameEntity gameEntity = gameRepository.findBySeq(gameSeq);
 
 		GameResponseDto gameResponseDto = GameEntity.toDtoDetail(gameEntity);
@@ -82,6 +80,12 @@ public class GameService {
 		setGamePlatforms(gameResponseDto, gameSeq);
 
 		return gameResponseDto;
+	}
+
+	public GameResponseDto findGameBySeq(Integer gameSeq) {
+		GameEntity gameEntity = gameRepository.findBySeq(gameSeq);
+
+		return GameEntity.toDtoDetail(gameEntity);
 	}
 
 	private void setGameGenres(GameResponseDto gameResponseDto, Integer gameSeq) {
