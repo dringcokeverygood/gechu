@@ -26,4 +26,7 @@ public interface GameServiceClient {
 
 	@GetMapping("/games/seq/{gameSeq}")
 	public GameResponseDto findGameBySeq(@PathVariable("gameSeq") Integer gameSeq);
+
+	@GetMapping("/games/title/{gameSeq}")
+	public GameResponseDto findGameTitleBySeq(@PathVariable("gameSeq") Integer gameSeq);
 }

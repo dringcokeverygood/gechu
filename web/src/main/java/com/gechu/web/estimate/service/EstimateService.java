@@ -11,5 +11,6 @@ public interface EstimateService {
     Long upsertEstimate(EstimateDto estimateDto);
     List<EstimateDto> findEstimatesByGameSeq(Long gameSeq);
 
+    public List<EstimateDto> findEstimatesWhereReviewIsNotNullByUserSeq(Long userSeq);
     public List<EstimateDto> findEstimatesByUserSeq(Long userSeq);
 }

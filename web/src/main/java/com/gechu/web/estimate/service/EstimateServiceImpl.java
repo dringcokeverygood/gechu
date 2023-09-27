@@ -44,14 +44,17 @@ public class EstimateServiceImpl implements EstimateService {
 		return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
 	}
 
+	public List<EstimateDto> findEstimatesWhereReviewIsNotNullByUserSeq(Long userSeq) {
+		List<EstimateEntity> estimateEntities = estimateRepository.findByUserSeq(userSeq);
+		return estimateEntities.stream()
+			.filter(e -> e.getReviewEntity() != null)
+			.map(EstimateEntity::toDto)
+			.collect(Collectors.toList());
+	}
+
 	public List<EstimateDto> findEstimatesByUserSeq(Long userSeq) {
 		List<EstimateEntity> estimateEntities = estimateRepository.findByUserSeq(userSeq);
-		List<EstimateDto> estimateDtos = new ArrayList<>();
-		for (EstimateEntity estimateEntity : estimateEntities) {
-			if (estimateEntity.getReviewEntity() != null) {
-				estimateDtos.add(EstimateEntity.toDto(estimateEntity));
-			}
-		}
-		return estimateDtos;
+		return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
 	}
+	
 }

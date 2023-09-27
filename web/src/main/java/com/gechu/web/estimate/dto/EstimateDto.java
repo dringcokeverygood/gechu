@@ -15,6 +15,8 @@ public class EstimateDto {
     private Long seq;
     private Long userSeq;
     private Long gameSeq;
+    private String gameTitle;
+    private String gameTitleImageUrl;
     private String like;
     private Long reviewSeq;
     private String reviewText;

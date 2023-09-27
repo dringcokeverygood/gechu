@@ -1,10 +1,6 @@
 package com.gechu.web.user.service;
 
-import com.gechu.web.article.dto.ArticleMyPageDto;
-import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
-import com.gechu.web.review.dto.ReviewMyPageDto;
-import com.gechu.web.review.entity.ReviewEntity;
 import com.gechu.web.review.repository.ReviewRepository;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.entity.Role;
@@ -113,9 +109,6 @@ public class UserService {
                 .flatMap(user -> {
                     if (user.getSeq() == null) {  // 새로운 사용자인 경우
                         user.setProfiles(kakaoUserInfo.getNickName(), kakaoUserInfo.getUserId(), Role.USER);
-                        // user.setNickName(kakaoUserInfo.getNickName());
-                        // user.setUserId(kakaoUserInfo.getUserId());
-                        // user.setRole(Role.USER);  // Role은 예시로 사용자 역할을 넣었습니다.
                     }
 
                     // 저장은 블로킹 호출이므로 Mono에서 실행하기 위해선 fromRunnable을 사용할 수 있으나,
