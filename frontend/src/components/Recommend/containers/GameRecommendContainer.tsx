@@ -164,6 +164,7 @@ const GameRecommendContainer = () => {
 			genreFilter={genreFilter}
 			platformFilter={platformFilter}
 			games={dummy}
+			loading={true}
 		/>
 	);
 };
