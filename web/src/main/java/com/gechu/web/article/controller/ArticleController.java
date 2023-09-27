@@ -62,7 +62,7 @@ public class ArticleController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @PutMapping("{articleSeq}")
+    @PutMapping("/{articleSeq}")
     public ResponseEntity<?> updateArticle(@PathVariable("articleSeq") Long articleSeq, @RequestBody ArticleDto articleDto) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -80,13 +80,30 @@ public class ArticleController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @DeleteMapping("{articleSeq}")
+    @DeleteMapping("/{articleSeq}")
     public ResponseEntity<?> deleteArticle(@PathVariable("articleSeq") Long articleSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         try {
             articleService.deleteArticle(articleSeq);
             resultMap.put("articleSeq", articleSeq);
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @GetMapping("/recent")
+    public ResponseEntity<?> findRecentArticles() {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+        try {
+            List<ArticleDto> articleDtos = articleService.findRecentArticles();
+            resultMap.put("articles", articleDtos);
             resultMap.put("success", true);
             status = HttpStatus.OK;
         } catch (Exception e) {

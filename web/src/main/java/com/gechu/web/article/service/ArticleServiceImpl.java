@@ -70,4 +70,10 @@ public class ArticleServiceImpl implements ArticleService {
 		articleEntity.delete();
 		return articleSeq;
 	}
+
+	@Override
+	public List<ArticleDto> findRecentArticles() {
+		List<ArticleEntity> articleEntities = articleRepository.findTop4ByOrderByCreateDateDesc();
+		return articleEntities.stream().map(ArticleEntity::toDto).collect(Collectors.toList());
+	}
 }
