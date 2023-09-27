@@ -36,12 +36,10 @@ export type GameArticlePreviewType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userSeq: number;
 	userNickname: string;
+	userProfileImageUrl: string;
 	articleTitle: string;
-	content: string;
 	imageUrl: string;
-	createDate: string;
 };
 
 export type GameArticleType = {
