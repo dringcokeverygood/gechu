@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gechu.game.game.dto.GameResponseDto;
@@ -59,7 +58,7 @@ public class GameController {
 		GameResponseDto gameResponseDto = null;
 
 		try {
-			gameResponseDto = gameService.findGameBySlug(gameSlug);
+			gameResponseDto = gameService.findGameDetailBySlug(gameSlug);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -72,6 +71,18 @@ public class GameController {
 
 		GameResponseDto gameResponseDto = null;
 
+		try {
+			gameResponseDto = gameService.findGameDetailBySeq(seq);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
+	}
+
+	@GetMapping("/title/{seq}")
+	public ResponseEntity<?> findGameTitleBySeq(@PathVariable("seq") Integer seq) {
+		GameResponseDto gameResponseDto = null;
 		try {
 			gameResponseDto = gameService.findGameBySeq(seq);
 		} catch (Exception e) {
