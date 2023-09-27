@@ -45,7 +45,7 @@ public class EstimateServiceImpl implements EstimateService {
 	}
 
 	public List<EstimateDto> findEstimatesWhereReviewIsNotNullByUserSeq(Long userSeq) {
-		List<EstimateEntity> estimateEntities = estimateRepository.findByUserSeq(userSeq);
+		List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_Seq(userSeq);
 		return estimateEntities.stream()
 			.filter(e -> e.getReviewEntity() != null)
 			.map(EstimateEntity::toDto)
@@ -53,7 +53,7 @@ public class EstimateServiceImpl implements EstimateService {
 	}
 
 	public List<EstimateDto> findEstimatesByUserSeq(Long userSeq) {
-		List<EstimateEntity> estimateEntities = estimateRepository.findByUserSeq(userSeq);
+		List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_Seq(userSeq);
 		return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
 	}
 	
