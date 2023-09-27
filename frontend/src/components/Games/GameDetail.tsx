@@ -5,7 +5,6 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { GameInfoType } from '../../typedef/Game/games.types';
 import dateFormatting from '../../utils/dateFormatting';
-import dateFormatting from '../../utils/dateFormatting';
 
 const GameDetail = ({ content }: { content: GameInfoType }) => {
 	return (
