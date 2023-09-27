@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import { http } from '../../../utils/http';
 import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
 import GameArticleList from '../GameArticleList';
 
@@ -12,6 +13,12 @@ const GameArticleListContainer = () => {
 		setModalFlag(!modalFlag);
 		console.log('모달', modalFlag);
 	}, [modalFlag]);
+
+	useEffect(() => {
+		http.get(`web/gaems/${seq}/articles`).then((data) => {
+			console.log(data);
+		});
+	}, []);
 
 	const articles: GameArticlePreviewType[] = [
 		{
