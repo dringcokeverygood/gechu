@@ -5,7 +5,7 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 export const LoginAtom = atom<boolean>({
-	key: 'test-login',
+	key: 'login',
 	default: false,
 	effects_UNSTABLE: [persistAtom],
 });
