@@ -57,10 +57,6 @@ const GameListContainer = () => {
 
 	// 플랫폼별 필터링을 위한 state
 	const [platformFilterState, setPlatformFilterState] = useState<FilterObject>({
-		Stream: {
-			flag: false,
-			text: 'Stream',
-		},
 		Switch: {
 			flag: false,
 			text: 'Switch',
@@ -117,55 +113,14 @@ const GameListContainer = () => {
 		onClick: onClickLabelPlatformXBtn,
 	};
 
-	// const dummy: GamePreviewType[] = [
-	// 	{
-	// 		gameSeq: 1,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		estimatePercent: 80,
-	// 		genre: ['오픈월드', '액션'],
-	// 		platform: ['switch'],
-	// 	},
-	// 	{
-	// 		gameSeq: 2,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		estimatePercent: 80,
-	// 		genre: ['오픈월드', '액션'],
-	// 		platform: ['switch'],
-	// 	},
-	// 	{
-	// 		gameSeq: 3,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		estimatePercent: 80,
-	// 		genre: ['오픈월드', '액션'],
-	// 		platform: ['switch'],
-	// 	},
-	// 	{
-	// 		gameSeq: 4,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		estimatePercent: 80,
-	// 		genre: ['오픈월드', '액션'],
-	// 		platform: ['switch'],
-	// 	},
-	// 	{
-	// 		gameSeq: 5,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 		estimatePercent: 80,
-	// 		genre: [],
-	// 		platform: [],
-	// 	},
-	// ];
-
-	const [dummy, setDummy] = useState<GamePreviewType[]>([]);
+	const [gameList, setGameList] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
 		http.get<GamePreviewType[]>(`game/games`).then((res) => {
-			console.log(res);
-			setDummy(res);
+			setGameList(res);
+			setLoading(false);
 		});
 	}, []);
 
@@ -173,7 +128,8 @@ const GameListContainer = () => {
 		<GameList
 			genreFilter={genreFilter}
 			platformFilter={platformFilter}
-			games={dummy}
+			games={gameList}
+			loading={loading}
 		/>
 	);
 };
