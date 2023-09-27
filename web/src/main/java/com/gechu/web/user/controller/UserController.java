@@ -112,7 +112,7 @@ public class UserController {
 			});
 	}
 
-	@GetMapping("/user/{userSeq}/estimates")
+	@GetMapping("/users/{userSeq}/estimates")
 	public ResponseEntity<?> findEstimatesByUserSeq(@PathVariable("userSeq") Long userSeq) {
 
 		Map<String, Object> resultMap = new HashMap<>();
