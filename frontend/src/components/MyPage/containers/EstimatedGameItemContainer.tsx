@@ -5,7 +5,7 @@ import { EstimatedGameItemType } from '../../../typedef/Game/games.types';
 const SelectGameItemContainer = () => {
 	const [preference, setPreference] = useState({
 		like: false,
-		unlike: false,
+		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
 
@@ -27,12 +27,12 @@ const SelectGameItemContainer = () => {
 			setPreference({
 				...preference,
 				like: result,
-				unlike: result ? false : preference.unlike,
+				dislike: result ? false : preference.dislike,
 			});
-		} else if (id === 'unlike') {
+		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
-				unlike: result,
+				dislike: result,
 				like: result ? false : preference.like,
 			});
 		}
