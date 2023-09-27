@@ -1,7 +1,7 @@
 import React from 'react';
 import { DashBoardType } from '../../typedef/MyPage/myPage.types';
 import LikeGameItem from './components/LikeGameItem';
-import LikeUnlikeModalContainer from './containers/LikeUnlikeModalContainer';
+import LikeDislikeModalContainer from './containers/LikeDislikeModalContainer';
 
 const DashBoard = ({ content }: { content: DashBoardType }) => {
 	return (
@@ -21,14 +21,20 @@ const DashBoard = ({ content }: { content: DashBoardType }) => {
 				</button>
 			</div>
 
-			<div className="h-max-[500px] grid w-full grid-cols-5 justify-items-center overflow-auto rounded-3xl bg-white-100 px-7 pb-9">
-				{content.LikeGames.map((game) => (
-					<LikeGameItem key={game.gameSeq} game={game} />
-				))}
-			</div>
+			{content.LikeGames.length > 0 ? (
+				<div className="h-max-[500px] grid w-full grid-cols-5 justify-items-center overflow-auto rounded-3xl bg-white-100 px-7 pb-9">
+					{content.LikeGames.map((game) => (
+						<LikeGameItem key={game.gameSeq} game={game} />
+					))}
+				</div>
+			) : (
+				<div className="flex w-full items-center justify-center rounded-3xl bg-white-200 px-7 py-9 font-dungGeunMo text-white-950">
+					선호 게임이 없습니다.
+				</div>
+			)}
 
 			{content.modalFlag && (
-				<LikeUnlikeModalContainer onClick={content.onClick} />
+				<LikeDislikeModalContainer onClick={content.onClick} />
 			)}
 		</div>
 	);
