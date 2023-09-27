@@ -31,44 +31,25 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 							<div className="flex w-full flex-col  space-y-1">
 								<div className="flex w-full flex-col  space-y-1">
 									<p className="whitespace-pre-wrap">
-<<<<<<< frontend/src/components/Games/GameDetail.tsx
 										{content.develop || '-'}
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.publish || '-'}
-=======
-										{content.develop || ' '}
-									</p>
-									<p className="whitespace-pre-wrap">
-										{content.publish || ' '}
->>>>>>> frontend/src/components/Games/GameDetail.tsx
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.createDate
 											? dateFormatting(content.createDate)
-<<<<<<< frontend/src/components/Games/GameDetail.tsx
 											: '-'}
-=======
-											: ' '}
->>>>>>> frontend/src/components/Games/GameDetail.tsx
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.platforms.length > 0
 											? content.platforms.join(', ')
-<<<<<<< frontend/src/components/Games/GameDetail.tsx
 											: '-'}
-=======
-											: ' '}
->>>>>>> frontend/src/components/Games/GameDetail.tsx
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.genres.length > 0
 											? content.genres.join(', ')
-<<<<<<< frontend/src/components/Games/GameDetail.tsx
 											: '-'}
-=======
-											: ' '}
->>>>>>> frontend/src/components/Games/GameDetail.tsx
 									</p>
 								</div>
 							</div>
