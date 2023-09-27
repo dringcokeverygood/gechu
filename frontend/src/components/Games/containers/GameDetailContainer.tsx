@@ -4,8 +4,6 @@ import GameDetail from '../GameDetail';
 import { GameInfoType } from '../../../typedef/Game/games.types';
 import { http } from '../../../utils/http';
 
-//추후 API호출 위해 gameSeq를 url에서 가져오기
-
 const GameDetailContainer = () => {
 	const gameSeq = useParams().seq;
 	const [gameInfo, setGameInfo] = useState({
