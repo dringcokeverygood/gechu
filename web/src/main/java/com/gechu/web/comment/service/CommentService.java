@@ -8,5 +8,6 @@ import com.gechu.web.comment.dto.CommentResponseDto;
 public interface CommentService {
 	public Long insertComment(CommentDto comment);
 	public List<CommentResponseDto> findCommentsByArticleSeq(Long articleSeq);
+	public List<CommentResponseDto> findCommentsByUserSeq(Long userSeq);
 	public Long deleteComment(Long commentSeq);
 }

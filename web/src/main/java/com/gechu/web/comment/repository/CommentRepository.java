@@ -10,4 +10,5 @@ import com.gechu.web.comment.entity.CommentEntity;
 @Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 	public List<CommentEntity> findByArticleSeq(Long seq);
+	public List<CommentEntity> findByUsers_Seq(Long userSeq);
 }

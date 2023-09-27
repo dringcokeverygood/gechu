@@ -2,10 +2,14 @@ package com.gechu.web.user.controller;
 
 import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.service.ArticleService;
+import com.gechu.web.awss3.service.AwsS3Service;
+import com.gechu.web.comment.dto.CommentResponseDto;
+import com.gechu.web.comment.service.CommentService;
 import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.service.EstimateService;
 import com.gechu.web.game.dto.GameResponseDto;
 import com.gechu.web.game.service.GameServiceClient;
+import com.gechu.web.user.dto.UserUpdateDto;
 import com.gechu.web.user.service.UserService;
 import com.gechu.web.user.util.JwtToken;
 import com.gechu.web.user.util.JwtTokenProvider;
@@ -17,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import reactor.core.publisher.Mono;
 
@@ -33,6 +38,8 @@ public class UserController {
 	private final EstimateService estimateService;
 	private final ArticleService articleService;
 	private final GameServiceClient gameServiceClient;
+	private final CommentService commentService;
+	private final AwsS3Service awsS3Service;
 	private final JwtTokenProvider jwtTokenProvider;
 
 	@Value("${jwt.secret}")
@@ -192,5 +199,45 @@ public class UserController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	// TODO: 닉네임 수정, 프사 수정, 내 댓글 모아보기 해야됨.
+	@GetMapping("/users/{userSeq}/comments")
+	public ResponseEntity<?> findCommentsByUserSeq(@PathVariable("userSeq") Long userSeq) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status;
+
+		try {
+			List<CommentResponseDto> commentsByUserSeq = commentService.findCommentsByUserSeq(userSeq);
+			resultMap.put("comments", commentsByUserSeq);
+			resultMap.put("success", true);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("success", false);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@PutMapping("/users/{userSeq}")
+	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
+		@RequestBody Map<String, Object> requestBody, @RequestPart MultipartFile multipartFile) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status;
+		String nickname = (String)requestBody.get("nickname");
+		UserUpdateDto userUpdate = new UserUpdateDto();
+		userUpdate.setUserSeq(userSeq);
+		userUpdate.setNickname(nickname);
+		try {
+			String imageUrl = null;
+			if (multipartFile != null) {
+				imageUrl = awsS3Service.uploadFile(multipartFile);
+			}
+			userUpdate.setImageUrl(imageUrl);
+			userService.updateUserProfile(userUpdate);
+			resultMap.put("success", true);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("success", false);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
 }

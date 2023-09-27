@@ -1,6 +1,7 @@
 package com.gechu.web.article.dto;
 
 import com.gechu.web.article.entity.ArticleEntity;
+import com.gechu.web.user.dto.UserProfileDto;
 import com.gechu.web.user.entity.UsersEntity;
 
 import lombok.*;
@@ -16,10 +17,11 @@ public class ArticleDto {
 
 	private Long seq;
 	private Long gameSeq;
-	private Long userSeq;
+	private UserProfileDto userProfile;
 	private String articleTitle;
 	private String content;
 	private String imageUrl;
+	private Integer commentCount;
 	private LocalDateTime createDate;
 
 	public static ArticleEntity toEntity(ArticleDto articleDto) {

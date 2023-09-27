@@ -20,7 +20,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> insertReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
@@ -37,7 +37,7 @@ public class ReviewController {
         return new ResponseEntity<>(resultMap, status);
     }
 
-    @PutMapping("")
+    @PutMapping
     public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
