@@ -10,12 +10,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Value;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CrawlMetaCritic implements Runnable {
+public class CrawlMetaCriticReviewsThread implements Runnable {
 
 	private String gameSlug;
 	private int cnt;
@@ -24,7 +23,7 @@ public class CrawlMetaCritic implements Runnable {
 	// private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String url = "https://www.metacritic.com/game/";
 
-	public CrawlMetaCritic(int cnt, String gameSlug) {
+	public CrawlMetaCriticReviewsThread(int cnt, String gameSlug) {
 		this.cnt = cnt;
 		this.gameSlug = gameSlug;
 	}

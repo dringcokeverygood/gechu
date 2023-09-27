@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -86,12 +83,11 @@ public class WebDriverUtil {
 		for (int i = 0; i < 100; i++) {
 			log.info("{}번 쓰레드 실행중", i);
 			int taskId = i;
-			CrawlMetaCritic crawlTask = new CrawlMetaCritic(taskId, "the-legend-of-zelda-tears-of-the-kingdom");
+			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(taskId, "the-legend-of-zelda-tears-of-the-kingdom");
 			executorService.execute(crawlTask);
 		}
 		// 스레드 풀 종료
 		executorService.shutdown();
-
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {
