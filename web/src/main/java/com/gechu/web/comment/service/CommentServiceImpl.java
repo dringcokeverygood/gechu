@@ -37,6 +37,14 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	public List<CommentResponseDto> findCommentsByUserSeq(Long userSeq) {
+		List<CommentEntity> commentEntities = commentRepository.findByUsers_Seq(userSeq);
+
+		return commentEntities.stream().filter(c -> c.getDeleted().equals("false")).map(CommentEntity::toResponseDto).collect(
+			Collectors.toList());
+	}
+
+	@Override
 	@Transactional
 	public Long deleteComment(Long commentSeq) {
 		CommentEntity commentEntity = commentRepository.findById(commentSeq).orElseThrow(() -> {

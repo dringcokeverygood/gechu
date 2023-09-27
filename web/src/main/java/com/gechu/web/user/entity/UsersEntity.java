@@ -4,6 +4,7 @@ import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.comment.entity.CommentEntity;
 import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.user.dto.UserProfileDto;
+import com.gechu.web.user.dto.UserUpdateDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -64,6 +65,13 @@ public class UsersEntity {
     public UsersEntity updateNickName(String name) {
         this.nickName = name;
         return this;
+    }
+
+    public void updateProfile(UserUpdateDto userUpdateDto) {
+        if (userUpdateDto.getNickname() != null)
+            this.nickName = userUpdateDto.getNickname();
+        if (userUpdateDto.getImageUrl() != null)
+            this.imageUrl = userUpdateDto.getImageUrl();
     }
 
     public String getRoleKey() {

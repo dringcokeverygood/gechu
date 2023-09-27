@@ -16,4 +16,5 @@ public interface ArticleService {
     public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq);
     public Long updateArticle(ArticleDto articleDto);
     public Long deleteArticle(Long articleSeq);
+	public List<ArticleDto> findRecentArticles();
 }
