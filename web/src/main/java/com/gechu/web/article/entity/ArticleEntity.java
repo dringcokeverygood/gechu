@@ -3,9 +3,9 @@ package com.gechu.web.article.entity;
 import javax.persistence.*;
 
 import com.gechu.web.article.dto.ArticleDto;
+import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.dto.ArticlePreViewDto;
 import com.gechu.web.comment.entity.CommentEntity;
-import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.user.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.User;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -45,8 +46,9 @@ public class ArticleEntity {
     private List<CommentEntity> comments = new ArrayList<>();
 
     @Builder
-    public ArticleEntity(Long gameSeq, String imageUrl, String articleTitle, String articleContent,
+    public ArticleEntity(Long seq, Long gameSeq, String imageUrl, String articleTitle, String articleContent,
         LocalDateTime createDate, String deleted) {
+        this.seq = seq;
         this.gameSeq = gameSeq;
         this.imageUrl = imageUrl;
         this.articleTitle = articleTitle;
@@ -71,7 +73,7 @@ public class ArticleEntity {
         return ArticlePreViewDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
-            .userProfile(UsersEntity.toDto(articleEntity.getUsers()))
+            .userProfile(UsersEntity.toProfileDto(articleEntity.getUsers()))
             .articleTitle(articleEntity.getArticleTitle())
             .commentCount(articleEntity.getComments().size())
             .imageUrl(articleEntity.getImageUrl())
@@ -79,7 +81,22 @@ public class ArticleEntity {
             .build();
     }
 
-    public void updateUser(UsersEntity user) {
-        this.users = user;
+    public static ArticleMyPageDto toMyPageDto(ArticleEntity articleEntity) {
+        return ArticleMyPageDto.builder()
+            .gameSeq(articleEntity.getGameSeq())
+            .itemSeq(articleEntity.getSeq())
+            .title(articleEntity.getArticleTitle())
+            .content(articleEntity.getArticleContent())
+            .createDate(articleEntity.getCreateDate())
+            .build();
+    }
+
+    public void updateArticle(String title, String content) {
+        this.articleTitle = title;
+        this.articleContent = content;
+    }
+
+    public void delete() {
+        this.deleted = "true";
     }
 }

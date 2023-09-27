@@ -1,8 +1,10 @@
 package com.gechu.web.user.controller;
 
 import com.gechu.web.article.dto.ArticleMyPageDto;
+import com.gechu.web.article.service.ArticleService;
 import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.service.EstimateService;
+import com.gechu.web.game.service.GameServiceClient;
 import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.user.service.UserService;
 import com.gechu.web.user.util.JwtToken;
@@ -28,6 +30,8 @@ public class UserController {
 
     private final UserService userService;
     private final EstimateService estimateService;
+    private final ArticleService articleService;
+    private final GameServiceClient gameServiceClient;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Value("${jwt.secret}")
@@ -130,18 +134,13 @@ public class UserController {
     public ResponseEntity<?> findArticlesByUserSeq(@PathVariable("userSeq") Long userSeq) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-        List<ArticleMyPageDto> articleList;
 
         try {
-            articleList = new ArrayList<>();
-//            articleList = userService.findMyArticles(userSeq);
-            ArticleMyPageDto data1 = new ArticleMyPageDto((long)1, "", "",  (long)1, "리뷰 제목", "리뷰 내용", LocalDateTime.now());
-            ArticleMyPageDto data2 = new ArticleMyPageDto((long)2, "", "", (long)2, "리뷰 제목", "리뷰 내용",  LocalDateTime.now());
 
-            articleList.add(data1);
-            articleList.add(data2);
+            List<ArticleMyPageDto> articles = articleService.findArticlesByUserSeq(userSeq);
+            // TODO: 여기 밑에서 articles에 gemaTitle, gameImageUrl 값 넣어줘야함. FeignClient사용.
 
-            resultMap.put("articleList", articleList);
+
             resultMap.put("success", true);
             status = HttpStatus.OK;
         } catch (Exception e) {

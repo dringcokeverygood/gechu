@@ -3,7 +3,10 @@ package com.gechu.web.article.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import com.gechu.web.article.dto.ArticleDto;
+import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.dto.ArticlePreViewDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
@@ -39,5 +42,32 @@ public class ArticleServiceImpl implements ArticleService {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
 
 		return articleEntities.stream().filter(a -> a.getDeleted().equals("true")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq) {
+		List<ArticleEntity> articleEntities = articleRepository.findByUsers_Seq(userSeq);
+
+		return articleEntities.stream().filter(a -> a.getDeleted().equals("true")).map(ArticleEntity::toMyPageDto).collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public Long updateArticle(ArticleDto articleDto) {
+		ArticleEntity articleEntity = articleRepository.findById(articleDto.getSeq()).orElseThrow(() -> {
+			throw new IllegalArgumentException("데이터를 찾을 수 없습니다: " + articleDto.getSeq());
+		});
+		articleEntity.updateArticle(articleDto.getArticleTitle(), articleDto.getContent());
+		return articleDto.getSeq();
+	}
+
+	@Override
+	@Transactional
+	public Long deleteArticle(Long articleSeq) {
+		ArticleEntity articleEntity = articleRepository.findById(articleSeq).orElseThrow(() -> {
+			throw new IllegalArgumentException("데이터를 찾을 수 없습니다: " + articleSeq);
+		});
+		articleEntity.delete();
+		return articleSeq;
 	}
 }

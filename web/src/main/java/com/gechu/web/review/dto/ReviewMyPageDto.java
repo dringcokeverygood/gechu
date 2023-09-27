@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ReviewMyPageDto {
-
     private Long gameSeq;
     private String gameTitle;
     private String gameTitleImageUrl;

@@ -124,22 +124,4 @@ public class UserService {
                     return Mono.just(kakaoUserInfo);
                 });
     }
-
-//    public List<ReviewMyPageDto> findMyReviews(Long userSeq) {
-//
-//    }
-
-    public List<ArticleMyPageDto> findMyArticles(Long userSeq) {
-        List<ArticleEntity> list = articleRepository.findByUsers_Seq(userSeq);
-
-        return list.stream().map(l -> {
-            return ArticleMyPageDto.builder()
-                    .gameSeq(l.getGameSeq())
-                    .itemSeq(l.getSeq())
-                    .title(l.getArticleTitle())
-                    .content(l.getArticleContent())
-                    .createDate(l.getCreateDate())
-                    .build();
-        }).collect(Collectors.toList());
-    }
 }

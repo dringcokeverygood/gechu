@@ -21,17 +21,4 @@ public class ArticleMyPageDto {
 	private String content;
 	private LocalDateTime createDate;
 	private final String like = null;
-
-	public static ArticleEntity toEntity(ArticleMyPageDto articleMyPageDto) {
-		if (articleMyPageDto == null)
-			return null;
-		return ArticleEntity.builder()
-			.gameSeq(articleMyPageDto.getGameSeq())
-			.articleTitle(articleMyPageDto.getTitle())
-			.articleContent(articleMyPageDto.getContent())
-			.imageUrl(articleMyPageDto.getGameTitleImageUrl())
-			.createDate(articleMyPageDto.getCreateDate())
-			.build();
-
-	}
 }

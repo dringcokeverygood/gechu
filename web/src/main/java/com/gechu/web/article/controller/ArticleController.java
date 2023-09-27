@@ -34,14 +34,16 @@ public class ArticleController {
             resultMap.put("article", article);
             resultMap.put("success", true);
             status = HttpStatus.OK;
-        }  catch (Exception e) {
+        } catch (Exception e) {
             resultMap.put("success", false);
             status = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(resultMap, status);
     }
+
     @PostMapping
-    public ResponseEntity<?> insertArticle(@RequestBody ArticleDto articleDto, @RequestParam("file") MultipartFile multipartFiles) {
+    public ResponseEntity<?> insertArticle(@RequestBody ArticleDto articleDto,
+        @RequestPart MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
@@ -52,7 +54,42 @@ public class ArticleController {
 
             resultMap.put("success", true);
             status = HttpStatus.OK;
-        }  catch (Exception e) {
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @PutMapping("{articleSeq}")
+    public ResponseEntity<?> updateArticle(@PathVariable("articleSeq") Long articleSeq, @RequestBody ArticleDto articleDto) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+        articleDto.setSeq(articleSeq);
+        try {
+            articleService.updateArticle(articleDto);
+            resultMap.put("articleSeq", articleSeq);
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("success", false);
+            status = HttpStatus.BAD_REQUEST;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @DeleteMapping("{articleSeq}")
+    public ResponseEntity<?> deleteArticle(@PathVariable("articleSeq") Long articleSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+        try {
+            articleService.deleteArticle(articleSeq);
+            resultMap.put("articleSeq", articleSeq);
+            resultMap.put("success", true);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
             e.printStackTrace();
             resultMap.put("success", false);
             status = HttpStatus.BAD_REQUEST;

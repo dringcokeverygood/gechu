@@ -70,7 +70,7 @@ public class UsersEntity {
         return this.role.getKey();
     }
 
-    public static UserProfileDto toDto(UsersEntity users) {
+    public static UserProfileDto toProfileDto(UsersEntity users) {
         return UserProfileDto.builder()
             .imageUrl(users.getImageUrl())
             .seq(users.getSeq())
