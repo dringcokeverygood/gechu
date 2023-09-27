@@ -20,8 +20,8 @@ const LoginCallBackPage = () => {
 				.then((res) => {
 					//백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
 					console.log('res 1', res);
-					localStorage.setItem('login', 'true');
 					localStorage.setItem('token', res.data.accessToken);
+					localStorage.setItem('login', 'true');
 					navigate('/');
 				})
 				.catch((err) => {
