@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GameArticleType } from '../../typedef/Game/games.types';
+import { GameArticlePreviewType } from '../../typedef/Game/games.types';
 
-const BArticleCard = ({ article }: { article: GameArticleType }) => {
+const BArticleCard = ({ article }: { article: GameArticlePreviewType }) => {
 	return (
 		<Link
 			to={`/game-detail/${article.gameSeq}`}
