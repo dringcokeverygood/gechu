@@ -58,6 +58,7 @@ export type GameListType = {
 	genreFilter: FilterType;
 	platformFilter: FilterType;
 	games: GamePreviewType[];
+	loading: boolean;
 };
 
 export type GameCommentType = {
