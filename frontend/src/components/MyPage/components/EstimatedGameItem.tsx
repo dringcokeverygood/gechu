@@ -37,15 +37,15 @@ const EstimatedGameItem = ({
 						좋아요 <MdThumbUpOffAlt size={16} id="like" />
 					</p>
 					<p
-						id="unlike"
+						id="dislike"
 						onClick={estimatedGame.onClickPref}
 						className={
-							estimatedGame.preference.unlike
+							estimatedGame.preference.dislike
 								? `flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-red-400 bg-red-400 px-2 py-1 font-dungGeunMo text-[12px] text-white-100`
 								: `flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-red-400 px-2 py-1 font-dungGeunMo text-[12px] text-red-400`
 						}
 					>
-						싫어요 <MdThumbDownOffAlt size={16} id="unlike" />
+						싫어요 <MdThumbDownOffAlt size={16} id="dislike" />
 					</p>
 				</div>
 			</div>
