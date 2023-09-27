@@ -31,25 +31,25 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 							<div className="flex w-full flex-col  space-y-1">
 								<div className="flex w-full flex-col  space-y-1">
 									<p className="whitespace-pre-wrap">
-										{content.develop || ' '}
+										{content.develop || '-'}
 									</p>
 									<p className="whitespace-pre-wrap">
-										{content.publish || ' '}
+										{content.publish || '-'}
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.createDate
 											? dateFormatting(content.createDate)
-											: ' '}
+											: '-'}
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.platforms.length > 0
 											? content.platforms.join(', ')
-											: ' '}
+											: '-'}
 									</p>
 									<p className="whitespace-pre-wrap">
 										{content.genres.length > 0
 											? content.genres.join(', ')
-											: ' '}
+											: '-'}
 									</p>
 								</div>
 							</div>
