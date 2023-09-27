@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+// import { http } from '../../../utils/http';
+import { GameReviewType } from '../../../typedef/Game/games.types';
 import ReviewModal from '../ReviewModal';
 
 type Props = {
@@ -8,9 +10,19 @@ type Props = {
 const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 	const [preference, setPreference] = useState({
 		like: false,
-		unlike: false,
+		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
+	// const [content, setContent] = useState('');
+	const [reviewToPost] = useState<GameReviewType>({
+		seq: 1,
+		gameSeq: 1,
+		gameTitle: '게임이름',
+		userSeq: 1,
+		userNickname: '닉네임',
+		estimate: '',
+		content: '',
+	});
 
 	const handleRadioBtn = (id: string) => {
 		console.log(selectedBefore, id);
@@ -30,18 +42,18 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 			setPreference({
 				...preference,
 				like: result,
-				unlike: result ? false : preference.unlike,
+				dislike: result ? false : preference.dislike,
 			});
 		} else if (id === 'unlike') {
 			setPreference({
 				...preference,
-				unlike: result,
+				dislike: result,
 				like: result ? false : preference.like,
 			});
 		}
 	};
 
-	const isButtonActive = preference.like || preference.unlike;
+	const isButtonActive = preference.like || preference.dislike;
 
 	return (
 		<div>
@@ -50,6 +62,9 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 				preference={preference}
 				onChangeModalFlag={onChangeModalFlag}
 				isButtonActive={isButtonActive}
+				review={reviewToPost}
+				onTextChange={() => {}}
+				onSubmit={() => {}}
 			/>
 		</div>
 	);

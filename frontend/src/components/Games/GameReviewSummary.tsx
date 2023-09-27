@@ -28,9 +28,9 @@ interface GameReviewSummaryProps {
 const GameReviewSummary = ({
 	reviewCnt,
 	likeCnt,
+	dislikeCnt,
 	modalFlag,
 	onChangeModalFlag,
-	dislikeCnt,
 }: GameReviewSummaryProps) => {
 	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
 	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);

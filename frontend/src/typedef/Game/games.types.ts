@@ -79,6 +79,6 @@ export type EstimatedGameItemType = {
 	gameSeq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
-	preference: { like: boolean; unlike: boolean };
+	preference: { like: boolean; dislike: boolean };
 	onClickPref: (e: React.MouseEvent) => void;
 };
