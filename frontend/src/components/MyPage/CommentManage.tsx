@@ -14,14 +14,18 @@ const CommentManage = ({ items, nickname }: Props) => {
 			<p className="font-dungGeunMo text-[16px]">
 				총 <span>{items.length}</span>건
 			</p>
-			<div className="grid grid-cols-2 gap-4">
-				{items.map((item) => (
-					<ManageCommentCardItem
-						key={'comments' + item.articleSeq + item.commentSeq}
-						item={item}
-					/>
-				))}
-			</div>
+			{items.length > 0 ? (
+				<div className="grid grid-cols-2 gap-4">
+					{items.map((item) => (
+						<ManageCommentCardItem
+							key={'comments' + item.articleSeq + item.commentSeq}
+							item={item}
+						/>
+					))}
+				</div>
+			) : (
+				<div>댓글이 없습니다.</div>
+			)}
 		</div>
 	);
 };
