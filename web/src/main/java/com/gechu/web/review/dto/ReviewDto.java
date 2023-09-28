@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 public class ReviewDto {
     private Long seq;
     private Long estimateSeq;
+    private Long gameSeq;
+    private Long userSeq;
     private String text;
     private LocalDateTime createDate;
 
@@ -25,7 +27,7 @@ public class ReviewDto {
         return ReviewEntity.builder()
                 .seq(reviewDto.getSeq())
                 .text(reviewDto.getText())
-                .estimate(EstimateEntity.builder().seq(reviewDto.getSeq()).build())
+                .estimate(EstimateEntity.builder().seq(reviewDto.getEstimateSeq()).build())
                 .createDate(reviewDto.getCreateDate())
                 .build();
     }

@@ -39,6 +39,9 @@ public class ReviewEntity {
         return ReviewDto.builder()
                 .seq(reviewEntity.getSeq())
                 .text(reviewEntity.getText())
+                .estimateSeq(estimate.getSeq())
+                .gameSeq(estimate.getGameSeq()) // gameSeq 설정
+                .userSeq(estimate.getUsers().getSeq()) // userSeq 설정
                 .createDate(reviewEntity.getCreateDate())
                 .build();
     }
