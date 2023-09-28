@@ -16,11 +16,13 @@ const ReviewManageContainer = () => {
 
 	useEffect(() => {
 		http
-			.get<GetReviewList>(`web/users/1/reviews`)
+			.get<GetReviewList>(`web/users/4/reviews`)
 			.then((data) => {
 				const { reviewList } = data;
 				console.log(reviewList);
-				setMyReviews(reviewList);
+				if (reviewList !== undefined) {
+					setMyReviews(reviewList);
+				}
 			})
 			.catch((err) => console.log(err));
 	}, []);

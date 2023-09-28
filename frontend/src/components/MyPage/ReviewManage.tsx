@@ -14,11 +14,15 @@ const ReviewManage = ({ items, nickname }: Props) => {
 			<p className="font-dungGeunMo text-[16px]">
 				총 <span>{items.length}</span>건
 			</p>
-			<div className="flex flex-col gap-4">
-				{items.map((item) => (
-					<ManageCardItem key={item.type + item.itemSeq} item={item} />
-				))}
-			</div>
+			{items.length > 0 ? (
+				<div className="flex flex-col gap-4">
+					{items.map((item) => (
+						<ManageCardItem key={item.type + item.itemSeq} item={item} />
+					))}
+				</div>
+			) : (
+				<div>게시글이 없습니다.</div>
+			)}
 		</div>
 	);
 };
