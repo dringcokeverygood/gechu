@@ -1,6 +1,7 @@
 import React from 'react';
 import { ManageCommentCardItemType } from '../../typedef/MyPage/myPage.types';
 import ManageCommentCardItem from './components/ManageCommentCardItem';
+import { images } from '../../constants/images';
 
 type Props = {
 	items: ManageCommentCardItemType[];
@@ -24,7 +25,10 @@ const CommentManage = ({ items, nickname }: Props) => {
 					))}
 				</div>
 			) : (
-				<div>댓글이 없습니다.</div>
+				<div className="flex flex-col items-center justify-center">
+					<img src={images.sadGechu} />
+					<p className="font-dungGeunMo text-[24px]">댓글이 없습니다.</p>
+				</div>
 			)}
 		</div>
 	);

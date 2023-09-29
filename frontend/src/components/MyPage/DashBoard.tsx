@@ -2,6 +2,7 @@ import React from 'react';
 import { DashBoardType } from '../../typedef/MyPage/myPage.types';
 import LikeGameItem from './components/LikeGameItem';
 import LikeDislikeModalContainer from './containers/LikeDislikeModalContainer';
+import { images } from '../../constants/images';
 
 const DashBoard = ({ content }: { content: DashBoardType }) => {
 	return (
@@ -28,8 +29,11 @@ const DashBoard = ({ content }: { content: DashBoardType }) => {
 					))}
 				</div>
 			) : (
-				<div className="flex w-full items-center justify-center rounded-3xl bg-white-200 px-7 py-9 font-dungGeunMo text-white-950">
-					선호 게임이 없습니다.
+				<div className="flex w-full flex-col items-center justify-center rounded-3xl bg-white-200 px-7 py-9">
+					<img src={images.sadGechuBlack} />
+					<p className="font-dungGeunMo text-[24px] text-white-950">
+						선호 게임이 없습니다.
+					</p>
 				</div>
 			)}
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ManageCardItem from './components/ManageCardItem';
 import { ManageCardItemType } from '../../typedef/MyPage/myPage.types';
+import { images } from '../../constants/images';
 
 type Props = {
 	items: ManageCardItemType[];
@@ -23,7 +24,10 @@ const ArticleManage = ({ items, nickname }: Props) => {
 					))}
 				</div>
 			) : (
-				<div>게시글이 없습니다.</div>
+				<div className="flex flex-col items-center justify-center">
+					<img src={images.sadGechu} />
+					<p className="font-dungGeunMo text-[24px]">게시글이 없습니다.</p>
+				</div>
 			)}
 		</div>
 	);
