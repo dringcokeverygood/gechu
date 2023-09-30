@@ -218,10 +218,9 @@ public class UserController {
 
 	@PutMapping("/users/{userSeq}")
 	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
-		@RequestBody Map<String, Object> requestBody, @RequestPart MultipartFile multipartFile) {
+		@RequestParam("nickname") String nickname, @RequestParam("file") MultipartFile multipartFile) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
-		String nickname = (String)requestBody.get("nickname");
 		UserUpdateDto userUpdate = new UserUpdateDto();
 		userUpdate.setUserSeq(userSeq);
 		userUpdate.setNickname(nickname);
