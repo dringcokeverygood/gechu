@@ -111,6 +111,7 @@ public class UserService {
             });
     }
 
+    @Transactional
     public void updateUserProfile(UserUpdateDto userUpdate) {
         UsersEntity usersEntity = userRepository.findById(userUpdate.getUserSeq()).orElseThrow(() -> {
             throw new IllegalArgumentException("존재하지 않는 유저입니다, 유저 번호: " + userUpdate.getUserSeq());
