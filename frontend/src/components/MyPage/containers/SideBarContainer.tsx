@@ -17,9 +17,9 @@ const SideBarContainer = () => {
 		const file = (e.currentTarget.files as FileList)[0];
 		if (file) {
 			const formData = new FormData();
-			formData.append('multipartFile', file);
+			formData.append('file', file);
 			formData.append(
-				'requestBody',
+				'nickname',
 				new Blob([JSON.stringify({ nickname: '' })], {
 					type: 'application/json',
 				}),
@@ -45,12 +45,12 @@ const SideBarContainer = () => {
 					const formData = new FormData();
 					const file = new Blob();
 					formData.append(
-						'requestBody',
+						'nickname',
 						new Blob([JSON.stringify({ nickname: value })], {
 							type: 'application/json',
 						}),
 					);
-					formData.append('multipartFile', file);
+					formData.append('file', file);
 					http
 						.put(`web/users/4`, formData, {
 							'Content-Type': 'multipart/form-data',
