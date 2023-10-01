@@ -15,7 +15,7 @@ const GameArticleListContainer = () => {
 	}, [modalFlag]);
 
 	useEffect(() => {
-		http.get(`web/gaems/${seq}/articles`).then((data) => {
+		http.get(`web/games/${seq}/articles`).then((data) => {
 			console.log(data);
 		});
 	}, []);

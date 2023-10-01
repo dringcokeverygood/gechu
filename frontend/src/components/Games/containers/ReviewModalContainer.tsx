@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { http } from '../../../utils/http';
+import { http } from '../../../utils/http';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import ReviewModal from '../ReviewModal';
 
@@ -13,13 +13,12 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
-	// const [content, setContent] = useState('');
-	const [reviewToPost] = useState<GameReviewType>({
+	const [reviewToPost, setReviewToPost] = useState<GameReviewType>({
 		seq: 1,
 		gameSeq: 1,
 		gameTitle: '게임이름',
-		userSeq: 1,
-		userNickname: '닉네임',
+		userSeq: 4,
+		userNickname: '은진이의임시유저',
 		estimate: '',
 		content: '',
 	});
@@ -34,6 +33,7 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		return true;
 	};
 
+	//좋아요싫어요 버튼 눌렀을때
 	const onClickPref = (e: React.MouseEvent) => {
 		const id = (e.target as Element).id;
 		const result = handleRadioBtn(id);
@@ -44,13 +44,31 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 				like: result,
 				dislike: result ? false : preference.dislike,
 			});
-		} else if (id === 'unlike') {
+		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
 				dislike: result,
 				like: result ? false : preference.like,
 			});
 		}
+	};
+
+	//등록버튼 눌렀을때
+	const onSubmitReview = () => {
+		setReviewToPost((prevState) => ({
+			...prevState,
+			estimate: preference.like ? 'like' : 'dislike',
+		}));
+		console.log('post할 리뷰:');
+		console.log(reviewToPost);
+		http
+			.post<GameReviewType>(`web/reviews`, reviewToPost)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
 	};
 
 	const isButtonActive = preference.like || preference.dislike;
@@ -63,8 +81,13 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 				onChangeModalFlag={onChangeModalFlag}
 				isButtonActive={isButtonActive}
 				review={reviewToPost}
-				onTextChange={() => {}}
-				onSubmit={() => {}}
+				onTextChange={(reviewContent) => {
+					setReviewToPost((prevState) => ({
+						...prevState,
+						content: reviewContent,
+					}));
+				}}
+				onSubmit={onSubmitReview}
 			/>
 		</div>
 	);
