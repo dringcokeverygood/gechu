@@ -11,7 +11,6 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 	const [preference, setPreference] = useState({
 		like: false,
 		dislike: false,
-		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
 	const [reviewToPost, setReviewToPost] = useState<GameReviewType>({
@@ -44,12 +43,10 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 				...preference,
 				like: result,
 				dislike: result ? false : preference.dislike,
-				dislike: result ? false : preference.dislike,
 			});
 		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
-				dislike: result,
 				dislike: result,
 				like: result ? false : preference.like,
 			});

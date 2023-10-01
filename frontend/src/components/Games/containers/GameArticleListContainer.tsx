@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { http } from '../../../utils/http';
 import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
