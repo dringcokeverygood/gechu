@@ -124,10 +124,7 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 						className="flex h-full w-full flex-col gap-3"
 					>
 						{item.title && (
-							<p className="w-[728px] truncate font-bold">
-								{item.title}
-								ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-							</p>
+							<p className="w-[728px] truncate font-bold">{item.title}</p>
 						)}
 						<p className="line-clamp-5 w-[728px] overflow-hidden whitespace-pre-wrap break-all">
 							{item.content}
