@@ -65,6 +65,9 @@ dependencies {
 
 	// logstash
 	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.3'
+
+	// objectMapper
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
 
 dependencyManagement {
