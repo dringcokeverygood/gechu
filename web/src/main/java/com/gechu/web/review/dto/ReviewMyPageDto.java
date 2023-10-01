@@ -1,16 +1,15 @@
 package com.gechu.web.review.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ReviewMyPageDto {
-
     private Long gameSeq;
     private String gameTitle;
     private String gameTitleImageUrl;
@@ -18,6 +17,6 @@ public class ReviewMyPageDto {
     private Long itemSeq;   // reviewSeq
     private String title;
     private String content;
-    private String createDate;
+    private LocalDateTime createDate;
     private String like;
 }

@@ -1,7 +1,10 @@
 package com.gechu.web.review.dto;
 
+import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.review.entity.ReviewEntity;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -11,9 +14,10 @@ import lombok.*;
 public class ReviewDto {
     private Long seq;
     private Long estimateSeq;
+    private Long gameSeq;
+    private Long userSeq;
     private String text;
-    private String like;
-//    private UserDto writer;
+    private LocalDateTime createDate;
 
     public static ReviewEntity toEntity(ReviewDto reviewDto) {
         if(reviewDto == null) {
@@ -23,7 +27,8 @@ public class ReviewDto {
         return ReviewEntity.builder()
                 .seq(reviewDto.getSeq())
                 .text(reviewDto.getText())
-                .estimateSeq(reviewDto.getEstimateSeq())
+                .estimate(EstimateEntity.builder().seq(reviewDto.getEstimateSeq()).build())
+                .createDate(reviewDto.getCreateDate())
                 .build();
     }
 }

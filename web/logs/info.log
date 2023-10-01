@@ -1,0 +1,6 @@
+[2023-09-29 02:06:34:34673][http-nio-9090-exec-2] INFO  LogService - Info
+[2023-09-29 02:15:40:111223][http-nio-9090-exec-3] INFO  ReviewServiceImpl - 마음에 듭니다
+[2023-09-29 02:18:19:51359][http-nio-9090-exec-1] INFO  ReviewServiceImpl - 마음에 듭니다
+[2023-09-29 02:23:22:18234][http-nio-9090-exec-2] INFO  ReviewServiceImpl - Text : 마음에 듭니다 / EstimateSeq : 1
+[2023-09-29 02:35:25:33807][http-nio-9090-exec-2] INFO  ReviewServiceImpl - Text : 마음에 듭니다 / EstimateSeq : 1 / GaseSeq : null / UserSeq : null
+[2023-09-29 03:04:24:16768][http-nio-9090-exec-2] INFO  ReviewServiceImpl - Text : 마음에 듭니다 / EstimateSeq : 1 / GameSeq : 1 / UserSeq : 3
