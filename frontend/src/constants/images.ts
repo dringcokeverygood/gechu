@@ -13,4 +13,5 @@ export const images = {
 	defaultProfile: '../assets/images/default_profile.png',
 	sadGechu: '../assets/images/sad_gechu.png',
 	sadGechuBlack: '../assets/images/sad_gechu_black.png',
+	kakaoLogin: '../assets/images/kakao_login.png',
 };

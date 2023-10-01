@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiSearchLine } from 'react-icons/ri';
+import LoginModalContainer from '../Login/containers/LoginModalContainer';
 
 type Props = {
 	isLogin: boolean;
@@ -16,6 +17,8 @@ type Props = {
 	onKeyUpForSearch: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 	onClickSearchBtn: () => void;
 	onClickLogout: () => void;
+	isOpenLoginModal: boolean;
+	onClickLoginModalBtn: () => void;
 };
 
 const Header = ({
@@ -26,6 +29,8 @@ const Header = ({
 	onKeyUpForSearch,
 	onClickSearchBtn,
 	onClickLogout,
+	isOpenLoginModal,
+	onClickLoginModalBtn,
 }: Props) => {
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
@@ -136,9 +141,18 @@ const Header = ({
 						</Transition>
 					</Popover>
 				) : (
-					<div className="font-dungGeunMo text-[20px]">LOGIN</div>
+					<div
+						className="cursor-pointer font-dungGeunMo text-[20px]"
+						onClick={onClickLoginModalBtn}
+					>
+						LOGIN
+					</div>
 				)}
 			</div>
+
+			{isOpenLoginModal && (
+				<LoginModalContainer onClickLoginModalBtn={onClickLoginModalBtn} />
+			)}
 		</div>
 	);
 };
