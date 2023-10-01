@@ -5,13 +5,13 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 type User = {
-	username: string;
-	email: string;
+	userName: string;
+	userId: string;
 	token?: string;
 };
 
 export const userState = atom<User>({
 	key: 'user',
-	default: { username: '', email: '' },
+	default: { userName: '', userId: '' },
 	effects_UNSTABLE: [persistAtom],
 });
