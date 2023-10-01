@@ -5,8 +5,7 @@ import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
 import GameArticleList from '../GameArticleList';
 
 const GameArticleListContainer = () => {
-	const seq = useParams().seq;
-	console.log(seq);
+	const seq = Number(useParams().seq);
 
 	const [modalFlag, setModalFlag] = useState(false);
 	const onChangeModalFlag = useCallback(() => {
@@ -23,7 +22,7 @@ const GameArticleListContainer = () => {
 	const articles: GameArticlePreviewType[] = [
 		{
 			seq: 1,
-			gameSeq: 1,
+			gameSeq: seq,
 			gameTitle: '갓게임',
 			userNickname: '재밌으면 우는 애옹이',
 			userProfileImageUrl: '',
