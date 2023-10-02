@@ -14,7 +14,7 @@ import com.gechu.crawl.dto.GameResponseDto;
 @FeignClient(name = "game", url = "https://j9d203.p.ssafy.io/api/game")
 public interface GameServiceClient {
 
-	@GetMapping("/games")
+	@GetMapping("/games/all")
 	public List<GameResponseDto> findGames();
 
 	@PostMapping("/games/critic/{gameSlug}")
