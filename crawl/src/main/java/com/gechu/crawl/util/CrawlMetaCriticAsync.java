@@ -58,6 +58,7 @@ public class CrawlMetaCriticAsync {
 	@Async
 	public void crawlMetaCritic(String gameSlug) {
 		log.info("새 게임 크롤링 시작: {}", gameSlug);
+		init();
 		insertMetaCriticScore(gameSlug);
 		crawlMetaCriticUserReviews(gameSlug);
 	}
