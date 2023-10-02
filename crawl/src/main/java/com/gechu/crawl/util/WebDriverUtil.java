@@ -1,11 +1,10 @@
 package com.gechu.crawl.util;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -23,29 +21,25 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class WebDriverUtil {
 
 	private WebDriver driver;
 	@Value("${spring.driver.path}")
 	private String driverPath;
 	private static final String url = "https://www.metacritic.com/game/";
+	private final CrawlMetaCriticAsync crawlMetaCriticAsync;
 
+	// chromedriver 경로 체크용 함수 (더이상 안씀)
 	public void checkDirectory() throws IOException {
 		Path directoryPath = Paths.get("");
-
-		// // 디렉토리 내의 모든 파일과 디렉토리를 나열
-		// log.info("디렉토리 내의 모든 파일과 디렉토리를 나열");
-		// try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath)) {
-		// 	for (Path file : stream) {
-		// 		log.info("{}", file.getFileName());
-		// 	}
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// }
 
 		log.info("디렉토리 트리 내의 모든 파일과 디렉토리를 나열 (하위 디렉토리 포함)");
 		Files.walkFileTree(directoryPath, EnumSet.noneOf(FileVisitOption.class), Integer.MAX_VALUE,
@@ -88,17 +82,9 @@ public class WebDriverUtil {
 		driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 	}
 
-	public void multiThreading() {
-		for (int i = 0; i < 2; i++) {
-			log.info("{}번 쓰레드 실행중", i);
-			Thread thread = new Thread(new CrawlMetaCritic(i, "the-legend-of-zelda-tears-of-the-kingdom"));
-			thread.start();
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-			log.info("{}번 쓰레드 실행종료", i);
+	public void multiThreading(List<String> gameSlugs) {
+		for (String gameSlug : gameSlugs) {
+			crawlMetaCriticAsync.crawlMetaCritic(gameSlug);
 		}
 	}
 

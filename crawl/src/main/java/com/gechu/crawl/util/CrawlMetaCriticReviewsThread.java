@@ -10,21 +10,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Value;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class CrawlMetaCritic implements Runnable {
+public class CrawlMetaCriticReviewsThread implements Runnable {
 
 	private String gameSlug;
 	private int cnt;
 	private WebDriver driver;
-	@Value("${spring.driver.path}")
-	private String driverPath;
+	private String driverPath = "usr/bin/chrome-linux64/chromedriver";
+	// private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String url = "https://www.metacritic.com/game/";
 
-	public CrawlMetaCritic(int cnt, String gameSlug) {
+	public CrawlMetaCriticReviewsThread(int cnt, String gameSlug) {
 		this.cnt = cnt;
 		this.gameSlug = gameSlug;
 	}
@@ -55,7 +54,7 @@ public class CrawlMetaCritic implements Runnable {
 		options.addArguments("--remote-allow-origins=*");
 
 		this.driver = new ChromeDriver(options);
-		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {
@@ -92,10 +91,8 @@ public class CrawlMetaCritic implements Runnable {
 
 			sb.append(element.getText());
 			sb.append(' ');
-			// log.info("{}번째 리뷰: {}", i, element.getText());
-			// log.info("log: {}", element.getText());
 		}
-		log.info("{}번 쓰레드의 리뷰정보 전체 출력: {}", cnt, sb);
+		log.info("{}번 쓰레드의 리뷰정보 일부 출력: {}", cnt, sb.substring(0, 50));
 		log.info("{} 번 쓰레드 element 크롤링 끝", cnt);
 		driver.quit();
 	}
