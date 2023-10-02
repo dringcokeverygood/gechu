@@ -95,7 +95,7 @@ public class CrawlMetaCriticAsync {
 
 		if (reviewCnt > 50) {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
-			for (int i = 0; i < Math.min(reviewCnt / 40, 10); i++) {
+			for (int i = 0; i < Math.min(reviewCnt / 40, 3); i++) {
 				js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
 				try {
 					Thread.sleep(500);
@@ -106,7 +106,7 @@ public class CrawlMetaCriticAsync {
 		}
 
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i <= (Math.min(reviewCnt, 400)); i++) {
+		for (int i = 1; i <= (Math.min(reviewCnt, 100)); i++) {
 
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
