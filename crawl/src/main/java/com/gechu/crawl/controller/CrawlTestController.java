@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gechu.crawl.dto.GameResponseDto;
 import com.gechu.crawl.service.GameServiceClient;
+import com.gechu.crawl.util.CrawlMetaCriticAsync;
 import com.gechu.crawl.util.WebDriverUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,12 @@ public class CrawlTestController {
 
 	private final WebDriverUtil webDriverUtil;
 	private final GameServiceClient gameServiceClient;
+	private final CrawlMetaCriticAsync crawlMetaCriticAsync;
 
 	@GetMapping("/dir")
 	public void dir() throws IOException {
 		webDriverUtil.checkDirectory();
 	}
-
 
 	// @GetMapping
 	// public void test() {
@@ -50,6 +51,9 @@ public class CrawlTestController {
 			parts.add(gameSlugs.get(i));
 		}
 
-		webDriverUtil.multiThreading(parts);
+		// webDriverUtil.multiThreading(parts);
+		for (String gameSlug : parts) {
+			crawlMetaCriticAsync.insertMetaCriticScore(gameSlug);
+		}
 	}
 }
