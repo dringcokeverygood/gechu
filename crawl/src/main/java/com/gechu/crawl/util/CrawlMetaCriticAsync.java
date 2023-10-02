@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -75,7 +76,7 @@ public class CrawlMetaCriticAsync {
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("score", Integer.parseInt(elements.get(0).toString()));
+		map.put("score", Integer.parseInt(elements.get(0).text()));
 
 		gameServiceClient.insertMetaCriticScore(gameSlug, map);
 	}
