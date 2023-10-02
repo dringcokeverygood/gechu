@@ -53,7 +53,7 @@ public class CrawlMetaCriticAsync {
 		options.addArguments("--remote-allow-origins=*");
 
 		this.driver = new ChromeDriver(options);
-		driver.manage().timeouts().pageLoadTimeout(200, TimeUnit.SECONDS);
+		// driver.manage().timeouts().pageLoadTimeout(200, TimeUnit.SECONDS);
 	}
 
 	@Async
