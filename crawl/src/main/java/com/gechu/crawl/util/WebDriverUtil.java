@@ -1,5 +1,6 @@
 package com.gechu.crawl.util;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.jsoup.Jsoup;
@@ -20,18 +21,21 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class WebDriverUtil {
 
 	private WebDriver driver;
 	@Value("${spring.driver.path}")
 	private String driverPath;
 	private static final String url = "https://www.metacritic.com/game/";
+	private final CrawlMetaCriticAsync crawlMetaCriticAsync;
 
 	// chromedriver 경로 체크용 함수 (더이상 안씀)
 	public void checkDirectory() throws IOException {
@@ -78,16 +82,10 @@ public class WebDriverUtil {
 		driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 	}
 
-	public void multiThreading() {
-		ExecutorService executorService = Executors.newFixedThreadPool(5);
-		for (int i = 0; i < 100; i++) {
-			log.info("{}번 쓰레드 실행중", i);
-			int taskId = i;
-			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(taskId, "the-legend-of-zelda-tears-of-the-kingdom");
-			executorService.execute(crawlTask);
+	public void multiThreading(List<String> gameSlugs) {
+		for (String gameSlug : gameSlugs) {
+			crawlMetaCriticAsync.crawlMetaCritic(gameSlug);
 		}
-		// 스레드 풀 종료
-		executorService.shutdown();
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {

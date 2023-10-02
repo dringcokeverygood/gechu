@@ -1,10 +1,14 @@
 package com.gechu.crawl.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gechu.crawl.dto.GameResponseDto;
+import com.gechu.crawl.service.GameServiceClient;
 import com.gechu.crawl.util.WebDriverUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class CrawlTestController {
 
 	private final WebDriverUtil webDriverUtil;
+	private final GameServiceClient gameServiceClient;
 
 	@GetMapping("/dir")
 	public void dir() throws IOException {
@@ -27,8 +32,16 @@ public class CrawlTestController {
 		webDriverUtil.crawlMetaCriticUserReviews("the-legend-of-zelda-tears-of-the-kingdom");
 	}
 
-	@GetMapping("/thread")
-	public void threadTest() {
-		webDriverUtil.multiThreading();
+	// @GetMapping("/thread")
+	// public void threadTest() {
+	// 	webDriverUtil.multiThreading("");
+	// }
+
+	@GetMapping("/async")
+	public void asyncTes() {
+		List<GameResponseDto> games = gameServiceClient.findGames();
+		List<String> gameSlugs = games.stream().map(GameResponseDto::getGameSlug).collect(Collectors.toList());
+
+		webDriverUtil.multiThreading(gameSlugs);
 	}
 }
