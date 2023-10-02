@@ -47,7 +47,7 @@ public class ArticleEntity {
 
     @Builder
     public ArticleEntity(Long seq, Long gameSeq, String imageUrl, String articleTitle, String articleContent,
-        LocalDateTime createDate, String deleted) {
+        LocalDateTime createDate, String deleted, UsersEntity users) {
         this.seq = seq;
         this.gameSeq = gameSeq;
         this.imageUrl = imageUrl;
@@ -55,6 +55,7 @@ public class ArticleEntity {
         this.articleContent = articleContent;
         this.createDate = createDate;
         this.deleted = deleted;
+        this.users = users;
     }
 
     public static ArticleDto toDto(ArticleEntity articleEntity) {

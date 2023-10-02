@@ -1,6 +1,7 @@
 package com.gechu.web.article.controller;
 
 import com.gechu.web.article.dto.ArticleDto;
+import com.gechu.web.article.dto.ArticleRequestDto;
 import com.gechu.web.article.service.ArticleService;
 import com.gechu.web.awss3.service.AwsS3Service;
 
@@ -42,10 +43,11 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<?> insertArticle(@RequestBody ArticleDto articleDto,
-        @RequestPart MultipartFile multipartFiles) {
+    public ResponseEntity<?> insertArticle(@RequestPart(value = "dto") ArticleRequestDto dto,
+        @RequestPart(value = "file") MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
+        ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
 
         try {
             String url = awsS3Service.uploadFile(multipartFiles);

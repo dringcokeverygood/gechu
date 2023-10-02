@@ -33,6 +33,7 @@ public class ArticleDto {
 			.articleContent(articleDto.getContent())
 			.imageUrl(articleDto.getImageUrl())
 			.createDate(articleDto.getCreateDate())
+			.users(UsersEntity.builder().seq(articleDto.getUserProfile().getSeq()).build())
 			.build();
 
 	}
