@@ -97,6 +97,7 @@ public class CrawlMetaCriticAsync {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
 			for (int i = 0; i < Math.min(reviewCnt / 40, 3); i++) {
 				js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+				log.info("{} 게임 스크롤 내림", gameSlug);
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
@@ -107,7 +108,7 @@ public class CrawlMetaCriticAsync {
 
 		StringBuffer sb = new StringBuffer();
 		for (int i = 1; i <= (Math.min(reviewCnt, 100)); i++) {
-
+			log.info("{} 게임 리뷰 하나 찾음 현재 {}개째", gameSlug, i);
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
 					+ "]/div/div[1]/div[2]/div/span"));
