@@ -76,7 +76,11 @@ public class CrawlMetaCriticAsync {
 
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("score", Integer.parseInt(elements.get(0).text()));
+		try {
+			map.put("score", Integer.parseInt(elements.get(0).text()));
+		} catch (Exception e) {
+			map.put("score", 0);
+		}
 
 		gameServiceClient.insertMetaCriticScore(gameSlug, map);
 	}
