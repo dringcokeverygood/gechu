@@ -2,6 +2,8 @@ package com.gechu.game.game.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,18 @@ import lombok.extern.slf4j.Slf4j;
 public class GameController {
 
 	private final GameService gameService;
+
+	@GetMapping("/all")
+	public ResponseEntity<?> findAllGameSlugs() {
+		List<String> gameSlugs = null;
+		try {
+			gameSlugs = gameService.findAllGameSlugs();
+		} catch (Exception e) {
+
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(gameSlugs, HttpStatus.OK);
+	}
 
 	@PostMapping("/list/seq")
 	public ResponseEntity<?> findGamesBySeqs(@RequestBody List<Integer> seqs) {
@@ -91,6 +105,18 @@ public class GameController {
 
 		return new ResponseEntity<>(gameResponseDto, HttpStatus.OK);
 	}
+
+	@PostMapping("/critic/{gameSlug}")
+	public ResponseEntity<?> insertMetaCriticScore(@PathVariable("gameSlug") String gameSlug, @RequestBody Map<String, Object> map) {
+		Integer score = (Integer) map.get("score");
+		try {
+			gameService.updateMetaCriticScore(gameSlug, score);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(gameSlug, HttpStatus.OK);
+	}
+
 
 	@GetMapping
 	public ResponseEntity<?> findRandomGames() {

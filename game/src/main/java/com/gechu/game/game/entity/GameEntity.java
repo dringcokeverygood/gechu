@@ -93,4 +93,8 @@ public class GameEntity implements Persistable<Integer> {
 			.publish(gameEntity.getPublish())
 			.build();
 	}
+
+	public void updateMetaCriticScore(Integer score) {
+		this.metaScore = score;
+	}
 }

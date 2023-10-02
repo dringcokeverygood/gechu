@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gechu.game.game.dto.GameDto;
 import com.gechu.game.game.dto.GameResponseDto;
@@ -33,6 +34,12 @@ public class GameService {
 	public void insertGame(GameDto gameDto) {
 		GameEntity gameEntity = GameDto.toEntity(gameDto);
 		gameRepository.save(gameEntity);
+	}
+
+	public List<String> findAllGameSlugs() {
+		List<GameEntity> gameEntities = gameRepository.findAll();
+
+		return gameEntities.stream().map(GameEntity::getGameSlug).collect(Collectors.toList());
 	}
 
 	public List<GameResponseDto> findAllGamesBySeqIn(List<Integer> gameSeqs) {
@@ -111,5 +118,16 @@ public class GameService {
 			setGameGenres(gameResponseDto, seq);
 			setGamePlatforms(gameResponseDto, seq);
 		}
+	}
+
+	@Transactional
+	public String updateMetaCriticScore(String gameSlug, Integer score) {
+		GameEntity gameEntity = gameRepository.findByGameSlug(gameSlug);
+
+		if (gameEntity.getMetaScore() == null) {
+			gameEntity.updateMetaCriticScore(score);
+		}
+
+		return gameSlug;
 	}
 }
