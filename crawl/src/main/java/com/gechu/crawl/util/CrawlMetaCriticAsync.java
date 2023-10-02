@@ -32,7 +32,7 @@ public class CrawlMetaCriticAsync {
 
 	private WebDriver driver;
 
-	@Value("spring.driver.path")
+	@Value("${spring.driver.path}")
 	private String driverPath;
 	// private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String URL = "https://www.metacritic.com/game/";
