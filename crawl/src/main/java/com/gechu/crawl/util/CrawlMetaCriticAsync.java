@@ -82,6 +82,7 @@ public class CrawlMetaCriticAsync {
 	}
 	public void crawlMetaCriticUserReviews(String gameSlug) {
 		// try {
+		log.info("내용 크롤링 시작: {}", gameSlug);
 		driver.get(URL + gameSlug + "/user-reviews/");
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
 
