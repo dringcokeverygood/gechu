@@ -25,15 +25,15 @@ public class CrawlTestController {
 
 	@GetMapping("/dir")
 	public void dir() throws IOException {
-		webDriverUtil.checkDirectory();
+		// webDriverUtil.checkDirectory();
 	}
 
 
-	@GetMapping
-	public void test() {
-		webDriverUtil.chrome();
-		webDriverUtil.crawlMetaCriticUserReviews("the-legend-of-zelda-tears-of-the-kingdom");
-	}
+	// @GetMapping
+	// public void test() {
+	// 	webDriverUtil.chrome();
+	// 	webDriverUtil.crawlMetaCriticUserReviews("the-legend-of-zelda-tears-of-the-kingdom");
+	// }
 
 	// @GetMapping("/thread")
 	// public void threadTest() {
