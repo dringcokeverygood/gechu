@@ -92,6 +92,7 @@ public class CrawlMetaCriticAsync {
 			By.xpath("/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[5]/div[1]"));
 
 		int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
+		log.info("{} 게임 리뷰 갯수 : {}", gameSlug, reviewCnt);
 
 		if (reviewCnt > 50) {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
