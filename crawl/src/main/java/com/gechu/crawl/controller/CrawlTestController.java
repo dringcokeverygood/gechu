@@ -51,9 +51,9 @@ public class CrawlTestController {
 			parts.add(gameSlugs.get(i));
 		}
 
-		// webDriverUtil.multiThreading(parts);
-		for (String gameSlug : parts) {
-			crawlMetaCriticAsync.insertMetaCriticScore(gameSlug);
-		}
+		webDriverUtil.multiThreading(parts);
+		// for (String gameSlug : parts) {
+		// 	crawlMetaCriticAsync.insertMetaCriticScore(gameSlug);
+		// }
 	}
 }
