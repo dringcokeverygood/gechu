@@ -66,15 +66,21 @@ public class CrawlMetaCriticAsync {
 
 	public void insertMetaCriticScore(String gameSlug) {
 		Document doc = null;
+		Elements elements = null;
 		try {
 			doc = Jsoup.connect(URL + gameSlug).get();
+
+
+			elements = doc.select("span[data-v-4cdca868]");
+
 		} catch (IOException e) {
 			log.warn("유효하지 않은 jsoup connect 입니다. gameSlug: {}", gameSlug);
 		}
 
-		Elements elements = doc.select("span[data-v-4cdca868]");
-
 		Map<String, Object> map = new HashMap<>();
+		// Elements elements = doc.select("span[data-v-4cdca868]");
+
+		// Map<String, Object> map = new HashMap<>();
 
 		try {
 			map.put("score", Integer.parseInt(elements.get(0).text()));
