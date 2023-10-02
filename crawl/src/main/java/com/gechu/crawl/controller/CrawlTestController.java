@@ -43,8 +43,7 @@ public class CrawlTestController {
 	@GetMapping("/async")
 	public void asyncTest(@RequestParam(value = "start", required = false, defaultValue = "0") Integer start,
 		@RequestParam(value = "end", required = false, defaultValue = "36603") Integer end) {
-		List<GameResponseDto> games = gameServiceClient.findGames();
-		List<String> gameSlugs = games.stream().map(GameResponseDto::getGameSlug).collect(Collectors.toList());
+		List<String> gameSlugs = gameServiceClient.findGames();
 		List<String> parts = new ArrayList<>();
 
 		for (int i = start; i < end; i++) {

@@ -15,7 +15,7 @@ import com.gechu.crawl.dto.GameResponseDto;
 public interface GameServiceClient {
 
 	@GetMapping("/games/all")
-	public List<GameResponseDto> findGames();
+	public List<String> findGames();
 
 	@PostMapping("/games/critic/{gameSlug}")
 	public String insertMetaCriticScore(@PathVariable("gameSlug") String gameSlug, @RequestBody Map<String, Object> map);
