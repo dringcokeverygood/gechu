@@ -25,7 +25,7 @@ public class CrawlTestController {
 
 	@GetMapping("/dir")
 	public void dir() throws IOException {
-		// webDriverUtil.checkDirectory();
+		webDriverUtil.checkDirectory();
 	}
 
 

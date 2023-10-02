@@ -38,7 +38,7 @@ public class CrawlMetaCriticAsync {
 	private static final String URL = "https://www.metacritic.com/game/";
 	private final GameServiceClient gameServiceClient;
 
-	@PostConstruct
+	// @PostConstruct
 	public void init() {
 		System.setProperty("webdriver.chrome.driver", driverPath);
 
