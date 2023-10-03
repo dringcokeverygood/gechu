@@ -14,6 +14,8 @@ const navLinkClassName = (isActive: boolean) => {
 };
 
 const SideBar = ({
+	userImageUrl,
+	nickname,
 	fileInput,
 	onChangeProfile,
 	onClickUploadImgBtn,
@@ -23,10 +25,17 @@ const SideBar = ({
 		<div className="flex w-[250px] flex-col items-center justify-center text-white-100">
 			<div className="flex w-full items-center justify-between px-5 py-4">
 				<div className="relative w-[48px]">
-					<img
-						src={images.defaultProfile}
-						className="h-[45px] w-[45px] rounded-full"
-					/>
+					{userImageUrl ? (
+						<img
+							src={userImageUrl}
+							className="h-[45px] w-[45px] rounded-full"
+						/>
+					) : (
+						<img
+							src={images.defaultProfile}
+							className="h-[45px] w-[45px] rounded-full"
+						/>
+					)}
 					<MdOutlineModeEditOutline
 						size={16}
 						onClick={onClickUploadImgBtn}
@@ -40,7 +49,7 @@ const SideBar = ({
 						accept="image/jpeg, image/png"
 					/>
 				</div>
-				<div className="w-[80px] break-all font-dungGeunMo">닉네임</div>
+				<div className="w-[80px] break-all font-dungGeunMo">{nickname}</div>
 				<MdModeEditOutline
 					size={16}
 					onClick={onClickUpdateNickname}
