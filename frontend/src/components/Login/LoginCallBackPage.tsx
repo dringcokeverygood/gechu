@@ -4,11 +4,13 @@ import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { LoginAtom } from '../../recoil/LoginAtom';
 import { ImSpinner2 } from 'react-icons/im';
+import { userState } from '../../recoil/UserAtom';
 
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
 	const setIsLogin = useSetRecoilState(LoginAtom);
+	const setUserInfo = useSetRecoilState(userState);
 
 	//인가코드 백으로 보내는 코드
 	useEffect(() => {
@@ -22,9 +24,16 @@ const LoginCallBackPage = () => {
 			})
 				.then((res) => {
 					//백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
-					console.log('res 1', res);
 					localStorage.setItem('token', res.data.accessToken);
 					setIsLogin(true);
+					const userData = {
+						userSeq: res.data.userInfo.seq,
+						imageUrl: res.data.userInfo.imageUrl,
+						userName: res.data.userInfo.nickName,
+						userId: res.data.userInfo.userId,
+						token: res.data.accessToken,
+					};
+					setUserInfo(userData);
 					navigate('/');
 				})
 				.catch((err) => {
