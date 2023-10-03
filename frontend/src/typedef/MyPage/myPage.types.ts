@@ -7,6 +7,8 @@ export type DashBoardType = {
 };
 
 export type SideBarType = {
+	userImageUrl: string;
+	nickname: string;
 	fileInput: React.MutableRefObject<HTMLInputElement>;
 	onClickUploadImgBtn: (e: React.MouseEvent) => void;
 	onClickUpdateNickname: () => void;
