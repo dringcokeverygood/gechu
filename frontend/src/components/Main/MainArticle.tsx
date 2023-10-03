@@ -1,13 +1,13 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
-import { GameArticlePreviewType } from '../../typedef/Game/games.types';
+import { GameArticleType } from '../../typedef/Game/games.types';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
 type MainNewsProps = {
-	articleList: GameArticlePreviewType[];
+	articleList: GameArticleType[];
 	onClickArticle: (url: string) => void;
 };
 

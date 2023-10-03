@@ -1,7 +1,7 @@
 import React from 'react';
 import MainArticle from '../MainArticle';
 import { useNavigate } from 'react-router-dom';
-import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
+import { GameArticleType } from '../../../typedef/Game/games.types';
 
 const MainArticleContainer = () => {
 	const navigate = useNavigate();
@@ -10,7 +10,7 @@ const MainArticleContainer = () => {
 		navigate(url);
 	};
 
-	const dummy: GameArticlePreviewType[] = [
+	const dummy: GameArticleType[] = [
 		{
 			seq: 1,
 			gameSeq: 1,

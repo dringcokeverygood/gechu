@@ -7,7 +7,7 @@ const LoginPage = () => {
 
 	useEffect(() => {
 		if (localStorage.getItem('login')) {
-			navigation('/home');
+			navigation('/');
 		}
 	}, []);
 

@@ -1,4 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+// import { useParams } from 'react-router-dom';
+// import { http } from '../../../utils/http';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import GameReview from '../GameReview';
 import GameReviewSummary from '../GameReviewSummary';
@@ -9,6 +11,14 @@ const GameReviewContainer = () => {
 		setModalFlag(!modalFlag);
 		console.log('모달', modalFlag);
 	}, [modalFlag]);
+
+	// const gameSeq = useParams().seq;
+	useEffect(() => {
+		// http.get<GameReviewType>(`web/games/${gameSeq}/reviews`).then((data) => {
+		// 	// setArticle(data.article);
+		// 	console.log(data);
+		// });
+	}, []);
 
 	const reviews: GameReviewType[] = [
 		{
