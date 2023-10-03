@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { LoginAtom } from '../../recoil/LoginAtom';
 import { userState } from '../../recoil/UserAtom';
 
@@ -9,7 +9,7 @@ const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
 	const setIsLogin = useSetRecoilState(LoginAtom);
-	const [userInfo, setUserInfo] = useRecoilState(userState);
+	const setUserInfo = useSetRecoilState(userState);
 
 	//인가코드 백으로 보내는 코드
 	useEffect(() => {
@@ -26,13 +26,13 @@ const LoginCallBackPage = () => {
 					localStorage.setItem('token', res.data.accessToken);
 					setIsLogin(true);
 					const userData = {
+						userSeq: res.data.userInfo.seq,
+						imageUrl: res.data.userInfo.imageUrl,
 						userName: res.data.userInfo.nickName,
 						userId: res.data.userInfo.userId,
 						token: res.data.accessToken,
 					};
 					setUserInfo(userData);
-					// console.log('userData :', userData);
-					console.log('userInfo :', userInfo);
 					navigate('/');
 				})
 				.catch((err) => {
@@ -42,10 +42,6 @@ const LoginCallBackPage = () => {
 
 		kakaoLogin();
 	});
-
-	useEffect(() => {
-		console.log('userInfo :', userInfo);
-	}, [userInfo]);
 
 	return (
 		<div className="bg-white-100">
