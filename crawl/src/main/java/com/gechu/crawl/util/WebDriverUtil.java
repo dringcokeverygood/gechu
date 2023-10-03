@@ -83,9 +83,7 @@ public class WebDriverUtil {
 	public void multiThreadingJava(List<String> gameSlugs) {
 		ExecutorService executorService = Executors.newFixedThreadPool(5);
 		for (int i = 0; i < gameSlugs.size(); i++) {
-			log.info("{}번 쓰레드 실행중", i);
-			int taskId = i;
-			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(taskId, gameSlugs.get(i));
+			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(i, gameSlugs.get(i));
 			executorService.execute(crawlTask);
 		}
 		// 스레드 풀 종료

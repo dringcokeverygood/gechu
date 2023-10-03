@@ -29,17 +29,13 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 	@Override
 	public void run() {
-		log.info("{}번 쓰레드 내부에서 로그 시작입니다.", cnt);
 		chrome();
 		crawlMetaCriticUserReviews(gameSlug);
-		log.info("{}번 쓰레드 내부에서 로그 끝입니다.", cnt);
 	}
 
 	public void chrome() {
 		Path currentPath = Paths.get("");
 		String path = currentPath.toAbsolutePath().toString();
-		log.info("현재 작업 경로: " + path);
-		log.info("driverPath  =" + driverPath);
 
 		System.setProperty("webdriver.chrome.driver", driverPath);
 
@@ -78,8 +74,6 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 				}
 			}
 		}
-
-		log.info("{} 번 쓰레드 element 크롤링 시작", cnt);
 		StringBuffer sb = new StringBuffer();
 		for (int i = 1; i <= (Math.min(reviewCnt, 200)); i++) {
 
@@ -90,7 +84,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			sb.append(element.getText());
 			sb.append(' ');
 		}
-		log.info("{}번 쓰레드의 리뷰정보 일부 출력: {}", cnt, sb.substring(0, 50));
+		log.info("{}번 쓰레드의 리뷰정보 일부 출력: {}", cnt, sb);
 		log.info("{}번 쓰레드 element 크롤링 끝", cnt);
 		driver.quit();
 	}
