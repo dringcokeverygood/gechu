@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -216,7 +217,7 @@ public class UserController {
 		return new ResponseEntity<>(resultMap, status);
 	}
 
-	@PutMapping("/users/{userSeq}")
+	@PutMapping(value = "/users/{userSeq}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
 		@RequestParam("nickname") String nickname, @RequestPart("file") MultipartFile multipartFile) {
 		Map<String, Object> resultMap = new HashMap<>();
