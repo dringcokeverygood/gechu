@@ -34,4 +34,4 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 	);
 };
 
-export default GameCard;
+export default React.memo(GameCard);

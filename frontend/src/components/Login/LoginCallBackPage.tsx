@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import { LoginAtom } from '../../recoil/LoginAtom';
+import { ImSpinner2 } from 'react-icons/im';
 import { userState } from '../../recoil/UserAtom';
 
 const LoginCallBackPage = () => {
@@ -44,11 +45,8 @@ const LoginCallBackPage = () => {
 	});
 
 	return (
-		<div className="bg-white-100">
-			<div>
-				<p>로그인 중입니다.</p>
-				<p>잠시만 기다려주세요.</p>
-			</div>
+		<div className="fixed top-0 flex h-screen w-full items-center justify-center">
+			<ImSpinner2 className="animate-spin fill-white-200" size={64} />
 		</div>
 	);
 };

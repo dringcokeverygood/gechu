@@ -1,6 +1,7 @@
 import React from 'react';
 import ManageCardItem from './components/ManageCardItem';
 import { ManageCardItemType } from '../../typedef/MyPage/myPage.types';
+import { images } from '../../constants/images';
 
 type Props = {
 	items: ManageCardItemType[];
@@ -16,11 +17,18 @@ const ArticleManage = ({ items, nickname }: Props) => {
 			<p className="font-dungGeunMo text-[16px]">
 				총 <span>{items.length}</span>건
 			</p>
-			<div className="flex flex-col gap-4">
-				{items.map((item) => (
-					<ManageCardItem key={item.type + item.itemSeq} item={item} />
-				))}
-			</div>
+			{items.length > 0 ? (
+				<div className="flex flex-col gap-4">
+					{items.map((item) => (
+						<ManageCardItem key={item.type + item.itemSeq} item={item} />
+					))}
+				</div>
+			) : (
+				<div className="flex flex-col items-center justify-center">
+					<img src={images.sadGechu} />
+					<p className="font-dungGeunMo text-[24px]">게시글이 없습니다.</p>
+				</div>
+			)}
 		</div>
 	);
 };
