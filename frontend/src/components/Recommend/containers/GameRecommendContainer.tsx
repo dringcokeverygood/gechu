@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FilterObject, FilterType } from '../../../typedef/Game/filter.types';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { http } from '../../../utils/http';
 import GameRecommend from '../GameRecommend';
 
 const GameRecommendContainer = () => {
@@ -56,10 +57,6 @@ const GameRecommendContainer = () => {
 
 	// 플랫폼별 필터링을 위한 state
 	const [platformFilterState, setPlatformFilterState] = useState<FilterObject>({
-		Stream: {
-			flag: false,
-			text: 'Stream',
-		},
 		Switch: {
 			flag: false,
 			text: 'Switch',
@@ -116,55 +113,23 @@ const GameRecommendContainer = () => {
 		onClick: onClickLabelPlatformXBtn,
 	};
 
-	const dummy: GamePreviewType[] = [
-		{
-			seq: 1,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genres: ['오픈월드', '액션'],
-			platforms: ['switch'],
-		},
-		{
-			seq: 2,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genres: ['오픈월드', '액션'],
-			platforms: ['switch'],
-		},
-		{
-			seq: 3,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genres: ['오픈월드', '액션'],
-			platforms: ['switch'],
-		},
-		{
-			seq: 4,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genres: ['오픈월드', '액션'],
-			platforms: ['switch'],
-		},
-		{
-			seq: 5,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genres: ['오픈월드', '액션'],
-			platforms: ['switch'],
-		},
-	];
+	const [gameList, setGameList] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		setLoading(true);
+		http.get<GamePreviewType[]>(`game/games`).then((res) => {
+			setGameList(res);
+			setLoading(false);
+		});
+	}, []);
 
 	return (
 		<GameRecommend
 			genreFilter={genreFilter}
 			platformFilter={platformFilter}
-			games={dummy}
-			loading={true}
+			games={gameList}
+			loading={loading}
 		/>
 	);
 };
