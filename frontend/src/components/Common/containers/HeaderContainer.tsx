@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Header from '../Header';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useResetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { LoginAtom } from '../../../recoil/LoginAtom';
 import { userState } from '../../../recoil/UserAtom';
 
@@ -11,7 +11,7 @@ const HeaderContainer = () => {
 	const navigate = useNavigate();
 	const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
 	const resetUserInfo = useResetRecoilState(userState);
-	const userInfo = useRecoilValue(userState);
+	// const userInfo = useRecoilValue(userState);
 
 	console.log('로그인 정보', isLogin);
 
@@ -58,9 +58,9 @@ const HeaderContainer = () => {
 		console.log('로그아웃');
 	};
 
-	useEffect(() => {
-		console.log('userInfo :', userInfo);
-	}, [userInfo]);
+	// useEffect(() => {
+	// 	console.log('userInfo :', userInfo);
+	// }, [userInfo]);
 
 	return (
 		<Header
