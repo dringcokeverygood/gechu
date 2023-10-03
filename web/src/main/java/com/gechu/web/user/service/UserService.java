@@ -106,8 +106,9 @@ public class UserService {
 
                 // 저장은 블로킹 호출이므로 Mono에서 실행하기 위해선 fromRunnable을 사용할 수 있으나,
                 // 여기서는 일단 save만 호출하고 결과는 kakaoUserInfo로 반환합니다.
-                repository.save(user);
-                return Mono.just(kakaoUserInfo);
+                UsersEntity savedUser = repository.saveAndFlush(user);
+                Map<String, Object> attributes = kakaoUserInfo.getAttributes();
+                return Mono.just(new KakaoUserInfo(attributes, savedUser.getSeq()));
             });
     }
 
