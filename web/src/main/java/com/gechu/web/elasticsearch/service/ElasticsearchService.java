@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +25,7 @@ public class ElasticsearchService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public long countDocuments(String searchWord) {
+    public List<Integer> getTopGameSeqBySearchWord(String searchWord) {
         // Bool Query 생성
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
                 .must(QueryBuilders.termQuery("logger_name.keyword", "ReviewServiceImpl"));
@@ -40,19 +41,26 @@ public class ElasticsearchService {
                 .collect(Collectors.toList());
 
         // message 필드를 Json 형태로 변환
-        List<LogDocument> filteredMessages = matchedMessages.stream()
-                .filter(logDocument -> {
+        List<MessageContent> messageContents = matchedMessages.stream()
+                .map(logDocument -> {
                     try {
-                        MessageContent content = objectMapper.readValue(logDocument.getMessage(), MessageContent.class);
-                        System.out.println(content.getText());
-                        return content.getText().contains(searchWord);
+                        return objectMapper.readValue(logDocument.getMessage(), MessageContent.class);
                     } catch (IOException e) {
                         System.out.println(e);
-                        return false;
+                        return null;
                     }
                 })
+                .filter(content -> content != null)
                 .collect(Collectors.toList());
 
-        return filteredMessages.size();
+        Map<Integer, Long> gameSeqFrequencyMap = messageContents.stream()
+                .filter(content -> content.getText().contains(searchWord))
+                .collect(Collectors.groupingBy(MessageContent::getGameSeq, Collectors.counting()));
+
+        return gameSeqFrequencyMap.entrySet().stream()
+                .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+                .limit(10)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }

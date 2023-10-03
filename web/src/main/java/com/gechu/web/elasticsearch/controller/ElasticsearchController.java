@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,14 +19,14 @@ public class ElasticsearchController {
     private final ElasticsearchService elasticsearchService;
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> countDocuments(@RequestParam String searchWord) {
+    public ResponseEntity<Map<String, Object>> getTopGameSeqBySearchWord(@RequestParam String searchWord) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
         try {
-            long count = elasticsearchService.countDocuments(searchWord);
+            List<Integer> topGameSeqs = elasticsearchService.getTopGameSeqBySearchWord(searchWord);
             resultMap.put("success", true);
-            resultMap.put("count", count);
+            resultMap.put("topGameSeqs", topGameSeqs);
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("success", false);
