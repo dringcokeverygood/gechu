@@ -26,6 +26,8 @@ const LoginCallBackPage = () => {
 					localStorage.setItem('token', res.data.accessToken);
 					setIsLogin(true);
 					const userData = {
+						userSeq: res.data.userInfo.seq,
+						imageUrl: res.data.userInfo.imageUrl,
 						userName: res.data.userInfo.nickName,
 						userId: res.data.userInfo.userId,
 						token: res.data.accessToken,
