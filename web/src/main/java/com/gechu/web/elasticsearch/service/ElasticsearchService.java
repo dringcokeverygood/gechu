@@ -24,6 +24,6 @@ public class ElasticsearchService {
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
 
         // _count API를 사용하여 문서 개수 반환
-        return elasticsearchRestTemplate.count(query, Object.class, IndexCoordinates.of("logstash-spring-boot-2023.10.02"));
+        return elasticsearchRestTemplate.count(query, Object.class, IndexCoordinates.of("logstash-spring-boot-*"));
     }
 }
