@@ -3,14 +3,11 @@ package com.gechu.crawl.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gechu.crawl.dto.GameResponseDto;
 import com.gechu.crawl.service.GameServiceClient;
 import com.gechu.crawl.util.CrawlMetaCriticAsync;
 import com.gechu.crawl.util.WebDriverUtil;
@@ -36,10 +33,18 @@ public class CrawlTestController {
 	// 	webDriverUtil.crawlMetaCriticUserReviews("the-legend-of-zelda-tears-of-the-kingdom");
 	// }
 
-	// @GetMapping("/thread")
-	// public void threadTest() {
-	// 	webDriverUtil.multiThreading("");
-	// }
+	@GetMapping("/thread")
+	public void threadTest(@RequestParam(value = "start", required = false, defaultValue = "0") Integer start,
+		@RequestParam(value = "end", required = false, defaultValue = "36603") Integer end) {
+		List<String> gameSlugs = gameServiceClient.findGames();
+		List<String> parts = new ArrayList<>();
+
+		for (int i = start; i < end; i++) {
+			parts.add(gameSlugs.get(i));
+		}
+
+		webDriverUtil.multiThreadingJava(parts);
+	}
 
 	@GetMapping("/async")
 	public void asyncTest(@RequestParam(value = "start", required = false, defaultValue = "0") Integer start,
@@ -51,7 +56,7 @@ public class CrawlTestController {
 			parts.add(gameSlugs.get(i));
 		}
 
-		webDriverUtil.multiThreading(parts);
+		webDriverUtil.multiThreadingSpring(parts);
 		// for (String gameSlug : parts) {
 		// 	crawlMetaCriticAsync.insertMetaCriticScore(gameSlug);
 		// }

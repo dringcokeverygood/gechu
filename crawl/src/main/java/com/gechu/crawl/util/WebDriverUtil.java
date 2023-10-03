@@ -3,13 +3,6 @@ package com.gechu.crawl.util;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,7 +17,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -82,10 +74,23 @@ public class WebDriverUtil {
 	// 	driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 	// }
 
-	public void multiThreading(List<String> gameSlugs) {
+	public void multiThreadingSpring(List<String> gameSlugs) {
 		for (String gameSlug : gameSlugs) {
 			crawlMetaCriticAsync.crawlMetaCritic(gameSlug);
 		}
+	}
+
+	public void multiThreadingJava(List<String> gameSlugs) {
+		ExecutorService executorService = Executors.newFixedThreadPool(5);
+		for (int i = 0; i < gameSlugs.size(); i++) {
+			log.info("{}번 쓰레드 실행중", i);
+			int taskId = i;
+			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(taskId, gameSlugs.get(i));
+			executorService.execute(crawlTask);
+		}
+		// 스레드 풀 종료
+		executorService.shutdown();
+
 	}
 
 	// public void crawlMetaCriticUserReviews(String gameSlug) {

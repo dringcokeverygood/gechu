@@ -20,7 +20,6 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 	private int cnt;
 	private WebDriver driver;
 	private String driverPath = "usr/bin/chrome-linux64/chromedriver";
-	// private String driverPath = "src/main/resources/driver/chromedriver-116.exe";
 	private static final String url = "https://www.metacritic.com/game/";
 
 	public CrawlMetaCriticReviewsThread(int cnt, String gameSlug) {
@@ -54,7 +53,6 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		options.addArguments("--remote-allow-origins=*");
 
 		this.driver = new ChromeDriver(options);
-		driver.manage().timeouts().pageLoadTimeout(90, TimeUnit.SECONDS);
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {
@@ -71,7 +69,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 		if (reviewCnt > 50) {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
-			for (int i = 0; i < Math.min(reviewCnt / 40, 25); i++) {
+			for (int i = 0; i < Math.min(reviewCnt / 40, 5); i++) {
 				js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
 				try {
 					Thread.sleep(500);
@@ -83,7 +81,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 		log.info("{} 번 쓰레드 element 크롤링 시작", cnt);
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i <= (Math.min(reviewCnt, 1000)); i++) {
+		for (int i = 1; i <= (Math.min(reviewCnt, 200)); i++) {
 
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
@@ -93,7 +91,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			sb.append(' ');
 		}
 		log.info("{}번 쓰레드의 리뷰정보 일부 출력: {}", cnt, sb.substring(0, 50));
-		log.info("{} 번 쓰레드 element 크롤링 끝", cnt);
+		log.info("{}번 쓰레드 element 크롤링 끝", cnt);
 		driver.quit();
 	}
 }
