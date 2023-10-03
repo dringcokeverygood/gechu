@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import EstimatedGameItem from '../components/EstimatedGameItem';
-import { EstimatedGameItemType } from '../../../typedef/Game/games.types';
+import {
+	EstimatedGameItemType,
+	LikeGameItemType,
+} from '../../../typedef/Game/games.types';
 
-const SelectGameItemContainer = () => {
+const SelectGameItemContainer = ({ game }: { game: LikeGameItemType }) => {
 	const [preference, setPreference] = useState({
 		like: false,
 		dislike: false,
@@ -39,9 +42,9 @@ const SelectGameItemContainer = () => {
 	};
 
 	const estimatedGame: EstimatedGameItemType = {
-		gameSeq: 1,
-		gameTitle: '젤다의 전설',
-		gameTitleImageUrl: '',
+		gameSeq: game.gameSeq,
+		gameTitle: game.gameTitle,
+		gameTitleImageUrl: game.gameTitleImageUrl,
 		preference: preference,
 		onClickPref: onClickPref,
 	};

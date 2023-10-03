@@ -37,6 +37,7 @@ const SideBar = ({
 						ref={fileInput}
 						onChange={onChangeProfile}
 						className="hidden"
+						accept="image/jpeg, image/png"
 					/>
 				</div>
 				<div className="w-[80px] break-all font-dungGeunMo">닉네임</div>

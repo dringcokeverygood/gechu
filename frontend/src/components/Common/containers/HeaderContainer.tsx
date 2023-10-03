@@ -10,6 +10,11 @@ const HeaderContainer = () => {
 	const [searchWord, setSearchWord] = useState('');
 	const navigate = useNavigate();
 	const [isLogin, setIsLogin] = useRecoilState(LoginAtom);
+	const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+
+	const onClickLoginModalBtn = () => {
+		setIsOpenLoginModal(!isOpenLoginModal);
+	};
 	const resetUserInfo = useResetRecoilState(userState);
 	// const userInfo = useRecoilValue(userState);
 
@@ -54,6 +59,7 @@ const HeaderContainer = () => {
 	const onClickLogout = () => {
 		localStorage.removeItem('token');
 		setIsLogin(false);
+		setIsOpenLoginModal(false);
 		resetUserInfo();
 		console.log('로그아웃');
 	};
@@ -71,6 +77,8 @@ const HeaderContainer = () => {
 			onKeyUpForSearch={onKeyUpForSearch}
 			onClickSearchBtn={onClickSearchBtn}
 			onClickLogout={onClickLogout}
+			isOpenLoginModal={isOpenLoginModal}
+			onClickLoginModalBtn={onClickLoginModalBtn}
 		/>
 	);
 };

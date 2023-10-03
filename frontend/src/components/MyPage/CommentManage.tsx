@@ -1,6 +1,7 @@
 import React from 'react';
 import { ManageCommentCardItemType } from '../../typedef/MyPage/myPage.types';
 import ManageCommentCardItem from './components/ManageCommentCardItem';
+import { images } from '../../constants/images';
 
 type Props = {
 	items: ManageCommentCardItemType[];
@@ -14,14 +15,21 @@ const CommentManage = ({ items, nickname }: Props) => {
 			<p className="font-dungGeunMo text-[16px]">
 				총 <span>{items.length}</span>건
 			</p>
-			<div className="grid grid-cols-2 gap-4">
-				{items.map((item) => (
-					<ManageCommentCardItem
-						key={'comments' + item.articleSeq + item.commentSeq}
-						item={item}
-					/>
-				))}
-			</div>
+			{items.length > 0 ? (
+				<div className="grid grid-cols-2 gap-4">
+					{items.map((item) => (
+						<ManageCommentCardItem
+							key={'comments' + item.articleSeq + item.commentSeq}
+							item={item}
+						/>
+					))}
+				</div>
+			) : (
+				<div className="flex flex-col items-center justify-center">
+					<img src={images.sadGechu} />
+					<p className="font-dungGeunMo text-[24px]">댓글이 없습니다.</p>
+				</div>
+			)}
 		</div>
 	);
 };
