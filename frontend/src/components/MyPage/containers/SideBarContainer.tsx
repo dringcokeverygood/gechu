@@ -80,6 +80,8 @@ const SideBarContainer = () => {
 
 	return (
 		<SideBar
+			userImageUrl={userInfo.imageUrl}
+			nickname={userInfo.userName}
 			fileInput={fileInput}
 			onClickUploadImgBtn={onClickUploadImgBtn}
 			onChangeProfile={onChangeProfile}
