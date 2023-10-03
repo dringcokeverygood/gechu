@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { http } from '../../../utils/http';
 import ReviewManage from '../ReviewManage';
 import { ManageCardItemType } from '../../../typedef/MyPage/myPage.types';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetReviewList {
 	reviewList: ManageCardItemType[];
@@ -10,13 +12,13 @@ interface GetReviewList {
 }
 
 const ReviewManageContainer = () => {
-	const nickname = '자몽';
+	const [userInfo] = useRecoilState(userState);
 
 	const [myReviews, setMyReviews] = useState<ManageCardItemType[]>([]);
 
 	useEffect(() => {
 		http
-			.get<GetReviewList>(`web/users/4/reviews`)
+			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
 			.then((data) => {
 				const { reviewList } = data;
 				console.log(reviewList);
@@ -29,7 +31,7 @@ const ReviewManageContainer = () => {
 
 	return (
 		<div>
-			<ReviewManage items={myReviews} nickname={nickname} />
+			<ReviewManage items={myReviews} nickname={userInfo.userName} />
 		</div>
 	);
 };

@@ -3,9 +3,12 @@ import SideBar from '../components/SideBar';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Swal from 'sweetalert2';
 import { http } from '../../../utils/http';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 const SideBarContainer = () => {
 	const fileInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+	const [userInfo] = useRecoilState(userState);
 	const onClickUploadImgBtn = () => {
 		if (!fileInput.current) {
 			return;
@@ -25,7 +28,9 @@ const SideBarContainer = () => {
 				}),
 			);
 			http
-				.put(`web/users/4`, formData, { 'Content-Type': 'multipart/form-data' })
+				.put(`web/users/${userInfo.userSeq}`, formData, {
+					'Content-Type': 'multipart/form-data',
+				})
 				.then((data) => {
 					console.log(data);
 				});
@@ -52,7 +57,7 @@ const SideBarContainer = () => {
 					);
 					formData.append('file', file);
 					http
-						.put(`web/users/4`, formData, {
+						.put(`web/users/${userInfo.userSeq}`, formData, {
 							'Content-Type': 'multipart/form-data',
 						})
 						.then((data) => {

@@ -3,6 +3,8 @@ import DashBoard from '../DashBoard';
 import { LikeGameItemType } from '../../../typedef/Game/games.types';
 import { DashBoardType } from '../../../typedef/MyPage/myPage.types';
 import { http } from '../../../utils/http';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetLikeGames {
 	likeList: LikeGameItemType[];
@@ -11,11 +13,12 @@ interface GetLikeGames {
 }
 
 const DashBoardContainer = () => {
+	const [userInfo] = useRecoilState(userState);
 	const [LikeGames, setLikeGames] = useState<LikeGameItemType[]>([]);
 
 	useEffect(() => {
 		http
-			.get<GetLikeGames>(`web/users/4/estimates`)
+			.get<GetLikeGames>(`web/users/${userInfo.userSeq}/estimates`)
 			.then((data) => {
 				const { likeList } = data;
 				if (likeList !== undefined) {
