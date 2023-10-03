@@ -1,7 +1,7 @@
 package com.gechu.web.review.controller;
 
+import com.gechu.web.elasticsearch.service.ElasticsearchService;
 import com.gechu.web.review.dto.ReviewDto;
-import com.gechu.web.review.service.ElasticsearchService;
 import com.gechu.web.review.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,6 @@ import java.util.Map;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ElasticsearchService elasticsearchService;
 
     @PostMapping
     public ResponseEntity<?> insertReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
@@ -53,25 +52,6 @@ public class ReviewController {
             resultMap.put("message", "게시글 등록 실패");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return new ResponseEntity<>(resultMap, status);
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<Map<String, Object>> countDocuments() {
-        Map<String, Object> resultMap = new HashMap<>();
-        HttpStatus status;
-
-        try {
-            long count = elasticsearchService.countDocuments();
-            resultMap.put("success", true);
-            resultMap.put("count", count);
-            status = HttpStatus.OK;
-        } catch (Exception e) {
-            resultMap.put("success", false);
-            resultMap.put("message", e.getMessage());
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
         return new ResponseEntity<>(resultMap, status);
     }
 }

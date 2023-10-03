@@ -1,4 +1,4 @@
-package com.gechu.web.review.service;
+package com.gechu.web.elasticsearch.service;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -14,11 +14,11 @@ public class ElasticsearchService {
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
-    public long countDocuments() {
+    public long countDocuments(String searchWord) {
         // Bool Query 생성
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
                 .must(QueryBuilders.termQuery("logger_name.keyword", "ReviewServiceImpl"))
-                .must(QueryBuilders.queryStringQuery("Overwatch").field("message"));
+                .must(QueryBuilders.queryStringQuery(searchWord).field("message"));
 
         // NativeSearchQuery 객체를 생성하고 Bool Query 설정
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
