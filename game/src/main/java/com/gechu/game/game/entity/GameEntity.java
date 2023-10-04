@@ -45,7 +45,7 @@ public class GameEntity implements Persistable<Integer> {
 	private LocalDateTime createDate;
 	private Integer metaScore;
 
-	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
 	List<NewsEntity> newsEntityList = new ArrayList<>();
 
 	@Builder
