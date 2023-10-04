@@ -24,7 +24,7 @@ const MainRecommend = ({
 	const repeat = [1, 2, 3, 4];
 
 	return (
-		<div className="my-5 flex w-[1200px] flex-col items-center gap-4 text-white-100 ">
+		<div className="flex w-[1200px] flex-col items-center gap-5 sm:w-[600px] lg:w-[1200px] ">
 			{isLogin ? (
 				<>
 					{/* 헤더 */}

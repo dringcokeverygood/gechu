@@ -12,9 +12,9 @@ type TrendProps = {
 const MainTrend = ({ games, onClickGame, loading }: TrendProps) => {
 	const repeat = [1, 2, 3, 4];
 	return (
-		<div className="flex max-w-[1200px] flex-col items-center gap-5">
+		<div className="flex flex-col items-center gap-5 sm:w-[600px] lg:w-[1200px] ">
 			{/* 헤더 */}
-			<div className="flex items-start justify-center gap-24 self-stretch">
+			<div className="flex items-start justify-center gap-24 self-stretch ">
 				<p className="h-12 flex-1 font-dungGeunMo text-[40px]">
 					현재 유행 게임
 				</p>
