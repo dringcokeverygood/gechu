@@ -27,7 +27,7 @@ const ReviewModal = ({
 			<div className="h-full w-full bg-white-950 bg-opacity-50 "></div>
 
 			{/* 모달창 */}
-			<div className="fixed left-1/2 top-1/2 flex h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8 rounded-xl bg-white-100 px-16 pb-16 pt-16">
+			<div className="fixed left-1/2 top-1/2 flex h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8 rounded-xl bg-white-100 px-16 pb-8 pt-16">
 				<p className="text-start font-dungGeunMo text-4xl">리뷰 등록</p>
 				<div className="flex justify-center gap-3 text-lg">
 					<p
@@ -63,14 +63,14 @@ const ReviewModal = ({
 				{/* 버튼 */}
 				<div className="font-bold text-white-100">
 					<button
-						className="mx-2 h-10 w-16 rounded-xl bg-red-400 hover:bg-red-700"
+						className="mx-2 h-10 w-20 rounded-xl bg-red-700 hover:bg-red-600"
 						onClick={onChangeModalFlag}
 					>
 						취소
 					</button>
 					<button
-						className={`mx-2 h-10 w-16 rounded-xl bg-blue-400${
-							isButtonActive ? ' hover:bg-blue-700' : ' pointer-events-none'
+						className={`mx-2 h-10 w-20 rounded-xl bg-blue-700${
+							isButtonActive ? ' hover:bg-blue-600' : ' pointer-events-none'
 						}`}
 						onClick={onSubmit}
 						disabled={!isButtonActive}

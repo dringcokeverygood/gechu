@@ -6,6 +6,7 @@ import { userState } from '../../../recoil/UserAtom';
 import ReviewModal from '../ReviewModal';
 import { useRecoilValue } from 'recoil';
 import { GetEstimate } from './GameReviewContainer';
+import Swal from 'sweetalert2';
 
 type Props = {
 	fetchReviews: () => void;
@@ -72,6 +73,24 @@ const ReviewModalContainer = ({
 
 	//등록버튼 눌렀을때
 	const onSubmitReview = () => {
+		if (!reviewToPost.content) {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'bottom-right',
+				showConfirmButton: false,
+				timer: 1000,
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer);
+					toast.addEventListener('mouseleave', Swal.resumeTimer);
+				},
+			});
+
+			Toast.fire({
+				icon: 'error',
+				title: '리뷰 내용을 입력하세요.',
+			});
+			return;
+		}
 		setReviewToPost((prevState) => ({
 			...prevState,
 			estimate: preference.like ? 'like' : 'dislike',
