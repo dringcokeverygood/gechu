@@ -44,7 +44,15 @@ public class ArticleServiceImpl implements ArticleService {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
 		log.info("service -> {}", articleEntities.get(0).getArticleTitle());
 		log.info("service users -> {}", articleEntities.get(0).getUsers().getSeq());
-		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+		List<ArticlePreViewDto> dto = null;
+		try {
+			dto = articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+		} catch (Exception e) {
+			log.warn("서비스 안에서 에러 발생");
+		} finally {
+			return dto;
+		}
+//		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 	}
 
 	@Override
