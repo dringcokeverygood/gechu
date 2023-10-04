@@ -2,17 +2,20 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Icon } from '@iconify/react';
 import EstimatedGameItemContainer from '../containers/EstimatedGameItemContainer';
+import { LikeGameItemType } from '../../../typedef/Game/games.types';
 
-const LikeUnlikeModal = ({
-	onClick,
+const LikeDislikeModal = ({
+	gameList,
+	onClickCloseBtn,
 }: {
-	onClick: (e: React.MouseEvent) => void;
+	gameList: LikeGameItemType[];
+	onClickCloseBtn: (e: React.MouseEvent) => void;
 }) => {
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-full w-full text-white-950">
 			<div
 				className="h-full w-full bg-white-950 bg-opacity-50 "
-				onClick={onClick}
+				onClick={onClickCloseBtn}
 			>
 				{' '}
 			</div>
@@ -24,7 +27,7 @@ const LikeUnlikeModal = ({
 					icon="pixelarticons:close"
 					width="32"
 					height="32"
-					onClick={onClick}
+					onClick={onClickCloseBtn}
 					className="absolute right-8 top-8"
 				/>
 				<div className="flex flex-col items-center gap-4 text-center">
@@ -35,14 +38,17 @@ const LikeUnlikeModal = ({
 					</p>
 				</div>
 				<div className="grid w-full grid-cols-2 gap-6 overflow-auto p-1">
-					<EstimatedGameItemContainer />
-					<EstimatedGameItemContainer />
-					<EstimatedGameItemContainer />
-					<EstimatedGameItemContainer />
+					{gameList.length > 0 ? (
+						gameList.map((game) => {
+							return <EstimatedGameItemContainer game={game} />;
+						})
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</div>
 	);
 };
 
-export default LikeUnlikeModal;
+export default LikeDislikeModal;

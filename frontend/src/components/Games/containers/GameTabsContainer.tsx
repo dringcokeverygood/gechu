@@ -29,7 +29,7 @@ const GameTabsContainer = () => {
 	const onClickTab = (url: string) => {
 		navigate(url);
 		// if (scrollRef.current) {
-		// 	window.scrollTo({ top: 380, behavior: 'smooth' });
+		// 	window.scrollTo({ top: 320, behavior: 'smooth' });
 		// }
 	};
 

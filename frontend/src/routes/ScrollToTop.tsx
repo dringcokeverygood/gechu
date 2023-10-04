@@ -5,7 +5,11 @@ export default function ScrollToTop() {
 	const { pathname } = useLocation();
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
+		if (pathname.startsWith('/game-detail')) {
+			window.scrollTo({ top: 320, left: 0, behavior: 'smooth' });
+		} else {
+			window.scrollTo(0, 0);
+		}
 	}, [pathname]);
 
 	return null;
