@@ -29,7 +29,6 @@ public class ReviewEntity {
     private LocalDateTime createDate;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estimate_seq")
     private EstimateEntity estimate;
 
     public ReviewDto toDto(ReviewEntity reviewEntity) {

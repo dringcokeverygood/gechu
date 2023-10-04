@@ -29,7 +29,8 @@ public class EstimateEntity {
 	@JoinColumn(name = "user_seq")
 	private UsersEntity users;
 
-	@OneToOne(mappedBy = "estimate")
+	@OneToOne(mappedBy = "estimate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "estimate_seq")
 	private ReviewEntity reviewEntity;
 
 	public static EstimateDto toDto(EstimateEntity estimateEntity) {
