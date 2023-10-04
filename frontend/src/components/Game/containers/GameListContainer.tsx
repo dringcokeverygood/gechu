@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameList from '../GameList';
 import { FilterObject, FilterType } from '../../../typedef/Game/filter.types';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { http } from '../../../utils/http';
 
 const GameListContainer = () => {
 	// 장르별 필터링을 위한 state
@@ -56,10 +57,6 @@ const GameListContainer = () => {
 
 	// 플랫폼별 필터링을 위한 state
 	const [platformFilterState, setPlatformFilterState] = useState<FilterObject>({
-		Stream: {
-			flag: false,
-			text: 'Stream',
-		},
 		Switch: {
 			flag: false,
 			text: 'Switch',
@@ -116,54 +113,23 @@ const GameListContainer = () => {
 		onClick: onClickLabelPlatformXBtn,
 	};
 
-	const dummy: GamePreviewType[] = [
-		{
-			gameSeq: 1,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 2,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 3,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 4,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-		{
-			gameSeq: 5,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-			estimatePercent: 80,
-			genre: '#오픈 월드 #액션',
-			platform: '#Switch',
-		},
-	];
+	const [gameList, setGameList] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		setLoading(true);
+		http.get<GamePreviewType[]>(`game/games`).then((res) => {
+			setGameList(res);
+			setLoading(false);
+		});
+	}, []);
 
 	return (
 		<GameList
 			genreFilter={genreFilter}
 			platformFilter={platformFilter}
-			games={dummy}
+			games={gameList}
+			loading={loading}
 		/>
 	);
 };

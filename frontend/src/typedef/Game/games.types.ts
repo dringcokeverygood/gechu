@@ -1,19 +1,23 @@
 import { FilterType } from './filter.types';
 
 export type GamePreviewType = {
-	gameSeq: number;
+	seq: number;
 	gameTitle: string;
 	gameTitleImageUrl: string;
 	estimatePercent: number;
-	genre: string;
-	platform: string;
+	genres: string[];
+	platforms: string[];
 };
 
 export type GameInfoType = {
 	seq: number;
 	gameTitle: string;
+	gameTitleImageUrl: string;
 	develop: string;
 	publish: string;
+	createDate: string;
+	platforms: string[];
+	genres: string[];
 	metaScore: number;
 	openScore: number;
 };
@@ -32,12 +36,10 @@ export type GameArticlePreviewType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userSeq: number;
 	userNickname: string;
+	userProfileImageUrl: string;
 	articleTitle: string;
-	content: string;
 	imageUrl: string;
-	createDate: string;
 };
 
 export type GameArticleType = {
@@ -56,6 +58,7 @@ export type GameListType = {
 	genreFilter: FilterType;
 	platformFilter: FilterType;
 	games: GamePreviewType[];
+	loading: boolean;
 };
 
 export type GameCommentType = {
@@ -65,4 +68,18 @@ export type GameCommentType = {
 	userNickname: string;
 	content: string;
 	createDate: string;
+};
+
+export type LikeGameItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+};
+
+export type EstimatedGameItemType = {
+	gameSeq: number;
+	gameTitle: string;
+	gameTitleImageUrl: string;
+	preference: { like: boolean; dislike: boolean };
+	onClickPref: (e: React.MouseEvent) => void;
 };

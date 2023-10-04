@@ -1,39 +1,77 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { CircularProgressbar } from 'react-circular-progressbar';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'react-circular-progressbar/dist/styles.css';
 import { GameInfoType } from '../../typedef/Game/games.types';
+import dateFormatting from '../../utils/dateFormatting';
 
 const GameDetail = ({ content }: { content: GameInfoType }) => {
 	return (
-		<div>
-			<div className="flex h-40 w-full justify-center bg-white-800">
-				<img
-					src="https://images.unsplash.com/photo-1533282960533-51328aa49826?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1842&q=80"
-					alt="game-title-image"
-					className="h-fill"
-				/>
+		<div className="flex flex-col md:mx-32 lg:mx-36 xl:mx-40">
+			<div className="flex flex-row items-center justify-between">
+				<div className="flex flex-row space-x-4">
+					<img
+						src={content.gameTitleImageUrl}
+						alt="game-title-image"
+						className="h-80"
+					></img>
+					<div>
+						<h1 className="py-5 font-dungGeunMo text-4xl text-white-200">
+							{content.gameTitle}
+						</h1>
+						<div className="flex flex-row gap-2 pb-6 text-xl text-white-200">
+							<div className="flex w-36 flex-col space-y-1">
+								<p>개발</p>
+								<p>퍼블리싱</p>
+								<p>발매일</p>
+								<p>플랫폼</p>
+								<p>장르</p>
+							</div>
+							<div className="flex w-full flex-col  space-y-1">
+								<div className="flex w-full flex-col  space-y-1">
+									<p className="whitespace-pre-wrap">
+										{content.develop || '-'}
+									</p>
+									<p className="whitespace-pre-wrap">
+										{content.publish || '-'}
+									</p>
+									<p className="whitespace-pre-wrap">
+										{content.createDate
+											? dateFormatting(content.createDate)
+											: '-'}
+									</p>
+									<p className="whitespace-pre-wrap">
+										{content.platforms.length > 0
+											? content.platforms.join(', ')
+											: '-'}
+									</p>
+									<p className="whitespace-pre-wrap">
+										{content.genres.length > 0
+											? content.genres.join(', ')
+											: '-'}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="mt-4 flex flex-row">
+					<div className="flex flex-col items-center space-y-2 px-4">
+						<img
+							className="max-h-10"
+							src="https://11bitstudios.com/wp-content/uploads/2021/03/1280px-Metacritic_logo.svg-1.png"
+							alt=""
+						/>
+						<div className="w-[120px]">
+							<CircularProgressbar
+								value={content.metaScore}
+								text={`${content.metaScore}/100`}
+							/>
+						</div>
+					</div>
+				</div>
 			</div>
-			<h1 className="font-dungGeunMo text-3xl text-white-200">
-				{content.gameTitle}
-			</h1>
-			<table className="w-full border-2 border-solid border-blue-600 text-sm text-white-200">
-				<tbody>
-					<tr>
-						<td>개발</td>
-						<td>{content.develop}</td>
-					</tr>
-					<tr>
-						<td>퍼블리싱</td>
-						<td>{content.publish}</td>
-					</tr>
-					<tr>
-						<td>메타스코어</td>
-						<td>{content.metaScore}</td>
-					</tr>
-					<tr>
-						<td>오픈스코어</td>
-						<td>{content.openScore}</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	);
 };

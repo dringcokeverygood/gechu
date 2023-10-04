@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GamePreviewType } from '../../typedef/Game/games.types';
-import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 
 const GameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
 		<Link
-			to={`/game-detail/${game.gameSeq}`}
-			className="flex w-[240px] flex-col"
+			to={`/game-detail/${game.seq}`}
+			className="flex h-[310px] w-[240px] flex-col transition-transform duration-500 ease-in-out lg:hover:scale-105"
 		>
 			{game.gameTitleImageUrl ? (
 				<img
@@ -22,22 +21,17 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 					</span>
 				</div>
 			)}
-			<div className="flex w-full flex-col gap-2 overflow-hidden p-3 text-white-100">
+			<div className="flex w-full flex-1 flex-col justify-between overflow-hidden rounded-b-md p-3 text-white-200">
 				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
-				<div className="truncate font-dungGeunMo">
-					{game.genre} {game.platform}
-				</div>
-				<div className="flex items-center gap-2 font-bold">
-					{game.estimatePercent > 50 ? (
-						<MdThumbUp size={20} className="fill-blue-500" />
-					) : (
-						<MdThumbDown size={20} className="fill-red-400" />
-					)}
-					{game.estimatePercent} %
+				<div className="truncate">
+					{game.genres.length > 0 && '#' + game.genres[0]}{' '}
+					{game.genres.length > 1 && '#' + game.genres[1]}{' '}
+					{game.platforms.length > 0 && '#' + game.platforms[0]}{' '}
+					{game.platforms.length > 1 && '#' + game.platforms[1]}
 				</div>
 			</div>
 		</Link>
 	);
 };
 
-export default GameCard;
+export default React.memo(GameCard);

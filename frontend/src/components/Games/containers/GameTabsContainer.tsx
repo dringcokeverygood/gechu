@@ -1,30 +1,43 @@
-import React from 'react'
+import React, { useRef } from 'react';
 import GameTabs from '../GameTabs';
+import { useNavigate } from 'react-router-dom';
 
 export type GameTabItem = {
-    tabTitle: string;
-    tabPath: string;
-}
+	tabTitle: string;
+	tabPath: string;
+};
 
 const tabGroup: GameTabItem[] = [
-    {
-        tabTitle: "리뷰",
-        tabPath: "reviews",
-    },
-    {
-        tabTitle: "게임 이야기",
-        tabPath: "articles",
-    },
-    {
-        tabTitle: "게임 소식",
-        tabPath: "news",
-    },
+	{
+		tabTitle: '리뷰',
+		tabPath: 'reviews',
+	},
+	{
+		tabTitle: '게시글',
+		tabPath: 'articles',
+	},
+	// {
+	// 	tabTitle: '뉴스',
+	// 	tabPath: 'news',
+	// },
 ];
 
 const GameTabsContainer = () => {
-  return (
-    <GameTabs tabs={tabGroup}/>
-  )
-}
+	const navigate = useNavigate();
+	const scrollRef = useRef(null);
 
-export default GameTabsContainer
+	const onClickTab = (url: string) => {
+		navigate(url);
+		// if (scrollRef.current) {
+		// 	window.scrollTo({ top: 320, behavior: 'smooth' });
+		// }
+	};
+
+	return (
+		<div className="menu" ref={scrollRef}>
+			<GameTabs tabs={tabGroup} onClickTab={onClickTab} />
+		</div>
+	);
+};
+
+export default GameTabsContainer;

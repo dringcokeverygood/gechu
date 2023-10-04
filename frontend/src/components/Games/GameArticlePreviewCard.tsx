@@ -1,5 +1,6 @@
 import React from 'react';
 import { GameArticlePreviewType } from '../../typedef/Game/games.types';
+import { LiaCommentDotsSolid } from 'react-icons/lia';
 
 const GameArticlePreviewCard = ({
 	article,
@@ -21,7 +22,13 @@ const GameArticlePreviewCard = ({
 				alt="article-thumbnail"
 				className="h-2/3 w-fit self-center"
 			/>
-			<div className="font-dungGeunMo text-xl">{article.articleTitle}</div>
+			<div className="flex flex-row items-center justify-between">
+				<div className="font-dungGeunMo text-xl">{article.articleTitle}</div>
+				<div className="flex flex-row items-center space-x-2">
+					<LiaCommentDotsSolid size={20} />
+					<div className="font-dungGeunMo text-lg">00</div>
+				</div>
+			</div>
 		</div>
 	);
 };

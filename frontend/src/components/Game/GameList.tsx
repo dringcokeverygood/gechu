@@ -3,8 +3,17 @@ import SideFilterBar from './components/SideFilterBar';
 import GameCardContainer from '../Common/containers/GameCardContainer';
 import CFilterLabel from '../Common/CFilterLabel';
 import { GameListType } from '../../typedef/Game/games.types';
+import LoadingGameCard from '../Common/LoadingGameCard';
 
-const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
+const GameList = ({
+	genreFilter,
+	platformFilter,
+	games,
+	loading,
+}: GameListType) => {
+	const repeat = [
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+	];
 	return (
 		<div className="flex w-[1200px] justify-center gap-[100px]">
 			<SideFilterBar
@@ -38,9 +47,17 @@ const GameList = ({ genreFilter, platformFilter, games }: GameListType) => {
 					)}
 				</div>
 				<div className="grid grid-cols-3 gap-6">
-					{games.map((game) => (
-						<GameCardContainer key={game.gameSeq} game={game} />
-					))}
+					{loading ? (
+						<>
+							{repeat.map((i) => {
+								return <LoadingGameCard key={'loading' + i} />;
+							})}
+						</>
+					) : (
+						games.map((game) => (
+							<GameCardContainer key={game.seq} game={game} />
+						))
+					)}
 				</div>
 			</div>
 		</div>
