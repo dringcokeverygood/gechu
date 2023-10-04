@@ -99,7 +99,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
 
 		sb.append(element.getText());
-		log.info("{}의 리뷰 html정보");
+		log.info("{}의 리뷰 html정보", gameSlug);
 		log.info("{}", sb);
 
 		Map<String, String> map = new HashMap<>();
