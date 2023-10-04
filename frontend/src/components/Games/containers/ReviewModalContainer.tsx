@@ -8,11 +8,16 @@ import { useRecoilValue } from 'recoil';
 import { GetEstimate } from './GameReviewContainer';
 
 type Props = {
+	fetchReviews: () => void;
 	onChangeModalFlag: () => void;
 	myEstim: GetEstimate;
 };
 
-const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
+const ReviewModalContainer = ({
+	fetchReviews,
+	onChangeModalFlag,
+	myEstim,
+}: Props) => {
 	const [preference, setPreference] = useState({
 		like: myEstim?.estimate?.like === 'like' ? true : false,
 		dislike: myEstim?.estimate?.like === 'dislike' ? true : false,
@@ -45,7 +50,6 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 		return true;
 	};
 
-	//좋아요싫어요 버튼 눌렀을때
 	//좋아요싫어요 버튼 눌렀을때
 	const onClickPref = (e: React.MouseEvent) => {
 		const id = (e.target as Element).id;
@@ -91,6 +95,8 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 					})
 					.then((res) => {
 						console.log(res);
+						fetchReviews();
+						onChangeModalFlag();
 					})
 					.catch((e) => {
 						console.log(e);
