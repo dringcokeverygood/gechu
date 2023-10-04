@@ -50,6 +50,8 @@ public class ArticleController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
+        log.info("insertArticle -> {}", dto);
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
