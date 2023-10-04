@@ -13,7 +13,10 @@ import SearchResult from '../SearchResult';
 import { SearchWordAtom } from '../../../recoil/SearchWordAtom';
 import { useRecoilState } from 'recoil';
 import { http } from '../../../utils/http';
-import { GamePreviewType } from '../../../typedef/Game/games.types';
+import {
+	GameArticlePreviewType,
+	GamePreviewType,
+} from '../../../typedef/Game/games.types';
 import { useNavigate } from 'react-router-dom';
 
 const categories: string[] = ['게임', '게시글', '뉴스'];
@@ -26,6 +29,9 @@ const SearchResultContainer = () => {
 		useRecoilState(SearchWordAtom);
 
 	const [searchGames, setSearchGames] = useState<GamePreviewType[]>([]);
+	const [searchArticles, setSearchArticles] = useState<
+		GameArticlePreviewType[]
+	>([]);
 	const [loading, setLoading] = useState(false);
 
 	const navigate = useNavigate();
@@ -56,20 +62,34 @@ const SearchResultContainer = () => {
 	useEffect(() => {
 		// 검색한 검색어를 받아옴
 		setSearchWord(recoilSearchWord);
-		setLoading(true);
-		http
-			.get<{ games: GamePreviewType[]; success: boolean }>(
-				`web/elasticsearch?searchWord=${recoilSearchWord}`,
-			)
-			.then((data) => {
-				const { games } = data;
-				console.log(games);
-				if (games !== undefined) {
+		if (activeTab === '게임') {
+			setLoading(true);
+			http
+				.get<{ games: GamePreviewType[]; success: boolean }>(
+					`web/elasticsearch/games?searchWord=${recoilSearchWord}`,
+				)
+				.then((data) => {
+					const { games } = data;
+					console.log(games);
 					setSearchGames(games);
-				}
-				setLoading(false);
-			});
-	}, [recoilSearchWord]);
+
+					setLoading(false);
+				});
+		} else if (activeTab === '게시글') {
+			setLoading(true);
+			http
+				.get<{ articles: GameArticlePreviewType[]; success: boolean }>(
+					`web/elasticsearch/articles?searchWord=${recoilSearchWord}`,
+				)
+				.then((data) => {
+					const { articles } = data;
+					console.log(articles);
+					setSearchArticles(articles);
+
+					setLoading(false);
+				});
+		}
+	}, [recoilSearchWord, activeTab]);
 
 	let content = null;
 
@@ -78,7 +98,9 @@ const SearchResultContainer = () => {
 			<SearchGameContainer loading={loading} searchGames={searchGames} />
 		);
 	} else if (activeTab === '게시글') {
-		content = <SearchArticleContainer />;
+		content = (
+			<SearchArticleContainer loading={loading} articles={searchArticles} />
+		);
 	} else if (activeTab === '뉴스') {
 		content = <SearchNewsContainer />;
 	}
