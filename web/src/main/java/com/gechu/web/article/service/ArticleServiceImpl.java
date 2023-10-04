@@ -34,6 +34,22 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	public List<ArticlePreViewDto> findArticlesBySeq(List<Long> articleSeqs) {
+		List<ArticleEntity> articleEntities = articleRepository.findBySeqIn(articleSeqs);
+		List<ArticlePreViewDto> dto = null;
+		try {
+			dto = articleEntities.stream().filter(a -> {
+				if (a.getDeleted() == null) return true;
+				return a.getDeleted().equals("false");
+			}).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+		} catch (Exception e) {
+			log.warn("서비스 안에서 에러 발생");
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
 	public Long insertArticle(ArticleDto articleDto) {
 		ArticleEntity articleEntity = articleRepository.save(ArticleDto.toEntity(articleDto));
 		return articleEntity.getSeq();
@@ -51,10 +67,8 @@ public class ArticleServiceImpl implements ArticleService {
 		} catch (Exception e) {
 			log.warn("서비스 안에서 에러 발생");
 			e.printStackTrace();
-		} finally {
-			return dto;
 		}
-//		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+		return dto;
 	}
 
 	@Override

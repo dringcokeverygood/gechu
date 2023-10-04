@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ArticleService {
     public ArticleDto findArticle(Long articleSeq);
+
+    public List<ArticlePreViewDto> findArticlesBySeq(List<Long> articleSeqs);
     public Long insertArticle(ArticleDto articleDto);
     public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq);
     public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq);
