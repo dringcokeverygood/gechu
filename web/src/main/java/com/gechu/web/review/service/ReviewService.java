@@ -8,4 +8,6 @@ public interface ReviewService {
     public void insertReview(ReviewDto reviewDto);
 
     public void updateReview(ReviewDto reviewDto);
+
+    public void metaCriticReviews(String gameSlug, String reviews);
 }

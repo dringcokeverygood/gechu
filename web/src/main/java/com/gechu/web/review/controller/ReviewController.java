@@ -38,6 +38,14 @@ public class ReviewController {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    @PostMapping("/crawl")
+    public void insertMetaCriticReview(@RequestBody Map<String, Object> map) {
+        String gameSlug = (String)map.get("gameSlug");
+        String reviews = (String)map.get("reviews");
+
+        reviewService.metaCriticReviews(gameSlug, reviews);
+    }
+
     @PutMapping
     public ResponseEntity<?> updateReview(@RequestBody ReviewDto reviewDto, HttpServletRequest request) {
         Map<String, Object> resultMap = new HashMap<>();
