@@ -1,6 +1,9 @@
 package com.gechu.web.elasticsearch.controller;
 
 import com.gechu.web.elasticsearch.service.ElasticsearchService;
+import com.gechu.web.game.dto.GameResponseDto;
+import com.gechu.web.game.service.GameServiceClient;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import java.util.Map;
 public class ElasticsearchController {
 
     private final ElasticsearchService elasticsearchService;
+    private final GameServiceClient gameServiceClient;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getTopGameSeqBySearchWord(@RequestParam String searchWord) {
@@ -24,9 +28,10 @@ public class ElasticsearchController {
         HttpStatus status;
 
         try {
-            List<String> topGameSeqs = elasticsearchService.getTopGameSeqBySearchWord(searchWord);
+            List<String> topGameSlugs = elasticsearchService.getTopGameSeqBySearchWord(searchWord);
+            List<GameResponseDto> gameResponseDto = gameServiceClient.findGamesBySlugs(topGameSlugs);
             resultMap.put("success", true);
-            resultMap.put("topGameSeqs", topGameSeqs);
+            resultMap.put("games", gameResponseDto);
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("success", false);

@@ -18,7 +18,7 @@ public interface GameServiceClient {
 	@PostMapping("/games/list/seq")
 	public List<GameResponseDto> findGamesBySeqs(List<Integer> seqs);
 
-	@PostMapping("/games/list/seq")
+	@PostMapping("/games/list/slug")
 	public List<GameResponseDto> findGamesBySlugs(List<String> slugs);
 
 	@GetMapping("/games/slug/{gameSlug}")
