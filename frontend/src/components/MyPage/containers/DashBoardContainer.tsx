@@ -20,6 +20,7 @@ const DashBoardContainer = () => {
 		http
 			.get<GetLikeGames>(`web/users/${userInfo.userSeq}/estimates`)
 			.then((data) => {
+				console.log(data);
 				const { likeList } = data;
 				if (likeList !== undefined) {
 					setLikeGames(likeList);
