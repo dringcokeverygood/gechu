@@ -51,7 +51,6 @@ const ReviewModalContainer = ({
 	};
 
 	//좋아요싫어요 버튼 눌렀을때
-	//좋아요싫어요 버튼 눌렀을때
 	const onClickPref = (e: React.MouseEvent) => {
 		const id = (e.target as Element).id;
 		const result = handleRadioBtn(id);

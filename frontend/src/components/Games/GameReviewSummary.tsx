@@ -94,7 +94,6 @@ const GameReviewSummary = ({
 	return (
 		<div className="flex flex-col pb-6 text-white-200">
 			{/* 바차트 */}
-			{/* 바차트 */}
 			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
 				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />
@@ -114,7 +113,6 @@ const GameReviewSummary = ({
 					<p className="px-2 font-dungGeunMo">{dislikeRate}%</p>
 				</div>
 			</div>
-			{/* 리뷰건수와 생성버튼 */}
 			{/* 리뷰건수와 생성버튼 */}
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
