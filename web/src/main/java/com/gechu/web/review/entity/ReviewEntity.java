@@ -22,7 +22,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class ReviewEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
     private String text;
     @CreationTimestamp
