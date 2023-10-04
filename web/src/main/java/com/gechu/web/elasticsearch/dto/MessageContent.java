@@ -6,15 +6,7 @@ import lombok.Getter;
 @Getter
 public class MessageContent {
 
-    @JsonProperty("GameSeq")
-    private Integer gameSeq;
+    private String gameSlug;
 
-    @JsonProperty("UserSeq")
-    private Integer userSeq;
-
-    @JsonProperty("EstimateSeq")
-    private Integer estimateSeq;
-
-    @JsonProperty("Text")
-    private String text;
+    private String reviews;
 }

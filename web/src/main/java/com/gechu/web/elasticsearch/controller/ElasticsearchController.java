@@ -24,7 +24,7 @@ public class ElasticsearchController {
         HttpStatus status;
 
         try {
-            List<Integer> topGameSeqs = elasticsearchService.getTopGameSeqBySearchWord(searchWord);
+            List<String> topGameSeqs = elasticsearchService.getTopGameSeqBySearchWord(searchWord);
             resultMap.put("success", true);
             resultMap.put("topGameSeqs", topGameSeqs);
             status = HttpStatus.OK;

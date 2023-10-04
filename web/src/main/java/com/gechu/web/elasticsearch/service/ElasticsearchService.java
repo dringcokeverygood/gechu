@@ -25,10 +25,10 @@ public class ElasticsearchService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<Integer> getTopGameSeqBySearchWord(String searchWord) {
+    public List<String> getTopGameSeqBySearchWord(String searchWord) {
         // Bool Query 생성
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
-                .must(QueryBuilders.termQuery("logger_name.keyword", "ReviewServiceImpl"));
+                .must(QueryBuilders.termQuery("logger_name.keyword", "CrawlMetaCriticReviewsThread"));
 
         // NativeSearchQuery 객체를 생성하고 Bool Query 설정
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
@@ -53,12 +53,12 @@ public class ElasticsearchService {
                 .filter(content -> content != null)
                 .collect(Collectors.toList());
 
-        Map<Integer, Long> gameSeqFrequencyMap = messageContents.stream()
-                .filter(content -> content.getText().contains(searchWord))
-                .collect(Collectors.groupingBy(MessageContent::getGameSeq, Collectors.counting()));
+        Map<String, Long> gameSeqFrequencyMap = messageContents.stream()
+                .filter(content -> content.getReviews().contains(searchWord))
+                .collect(Collectors.groupingBy(MessageContent::getGameSlug, Collectors.counting()));
 
         return gameSeqFrequencyMap.entrySet().stream()
-                .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
