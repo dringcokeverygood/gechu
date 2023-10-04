@@ -118,6 +118,7 @@ public class UserController {
 								responseData.put("accessToken", accessToken);
 								responseData.put("refreshToken", refreshToken);
 								responseData.put("userInfo", userService.getUserProfile(userInfo.getSeq()));
+								responseData.put("userSeq", userInfo.getSeq());
 
 								return Mono.just(ResponseEntity.ok(responseData));
 							});
