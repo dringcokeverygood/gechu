@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tab } from '@headlessui/react';
 import { GameArticleType } from '../../typedef/Game/games.types';
+import { images } from '../../constants/images';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
@@ -44,7 +45,7 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 								>
 									<img
 										className="h-20 w-20 object-cover"
-										src={article.imageUrl}
+										src={article.imageUrl ? article.imageUrl : images.noImage1}
 										alt="게시물 이미지"
 									/>
 									<div className="ml-2 flex flex-col items-start justify-between text-start">
@@ -78,11 +79,21 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 									<p className="mb-5 line-clamp-1 h-6 overflow-hidden overflow-ellipsis text-start font-dungGeunMo text-2xl leading-7">
 										{article.articleTitle}
 									</p>
-									<img
-										className="h-64 w-full object-cover"
-										src={article.imageUrl}
-										alt="게시물 이미지"
-									/>
+									{article.imageUrl ? (
+										<img
+											className="h-64 w-full object-cover"
+											src={article.imageUrl}
+											alt="게시물 이미지"
+										/>
+									) : (
+										<div className="flex h-64 w-full items-center justify-center">
+											<img
+												className="h-56"
+												src={images.noImage1}
+												alt="게시물 이미지"
+											/>
+										</div>
+									)}
 									<p className="h-15 mt-2 line-clamp-2 overflow-ellipsis text-lg">
 										{article.content}
 									</p>
