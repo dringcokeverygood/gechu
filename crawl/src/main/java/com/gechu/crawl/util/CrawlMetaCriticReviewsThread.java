@@ -72,9 +72,16 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 		WebElement element = null;
 
+		try {
 		element = driver.findElement(
 			By.xpath("/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[5]/div[1]"));
 
+		} catch (Exception e) {
+			if (driver != null) {
+				driver.quit();
+			}
+			return;
+		}
 		int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
 
 		// if (reviewCnt > 50) {
@@ -99,9 +106,15 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		// 	sb.append(element.getText());
 		// 	sb.append(' ');
 		// }
-		element = driver.findElement(By.xpath(
-			"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
-
+		try {
+			element = driver.findElement(By.xpath(
+				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
+		} catch (Exception e) {
+			if (driver != null) {
+				driver.quit();
+			}
+			return;
+		}
 		String reviewsAll = element.getText();
 		List<String> reviewsList = Arrays.stream(reviewsAll.split("\n")).collect(Collectors.toList());
 
@@ -129,6 +142,8 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			}
 		}
 
-		driver.quit();
+		if (driver != null) {
+			driver.quit();
+		}
 	}
 }
