@@ -45,14 +45,18 @@ public class ArticleController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insertArticle(@RequestPart("dto") ArticleRequestDto dto,
+    public ResponseEntity<?> insertArticle(@RequestParam("dto") String dto,
         @RequestPart("file") MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-        ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
+//        ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        log.info("{} file {}", articleDto.toString(), (multipartFiles != null));
         try {
+            ArticleDto articleDto = objectMapper.readValue(dto, ArticleDto.class);
+
+            log.info("{} file {}", articleDto.toString(), (multipartFiles != null));
+
             String url = awsS3Service.uploadFile(multipartFiles);
             articleDto.setImageUrl(url);
             articleService.insertArticle(articleDto);
