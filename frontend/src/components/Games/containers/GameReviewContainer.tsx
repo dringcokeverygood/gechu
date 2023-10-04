@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { http } from '../../../utils/http';
-import { useParams } from 'react-router-dom';
-import { http } from '../../../utils/http';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import { userState } from '../../../recoil/UserAtom';
 
