@@ -7,13 +7,13 @@ import { http } from '../../../utils/http';
 const GameListContainer = () => {
 	// 장르별 필터링을 위한 state
 	const [genreFilterState, setGenreFilterState] = useState<FilterObject>({
-		Action: {
+		Shooter: {
 			flag: false,
-			text: '액션',
+			text: 'FPS',
 		},
 		Strategy: {
 			flag: false,
-			text: '전략',
+			text: '전략 시뮬레이션',
 		},
 		Puzzle: {
 			flag: false,
@@ -21,11 +21,19 @@ const GameListContainer = () => {
 		},
 		Adventure: {
 			flag: false,
-			text: '어드벤쳐',
+			text: '어드벤처',
 		},
-		Survival: {
+		RolePlaying: {
 			flag: false,
-			text: '생존',
+			text: 'RPG',
+		},
+		Sport: {
+			flag: false,
+			text: '스포츠',
+		},
+		Indie: {
+			flag: false,
+			text: '인디',
 		},
 	});
 
@@ -61,17 +69,17 @@ const GameListContainer = () => {
 			flag: false,
 			text: 'Switch',
 		},
-		PlayStation: {
+		PlayStation5: {
 			flag: false,
-			text: 'PlayStation',
+			text: 'PlayStation 5',
 		},
 		PC: {
 			flag: false,
 			text: 'PC',
 		},
-		Mobile: {
+		Xbox: {
 			flag: false,
-			text: 'Mobile',
+			text: 'Xbox 360',
 		},
 	});
 
@@ -119,10 +127,56 @@ const GameListContainer = () => {
 	useEffect(() => {
 		setLoading(true);
 		http.get<GamePreviewType[]>(`game/games`).then((res) => {
-			setGameList(res);
+			let allFlag = false;
+
+			Object.keys(genreFilterState).map((genre) => {
+				allFlag = allFlag || genreFilterState[genre].flag;
+				if (allFlag) return;
+			});
+
+			Object.keys(platformFilterState).map((platform) => {
+				allFlag = allFlag || platformFilterState[platform].flag;
+				if (allFlag) return;
+			});
+
+			if (!allFlag) setGameList(res);
+			else {
+				setGameList(
+					res.filter((element) => {
+						let flag = false;
+						element.genres.map((g) => {
+							Object.keys(genreFilterState).map((genre) => {
+								if (
+									genreFilterState[genre].flag &&
+									genreFilterState[genre].text === g
+								) {
+									console.log(element.gameTitle);
+									flag = true;
+									return;
+								}
+							});
+						});
+
+						element.platforms.map((p) => {
+							Object.keys(platformFilterState).map((platform) => {
+								if (
+									platformFilterState[platform].flag &&
+									platformFilterState[platform].text === p
+								) {
+									console.log(element.gameTitle);
+									flag = true;
+									return;
+								}
+							});
+						});
+						return flag;
+					}),
+				);
+			}
+
 			setLoading(false);
 		});
-	}, []);
+	}, [genreFilterState, platformFilterState]);
 
 	return (
 		<GameList
