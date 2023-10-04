@@ -54,7 +54,7 @@ public class ElasticsearchController {
             List<Long> articles = elasticsearchService.getArticleBySearchWord(searchWord);
             List<ArticlePreViewDto> articleDtos = articleService.findArticlesBySeq(articles);
             resultMap.put("success", true);
-            resultMap.put("articles", articles);
+            resultMap.put("articles", articleDtos);
             status = HttpStatus.OK;
         } catch (Exception e) {
             resultMap.put("success", false);
