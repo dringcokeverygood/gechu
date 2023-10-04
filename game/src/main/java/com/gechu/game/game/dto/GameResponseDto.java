@@ -21,8 +21,6 @@ public class GameResponseDto {
 	private String publish;
 	private LocalDateTime createDate;
 	private Integer metaScore;
-	private Integer openScore;
-	private String steamScore;
 	private List<String> platforms;
 	private List<String> platformSlugs;
 	private List<String> genres;

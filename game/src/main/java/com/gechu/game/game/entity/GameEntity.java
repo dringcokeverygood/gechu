@@ -44,15 +44,13 @@ public class GameEntity implements Persistable<Integer> {
 	private String publish;
 	private LocalDateTime createDate;
 	private Integer metaScore;
-	private Integer openScore;
-	private String steamScore;
 
 	@OneToMany(mappedBy = "gameEntity", cascade = CascadeType.REMOVE)
 	List<NewsEntity> newsEntityList = new ArrayList<>();
 
 	@Builder
 	public GameEntity(Integer seq, String gameTitle, String gameSlug, String gameTitleImageUrl, String develop,
-		String publish, LocalDateTime createDate) {
+		String publish, LocalDateTime createDate, Integer metaScore) {
 		this.seq = seq;
 		this.gameTitle = gameTitle;
 		this.gameSlug = gameSlug;
@@ -60,6 +58,7 @@ public class GameEntity implements Persistable<Integer> {
 		this.develop = develop;
 		this.publish = publish;
 		this.createDate = createDate;
+		this.metaScore = metaScore;
 	}
 
 	@Override
@@ -91,6 +90,7 @@ public class GameEntity implements Persistable<Integer> {
 			.gameTitleImageUrl(gameEntity.getGameTitleImageUrl())
 			.develop(gameEntity.getDevelop())
 			.publish(gameEntity.getPublish())
+			.metaScore(gameEntity.getMetaScore())
 			.build();
 	}
 
