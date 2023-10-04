@@ -8,3 +8,10 @@ export type GameNewsPreviewType = {
 	image_url: string;
 	upload_date: string;
 };
+
+export type UserProfileType = {
+	imageUrl: string;
+	nickName: string;
+	seq: number;
+	userId: string;
+};

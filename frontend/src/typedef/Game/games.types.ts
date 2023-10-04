@@ -1,4 +1,5 @@
 import { FilterType } from './filter.types';
+import { UserProfileType } from '../main.types';
 
 export type GamePreviewType = {
 	seq: number;
@@ -46,8 +47,9 @@ export type GameArticleType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userSeq: number;
-	userNickname: string;
+	userProfile: UserProfileType;
+	// userSeq: number;
+	// userNickname: string;
 	articleTitle: string;
 	content: string;
 	imageUrl: string;

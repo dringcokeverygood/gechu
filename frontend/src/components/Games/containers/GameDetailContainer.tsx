@@ -15,8 +15,8 @@ const GameDetailContainer = () => {
 		createDate: '',
 		platforms: [''],
 		genres: [''],
-		metaScore: 98,
-		openScore: 75,
+		metaScore: 0,
+		openScore: 0,
 	});
 
 	useEffect(() => {

@@ -51,7 +51,7 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 										<p>
 											<p>{article.gameTitle}</p>
 											<p>
-												{article.createDate} {article.userNickname}
+												{article.createDate} {article.userProfile.nickName}
 											</p>
 										</p>
 									</div>

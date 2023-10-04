@@ -11,6 +11,7 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Link } from 'react-router-dom';
+// import { images } from '../../constants/images';
 
 type Props = {
 	article: GameArticleType;
@@ -30,6 +31,7 @@ const GameArticle = ({
 	// commentText,
 	handleSubmitComment, // handleCommentChange,
 }: Props) => {
+	console.log(article.userProfile);
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
 			{/* 헤더 */}
@@ -45,7 +47,7 @@ const GameArticle = ({
 					alt="사진"
 				/>
 				<div className="text-md flex-1 font-dungGeunMo">
-					{article.userNickname}
+					{article.userProfile.nickName}
 				</div>
 				<Menu as="div" className="relative inline-block text-left ">
 					<div>
@@ -101,12 +103,16 @@ const GameArticle = ({
 
 			{/* 내용 */}
 			<div className="flex flex-col">
-				<img
-					src={article.imageUrl}
-					alt="article-image"
-					className="h-96 items-center object-cover pb-4"
-					onClick={onChangeModalFlag}
-				/>
+				{article.imageUrl ? (
+					<img
+						src={article.imageUrl}
+						alt="article-image"
+						className="h-96 items-center object-cover pb-4"
+						onClick={onChangeModalFlag}
+					/>
+				) : (
+					<div></div>
+				)}
 				<div>{article.content}</div>
 			</div>
 

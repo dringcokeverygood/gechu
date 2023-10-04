@@ -13,8 +13,12 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 		seq: 1,
 		gameSeq: gameSeq,
 		gameTitle: 'asdf',
-		userSeq: 4,
-		userNickname: 'nicknick',
+		userProfile: {
+			imageUrl: '',
+			nickName: '',
+			seq: 1,
+			userId: '',
+		},
 		articleTitle: '제목입니다',
 		content: '내용입니다',
 		imageUrl: '',
@@ -47,7 +51,7 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 			'dto',
 			JSON.stringify({
 				gameSeq: article.gameSeq,
-				userSeq: article.userSeq,
+				userSeq: article.userProfile.seq,
 				articleTitle: article.articleTitle,
 				content: article.content,
 			}),
