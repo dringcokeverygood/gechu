@@ -39,7 +39,7 @@ const Header = ({
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between bg-white-950 px-5 py-3 text-white-100">
 			<Link to={`/`} className="flex items-center gap-5">
-				<img src={images.logo} className="h-[50px] w-20" />
+				<img src={images.logo} className="w-20" />
 				<div className="font-dungGeunMo text-[40px]">gechu</div>
 			</Link>
 			<div className="flex items-center gap-8">
