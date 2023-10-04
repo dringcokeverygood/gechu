@@ -88,7 +88,6 @@ public class WebDriverUtil {
 		}
 		// 스레드 풀 종료
 		executorService.shutdown();
-
 	}
 
 	// public void crawlMetaCriticUserReviews(String gameSlug) {

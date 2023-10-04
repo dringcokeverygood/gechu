@@ -80,6 +80,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 				try {
 					Thread.sleep(500);
 				} catch (InterruptedException e) {
+					driver.quit();
 					throw new RuntimeException(e);
 				}
 			}
@@ -103,9 +104,12 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			logger.info(logJson);
 		} catch (Exception e) {
 			logger.error("Error converting log message to JSON", e);
+		} finally {
+			if (driver != null) {
+				driver.quit();
+			}
 		}
 
-		driver.close();
 		driver.quit();
 	}
 }
