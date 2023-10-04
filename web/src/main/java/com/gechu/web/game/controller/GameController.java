@@ -4,7 +4,6 @@ import com.gechu.web.article.dto.ArticlePreViewDto;
 import com.gechu.web.article.service.ArticleService;
 import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.service.EstimateService;
-import com.gechu.web.game.service.GameService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +31,10 @@ public class GameController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
 		try {
-			List<EstimateDto> estimatesByGameSeq = estimateService.findEstimatesByGameSeq(gameSeq);
+			List<EstimateDto> estimatesByGameSeq = estimateService.findEstimatesByGameSeqAndUserLikeNotEquals(gameSeq, "deleted");
 			resultMap.put("estimates", estimatesByGameSeq);
+			resultMap.put("likeCnt", estimatesByGameSeq.stream().filter(e -> e.getLike().equals("like")).count());
+			resultMap.put("dislikeCnt", estimatesByGameSeq.stream().filter(e -> e.getLike().equals("dislike")).count());
 			resultMap.put("success", true);
 			log.info("{}번 게임의 게임 평가 목록", gameSeq);
 			status = HttpStatus.OK;
