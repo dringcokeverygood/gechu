@@ -14,13 +14,17 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
 	const [reviewToPost, setReviewToPost] = useState<GameReviewType>({
-		seq: 1,
-		gameSeq: 1,
-		gameTitle: '게임이름',
-		userSeq: 4,
-		userNickname: '은진이의임시유저',
-		estimate: '',
+		reviewSeq: 1,
+		estimateSeq: 1,
+		userProfile: {
+			imageUrl: '',
+			nickName: '',
+			seq: 4,
+			userId: '',
+		},
+		like: '',
 		content: '',
+		createDate: '',
 	});
 
 	const handleRadioBtn = (id: string) => {
@@ -62,7 +66,9 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		console.log('post할 리뷰:');
 		console.log(reviewToPost);
 		http
-			.post<GameReviewType>(`web/reviews`, reviewToPost)
+			.post<GameReviewType>(`web/reviews`, {
+				estimateSeq: reviewToPost.estimateSeq,
+			})
 			.then((res) => {
 				console.log(res);
 			})

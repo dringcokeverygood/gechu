@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import UserProfileItem from '../Common/UserProfileItem';
 import { GameArticleType } from '../../typedef/Game/games.types';
 import GameCommentListContainer from './containers/GameCommentListContainer';
 import {
@@ -35,19 +36,14 @@ const GameArticle = ({
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
 			{/* 헤더 */}
-			<div className="flex flex-row items-center space-x-4 ">
-				<MdKeyboardBackspace
-					size={20}
-					onClick={onClickBack}
-					className="h-7 w-7 cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700"
-				/>
-				<img
-					className="inline-block h-10 w-10 rounded-full ring-2 ring-red-600"
-					src="https://images.unsplash.com/photo-1552944150-6dd1180e5999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1925&q=80"
-					alt="사진"
-				/>
-				<div className="text-md flex-1 font-dungGeunMo">
-					{article.userProfile.nickName}
+			<div className="flex flex-row items-center justify-between">
+				<div className="flex flex-row items-center space-x-2">
+					<MdKeyboardBackspace
+						size={20}
+						onClick={onClickBack}
+						className="h-7 w-7 cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700"
+					/>
+					<UserProfileItem profile={article.userProfile} />
 				</div>
 				<Menu as="div" className="relative inline-block text-left ">
 					<div>
@@ -64,7 +60,7 @@ const GameArticle = ({
 						leaveFrom="transform opacity-100 scale-100"
 						leaveTo="transform opacity-0 scale-95"
 					>
-						<Menu.Items className="absolute right-0 mt-2 w-[130px] rounded-md  bg-white-950 shadow-md">
+						<Menu.Items className="absolute right-0 mt-2 w-[130px] rounded-md bg-white-950 shadow-md">
 							<div className="flex flex-col">
 								<Menu.Item>
 									{({ active }) => (

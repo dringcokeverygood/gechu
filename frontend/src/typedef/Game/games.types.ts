@@ -24,21 +24,19 @@ export type GameInfoType = {
 };
 
 export type GameReviewType = {
-	seq: number;
-	gameSeq: number;
-	gameTitle: string;
-	userSeq: number;
-	userNickname: string;
-	estimate: string;
+	reviewSeq: number;
+	estimateSeq: number;
+	userProfile: UserProfileType;
+	like: string;
 	content: string;
+	createDate: string;
 };
 
 export type GameArticlePreviewType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userNickname: string;
-	userProfileImageUrl: string;
+	userProfile: UserProfileType;
 	articleTitle: string;
 	imageUrl: string;
 };
