@@ -14,8 +14,8 @@ type Props = {
 
 const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 	const [preference, setPreference] = useState({
-		like: myEstim.estimate.like === 'like' ? true : false,
-		dislike: myEstim.estimate.like === 'dislike' ? true : false,
+		like: myEstim?.estimate?.like === 'like' ? true : false,
+		dislike: myEstim?.estimate?.like === 'dislike' ? true : false,
 	});
 
 	const userInfo = useRecoilValue(userState);

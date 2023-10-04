@@ -31,8 +31,11 @@ const GameReviewSummary = ({
 	onChangeModalFlag,
 	myEstim,
 }: GameReviewSummaryProps) => {
-	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
-	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
+	const totalCnt = likeCnt + dislikeCnt;
+	const likeRate =
+		totalCnt !== 0 ? ((100 * likeCnt) / totalCnt).toFixed(2) : '0.00';
+	const dislikeRate =
+		totalCnt !== 0 ? ((100 * dislikeCnt) / totalCnt).toFixed(2) : '0.00';
 
 	console.log(myEstim);
 
@@ -95,7 +98,13 @@ const GameReviewSummary = ({
 					<p className="px-2 font-dungGeunMo">{likeRate}%</p>
 				</div>
 				<div className="flex w-full flex-row items-center justify-center">
-					<Bar options={options} data={data} className="flex justify-center" />
+					{totalCnt > 0 && (
+						<Bar
+							options={options}
+							data={data}
+							className="flex justify-center"
+						/>
+					)}
 				</div>
 				<div className="flex flex-row-reverse items-center text-2xl text-red-400">
 					<MdThumbDown />
@@ -105,7 +114,7 @@ const GameReviewSummary = ({
 			{/* 리뷰건수와 생성버튼 */}
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
-				{!myEstim.estimate.reviewSeq && (
+				{!myEstim?.estimate?.reviewSeq && (
 					<button onClick={onChangeModalFlag}>
 						<Icon icon="pixelarticons:edit-box" />
 					</button>

@@ -34,7 +34,6 @@ const GameReviewContainer = () => {
 	}, [modalFlag]);
 
 	const userInfo = useRecoilValue(userState);
-	console.log(userInfo);
 
 	const gameSeq = useParams().seq;
 	const [reviews, setReviews] = useState<GameReviewType[]>([]);
@@ -48,6 +47,10 @@ const GameReviewContainer = () => {
 			reviewText: '',
 		},
 	});
+	const [estimateRate, setEstimateRate] = useState({
+		likeCnt: 1,
+		dislikeCnt: 0,
+	});
 
 	useEffect(() => {
 		http
@@ -60,13 +63,10 @@ const GameReviewContainer = () => {
 			console.log(gameSeq + '번 게임의 리뷰정보:');
 			console.log(data);
 			setReviews(data.reviews);
+			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
 		});
 	}, []);
 
-	const estimateRate = {
-		likeCnt: 1,
-		dislikeCnt: 0,
-	};
 	return (
 		<div>
 			<GameReviewSummary

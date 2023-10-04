@@ -37,7 +37,7 @@ const GameReview = ({
 							isGood() ? 'text-blue-400' : 'text-red-400'
 						}`}
 					>
-						{review.like}
+						{review.like === 'like' ? '좋아요' : '싫어요'}
 					</div>
 				</div>
 
