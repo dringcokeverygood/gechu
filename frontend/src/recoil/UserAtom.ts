@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
+import { UserType } from '../typedef/main.types';
 
 const { persistAtom } = recoilPersist();
 
-export const LoginAtom = atom<boolean>({
-	key: 'login',
-	// default: localStorage.getItem('token') ? true : false,
-	default: true,
+export const userState = atom<UserType>({
+	key: 'user',
+	default: { userSeq: 0, userName: '', userId: '', imageUrl: '' },
 	effects_UNSTABLE: [persistAtom],
 });

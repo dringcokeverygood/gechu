@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { http } from '../../../utils/http';
+import { GameReviewType } from '../../../typedef/Game/games.types';
 import ReviewModal from '../ReviewModal';
 
 type Props = {
@@ -8,9 +10,22 @@ type Props = {
 const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 	const [preference, setPreference] = useState({
 		like: false,
-		unlike: false,
+		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
+	const [reviewToPost, setReviewToPost] = useState<GameReviewType>({
+		reviewSeq: 1,
+		estimateSeq: 1,
+		userProfile: {
+			imageUrl: '',
+			nickName: '',
+			seq: 4,
+			userId: '',
+		},
+		like: '',
+		content: '',
+		createDate: '',
+	});
 
 	const handleRadioBtn = (id: string) => {
 		console.log(selectedBefore, id);
@@ -22,6 +37,7 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		return true;
 	};
 
+	//좋아요싫어요 버튼 눌렀을때
 	const onClickPref = (e: React.MouseEvent) => {
 		const id = (e.target as Element).id;
 		const result = handleRadioBtn(id);
@@ -30,18 +46,38 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 			setPreference({
 				...preference,
 				like: result,
-				unlike: result ? false : preference.unlike,
+				dislike: result ? false : preference.dislike,
 			});
-		} else if (id === 'unlike') {
+		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
-				unlike: result,
+				dislike: result,
 				like: result ? false : preference.like,
 			});
 		}
 	};
 
-	const isButtonActive = preference.like || preference.unlike;
+	//등록버튼 눌렀을때
+	const onSubmitReview = () => {
+		setReviewToPost((prevState) => ({
+			...prevState,
+			estimate: preference.like ? 'like' : 'dislike',
+		}));
+		console.log('post할 리뷰:');
+		console.log(reviewToPost);
+		http
+			.post<GameReviewType>(`web/reviews`, {
+				estimateSeq: reviewToPost.estimateSeq,
+			})
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
+
+	const isButtonActive = preference.like || preference.dislike;
 
 	return (
 		<div>
@@ -50,6 +86,14 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 				preference={preference}
 				onChangeModalFlag={onChangeModalFlag}
 				isButtonActive={isButtonActive}
+				review={reviewToPost}
+				onTextChange={(reviewContent) => {
+					setReviewToPost((prevState) => ({
+						...prevState,
+						content: reviewContent,
+					}));
+				}}
+				onSubmit={onSubmitReview}
 			/>
 		</div>
 	);

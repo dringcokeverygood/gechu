@@ -3,6 +3,8 @@ import DashBoard from '../DashBoard';
 import { LikeGameItemType } from '../../../typedef/Game/games.types';
 import { DashBoardType } from '../../../typedef/MyPage/myPage.types';
 import { http } from '../../../utils/http';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetLikeGames {
 	likeList: LikeGameItemType[];
@@ -11,42 +13,18 @@ interface GetLikeGames {
 }
 
 const DashBoardContainer = () => {
-	// const dummy: LikeGameItemType[] = [
-	// 	{
-	// 		gameSeq: 1,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 	},
-	// 	{
-	// 		gameSeq: 2,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 	},
-	// 	{
-	// 		gameSeq: 3,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 	},
-	// 	{
-	// 		gameSeq: 4,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 	},
-	// 	{
-	// 		gameSeq: 5,
-	// 		gameTitle: '젤다의 전설',
-	// 		gameTitleImageUrl: '',
-	// 	},
-	// ];
-
+	const [userInfo] = useRecoilState(userState);
 	const [LikeGames, setLikeGames] = useState<LikeGameItemType[]>([]);
 
 	useEffect(() => {
 		http
-			.get<GetLikeGames>(`web/users/1/estimates`)
+			.get<GetLikeGames>(`web/users/${userInfo.userSeq}/estimates`)
 			.then((data) => {
+				console.log(data);
 				const { likeList } = data;
-				setLikeGames(likeList);
+				if (likeList !== undefined) {
+					setLikeGames(likeList);
+				}
 			})
 			.catch((err) => console.log(err));
 	}, []);

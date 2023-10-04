@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import EstimatedGameItem from '../components/EstimatedGameItem';
-import { EstimatedGameItemType } from '../../../typedef/Game/games.types';
+import {
+	EstimatedGameItemType,
+	LikeGameItemType,
+} from '../../../typedef/Game/games.types';
 
-const SelectGameItemContainer = () => {
+const SelectGameItemContainer = ({ game }: { game: LikeGameItemType }) => {
 	const [preference, setPreference] = useState({
 		like: false,
-		unlike: false,
+		dislike: false,
 	});
 	const [selectedBefore, setSelectedBefore] = useState('');
 
@@ -27,21 +30,21 @@ const SelectGameItemContainer = () => {
 			setPreference({
 				...preference,
 				like: result,
-				unlike: result ? false : preference.unlike,
+				dislike: result ? false : preference.dislike,
 			});
-		} else if (id === 'unlike') {
+		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
-				unlike: result,
+				dislike: result,
 				like: result ? false : preference.like,
 			});
 		}
 	};
 
 	const estimatedGame: EstimatedGameItemType = {
-		gameSeq: 1,
-		gameTitle: '젤다의 전설',
-		gameTitleImageUrl: '',
+		gameSeq: game.gameSeq,
+		gameTitle: game.gameTitle,
+		gameTitleImageUrl: game.gameTitleImageUrl,
 		preference: preference,
 		onClickPref: onClickPref,
 	};

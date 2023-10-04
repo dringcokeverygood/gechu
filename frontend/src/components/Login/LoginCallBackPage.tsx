@@ -1,13 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useSetRecoilState } from 'recoil';
+import { LoginAtom } from '../../recoil/LoginAtom';
+import { ImSpinner2 } from 'react-icons/im';
+import { userState } from '../../recoil/UserAtom';
 
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
-	console.log('code: ', code);
-	//인가코드 백으로 보내는 코드
+	const setIsLogin = useSetRecoilState(LoginAtom);
+	const setUserInfo = useSetRecoilState(userState);
 
+	//인가코드 백으로 보내는 코드
 	useEffect(() => {
 		const kakaoLogin = async () => {
 			await axios({
@@ -19,9 +24,16 @@ const LoginCallBackPage = () => {
 			})
 				.then((res) => {
 					//백에서 완료후 우리사이트 전용 토큰 넘겨주는게 성공했다면
-					console.log('res 1', res);
 					localStorage.setItem('token', res.data.accessToken);
-					localStorage.setItem('login', 'true');
+					setIsLogin(true);
+					const userData = {
+						userSeq: res.data.userInfo.seq,
+						imageUrl: res.data.userInfo.imageUrl,
+						userName: res.data.userInfo.nickName,
+						userId: res.data.userInfo.userId,
+						token: res.data.accessToken,
+					};
+					setUserInfo(userData);
 					navigate('/');
 				})
 				.catch((err) => {
@@ -33,11 +45,8 @@ const LoginCallBackPage = () => {
 	});
 
 	return (
-		<div className="bg-white-100">
-			<div>
-				<p>로그인 중입니다.</p>
-				<p>잠시만 기다려주세요.</p>
-			</div>
+		<div className="fixed top-0 flex h-screen w-full items-center justify-center">
+			<ImSpinner2 className="animate-spin fill-white-200" size={64} />
 		</div>
 	);
 };

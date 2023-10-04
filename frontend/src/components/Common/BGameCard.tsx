@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { GamePreviewType } from '../../typedef/Game/games.types';
-import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 
 const BGameCard = ({ game }: { game: GamePreviewType }) => {
 	return (
@@ -23,17 +22,12 @@ const BGameCard = ({ game }: { game: GamePreviewType }) => {
 				</div>
 			)}
 			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-b-md bg-white-100 p-3 text-white-950">
-				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
-				<div className="truncate font-dungGeunMo">
-					{game.genres} {game.platforms}
-				</div>
-				<div className="flex items-center gap-2 font-bold">
-					{game.estimatePercent > 50 ? (
-						<MdThumbUp size={20} className="fill-blue-500" />
-					) : (
-						<MdThumbDown size={20} className="fill-red-400" />
-					)}
-					{game.estimatePercent} %
+				<div className="truncate font-bold">{game.gameTitle}</div>
+				<div className="truncate">
+					{game.genres.length > 0 && '#' + game.genres[0]}{' '}
+					{game.genres.length > 1 && '#' + game.genres[1]}{' '}
+					{game.platforms.length > 0 && '#' + game.platforms[0]}{' '}
+					{game.platforms.length > 1 && '#' + game.platforms[1]}
 				</div>
 			</div>
 		</Link>

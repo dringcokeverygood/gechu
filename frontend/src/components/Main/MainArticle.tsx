@@ -13,7 +13,7 @@ type MainNewsProps = {
 
 const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 	return (
-		<div className="flex max-w-[1200px] flex-col items-center gap-5">
+		<div className="flex w-[1200px] flex-col  items-center gap-5 sm:w-[600px] lg:w-[1200px]">
 			{/* 헤더 */}
 			<div className="flex items-start justify-center gap-24 self-stretch">
 				<p className="h-12 flex-1 font-dungGeunMo text-[40px]">게시글</p>
@@ -23,37 +23,40 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 			<div className="flex w-full items-center justify-center p-3">
 				<Tab.Group>
 					<Tab.List className="flex w-1/2 flex-col items-start self-stretch">
-						{articleList.map((article, index) => (
+						{articleList.map((article) => (
 							<Tab
-								key={index}
+								key={`articleTab${article.seq}`}
 								className={({ selected }) =>
 									classNames(
 										'flex w-full flex-row font-dungGeunMo text-sm ',
 										'ring-0 focus:outline-none',
 										`${
 											selected
-												? 'bg-white-100 text-white-950'
+												? 'cursor-default bg-white-100 text-white-950'
 												: 'hover:bg-yellow-400'
 										} rounded-l-lg`,
 									)
 								}
 							>
-								<li key={index} className="item group flex p-2 ">
+								<li
+									key={`article${article.seq}`}
+									className="item group flex p-2 "
+								>
 									<img
 										className="h-20 w-20 object-cover"
 										src={article.imageUrl}
 										alt="게시물 이미지"
 									/>
-									<div className="ml-2 flex h-2 flex-col items-start justify-between text-start">
+									<div className="ml-2 flex flex-col items-start justify-between text-start">
 										<p className="self-stretch text-[20px]">
 											{article.articleTitle}
 										</p>
-										<p>
+										<div>
 											<p>{article.gameTitle}</p>
 											<p>
-												{article.createDate} {article.userNickname}
+												{article.createDate} {article.userProfile.nickName}
 											</p>
-										</p>
+										</div>
 									</div>
 								</li>
 							</Tab>
