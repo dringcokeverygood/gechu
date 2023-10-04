@@ -43,14 +43,14 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
 		log.info("service -> {}", articleEntities.get(0).getArticleTitle());
-		return articleEntities.stream().filter(a -> a.getDeleted().equals("true")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByUsers_Seq(userSeq);
 
-		return articleEntities.stream().filter(a -> a.getDeleted().equals("true")).map(ArticleEntity::toMyPageDto).collect(Collectors.toList());
+		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toMyPageDto).collect(Collectors.toList());
 	}
 
 	@Override

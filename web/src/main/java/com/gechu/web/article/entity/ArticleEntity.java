@@ -72,6 +72,7 @@ public class ArticleEntity {
     }
 
     public static ArticlePreViewDto toPreviewDto(ArticleEntity articleEntity) {
+        System.out.println("topreviewdto 호출" + articleEntity.getSeq());
         return ArticlePreViewDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
