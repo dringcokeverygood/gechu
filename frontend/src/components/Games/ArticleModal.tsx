@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { userState } from '../../recoil/UserAtom';
 import { http } from '../../utils/http';
 import { GameArticleType } from '../../typedef/Game/games.types';
+import { useRecoilValue } from 'recoil';
 
 type Props = {
 	onChangeModalFlag: () => void;
@@ -9,15 +11,16 @@ type Props = {
 
 const ArticleModal = ({ onChangeModalFlag }: Props) => {
 	const gameSeq = Number(useParams().seq);
+	const userInfo = useRecoilValue(userState);
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
 		gameSeq: gameSeq,
 		gameTitle: 'asdf',
 		userProfile: {
-			imageUrl: '',
-			nickName: '',
-			seq: 1,
-			userId: '',
+			imageUrl: userInfo.imageUrl,
+			nickName: userInfo.userName,
+			seq: userInfo.userSeq,
+			userId: userInfo.userId,
 		},
 		articleTitle: '제목입니다',
 		content: '내용입니다',
@@ -30,6 +33,7 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 	const onSubmitArticle = () => {
 		console.log('post할 게시글:');
 		console.log(article);
+		console.log(article.userProfile.seq);
 		const formData = new FormData();
 		// formData.append(
 		// 	'dto',
@@ -106,7 +110,7 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 						{/* <input
 							type="file"
 							ref={fileInput}
-							onChange={onChangeProfile}
+							onChange={onChangeArticleImage}
 							className="hidden"
 						/> */}
 					</div>
