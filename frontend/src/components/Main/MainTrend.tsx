@@ -27,11 +27,11 @@ const MainTrend = ({ games, onClickGame }: TrendProps) => {
 								src={game.gameTitleImageUrl}
 								alt={game.gameTitle}
 							/>
-							<div className="text-white absolute flex h-full w-64 flex-col justify-between break-words p-5 text-xl leading-6 opacity-0 group-hover:opacity-100">
-								<p
-									className="mb-2 line-clamp-2 cursor-pointer border-y-2 border-solid bg-white-950 bg-opacity-40 py-2 font-dungGeunMo  text-2xl hover:pb-1 hover:pt-3"
-									onClick={() => onClickGame(`/game-detail/${game.seq}`)}
-								>
+							<div
+								className="text-white absolute flex h-full w-64 cursor-pointer flex-col justify-between break-words p-5 text-xl leading-6 opacity-0 group-hover:opacity-100"
+								onClick={() => onClickGame(`/game-detail/${game.seq}`)}
+							>
+								<p className="mb-2 line-clamp-2 border-y-2 border-solid bg-white-950 bg-opacity-40 py-2 font-dungGeunMo text-2xl ">
 									{game.gameTitle}
 								</p>
 								<div className="h-3/5  text-white-200">
