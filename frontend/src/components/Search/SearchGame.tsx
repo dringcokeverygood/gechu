@@ -2,6 +2,7 @@ import React from 'react';
 import { GamePreviewType } from '../../typedef/Game/games.types';
 import BGameCardContainer from '../Common/containers/BGameCardContainer';
 import BLoadingCard from '../Common/BLoadingCard';
+import SearchNone from './SearchNone';
 
 type GameCardProps = {
 	games: GamePreviewType[];
@@ -28,7 +29,7 @@ const SearchGame = ({ games, loading }: GameCardProps) => {
 						))}
 					</div>
 				) : (
-					<div>게임이 없습니다.</div>
+					<SearchNone />
 				)}
 			</div>
 		</div>
