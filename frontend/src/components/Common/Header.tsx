@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiSearchLine } from 'react-icons/ri';
-import LoginModalContainer from '../Login/Containers/LoginModalContainer';
+import LoginModalContainer from '../Login/containers/LoginModalContainer';
 
 type Props = {
 	isLogin: boolean;
