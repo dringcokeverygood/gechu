@@ -50,6 +50,8 @@ public class ArticleController {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
+
+        log.info(articleDto + " file" + multipartFiles);
         try {
             String url = awsS3Service.uploadFile(multipartFiles);
             articleDto.setImageUrl(url);
