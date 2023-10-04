@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import BArticleCardContainer from '../Common/containers/BArticleCardContainer';
 import { GameArticlePreviewType } from '../../typedef/Game/games.types';
 
@@ -7,10 +7,6 @@ type ArticleCardProps = {
 };
 
 const SearchArticle = ({ articles }: ArticleCardProps) => {
-	useEffect(() => {
-		return () => console.log('게시물 언마운트');
-	}, []);
-
 	return (
 		<div>
 			{/* <p>게시물 검색 api 호출 </p> */}
