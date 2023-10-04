@@ -1,10 +1,14 @@
 package com.gechu.crawl.util;
 
+import java.io.BufferedReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -98,7 +102,14 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		element = driver.findElement(By.xpath(
 			"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
 
-		sb.append(element.getText());
+		String reviewsAll = element.getText();
+		List<String> reviewsArr = Arrays.stream(reviewsAll.split("\n")).collect(Collectors.toList());
+
+		for (int i = 0; i < reviewsArr.size(); i++) {
+			if (i % 5 == 2) {
+				sb.append(reviewsArr.get(i));
+			}
+		}
 		log.info("{}의 리뷰 html정보", gameSlug);
 		log.info("{}", sb);
 
