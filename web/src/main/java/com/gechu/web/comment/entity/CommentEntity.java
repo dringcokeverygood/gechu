@@ -3,9 +3,7 @@ package com.gechu.web.comment.entity;
 import javax.persistence.*;
 
 import com.gechu.web.article.entity.ArticleEntity;
-import com.gechu.web.comment.dto.CommentDto;
 import com.gechu.web.comment.dto.CommentResponseDto;
-import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.user.entity.UsersEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
@@ -30,7 +27,7 @@ public class CommentEntity {
     private String content;
     @CreationTimestamp
     private LocalDateTime createDate;
-    @ColumnDefault("false")
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'false'")
     private String deleted;
 
     @ManyToOne(fetch = FetchType.LAZY)
