@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { userState } from '../../recoil/UserAtom';
 import { http } from '../../utils/http';
 import { GameArticleType } from '../../typedef/Game/games.types';
 import { useRecoilValue } from 'recoil';
+import { BiImageAdd, BiX } from 'react-icons/bi';
+import Swal from 'sweetalert2';
 
 type Props = {
 	onChangeModalFlag: () => void;
@@ -12,6 +14,8 @@ type Props = {
 const ArticleModal = ({ onChangeModalFlag }: Props) => {
 	const gameSeq = Number(useParams().seq);
 	const userInfo = useRecoilValue(userState);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const [uploadImgSrc, setUploadImgSrc]: any = useState(null);
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
 		gameSeq: gameSeq,
@@ -22,67 +26,101 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 			seq: userInfo.userSeq,
 			userId: userInfo.userId,
 		},
-		articleTitle: '제목입니다',
-		content: '내용입니다',
+		articleTitle: '',
+		content: '',
 		imageUrl: '',
 		createDate: '',
 	});
-	console.log(article);
+	const fileInput = useRef() as React.MutableRefObject<HTMLInputElement>;
+	const [formData, setFormData] = useState(new FormData());
+
+	const onClickImageAddIcon = () => {
+		if (!fileInput.current) {
+			return;
+		}
+		fileInput.current.click();
+	};
+
+	const onChangeArticleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = (e.currentTarget.files as FileList)[0];
+		if (file) {
+			const newFormData = new FormData();
+			newFormData.append('file', file);
+			setFormData(newFormData);
+			console.log('파일 : ', formData.get('file'));
+
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+
+			return new Promise<void>((resolve) => {
+				reader.onload = () => {
+					setUploadImgSrc(reader.result || null);
+					resolve();
+				};
+			});
+		}
+	};
 
 	//등록버튼 눌렀을때
 	const onSubmitArticle = () => {
-		console.log('post할 게시글:');
-		console.log(article);
-		console.log(article.userProfile.seq);
-		const formData = new FormData();
-		// formData.append(
-		// 	'dto',
-		// 	new Blob(
-		// 		[
-		// 			JSON.stringify({
-		// 				gameSeq: article.gameSeq,
-		// 				userSeq: article.userSeq,
-		// 				articleTitle: article.articleTitle,
-		// 				content: article.content,
-		// 			}),
-		// 		],
-		// 		{
-		// 			type: 'application/json',
-		// 		},
-		// 	),
-		// );
-		formData.append(
-			'dto',
-			JSON.stringify({
-				gameSeq: article.gameSeq,
-				userSeq: article.userProfile.seq,
-				articleTitle: article.articleTitle,
-				content: article.content,
-			}),
-		);
-		// formData.append('file', new Blob());
-		// const headers = {
-		// 	'Content-Type': 'multipart/form-data',
-		// };
-		http
-			.post<GameArticleType>(`web/articles`, formData)
-			.then((res) => {
-				console.log(res);
-			})
-			.catch((e) => {
-				console.log(e);
+		if (article.articleTitle && article.content) {
+			formData.append(
+				'dto',
+				JSON.stringify({
+					gameSeq: article.gameSeq,
+					userSeq: article.userProfile.seq,
+					articleTitle: article.articleTitle,
+					content: article.content,
+				}),
+			);
+			const headers = {
+				'Content-Type': 'multipart/form-data',
+			};
+
+			http
+				.post<GameArticleType>(`web/articles`, formData, headers)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		} else {
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'bottom-right',
+				showConfirmButton: false,
+				timer: 1000,
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer);
+					toast.addEventListener('mouseleave', Swal.resumeTimer);
+				},
 			});
+
+			Toast.fire({
+				icon: 'error',
+				title: '제목과 내용을 입력하세요.',
+			});
+		}
 	};
 
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-full w-full  text-white-950">
-			<div className="h-full w-full bg-white-950 bg-opacity-50 "></div>
+			<div
+				className="h-full w-full bg-white-950 bg-opacity-50"
+				onClick={onChangeModalFlag}
+			></div>
 
 			{/* 모달창 */}
-			<div className="fixed left-1/2 top-1/2 flex h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8 rounded-xl bg-white-100 px-16 pb-16 pt-16">
+			<div className="fixed left-1/2 top-1/2 flex h-[650px] w-[800px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-8 overflow-auto rounded-xl bg-white-200 px-16 pb-8 pt-20">
+				<BiX
+					className="fixed right-8 top-8 cursor-pointer"
+					size={32}
+					onClick={onChangeModalFlag}
+				/>
 				<p className="text-start font-dungGeunMo text-4xl">게시물 등록</p>
 				<div className="flex h-full w-full flex-col">
-					<div className="flex h-12 items-center rounded-t-lg bg-white-50 text-xl ">
+					<div className="flex h-12 items-center rounded-t-lg bg-white-100 text-xl ">
 						<input
 							type="text"
 							className="h-full w-full bg-transparent p-3 outline-none"
@@ -95,27 +133,20 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 								}));
 							}}
 						/>
-						<button type="button" className="mx-3 h-6 cursor-pointer rounded">
-							<svg
-								className="h-4 w-4 "
-								aria-hidden="true"
-								xmlns="http://www.w3.org/2000/svg"
-								fill="currentColor"
-								viewBox="0 0 16 20"
-							>
-								<path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
-								<path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
-							</svg>
-						</button>
-						{/* <input
+						<BiImageAdd
+							size={32}
+							className="mr-2 cursor-pointer"
+							onClick={onClickImageAddIcon}
+						/>
+						<input
 							type="file"
 							ref={fileInput}
 							onChange={onChangeArticleImage}
 							className="hidden"
-						/> */}
+						/>
 					</div>
 					<textarea
-						className="w-full flex-1  resize-none rounded-b-lg p-3 outline-none"
+						className="h-[250px] w-full resize-none rounded-b-lg bg-white-100 p-3 outline-none"
 						placeholder="내용을 입력하세요"
 						value={article.content}
 						onChange={(e) => {
@@ -126,17 +157,24 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 						}}
 					></textarea>
 				</div>
+				{uploadImgSrc ? (
+					<img src={uploadImgSrc} className="rounded-xl" />
+				) : (
+					<div className="w-full rounded-xl border-2 border-solid border-white-300 p-4 text-center font-dungGeunMo text-white-300">
+						이미지 미리보기
+					</div>
+				)}
 
 				{/* 버튼 */}
-				<div className="font-bold text-white-100">
+				<div className="flex gap-4 font-bold text-white-100">
 					<button
-						className="mx-2 h-10 w-16 rounded-xl bg-red-400 hover:bg-red-700"
+						className="h-10 w-20 rounded-xl bg-red-700 hover:bg-red-600"
 						onClick={onChangeModalFlag}
 					>
 						취소
 					</button>
 					<button
-						className="mx-2 h-10 w-16 rounded-xl bg-blue-400 hover:bg-blue-700"
+						className="h-10 w-20 rounded-xl bg-blue-700 hover:bg-blue-600"
 						onClick={onSubmitArticle}
 					>
 						등록
