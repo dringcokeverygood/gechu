@@ -1,20 +1,27 @@
 package com.gechu.web.article.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gechu.web.article.dto.ArticleDto;
 import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.dto.ArticlePreViewDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
+import com.gechu.web.estimate.entity.EstimateEntity;
+import com.gechu.web.review.dto.ReviewDto;
 import com.gechu.web.review.entity.ReviewEntity;
 
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +30,9 @@ import org.springframework.stereotype.Service;
 public class ArticleServiceImpl implements ArticleService {
 
 	private final ArticleRepository articleRepository;
+
+	ObjectMapper objectMapper = new ObjectMapper();
+	private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
 	@Override
 	public ArticleDto findArticle(Long articleSeq) {
@@ -52,6 +62,18 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Long insertArticle(ArticleDto articleDto) {
 		ArticleEntity articleEntity = articleRepository.save(ArticleDto.toEntity(articleDto));
+
+		Map<String, Object> logMap = new HashMap<>();
+		logMap.put("content", articleEntity.getArticleTitle() + " " + articleEntity.getArticleContent());
+		logMap.put("seq", articleEntity.getSeq());
+
+		try {
+			String logJson = objectMapper.writeValueAsString(logMap);
+			logger.info(logJson);
+		} catch (Exception e) {
+			logger.error("Error converting log message to JSON", e);
+		}
+
 		return articleEntity.getSeq();
 	}
 

@@ -1,10 +1,9 @@
 package com.gechu.web.elasticsearch.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class MessageContent {
+public class ReviewContent {
 
     private String gameSlug;
 
