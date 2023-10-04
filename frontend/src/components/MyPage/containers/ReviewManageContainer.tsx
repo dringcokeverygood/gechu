@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
 
 interface GetReviewList {
-	reviewList: ManageCardItemType[];
+	reviews: ManageCardItemType[];
 	success: boolean;
 	message: string;
 }
@@ -20,11 +20,8 @@ const ReviewManageContainer = () => {
 		http
 			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
 			.then((data) => {
-				const { reviewList } = data;
-				console.log(reviewList);
-				if (reviewList !== undefined) {
-					setMyReviews(reviewList);
-				}
+				const { reviews } = data;
+				setMyReviews(reviews);
 			})
 			.catch((err) => console.log(err));
 	}, []);

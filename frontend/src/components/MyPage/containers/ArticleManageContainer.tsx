@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
 
 interface GetArticleList {
-	articleList: ManageCardItemType[];
+	articles: ManageCardItemType[];
 	success: boolean;
 	message: string;
 }
@@ -20,11 +20,8 @@ const ArticleManageContainer = () => {
 		http
 			.get<GetArticleList>(`web/users/${userInfo.userSeq}/articles`)
 			.then((data) => {
-				const { articleList } = data;
-				console.log(articleList);
-				if (articleList !== undefined) {
-					setMyArticleList(articleList);
-				}
+				const { articles } = data;
+				setMyArticleList(articles);
 			});
 	}, []);
 
