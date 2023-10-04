@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.entity.EstimateEntity;
 import com.gechu.web.estimate.repository.EstimateRepository;
+import com.gechu.web.review.dto.ReviewResponseDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,12 +39,24 @@ public class EstimateServiceImpl implements EstimateService {
     }
 
     @Override
+    public List<ReviewResponseDto> findReviewsByGameSeqAndUserLikeNot(Long gameSeq, String userLike) {
+        List<EstimateEntity> estimateEntities = null;
+        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq, userLike);
+        if (estimateEntities.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        return estimateEntities.stream().filter(e -> e.getReviewEntity() != null).map(EstimateEntity::toReviewResponseDto).collect(Collectors.toList());
+    }
+
+    @Override
     public List<EstimateDto> findEstimatesByGameSeqAndUserLikeNot(Long gameSeq, String userLike) {
         List<EstimateEntity> estimateEntities = null;
         estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq, userLike);
         if (estimateEntities.size() == 0) {
             return new ArrayList<>();
         }
+
         return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
     }
 

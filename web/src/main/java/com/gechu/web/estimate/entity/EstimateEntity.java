@@ -3,6 +3,7 @@ package com.gechu.web.estimate.entity;
 import javax.persistence.*;
 
 import com.gechu.web.estimate.dto.EstimateDto;
+import com.gechu.web.review.dto.ReviewResponseDto;
 import com.gechu.web.review.entity.ReviewEntity;
 import com.gechu.web.user.entity.UsersEntity;
 
@@ -54,6 +55,17 @@ public class EstimateEntity {
 			.userSeq(estimateEntity.getUsers().getSeq())
 			.gameSeq(estimateEntity.getGameSeq())
 			.like(estimateEntity.getUserLike())
+			.build();
+	}
+
+	public static ReviewResponseDto toReviewResponseDto(EstimateEntity estimateEntity) {
+		return ReviewResponseDto.builder()
+			.userProfile(UsersEntity.toProfileDto(estimateEntity.getUsers()))
+			.estimateSeq(estimateEntity.getSeq())
+			.like(estimateEntity.getUserLike())
+			.content(estimateEntity.getReviewEntity().getText())
+			.createDate(estimateEntity.getReviewEntity().getCreateDate())
+			.reviewSeq(estimateEntity.getReviewEntity().getSeq())
 			.build();
 	}
 
