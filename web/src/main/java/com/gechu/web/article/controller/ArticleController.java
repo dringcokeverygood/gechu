@@ -46,7 +46,7 @@ public class ArticleController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insertArticle(@RequestParam("dto") String dto,
-        @RequestPart(value = "file", required = false) MultipartFile multipartFiles) {
+        @RequestParam(value = "file", required = false) MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
