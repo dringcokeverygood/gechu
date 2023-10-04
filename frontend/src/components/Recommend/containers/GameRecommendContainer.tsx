@@ -3,6 +3,8 @@ import { FilterObject, FilterType } from '../../../typedef/Game/filter.types';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
 import { http } from '../../../utils/http';
 import GameRecommend from '../GameRecommend';
+// import { useRecoilValue } from 'recoil';
+// import { LoginAtom } from '../../../recoil/LoginAtom';
 
 const GameRecommendContainer = () => {
 	// 장르별 필터링을 위한 state
@@ -115,6 +117,7 @@ const GameRecommendContainer = () => {
 
 	const [gameList, setGameList] = useState<GamePreviewType[]>([]);
 	const [loading, setLoading] = useState(false);
+	// const isLogin = useRecoilValue(LoginAtom);
 
 	useEffect(() => {
 		setLoading(true);
@@ -130,6 +133,7 @@ const GameRecommendContainer = () => {
 			platformFilter={platformFilter}
 			games={gameList}
 			loading={loading}
+			// isLogin={isLogin}
 		/>
 	);
 };

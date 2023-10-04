@@ -4,9 +4,10 @@ import { ManageCardItemType } from '../../../typedef/MyPage/myPage.types';
 import { http } from '../../../utils/http';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
+import Swal from 'sweetalert2';
 
 interface GetArticleList {
-	articleList: ManageCardItemType[];
+	articles: ManageCardItemType[];
 	success: boolean;
 	message: string;
 }
@@ -16,21 +17,40 @@ const ArticleManageContainer = () => {
 
 	const [myArticleList, setMyArticleList] = useState<ManageCardItemType[]>([]);
 
-	useEffect(() => {
+	const getMyArticleList = () => {
 		http
 			.get<GetArticleList>(`web/users/${userInfo.userSeq}/articles`)
 			.then((data) => {
-				const { articleList } = data;
-				console.log(articleList);
-				if (articleList !== undefined) {
-					setMyArticleList(articleList);
-				}
+				const { articles } = data;
+				setMyArticleList(articles);
 			});
+	};
+
+	const onClickDeleteBtn = (seq: number) => {
+		Swal.fire({
+			title: '게시글 삭제',
+			text: '정말 삭제하시겠습니까?',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				http.delete(`web/articles/${seq}`).then(() => {
+					getMyArticleList();
+				});
+			}
+		});
+	};
+
+	useEffect(() => {
+		getMyArticleList();
 	}, []);
 
 	return (
 		<div>
-			<ArticleManage items={myArticleList} nickname={userInfo.userName} />
+			<ArticleManage
+				items={myArticleList}
+				nickname={userInfo.userName}
+				onClickDeleteBtn={onClickDeleteBtn}
+			/>
 		</div>
 	);
 };
