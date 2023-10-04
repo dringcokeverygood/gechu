@@ -7,7 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
@@ -35,6 +38,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 	private static final String url = "https://www.metacritic.com/game/";
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 	private ObjectMapper objectMapper = new ObjectMapper();
+	private String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
 
 	public CrawlMetaCriticReviewsThread(int cnt, String gameSlug) {
 		this.cnt = cnt;
@@ -87,7 +91,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		}
 		// int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
 
-		StringBuffer sb = new StringBuffer();
+		StringBuffer reviews = new StringBuffer();
 
 		try {
 			element = driver.findElement(By.xpath(
@@ -100,18 +104,27 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		}
 		String reviewsAll = element.getText();
 		List<String> reviewsList = Arrays.stream(reviewsAll.split("\n")).collect(Collectors.toList());
+		Pattern pattern = Pattern.compile("^[A-Z]{3} \\d{1,2}, \\d{4}$");
+		int allDate = 0;
 
 		for (int i = 0; i < reviewsList.size(); i++) {
-			if (reviewsList.get(i).length() > 20) {
-				sb.append(reviewsList.get(i));
-				sb.append(" ");
+			String review = reviewsList.get(i);
+			Matcher matcher = pattern.matcher(review);
+			if (matcher.matches()) {
+				String[] s = review.split(" ");
+				allDate += ((Integer.parseInt(s[2]) * 365) + (convertMonth(s[0]) * 30) + Integer.parseInt(s[1].split(",")[0]));
+			}
+			if (review.length() > 20) {
+				reviews.append(review);
+				reviews.append(" ");
 			}
 		}
 		log.info("{}의 리뷰 크롤링 완료, 번호는 {}입니다.", gameSlug, cnt);
 
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new ConcurrentHashMap<>();
 		map.put("gameSlug", gameSlug);
-		map.put("reviews", sb.toString());
+		map.put("reviews", reviews.toString());
+		map.put("dates", String.valueOf(allDate));
 
 		try {
 			String logJson = objectMapper.writeValueAsString(map);
@@ -127,6 +140,13 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		if (driver != null) {
 			driver.quit();
 		}
+	}
+
+	public int convertMonth(String month) {
+		for (int i = 0; i < 12; i++) {
+			if (months[i].equals(month)) return i + 1;
+		}
+		return 0;
 	}
 }
 
