@@ -1,4 +1,5 @@
 import { FilterType } from './filter.types';
+import { UserProfileType } from '../main.types';
 
 export type GamePreviewType = {
 	seq: number;
@@ -23,21 +24,19 @@ export type GameInfoType = {
 };
 
 export type GameReviewType = {
-	seq: number;
-	gameSeq: number;
-	gameTitle: string;
-	userSeq: number;
-	userNickname: string;
-	estimate: string;
+	reviewSeq: number;
+	estimateSeq: number;
+	userProfile: UserProfileType;
+	like: string;
 	content: string;
+	createDate: string;
 };
 
 export type GameArticlePreviewType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userNickname: string;
-	userProfileImageUrl: string;
+	userProfile: UserProfileType;
 	articleTitle: string;
 	imageUrl: string;
 };
@@ -46,8 +45,9 @@ export type GameArticleType = {
 	seq: number;
 	gameSeq: number;
 	gameTitle: string;
-	userSeq: number;
-	userNickname: string;
+	userProfile: UserProfileType;
+	// userSeq: number;
+	// userNickname: string;
 	articleTitle: string;
 	content: string;
 	imageUrl: string;
