@@ -8,15 +8,15 @@ const GameDetailContainer = () => {
 	const gameSeq = useParams().seq;
 	const [gameInfo, setGameInfo] = useState({
 		seq: 1,
-		gameTitle: '게임제목',
+		gameTitle: '',
 		gameTitleImageUrl: '',
-		develop: '개발사명',
-		publish: '유통사명',
+		develop: '',
+		publish: '',
 		createDate: '',
 		platforms: [''],
 		genres: [''],
-		metaScore: 98,
-		openScore: 75,
+		metaScore: 0,
+		openScore: 0,
 	});
 
 	useEffect(() => {
@@ -25,15 +25,6 @@ const GameDetailContainer = () => {
 			setGameInfo(res);
 		});
 	}, []);
-
-	// const content: GameInfoType = {
-	// 	seq: 1,
-	// 	gameTitle: '게임제목',
-	// 	develop: '개발사명',
-	// 	publish: '유통사명',
-	// 	metaScore: 98,
-	// 	openScore: 75,
-	// };
 
 	return <GameDetail content={gameInfo} />;
 };

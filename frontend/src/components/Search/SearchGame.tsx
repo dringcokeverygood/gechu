@@ -1,8 +1,6 @@
 import React from 'react';
 import { GamePreviewType } from '../../typedef/Game/games.types';
 import BGameCardContainer from '../Common/containers/BGameCardContainer';
-import BLoadingCard from '../Common/BLoadingCard';
-import SearchNone from './SearchNone';
 
 type GameCardProps = {
 	games: GamePreviewType[];
@@ -22,15 +20,13 @@ const SearchGame = ({ games, loading }: GameCardProps) => {
 							return <BLoadingCard key={'loading' + i} />;
 						})}
 					</div>
-				) : games.length > 0 ? (
-					<div className="flex flex-wrap content-start items-start justify-start gap-6 self-stretch pb-10 ">
-						{games.map((game) => (
-							<BGameCardContainer key={game.seq} game={game} />
-						))}
-					</div>
-				) : (
-					<SearchNone />
-				)}
+				</div>
+
+				<div className="flex flex-wrap content-start items-start justify-start gap-6 self-stretch pb-10 ">
+					{games.map((game) => (
+						<BGameCardContainer key={game.seq} game={game} />
+					))}
+				</div>
 			</div>
 		</div>
 	);

@@ -13,7 +13,7 @@ type MainNewsProps = {
 
 const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 	return (
-		<div className="flex max-w-[1200px] flex-col items-center gap-5">
+		<div className="flex w-[1200px] flex-col  items-center gap-5 sm:w-[600px] lg:w-[1200px]">
 			{/* 헤더 */}
 			<div className="flex items-start justify-center gap-24 self-stretch">
 				<p className="h-12 flex-1 font-dungGeunMo text-[40px]">게시글</p>
@@ -54,7 +54,7 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 										<div>
 											<p>{article.gameTitle}</p>
 											<p>
-												{article.createDate} {article.userNickname}
+												{article.createDate} {article.userProfile.nickName}
 											</p>
 										</div>
 									</div>
