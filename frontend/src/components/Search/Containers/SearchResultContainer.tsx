@@ -4,11 +4,17 @@ import React, {
 	useRef,
 	ChangeEvent,
 	KeyboardEvent,
+	useEffect,
 } from 'react';
 import SearchGameContainer from './SearchGameContainer';
 import SearchArticleContainer from './SearchArticleContainer';
 import SearchNewsContainer from './SearchNewsContainer';
 import SearchResult from '../SearchResult';
+import { SearchWordAtom } from '../../../recoil/SearchWordAtom';
+import { useRecoilState } from 'recoil';
+import { http } from '../../../utils/http';
+import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { useNavigate } from 'react-router-dom';
 
 const categories: string[] = ['게임', '게시글', '뉴스'];
 
@@ -16,6 +22,11 @@ const SearchResultContainer = () => {
 	const searchWordRef = useRef<string>('');
 	const [activeTab, setActiveTab] = useState<string>('게임');
 	const [searchWord, setSearchWord] = useState<string>('');
+	const [recoilSearchWord, setRecoilSearchWord] =
+		useRecoilState(SearchWordAtom);
+
+	const [searchGames, setSearchGames] = useState<GamePreviewType[]>([]);
+	const navigate = useNavigate();
 
 	const onChangeSearchWord = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 		const value: string = e.target.value;
@@ -25,7 +36,8 @@ const SearchResultContainer = () => {
 
 	const handleSearch = () => {
 		console.log('검색 :', searchWord);
-		// 여기에서 검색 결과를 가져오는 로직을 추가
+		setRecoilSearchWord(searchWord);
+		navigate('/search');
 	};
 
 	const onKeyUpForSearch = useCallback(
@@ -39,10 +51,27 @@ const SearchResultContainer = () => {
 		[searchWord],
 	);
 
+	useEffect(() => {
+		// 검색한 검색어를 받아옴
+		setSearchWord(recoilSearchWord);
+
+		http
+			.get<{ games: GamePreviewType[]; success: boolean }>(
+				`web/elasticsearch?searchWord=${recoilSearchWord}`,
+			)
+			.then((data) => {
+				const { games } = data;
+				console.log(games);
+				if (games !== undefined) {
+					setSearchGames(games);
+				}
+			});
+	}, [recoilSearchWord]);
+
 	let content = null;
 
 	if (activeTab === '게임') {
-		content = <SearchGameContainer />;
+		content = <SearchGameContainer searchGames={searchGames} />;
 	} else if (activeTab === '게시글') {
 		content = <SearchArticleContainer />;
 	} else if (activeTab === '뉴스') {
