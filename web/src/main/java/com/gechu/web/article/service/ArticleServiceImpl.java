@@ -43,6 +43,7 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
 		log.info("service -> {}", articleEntities.get(0).getArticleTitle());
+		log.info("service users -> {}", articleEntities.get(0).getUsers().getSeq());
 		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 	}
 
