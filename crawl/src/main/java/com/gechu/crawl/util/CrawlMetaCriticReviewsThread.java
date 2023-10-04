@@ -73,28 +73,35 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 		int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
 
-		if (reviewCnt > 50) {
-			JavascriptExecutor js = (JavascriptExecutor)driver;
-			for (int i = 0; i < 2; i++) {
-				js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					driver.quit();
-					throw new RuntimeException(e);
-				}
-			}
-		}
+		// if (reviewCnt > 50) {
+		// 	JavascriptExecutor js = (JavascriptExecutor)driver;
+		// 	for (int i = 0; i < 2; i++) {
+		// 		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+		// 		try {
+		// 			Thread.sleep(500);
+		// 		} catch (InterruptedException e) {
+		// 			driver.quit();
+		// 			throw new RuntimeException(e);
+		// 		}
+		// 	}
+		// }
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i <= (Math.min(reviewCnt, 100)); i++) {
+		// for (int i = 1; i <= (Math.min(reviewCnt, 50)); i++) {
+		//
+		// 	element = driver.findElement(By.xpath(
+		// 		"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
+		// 			+ "]/div/div[1]/div[2]/div/span"));
+		//
+		// 	sb.append(element.getText());
+		// 	sb.append(' ');
+		// }
+		element = driver.findElement(By.xpath(
+			"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
 
-			element = driver.findElement(By.xpath(
-				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
-					+ "]/div/div[1]/div[2]/div/span"));
+		sb.append(element.getText());
+		log.info("{}의 리뷰 html정보");
+		log.info("{}", sb);
 
-			sb.append(element.getText());
-			sb.append(' ');
-		}
 		Map<String, String> map = new HashMap<>();
 		map.put("gameSlug", gameSlug);
 		map.put("reviews", sb.toString());
