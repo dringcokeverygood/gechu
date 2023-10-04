@@ -1,9 +1,27 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { http } from '../../../utils/http';
+import { useParams } from 'react-router-dom';
+import { http } from '../../../utils/http';
 import { GameReviewType } from '../../../typedef/Game/games.types';
 import GameReview from '../GameReview';
 import GameReviewSummary from '../GameReviewSummary';
+
+interface GetReviews {
+	reviews: GameReviewType[];
+	success: boolean;
+	likeCnt: number;
+	dislikeCnt: number;
+}
+//내가 평가했던or리뷰했던 게임인가?
+export interface GetEstimate {
+	success: boolean;
+	estimate: {
+		like: string;
+		reviewDate: string;
+		reviewSeq: number;
+		reviewText: string;
+		seq: number;
+	};
+}
 
 const GameReviewContainer = () => {
 	const [modalFlag, setModalFlag] = useState(false);
@@ -12,37 +30,29 @@ const GameReviewContainer = () => {
 		console.log('모달', modalFlag);
 	}, [modalFlag]);
 
-	// const gameSeq = useParams().seq;
+	const gameSeq = useParams().seq;
+	const [reviews, setReviews] = useState<GameReviewType[]>([]);
+	const [reviewFlag, setReviewFlag] = useState(false);
+
 	useEffect(() => {
-		// http.get<GameReviewType>(`web/games/${gameSeq}/reviews`).then((data) => {
-		// 	// setArticle(data.article);
-		// 	console.log(data);
-		// });
+		http.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=4`).then((data) => {
+			console.log(data);
+			if (data.estimate) {
+				if (data.estimate.reviewSeq) {
+					setReviewFlag(true);
+				}
+			}
+		});
+		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
+			console.log(gameSeq + '번 게임의 리뷰정보:');
+			console.log(data);
+			setReviews(data.reviews);
+		});
 	}, []);
 
-	const reviews: GameReviewType[] = [
-		{
-			seq: 1,
-			gameSeq: 1,
-			gameTitle: '게임이름',
-			userSeq: 1,
-			userNickname: '재밌으면 우는 애옹이',
-			estimate: '좋아요',
-			content: '애옹~',
-		},
-		{
-			seq: 2,
-			gameSeq: 1,
-			gameTitle: '게임이름',
-			userSeq: 1,
-			userNickname: '재밌으면 우는 애옹이',
-			estimate: '싫어요',
-			content: '멍멍으르렁왈왈',
-		},
-	];
 	const estimateRate = {
-		likeCnt: 77,
-		dislikeCnt: 22,
+		likeCnt: 1,
+		dislikeCnt: 0,
 	};
 	return (
 		<div>
@@ -52,9 +62,10 @@ const GameReviewContainer = () => {
 				dislikeCnt={estimateRate.dislikeCnt}
 				modalFlag={modalFlag}
 				onChangeModalFlag={onChangeModalFlag}
+				isReviewExists={reviewFlag}
 			/>
 			{reviews.map((review) => {
-				return <GameReview key={review.seq} review={review} />;
+				return <GameReview key={review.reviewSeq} review={review} />;
 			})}
 		</div>
 	);
