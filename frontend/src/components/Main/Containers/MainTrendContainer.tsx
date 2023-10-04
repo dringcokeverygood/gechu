@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MainTrendContainer = () => {
 	const [trendGames, setTrendGames] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -14,19 +15,21 @@ const MainTrendContainer = () => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
+
 		http
 			.get<GamePreviewType[]>(`game/games`)
 			.then((data) => {
-				// console.log('trendList :', data);
-
-				const first20Games = data.slice(0, 20);
-
-				setTrendGames(first20Games);
+				const gameList = data.slice(0, 20);
+				setTrendGames(gameList);
+				setLoading(false);
 			})
 			.catch((err) => console.log(err));
 	}, []);
 
-	return <MainTrend games={trendGames} onClickGame={onClickGame} />;
+	return (
+		<MainTrend games={trendGames} onClickGame={onClickGame} loading={loading} />
+	);
 };
 
 export default MainTrendContainer;
