@@ -1,5 +1,6 @@
 package com.gechu.web.article.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gechu.web.article.dto.ArticleDto;
 import com.gechu.web.article.dto.ArticleRequestDto;
 import com.gechu.web.article.service.ArticleService;
@@ -44,12 +45,11 @@ public class ArticleController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> insertArticle(@RequestPart(value = "dto") ArticleRequestDto dto,
-        @RequestPart(value = "file") MultipartFile multipartFiles) {
+    public ResponseEntity<?> insertArticle(@RequestParam("dto") ArticleRequestDto dto,
+        @RequestPart("file") MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
         ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
-
         try {
             String url = awsS3Service.uploadFile(multipartFiles);
             articleDto.setImageUrl(url);
