@@ -14,10 +14,12 @@ import com.gechu.web.review.entity.ReviewEntity;
 
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ArticleServiceImpl implements ArticleService {
 
 	private final ArticleRepository articleRepository;
@@ -40,7 +42,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
-
+		log.info("service -> {}", articleEntities.get(0).getArticleTitle());
 		return articleEntities.stream().filter(a -> a.getDeleted().equals("true")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 	}
 

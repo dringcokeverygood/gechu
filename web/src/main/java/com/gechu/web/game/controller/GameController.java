@@ -53,10 +53,12 @@ public class GameController {
 
 		try {
 			List<ArticlePreViewDto> articles = articleService.findArticlesByGameSeq(gameSeq);
+			log.info("controller -> {}", articles.get(0).getArticleTitle());
 			resultMap.put("articles", articles);
 			resultMap.put("success", true);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
+			log.warn("controller에서 에러 발생!!!");
 			status = HttpStatus.BAD_REQUEST;
 			resultMap.put("success", false);
 		}
