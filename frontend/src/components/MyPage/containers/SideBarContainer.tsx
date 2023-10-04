@@ -6,9 +6,21 @@ import { http } from '../../../utils/http';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
 
+interface GetUserInfo {
+	userProfile: UserType;
+	success: boolean;
+}
+
+type UserType = {
+	seq: number;
+	userId: string;
+	nickName: string;
+	imageUrl: string;
+};
+
 const SideBarContainer = () => {
 	const fileInput = useRef() as React.MutableRefObject<HTMLInputElement>;
-	const [userInfo] = useRecoilState(userState);
+	const [userInfo, setUserInfo] = useRecoilState(userState);
 	const onClickUploadImgBtn = () => {
 		if (!fileInput.current) {
 			return;
@@ -21,18 +33,21 @@ const SideBarContainer = () => {
 		if (file) {
 			const formData = new FormData();
 			formData.append('file', file);
-			formData.append(
-				'nickname',
-				new Blob([JSON.stringify({ nickname: '' })], {
-					type: 'application/json',
-				}),
-			);
 			http
 				.put(`web/users/${userInfo.userSeq}`, formData, {
 					'Content-Type': 'multipart/form-data',
 				})
 				.then((data) => {
 					console.log(data);
+					http
+						.get<GetUserInfo>(`web/users/${userInfo.userSeq}`)
+						.then((user) => {
+							const { userProfile } = user;
+							setUserInfo({
+								...userInfo,
+								imageUrl: userProfile.imageUrl,
+							});
+						});
 				});
 		}
 	};
@@ -48,14 +63,7 @@ const SideBarContainer = () => {
 			preConfirm: (value) => {
 				if (value) {
 					const formData = new FormData();
-					const file = new Blob();
-					formData.append(
-						'nickname',
-						new Blob([JSON.stringify({ nickname: value })], {
-							type: 'application/json',
-						}),
-					);
-					formData.append('file', file);
+					formData.append('nickname', value);
 					http
 						.put(`web/users/${userInfo.userSeq}`, formData, {
 							'Content-Type': 'multipart/form-data',
@@ -63,6 +71,15 @@ const SideBarContainer = () => {
 						.then((data) => {
 							// 닉네임 변경이 정상적으로 처리되었다면
 							console.log(data);
+							http
+								.get<GetUserInfo>(`web/users/${userInfo.userSeq}`)
+								.then((user) => {
+									const { userProfile } = user;
+									setUserInfo({
+										...userInfo,
+										userName: userProfile.nickName,
+									});
+								});
 							Swal.fire({
 								title: '변경 완료',
 								text: '닉네임이 변경되었습니다.',
