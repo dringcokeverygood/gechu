@@ -4,6 +4,7 @@ import { ManageCardItemType } from '../../../typedef/MyPage/myPage.types';
 import { http } from '../../../utils/http';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
+import Swal from 'sweetalert2';
 
 interface GetArticleList {
 	articles: ManageCardItemType[];
@@ -17,8 +18,16 @@ const ArticleManageContainer = () => {
 	const [myArticleList, setMyArticleList] = useState<ManageCardItemType[]>([]);
 
 	const onClickDeleteBtn = (seq: number) => {
-		http.delete(`web/articles/${seq}`).then(() => {
-			setMyArticleList([]);
+		Swal.fire({
+			title: '게시글 삭제',
+			text: '정말 삭제하시겠습니까?',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				http.delete(`web/articles/${seq}`).then(() => {
+					setMyArticleList([]);
+				});
+			}
 		});
 	};
 
