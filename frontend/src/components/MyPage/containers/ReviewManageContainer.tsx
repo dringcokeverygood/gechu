@@ -16,6 +16,12 @@ const ReviewManageContainer = () => {
 
 	const [myReviews, setMyReviews] = useState<ManageCardItemType[]>([]);
 
+	const onClickDeleteBtn = (seq: number) => {
+		http.delete(`web/reviews/${seq}`).then(() => {
+			setMyReviews([]);
+		});
+	};
+
 	useEffect(() => {
 		http
 			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
@@ -24,11 +30,15 @@ const ReviewManageContainer = () => {
 				setMyReviews(reviews);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [myReviews]);
 
 	return (
 		<div>
-			<ReviewManage items={myReviews} nickname={userInfo.userName} />
+			<ReviewManage
+				items={myReviews}
+				nickname={userInfo.userName}
+				onClickDeleteBtn={onClickDeleteBtn}
+			/>
 		</div>
 	);
 };

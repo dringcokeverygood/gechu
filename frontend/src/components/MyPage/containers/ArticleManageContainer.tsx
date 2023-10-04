@@ -16,6 +16,12 @@ const ArticleManageContainer = () => {
 
 	const [myArticleList, setMyArticleList] = useState<ManageCardItemType[]>([]);
 
+	const onClickDeleteBtn = (seq: number) => {
+		http.delete(`web/articles/${seq}`).then(() => {
+			setMyArticleList([]);
+		});
+	};
+
 	useEffect(() => {
 		http
 			.get<GetArticleList>(`web/users/${userInfo.userSeq}/articles`)
@@ -23,11 +29,15 @@ const ArticleManageContainer = () => {
 				const { articles } = data;
 				setMyArticleList(articles);
 			});
-	}, []);
+	}, [myArticleList]);
 
 	return (
 		<div>
-			<ArticleManage items={myArticleList} nickname={userInfo.userName} />
+			<ArticleManage
+				items={myArticleList}
+				nickname={userInfo.userName}
+				onClickDeleteBtn={onClickDeleteBtn}
+			/>
 		</div>
 	);
 };
