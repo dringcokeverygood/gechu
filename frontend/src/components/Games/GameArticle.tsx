@@ -134,7 +134,7 @@ const GameArticle = ({
 				</div>
 			</form>
 
-			<GameCommentListContainer />
+			<GameCommentListContainer articleSeq={article.seq} />
 
 			{/* 이미지 모달 */}
 			{imgModalFlag && (
