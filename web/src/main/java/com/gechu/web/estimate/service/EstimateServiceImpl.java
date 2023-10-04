@@ -39,16 +39,8 @@ public class EstimateServiceImpl implements EstimateService {
 
     @Override
     public List<EstimateDto> findEstimatesByGameSeq(Long gameSeq) {
-        log.info("service의 최상단");
         List<EstimateEntity> estimateEntities = null;
-        try {
-            estimateEntities = estimateRepository.findByGameSeq(gameSeq);
-        } catch (Exception e) {
-            log.warn("findByGameSeq -> {}", e.getMessage());
-            e.printStackTrace();
-        }
-        log.info("service -> {}", estimateEntities.get(0).getUserLike());
-        log.info("service users -> {}", estimateEntities.get(0).getUsers().getSeq());
+        estimateEntities = estimateRepository.findByGameSeq(gameSeq);
         if (estimateEntities.size() == 0) {
             return new ArrayList<>();
         }

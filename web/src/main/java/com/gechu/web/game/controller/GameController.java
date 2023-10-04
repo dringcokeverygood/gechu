@@ -55,7 +55,6 @@ public class GameController {
 
 		try {
 			List<ArticlePreViewDto> articles = articleService.findArticlesByGameSeq(gameSeq);
-			log.info("controller -> {}", articles.get(0).getArticleTitle());
 			resultMap.put("articles", articles);
 			resultMap.put("success", true);
 			status = HttpStatus.OK;

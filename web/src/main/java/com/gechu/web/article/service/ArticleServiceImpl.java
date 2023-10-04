@@ -42,8 +42,6 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
-		log.info("service -> {}", articleEntities.get(0).getArticleTitle());
-		log.info("service users -> {}", articleEntities.get(0).getUsers().getSeq());
 		List<ArticlePreViewDto> dto = null;
 		try {
 			dto = articleEntities.stream().filter(a -> {
