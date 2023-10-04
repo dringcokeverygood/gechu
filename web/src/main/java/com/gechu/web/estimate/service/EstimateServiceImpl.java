@@ -40,7 +40,7 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     public List<EstimateDto> findEstimatesByGameSeqAndUserLikeNot(Long gameSeq, String userLike) {
         List<EstimateEntity> estimateEntities = null;
-        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq);
+        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq, userLike);
         if (estimateEntities.size() == 0) {
             return new ArrayList<>();
         }
