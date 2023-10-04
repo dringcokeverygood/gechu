@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gechu.web.elasticsearch.dto.ArticleContent;
 import com.gechu.web.elasticsearch.dto.LogDocument;
 import com.gechu.web.elasticsearch.dto.ReviewContent;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class ElasticsearchService {
 
     @Autowired
