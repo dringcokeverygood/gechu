@@ -26,8 +26,38 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 	const onSubmitArticle = () => {
 		console.log('post할 게시글:');
 		console.log(article);
+		const formData = new FormData();
+		// formData.append(
+		// 	'dto',
+		// 	new Blob(
+		// 		[
+		// 			JSON.stringify({
+		// 				gameSeq: article.gameSeq,
+		// 				userSeq: article.userSeq,
+		// 				articleTitle: article.articleTitle,
+		// 				content: article.content,
+		// 			}),
+		// 		],
+		// 		{
+		// 			type: 'application/json',
+		// 		},
+		// 	),
+		// );
+		formData.append(
+			'dto',
+			JSON.stringify({
+				gameSeq: article.gameSeq,
+				userSeq: article.userSeq,
+				articleTitle: article.articleTitle,
+				content: article.content,
+			}),
+		);
+		// formData.append('file', new Blob());
+		// const headers = {
+		// 	'Content-Type': 'multipart/form-data',
+		// };
 		http
-			.post<GameArticleType>(`web/articles`, article)
+			.post<GameArticleType>(`web/articles`, formData)
 			.then((res) => {
 				console.log(res);
 			})
@@ -69,6 +99,12 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 								<path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
 							</svg>
 						</button>
+						{/* <input
+							type="file"
+							ref={fileInput}
+							onChange={onChangeProfile}
+							className="hidden"
+						/> */}
 					</div>
 					<textarea
 						className="w-full flex-1  resize-none rounded-b-lg p-3 outline-none"
