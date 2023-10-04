@@ -51,7 +51,7 @@ public class ArticleController {
         HttpStatus status;
         ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
 
-        log.info(articleDto + " file" + multipartFiles);
+        log.info("{} file {}", articleDto.toString(), (multipartFiles != null));
         try {
             String url = awsS3Service.uploadFile(multipartFiles);
             articleDto.setImageUrl(url);
