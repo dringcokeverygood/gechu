@@ -26,6 +26,8 @@ const SearchResultContainer = () => {
 		useRecoilState(SearchWordAtom);
 
 	const [searchGames, setSearchGames] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
+
 	const navigate = useNavigate();
 
 	const onChangeSearchWord = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +56,7 @@ const SearchResultContainer = () => {
 	useEffect(() => {
 		// 검색한 검색어를 받아옴
 		setSearchWord(recoilSearchWord);
-
+		setLoading(true);
 		http
 			.get<{ games: GamePreviewType[]; success: boolean }>(
 				`web/elasticsearch?searchWord=${recoilSearchWord}`,
@@ -65,13 +67,16 @@ const SearchResultContainer = () => {
 				if (games !== undefined) {
 					setSearchGames(games);
 				}
+				setLoading(false);
 			});
 	}, [recoilSearchWord]);
 
 	let content = null;
 
 	if (activeTab === '게임') {
-		content = <SearchGameContainer searchGames={searchGames} />;
+		content = (
+			<SearchGameContainer loading={loading} searchGames={searchGames} />
+		);
 	} else if (activeTab === '게시글') {
 		content = <SearchArticleContainer />;
 	} else if (activeTab === '뉴스') {
