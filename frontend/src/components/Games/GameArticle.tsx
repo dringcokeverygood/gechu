@@ -22,6 +22,7 @@ type Props = {
 	commentText: string;
 	handleCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleSubmitComment: (e: React.FormEvent<HTMLFormElement>) => void;
+	onClickDeleteBtn: (seq: number) => void;
 };
 
 const GameArticle = ({
@@ -31,6 +32,7 @@ const GameArticle = ({
 	onClickBack,
 	// commentText,
 	handleSubmitComment, // handleCommentChange,
+	onClickDeleteBtn,
 }: Props) => {
 	console.log(article.userProfile);
 	return (
@@ -77,15 +79,17 @@ const GameArticle = ({
 								</Menu.Item>
 								<Menu.Item>
 									{({ active }) => (
-										<Link
+										<div
 											className={`${
 												active && 'bg-white-800'
-											} flex items-center justify-center gap-4 rounded-b-md  p-2 font-dungGeunMo`}
-											to="/"
+											} flex cursor-pointer items-center justify-center gap-4  rounded-b-md p-2 font-dungGeunMo`}
+											onClick={() => {
+												onClickDeleteBtn(article.seq);
+											}}
 										>
 											<MdClose size={20} />
 											삭제
-										</Link>
+										</div>
 									)}
 								</Menu.Item>
 							</div>
