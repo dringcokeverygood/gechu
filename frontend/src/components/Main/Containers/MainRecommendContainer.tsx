@@ -10,6 +10,8 @@ import { LoginAtom } from '../../../recoil/LoginAtom';
 
 const MainRecommendContainer = () => {
 	const [recommendGames, setRecommendGames] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
+
 	const userInfo = useRecoilValue(userState);
 	const isLogin = useRecoilValue(LoginAtom);
 
@@ -24,25 +26,14 @@ const MainRecommendContainer = () => {
 	};
 
 	useEffect(() => {
+		setLoading(true);
+
 		http
 			.get<GamePreviewType[]>(`game/games`)
 			.then((data) => {
-				// console.log('recommendList :', data);
-
-				let first20Games = data.slice(0, 20);
-
-				if (data.length < 20) {
-					const needGames = 20 - data.length;
-					http
-						.get<GamePreviewType[]>(`additional/games`)
-						.then((addData) => {
-							first20Games = first20Games.concat(addData.slice(0, needGames));
-							setRecommendGames(first20Games);
-						})
-						.catch((addErr) => console.log(addErr));
-				} else {
-					setRecommendGames(first20Games);
-				}
+				const gameList = data.slice(0, 20);
+				setRecommendGames(gameList);
+				setLoading(false);
 			})
 			.catch((err) => console.log(err));
 	}, []);
@@ -54,6 +45,7 @@ const MainRecommendContainer = () => {
 			onClickGame={onClickGame}
 			userInfo={userInfo}
 			isLogin={isLogin}
+			loading={loading}
 		/>
 	);
 };
