@@ -12,10 +12,12 @@ import com.gechu.web.estimate.repository.EstimateRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EstimateServiceImpl implements EstimateService {
 
 	private final EstimateRepository estimateRepository;
@@ -38,6 +40,8 @@ public class EstimateServiceImpl implements EstimateService {
 	@Override
 	public List<EstimateDto> findEstimatesByGameSeq(Long gameSeq) {
 		List<EstimateEntity> estimateEntities = estimateRepository.findByGameSeq(gameSeq);
+		log.info("service -> {}", estimateEntities.get(0).getUserLike());
+		log.info("service users -> {}", estimateEntities.get(0).getUsers().getSeq());
 		if (estimateEntities.size() == 0) {
 			return new ArrayList<>();
 		}
