@@ -63,15 +63,17 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq) {
 		List<ArticleEntity> articleEntities = articleRepository.findByUsers_Seq(userSeq);
 
-		return articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toMyPageDto).collect(Collectors.toList());
+		return articleEntities.stream().filter(a -> {
+			if (a.getDeleted() == null) return true;
+			return a.getDeleted().equals("false");
+		}).map(ArticleEntity::toMyPageDto).collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional
 	public Long updateArticle(ArticleDto articleDto) {
-		ArticleEntity articleEntity = articleRepository.findById(articleDto.getSeq()).orElseThrow(() -> {
-			throw new IllegalArgumentException("데이터를 찾을 수 없습니다: " + articleDto.getSeq());
-		});
+		ArticleEntity articleEntity = articleRepository.findById(articleDto.getSeq()).orElseThrow(() -> new IllegalArgumentException(
+			"데이터를 찾을 수 없습니다: " + articleDto.getSeq()));
 		articleEntity.updateArticle(articleDto.getArticleTitle(), articleDto.getContent());
 		return articleDto.getSeq();
 	}
@@ -79,9 +81,8 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	@Transactional
 	public Long deleteArticle(Long articleSeq) {
-		ArticleEntity articleEntity = articleRepository.findById(articleSeq).orElseThrow(() -> {
-			throw new IllegalArgumentException("데이터를 찾을 수 없습니다: " + articleSeq);
-		});
+		ArticleEntity articleEntity = articleRepository.findById(articleSeq).orElseThrow(() -> new IllegalArgumentException(
+			"데이터를 찾을 수 없습니다: " + articleSeq));
 		articleEntity.delete();
 		return articleSeq;
 	}

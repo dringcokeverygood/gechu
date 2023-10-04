@@ -32,7 +32,10 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentResponseDto> findCommentsByArticleSeq(Long articleSeq) {
 		List<CommentEntity> commentEntities = commentRepository.findByArticleSeq(articleSeq);
 
-		return commentEntities.stream().filter(c -> c.getDeleted().equals("false")).map(CommentEntity::toResponseDto).collect(
+		return commentEntities.stream().filter(c -> {
+			if (c.getDeleted() == null) return true;
+			return c.getDeleted().equals("false");
+		}).map(CommentEntity::toResponseDto).collect(
 			Collectors.toList());
 	}
 
@@ -40,7 +43,10 @@ public class CommentServiceImpl implements CommentService {
 	public List<CommentResponseDto> findCommentsByUserSeq(Long userSeq) {
 		List<CommentEntity> commentEntities = commentRepository.findByUsers_Seq(userSeq);
 
-		return commentEntities.stream().filter(c -> c.getDeleted().equals("false")).map(CommentEntity::toResponseDto).collect(
+		return commentEntities.stream().filter(c -> {
+			if (c.getDeleted() == null) return true;
+			return c.getDeleted().equals("false");
+		}).map(CommentEntity::toResponseDto).collect(
 			Collectors.toList());
 	}
 
