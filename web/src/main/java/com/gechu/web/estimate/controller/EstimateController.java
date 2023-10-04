@@ -41,4 +41,23 @@ public class EstimateController {
 
 		return new ResponseEntity<>(resultMap, status);
 	}
+
+	@GetMapping("/{gameSeq}")
+	public ResponseEntity<?> findEstimateByGameSeqAndUserSeq(@PathVariable("gameSeq") Long gameSeq, @RequestParam("userSeq") Long userSeq) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status;
+		try {
+			EstimateDto estimateDto = estimateService.findEstimateByUserSeqAndGameSeq(userSeq, gameSeq);
+			resultMap.put("estimate", estimateDto);
+			resultMap.put("success", true);
+			log.info("{}번 유저의 {}번 게임 estimate 호출", userSeq, gameSeq);
+			status = HttpStatus.CREATED;
+		} catch (Exception e) {
+			resultMap.put("success", false);
+			resultMap.put("message", "서버 오류");
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+
+		return new ResponseEntity<>(resultMap, status);
+	}
 }

@@ -73,4 +73,10 @@ public class EstimateServiceImpl implements EstimateService {
         return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public EstimateDto findEstimateByUserSeqAndGameSeq(Long userSeq, Long gameSeq) {
+        EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_Seq(gameSeq, userSeq);
+        return EstimateEntity.toDto(estimateEntity);
+    }
+
 }
