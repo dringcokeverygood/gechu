@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +54,7 @@ public class ElasticsearchController {
         try {
             List<Long> articles = elasticsearchService.getArticleBySearchWord(searchWord);
             List<ArticlePreViewDto> articleDtos = articleService.findArticlesBySeq(articles);
+            Collections.reverse(articleDtos);
             resultMap.put("success", true);
             resultMap.put("articles", articleDtos);
             status = HttpStatus.OK;
