@@ -81,10 +81,17 @@ const Header = ({
 				{isLogin ? (
 					<Popover className="relative">
 						<Popover.Button className="outline-none">
-							<img
-								src={images.defaultProfile}
-								className="h-[45px] w-[45px] rounded-full"
-							/>
+							{userImageUrl ? (
+								<img
+									src={userImageUrl}
+									className="h-[45px] w-[45px] rounded-full"
+								/>
+							) : (
+								<img
+									src={images.defaultProfile}
+									className="h-[45px] w-[45px] rounded-full"
+								/>
+							)}
 						</Popover.Button>
 						<Transition
 							as={Fragment}
