@@ -81,7 +81,7 @@ public class WebDriverUtil {
 	}
 
 	public void multiThreadingJava(List<String> gameSlugs) {
-		ExecutorService executorService = Executors.newFixedThreadPool(5);
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < gameSlugs.size(); i++) {
 			CrawlMetaCriticReviewsThread crawlTask = new CrawlMetaCriticReviewsThread(i, gameSlugs.get(i));
 			executorService.execute(crawlTask);
