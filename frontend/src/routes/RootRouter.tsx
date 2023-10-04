@@ -20,8 +20,8 @@ import DashBoardContainer from '../components/MyPage/containers/DashBoardContain
 import ArticleManageContainer from '../components/MyPage/containers/ArticleManageContainer';
 import ReviewManageContainer from '../components/MyPage/containers/ReviewManageContainer';
 import CommentManageContainer from '../components/MyPage/containers/CommentManageContainer';
-import LoginPage from '../components/Login/LoginPage';
 import LoginCallBackPage from '../components/Login/LoginCallBackPage';
+import PrivateRoutes from './PrivateRoutes';
 
 const RootRouter = () => {
 	return (
@@ -30,7 +30,6 @@ const RootRouter = () => {
 			<Routes>
 				<Route path="/" element={<LayoutWithHeader />}>
 					<Route index element={<Home />} />
-					<Route path="login" element={<LoginPage />} />
 					<Route
 						path="login/oauth2/code/kakao"
 						element={<LoginCallBackPage />}
@@ -43,11 +42,20 @@ const RootRouter = () => {
 					</Route>
 					<Route path="game-recommend" element={<GameRecommendPage />} />
 					<Route path="game-list" element={<GameListPage />} />
-					<Route path="my-page" element={<MyPage />}>
-						<Route index element={<DashBoardContainer />} />
-						<Route path="article-manage" element={<ArticleManageContainer />} />
-						<Route path="review-manage" element={<ReviewManageContainer />} />
-						<Route path="comment-manage" element={<CommentManageContainer />} />
+
+					<Route element={<PrivateRoutes redirectTo="/" />}>
+						<Route path="my-page" element={<MyPage />}>
+							<Route index element={<DashBoardContainer />} />
+							<Route
+								path="article-manage"
+								element={<ArticleManageContainer />}
+							/>
+							<Route path="review-manage" element={<ReviewManageContainer />} />
+							<Route
+								path="comment-manage"
+								element={<CommentManageContainer />}
+							/>
+						</Route>
 					</Route>
 					<Route path="game-news" element={<GameNewsPage />} />
 					<Route path="search" element={<SearchPage />} />
