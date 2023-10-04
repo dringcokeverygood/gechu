@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import UserProfileItem from '../Common/UserProfileItem';
+import UserProfileItem from '../Common/UserProfileItem';
 import { GameReviewType } from '../../typedef/Game/games.types';
 import {
 	MdThumbUp,

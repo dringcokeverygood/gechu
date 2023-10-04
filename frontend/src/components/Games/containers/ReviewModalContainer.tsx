@@ -33,6 +33,7 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 		like: '',
 		content: '',
 		createDate: '',
+		createDate: '',
 	});
 
 	const handleRadioBtn = (id: string) => {
@@ -46,6 +47,7 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 	};
 
 	//좋아요싫어요 버튼 눌렀을때
+	//좋아요싫어요 버튼 눌렀을때
 	const onClickPref = (e: React.MouseEvent) => {
 		const id = (e.target as Element).id;
 		const result = handleRadioBtn(id);
@@ -56,6 +58,7 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 				like: result,
 				dislike: result ? false : preference.dislike,
 			});
+		} else if (id === 'dislike') {
 		} else if (id === 'dislike') {
 			setPreference({
 				...preference,
@@ -110,6 +113,13 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 				onChangeModalFlag={onChangeModalFlag}
 				isButtonActive={isButtonActive}
 				review={reviewToPost}
+				onTextChange={(reviewContent) => {
+					setReviewToPost((prevState) => ({
+						...prevState,
+						content: reviewContent,
+					}));
+				}}
+				onSubmit={onSubmitReview}
 				onTextChange={(reviewContent) => {
 					setReviewToPost((prevState) => ({
 						...prevState,
