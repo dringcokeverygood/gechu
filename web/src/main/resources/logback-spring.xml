@@ -58,7 +58,7 @@
         <appender-ref ref="LOGSTASH"/>
     </root>
 
-    <logger name="ReviewServiceImpl" additivity="false">
+    <logger name="ArticleServiceImpl" additivity="false">
         <level value = "DEBUG" />
         <appender-ref ref="INFO_LOG" />
         <appender-ref ref="WARN_LOG" />

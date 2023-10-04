@@ -1,10 +1,3 @@
-[2023-10-02 00:06:45:31983][http-nio-9090-exec-1] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 00:15:48:575578][http-nio-9090-exec-7] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 00:23:01:22934][http-nio-9090-exec-1] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 00:28:21:66558][http-nio-9090-exec-2] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 00:40:55:20681][http-nio-9090-exec-2] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 00:45:00:266355][http-nio-9090-exec-5] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 01:02:59:1344847][http-nio-9090-exec-7] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":3,"EstimateSeq":1,"Text":"마음에 듭니다"}
-[2023-10-02 01:45:31:3896991][http-nio-9090-exec-1] INFO  ReviewServiceImpl - {"GameSeq":4,"UserSeq":3,"EstimateSeq":2,"Text":"Animal Crossing is huge in scale and so much fun. I want to introduce it to my sisters too."}
-[2023-10-02 01:53:43:432598][http-nio-9090-exec-2] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":4,"EstimateSeq":3,"Text":"Animal Crossing is fun. I hope there will be more events."}
-[2023-10-02 01:55:57:567306][http-nio-9090-exec-5] INFO  ReviewServiceImpl - {"GameSeq":1,"UserSeq":5,"EstimateSeq":4,"Text":"Overwatch is very realistic and the background pictures are very pretty. The characters are diverse and use a variety of skills and techniques, allowing you to have many new experiences."}
+[2023-10-04 18:00:56:207816][http-nio-9090-exec-4] INFO  ArticleServiceImpl - {"content":"너무 재밌누 ㅋㅋ 개꿀잼각","seq":3}
+[2023-10-04 19:39:26:6117691][http-nio-9090-exec-10] INFO  ArticleServiceImpl - {"content":"너무 재밌누 ㅋㅋ 개꿀잼각","seq":5}
+[2023-10-04 19:39:33:6124748][http-nio-9090-exec-8] INFO  ArticleServiceImpl - {"content":"너무 재밌누 ㅋㅋ 개꿀잼각","seq":6}

@@ -1,8 +1,9 @@
 package com.gechu.web.elasticsearch.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gechu.web.elasticsearch.dto.ArticleContent;
 import com.gechu.web.elasticsearch.dto.LogDocument;
-import com.gechu.web.elasticsearch.dto.MessageContent;
+import com.gechu.web.elasticsearch.dto.ReviewContent;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +27,7 @@ public class ElasticsearchService {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<String> getTopGameSeqBySearchWord(String searchWord) {
+    public List<String> getTopGameBySearchWord(String searchWord) {
         // Bool Query 생성
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
                 .must(QueryBuilders.termQuery("logger_name.keyword", "CrawlMetaCriticReviewsThread"));
@@ -41,10 +43,10 @@ public class ElasticsearchService {
                 .collect(Collectors.toList());
 
         // message 필드를 Json 형태로 변환
-        List<MessageContent> messageContents = matchedMessages.stream()
+        List<ReviewContent> reviewContents = matchedMessages.stream()
                 .map(logDocument -> {
                     try {
-                        return objectMapper.readValue(logDocument.getMessage(), MessageContent.class);
+                        return objectMapper.readValue(logDocument.getMessage(), ReviewContent.class);
                     } catch (IOException e) {
                         System.out.println(e);
                         return null;
@@ -53,12 +55,50 @@ public class ElasticsearchService {
                 .filter(content -> content != null)
                 .collect(Collectors.toList());
 
-        Map<String, Long> gameSeqFrequencyMap = messageContents.stream()
+        Map<String, Long> gameSeqFrequencyMap = reviewContents.stream()
                 .filter(content -> content.getReviews().contains(searchWord))
-                .collect(Collectors.groupingBy(MessageContent::getGameSlug, Collectors.counting()));
+                .collect(Collectors.groupingBy(ReviewContent::getGameSlug, Collectors.counting()));
 
         return gameSeqFrequencyMap.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(10)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+    public List<Long> getArticleBySearchWord(String searchWord) {
+        // Bool Query 생성
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .must(QueryBuilders.termQuery("logger_name.keyword", "ArticleServiceImpl"));
+
+        // NativeSearchQuery 객체를 생성하고 Bool Query 설정
+        NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
+
+        // logstash 클래스 타입의 리스트로 반환
+        List<LogDocument> matchedMessages = elasticsearchRestTemplate
+                .search(query, LogDocument.class, IndexCoordinates.of("logstash-spring-boot-*"))
+                .stream()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
+
+        // message 필드를 Json 형태로 변환
+        List<ArticleContent> articleContents = matchedMessages.stream()
+                .map(logDocument -> {
+                    try {
+                        return objectMapper.readValue(logDocument.getMessage(), ArticleContent.class);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        Map<Long, Long> articleMap = articleContents.stream()
+                .filter(content -> content.getContent().contains(searchWord))
+                .collect(Collectors.groupingBy(ArticleContent::getSeq, Collectors.counting()));
+
+        return articleMap.entrySet().stream()
+                .sorted(Map.Entry.<Long, Long>comparingByValue().reversed())
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
