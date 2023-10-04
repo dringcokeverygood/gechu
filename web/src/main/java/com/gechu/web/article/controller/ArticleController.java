@@ -49,11 +49,12 @@ public class ArticleController {
         @RequestPart("file") MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
-//        ArticleDto articleDto = ArticleRequestDto.toArticleDto(dto);
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            ArticleDto articleDto = objectMapper.readValue(dto, ArticleDto.class);
+            ArticleRequestDto articleRequestDto = objectMapper.readValue(dto, ArticleRequestDto.class);
+            ArticleDto articleDto = ArticleRequestDto.toArticleDto(articleRequestDto);
 
             log.info("{} file {}", articleDto.toString(), (multipartFiles != null));
 
