@@ -9,7 +9,13 @@ import { Link } from 'react-router-dom';
 import dateFormatting from '../../../utils/dateFormatting';
 
 // article인지 review인지 구분할 값 필요(navigate용)
-const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
+const ManageCardItem = ({
+	item,
+	onClickDeleteBtn,
+}: {
+	item: ManageCardItemType;
+	onClickDeleteBtn: (seq: number) => void;
+}) => {
 	return (
 		<div className="flex h-[250px] w-full gap-6 rounded-xl bg-white-100 p-6 text-white-950">
 			<div className="h-full w-[200px]">
@@ -91,11 +97,13 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 									</Menu.Item>
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-200'
-												} flex items-center justify-center gap-4 p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4 p-2 font-dungGeunMo`}
+												onClick={() => {
+													onClickDeleteBtn(item.itemSeq);
+												}}
 											>
 												<Icon
 													icon="pixelarticons:close-box"
@@ -103,7 +111,7 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 													height="20"
 												/>
 												삭제
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 								</div>
