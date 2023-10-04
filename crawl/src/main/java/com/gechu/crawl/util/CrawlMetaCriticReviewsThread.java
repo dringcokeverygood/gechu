@@ -107,8 +107,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 				sb.append(" ");
 			}
 		}
-		log.info("{}의 리뷰 html정보", gameSlug);
-		log.info("50개까지 크롤링 한것!, {}", sb);
+		log.info("{}의 리뷰 크롤링 완료, 번호는 {}입니다.", gameSlug, cnt);
 
 		Map<String, String> map = new HashMap<>();
 		map.put("gameSlug", gameSlug);
