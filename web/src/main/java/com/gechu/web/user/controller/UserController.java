@@ -221,6 +221,13 @@ public class UserController {
 	@PutMapping(value = "/users/{userSeq}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
 		@RequestParam("nickname") String nickname, @RequestParam("file") MultipartFile multipartFile) {
+		log.info("프로필 수정 컨트롤러 입장");
+		log.info("nickname -> {}", nickname);
+		if (multipartFile == null) {
+			log.info("multipartfile이 존재하지 않아용 ㅠㅠ");
+		} else {
+			log.info("multipartfile -> {}", multipartFile.getName());
+		}
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
 		UserUpdateDto userUpdate = new UserUpdateDto();
