@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
 
 interface GetLikeGames {
-	likeList: LikeGameItemType[];
+	estimates: LikeGameItemType[];
 	success: boolean;
 	message: string;
 }
@@ -20,11 +20,8 @@ const DashBoardContainer = () => {
 		http
 			.get<GetLikeGames>(`web/users/${userInfo.userSeq}/estimates`)
 			.then((data) => {
-				console.log(data);
-				const { likeList } = data;
-				if (likeList !== undefined) {
-					setLikeGames(likeList);
-				}
+				const { estimates } = data;
+				setLikeGames(estimates);
 			})
 			.catch((err) => console.log(err));
 	}, []);

@@ -44,4 +44,18 @@ export const http = {
 		const res = await axios.put<Response>(url, body, options);
 		return res.data;
 	},
+
+	delete: async function del<Response = unknown>(
+		url: string,
+		params?: object,
+		header?: AxiosRequestConfig['headers'],
+	) {
+		const options: AxiosRequestConfig = {
+			headers: header,
+			params: params,
+		};
+
+		const res = await axios.delete<Response>(url, options);
+		return res.data;
+	},
 };
