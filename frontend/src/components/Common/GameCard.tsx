@@ -22,7 +22,7 @@ const GameCard = ({ game }: { game: GamePreviewType }) => {
 				</div>
 			)}
 			<div className="flex w-full flex-1 flex-col justify-between overflow-hidden rounded-b-md p-3 text-white-200">
-				<div className="truncate font-dungGeunMo">{game.gameTitle}</div>
+				<div className="truncate font-bold">{game.gameTitle}</div>
 				<div className="truncate">
 					{game.genres.length > 0 && '#' + game.genres[0]}{' '}
 					{game.genres.length > 1 && '#' + game.genres[1]}{' '}
