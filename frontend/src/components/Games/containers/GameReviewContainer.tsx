@@ -2,8 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { http } from '../../../utils/http';
 import { GameReviewType } from '../../../typedef/Game/games.types';
+import { userState } from '../../../recoil/UserAtom';
+
 import GameReview from '../GameReview';
 import GameReviewSummary from '../GameReviewSummary';
+import { useRecoilValue } from 'recoil';
 
 interface GetReviews {
 	reviews: GameReviewType[];
@@ -30,19 +33,29 @@ const GameReviewContainer = () => {
 		console.log('모달', modalFlag);
 	}, [modalFlag]);
 
+	const userInfo = useRecoilValue(userState);
+	console.log(userInfo);
+
 	const gameSeq = useParams().seq;
 	const [reviews, setReviews] = useState<GameReviewType[]>([]);
-	const [reviewFlag, setReviewFlag] = useState(false);
+	const [myEstim, setMyEstim] = useState<GetEstimate>({
+		success: false,
+		estimate: {
+			seq: 0,
+			like: '',
+			reviewDate: '',
+			reviewSeq: 0,
+			reviewText: '',
+		},
+	});
 
 	useEffect(() => {
-		http.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=4`).then((data) => {
-			console.log(data);
-			if (data.estimate) {
-				if (data.estimate.reviewSeq) {
-					setReviewFlag(true);
-				}
-			}
-		});
+		http
+			.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=${userInfo.userSeq}`)
+			.then((data) => {
+				console.log(data);
+				setMyEstim(data);
+			});
 		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
 			console.log(gameSeq + '번 게임의 리뷰정보:');
 			console.log(data);
@@ -62,10 +75,16 @@ const GameReviewContainer = () => {
 				dislikeCnt={estimateRate.dislikeCnt}
 				modalFlag={modalFlag}
 				onChangeModalFlag={onChangeModalFlag}
-				isReviewExists={reviewFlag}
+				myEstim={myEstim}
 			/>
 			{reviews.map((review) => {
-				return <GameReview key={review.reviewSeq} review={review} />;
+				return (
+					<GameReview
+						key={review.reviewSeq}
+						review={review}
+						isMine={userInfo.userSeq === review.userProfile.seq}
+					/>
+				);
 			})}
 		</div>
 	);

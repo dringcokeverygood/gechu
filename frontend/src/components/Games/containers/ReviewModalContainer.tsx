@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
 import { http } from '../../../utils/http';
+import { useParams } from 'react-router-dom';
 import { GameReviewType } from '../../../typedef/Game/games.types';
+import { userState } from '../../../recoil/UserAtom';
 import ReviewModal from '../ReviewModal';
+import { useRecoilValue } from 'recoil';
+import { GetEstimate } from './GameReviewContainer';
 
 type Props = {
 	onChangeModalFlag: () => void;
+	myEstim: GetEstimate;
 };
 
-const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
+const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 	const [preference, setPreference] = useState({
-		like: false,
-		dislike: false,
+		like: myEstim.estimate.like === 'like' ? true : false,
+		dislike: myEstim.estimate.like === 'dislike' ? true : false,
 	});
+
+	const userInfo = useRecoilValue(userState);
+	const gameSeq = Number(useParams().seq);
 	const [selectedBefore, setSelectedBefore] = useState('');
 	const [reviewToPost, setReviewToPost] = useState<GameReviewType>({
 		reviewSeq: 1,
@@ -19,7 +27,7 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		userProfile: {
 			imageUrl: '',
 			nickName: '',
-			seq: 4,
+			seq: userInfo.userSeq,
 			userId: '',
 		},
 		like: '',
@@ -65,12 +73,27 @@ const ReviewModalContainer = ({ onChangeModalFlag }: Props) => {
 		}));
 		console.log('post할 리뷰:');
 		console.log(reviewToPost);
+		//우선 estimate정보를 보냄
 		http
-			.post<GameReviewType>(`web/reviews`, {
-				estimateSeq: reviewToPost.estimateSeq,
+			.post<{ estimateSeq: number }>(`web/estimates`, {
+				userSeq: userInfo.userSeq,
+				gameSeq: gameSeq,
+				like: preference.like ? 'like' : 'dislike',
 			})
-			.then((res) => {
-				console.log(res);
+			.then((estimateRes) => {
+				console.log('upsert 결과:');
+				console.log(estimateRes);
+				http
+					.post<GameReviewType>(`web/reviews`, {
+						estimateSeq: estimateRes.estimateSeq,
+						text: reviewToPost.content,
+					})
+					.then((res) => {
+						console.log(res);
+					})
+					.catch((e) => {
+						console.log(e);
+					});
 			})
 			.catch((e) => {
 				console.log(e);

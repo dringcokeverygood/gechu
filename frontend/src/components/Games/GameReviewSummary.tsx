@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetEstimate } from './containers/GameReviewContainer';
 // import type { ChartData, ChartOptions } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { CategoryScale, LinearScale, BarElement, Chart } from 'chart.js';
@@ -19,12 +20,8 @@ interface GameReviewSummaryProps {
 	dislikeCnt: number;
 	modalFlag: boolean;
 	onChangeModalFlag: () => void;
-	isReviewExists: boolean;
+	myEstim: GetEstimate;
 }
-// interface BarProps {
-// 	options: ChartOptions<'bar'>;
-// 	data: ChartData<'bar'>;
-// }
 
 const GameReviewSummary = ({
 	reviewCnt,
@@ -32,11 +29,12 @@ const GameReviewSummary = ({
 	dislikeCnt,
 	modalFlag,
 	onChangeModalFlag,
-	isReviewExists,
+	myEstim,
 }: GameReviewSummaryProps) => {
-	console.log(isReviewExists);
 	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
 	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
+
+	console.log(myEstim);
 
 	const options = {
 		indexAxis: 'y' as const,
@@ -107,7 +105,7 @@ const GameReviewSummary = ({
 			{/* 리뷰건수와 생성버튼 */}
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
-				{!isReviewExists && (
+				{!myEstim.estimate.reviewSeq && (
 					<button onClick={onChangeModalFlag}>
 						<Icon icon="pixelarticons:edit-box" />
 					</button>
@@ -116,7 +114,10 @@ const GameReviewSummary = ({
 
 			{/* 모달창 */}
 			{modalFlag && (
-				<ReviewModalContainer onChangeModalFlag={onChangeModalFlag} />
+				<ReviewModalContainer
+					onChangeModalFlag={onChangeModalFlag}
+					myEstim={myEstim}
+				/>
 			)}
 		</div>
 	);
