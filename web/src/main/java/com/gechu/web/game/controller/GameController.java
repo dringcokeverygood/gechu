@@ -33,7 +33,6 @@ public class GameController {
 		HttpStatus status;
 		try {
 			List<EstimateDto> estimatesByGameSeq = estimateService.findEstimatesByGameSeq(gameSeq);
-			log.info("controller -> {}", estimatesByGameSeq.get(0).getReviewText());
 			resultMap.put("estimates", estimatesByGameSeq);
 			resultMap.put("success", true);
 			log.info("{}번 게임의 게임 평가 목록", gameSeq);
