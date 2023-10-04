@@ -46,7 +46,10 @@ public class ArticleServiceImpl implements ArticleService {
 		log.info("service users -> {}", articleEntities.get(0).getUsers().getSeq());
 		List<ArticlePreViewDto> dto = null;
 		try {
-			dto = articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
+			dto = articleEntities.stream().filter(a -> {
+				if (a.getDeleted() == null) return true;
+				return a.getDeleted().equals("false");
+			}).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 		} catch (Exception e) {
 			log.warn("서비스 안에서 에러 발생");
 			e.printStackTrace();
