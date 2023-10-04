@@ -17,6 +17,16 @@ const ReviewManageContainer = () => {
 
 	const [myReviews, setMyReviews] = useState<ManageCardItemType[]>([]);
 
+	const getMyReviews = () => {
+		http
+			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
+			.then((data) => {
+				const { reviews } = data;
+				setMyReviews(reviews);
+			})
+			.catch((err) => console.log(err));
+	};
+
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
 			title: '리뷰 삭제',
@@ -25,21 +35,15 @@ const ReviewManageContainer = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/reviews/${seq}`).then(() => {
-					setMyReviews([]);
+					getMyReviews();
 				});
 			}
 		});
 	};
 
 	useEffect(() => {
-		http
-			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
-			.then((data) => {
-				const { reviews } = data;
-				setMyReviews(reviews);
-			})
-			.catch((err) => console.log(err));
-	}, [myReviews]);
+		getMyReviews();
+	}, []);
 
 	return (
 		<div>

@@ -17,6 +17,15 @@ const ArticleManageContainer = () => {
 
 	const [myArticleList, setMyArticleList] = useState<ManageCardItemType[]>([]);
 
+	const getMyArticleList = () => {
+		http
+			.get<GetArticleList>(`web/users/${userInfo.userSeq}/articles`)
+			.then((data) => {
+				const { articles } = data;
+				setMyArticleList(articles);
+			});
+	};
+
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
 			title: '게시글 삭제',
@@ -25,20 +34,15 @@ const ArticleManageContainer = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/articles/${seq}`).then(() => {
-					setMyArticleList([]);
+					getMyArticleList();
 				});
 			}
 		});
 	};
 
 	useEffect(() => {
-		http
-			.get<GetArticleList>(`web/users/${userInfo.userSeq}/articles`)
-			.then((data) => {
-				const { articles } = data;
-				setMyArticleList(articles);
-			});
-	}, [myArticleList]);
+		getMyArticleList();
+	}, []);
 
 	return (
 		<div>
