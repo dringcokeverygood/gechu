@@ -15,9 +15,11 @@ import { Link } from 'react-router-dom';
 const GameReview = ({
 	review,
 	isMine,
+	onClickDeleteBtn,
 }: {
 	review: GameReviewType;
 	isMine: boolean;
+	onClickDeleteBtn: (seq: number) => void;
 }) => {
 	const isGood = () => review.like === 'like';
 	return (
@@ -75,15 +77,17 @@ const GameReview = ({
 									</Menu.Item>
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-800'
-												} flex items-center justify-center gap-4 rounded-b-md  p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4  rounded-b-md p-2 font-dungGeunMo`}
+												onClick={() => {
+													onClickDeleteBtn(review.reviewSeq);
+												}}
 											>
 												<MdClose size={20} />
 												삭제
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 								</div>
