@@ -8,4 +8,6 @@ public class ReviewContent {
     private String gameSlug;
 
     private String reviews;
+
+    private Long dates;
 }

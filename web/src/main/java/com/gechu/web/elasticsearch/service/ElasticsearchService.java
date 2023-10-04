@@ -14,6 +14,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -65,6 +66,42 @@ public class ElasticsearchService {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    public List<String> getRecentGames() {
+        // Bool Query 생성
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()
+                .must(QueryBuilders.termQuery("logger_name.keyword", "CrawlMetaCriticReviewsThread"));
+
+        // NativeSearchQuery 객체를 생성하고 Bool Query 설정
+        NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
+
+        // logstash 클래스 타입의 리스트로 반환
+        List<LogDocument> matchedMessages = elasticsearchRestTemplate
+                .search(query, LogDocument.class, IndexCoordinates.of("logstash-spring-boot-*"))
+                .stream()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
+
+        // message 필드를 Json 형태로 변환
+        List<ReviewContent> reviewContents = matchedMessages.stream()
+                .map(logDocument -> {
+                    try {
+                        return objectMapper.readValue(logDocument.getMessage(), ReviewContent.class);
+                    } catch (IOException e) {
+                        System.out.println(e);
+                        return null;
+                    }
+                })
+                .filter(content -> content != null)
+                .collect(Collectors.toList());
+
+        return reviewContents.stream()
+                .sorted(Comparator.comparing(ReviewContent::getDates).reversed())
+                .limit(10)
+                .map(ReviewContent::getGameSlug)
+                .collect(Collectors.toList());
+    }
+
     public List<Long> getArticleBySearchWord(String searchWord) {
         // Bool Query 생성
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery()

@@ -46,6 +46,26 @@ public class ElasticsearchController {
         return new ResponseEntity<>(resultMap, status);
     }
 
+    @GetMapping("/recentGames")
+    public ResponseEntity<Map<String, Object>> getRecentGames() {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            List<String> topGameSlugs = elasticsearchService.getRecentGames();
+            List<GameResponseDto> gameResponseDto = gameServiceClient.findGamesBySlugs(topGameSlugs);
+            resultMap.put("success", true);
+            resultMap.put("games", gameResponseDto);
+            status = HttpStatus.OK;
+        } catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", e.getMessage());
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(resultMap, status);
+    }
+
     @GetMapping("/articles")
     public ResponseEntity<Map<String, Object>> getArticleBySearchWord(@RequestParam String searchWord) {
         Map<String, Object> resultMap = new HashMap<>();
