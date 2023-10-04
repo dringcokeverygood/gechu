@@ -117,8 +117,7 @@ public class UserController {
 								Map<String, Object> responseData = new HashMap<>();
 								responseData.put("accessToken", accessToken);
 								responseData.put("refreshToken", refreshToken);
-								responseData.put("userInfo", userInfo);
-								responseData.put("userSeq", userInfo.getSeq());
+								responseData.put("userInfo", userService.getUserProfile(userInfo.getSeq()));
 
 								return Mono.just(ResponseEntity.ok(responseData));
 							});
