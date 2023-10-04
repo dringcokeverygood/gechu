@@ -49,6 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
 			dto = articleEntities.stream().filter(a -> a.getDeleted().equals("false")).map(ArticleEntity::toPreviewDto).collect(Collectors.toList());
 		} catch (Exception e) {
 			log.warn("서비스 안에서 에러 발생");
+			e.printStackTrace();
 		} finally {
 			return dto;
 		}
