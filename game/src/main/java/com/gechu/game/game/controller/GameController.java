@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gechu.game.game.dto.GameResponseDto;
+import com.gechu.game.game.dto.NewsRequestDto;
+import com.gechu.game.game.dto.NewsResponseDto;
 import com.gechu.game.game.service.GameService;
+import com.gechu.game.game.service.NewsService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GameController {
 
 	private final GameService gameService;
+	private final NewsService newsService;
 
 	@GetMapping("/all")
 	public ResponseEntity<?> findAllGameSlugs() {
@@ -115,6 +119,27 @@ public class GameController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(gameSlug, HttpStatus.OK);
+	}
+
+	@PostMapping("/news")
+	public ResponseEntity<?> insertNews(@RequestBody NewsRequestDto newsRequestDto) {
+		try {
+			newsService.insertNews(newsRequestDto);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping("/news/{gameSeq}")
+	public ResponseEntity<?> findNewsByGameSeq(Integer gameSeq) {
+		List<NewsResponseDto> newsResponseDtos = null;
+		try {
+			newsResponseDtos = newsService.findNewsByGameSeq(gameSeq);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(newsResponseDtos, HttpStatus.OK);
 	}
 
 

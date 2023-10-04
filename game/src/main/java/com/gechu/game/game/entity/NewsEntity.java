@@ -12,13 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.gechu.game.game.dto.NewsResponseDto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "news")
+@Builder
 public class NewsEntity {
 
 	@Id
@@ -28,16 +33,23 @@ public class NewsEntity {
 	@NotNull
 	private String headline;
 	@NotNull
-	private String company;
-	@NotNull
 	private String url;
 	@NotNull
 	private String content;
 	private String imageUrl;
-	@NotNull
-	private LocalDateTime uploadDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "game_seq")
-	private GameEntity gameEntity;
+	private GameEntity game;
+
+	public static NewsResponseDto toResponseDto(NewsEntity newsEntity) {
+		return NewsResponseDto.builder()
+			.gameSeq(newsEntity.getGame().getSeq())
+			.gameSlug(newsEntity.getGame().getGameSlug())
+			.content(newsEntity.getContent())
+			.headline(newsEntity.getHeadline())
+			.imageUrl(newsEntity.getImageUrl())
+			.url(newsEntity.getUrl())
+			.build();
+	}
 }
