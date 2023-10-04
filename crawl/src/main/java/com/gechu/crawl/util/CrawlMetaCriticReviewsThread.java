@@ -66,10 +66,13 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 	}
 
 	public void crawlMetaCriticUserReviews(String gameSlug) {
-		// try {
-		driver.get(url + gameSlug + "/user-reviews/");
-		driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
-
+		try {
+			driver.get(url + gameSlug + "/user-reviews/");
+			driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			driver.quit();
+			return;
+		}
 		WebElement element = null;
 
 		try {
@@ -82,30 +85,10 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			}
 			return;
 		}
-		int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
+		// int reviewCnt = Integer.parseInt(element.getText().split(" ")[1].replace(",", ""));
 
-		// if (reviewCnt > 50) {
-		// 	JavascriptExecutor js = (JavascriptExecutor)driver;
-		// 	for (int i = 0; i < 2; i++) {
-		// 		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-		// 		try {
-		// 			Thread.sleep(500);
-		// 		} catch (InterruptedException e) {
-		// 			driver.quit();
-		// 			throw new RuntimeException(e);
-		// 		}
-		// 	}
-		// }
 		StringBuffer sb = new StringBuffer();
-		// for (int i = 1; i <= (Math.min(reviewCnt, 50)); i++) {
-		//
-		// 	element = driver.findElement(By.xpath(
-		// 		"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
-		// 			+ "]/div/div[1]/div[2]/div/span"));
-		//
-		// 	sb.append(element.getText());
-		// 	sb.append(' ');
-		// }
+
 		try {
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
@@ -147,3 +130,28 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 		}
 	}
 }
+
+
+// if (reviewCnt > 50) {
+// 	JavascriptExecutor js = (JavascriptExecutor)driver;
+// 	for (int i = 0; i < 2; i++) {
+// 		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+// 		try {
+// 			Thread.sleep(500);
+// 		} catch (InterruptedException e) {
+// 			driver.quit();
+// 			throw new RuntimeException(e);
+// 		}
+// 	}
+// }
+
+
+// for (int i = 1; i <= (Math.min(reviewCnt, 50)); i++) {
+//
+// 	element = driver.findElement(By.xpath(
+// 		"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
+// 			+ "]/div/div[1]/div[2]/div/span"));
+//
+// 	sb.append(element.getText());
+// 	sb.append(' ');
+// }
