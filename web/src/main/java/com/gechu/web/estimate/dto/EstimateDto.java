@@ -3,6 +3,7 @@ package com.gechu.web.estimate.dto;
 import java.time.LocalDateTime;
 
 import com.gechu.web.estimate.entity.EstimateEntity;
+import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.user.entity.UsersEntity;
 import lombok.*;
 
@@ -31,5 +32,17 @@ public class EstimateDto {
                 .gameSeq(estimateDto.getGameSeq())
                 .userLike(estimateDto.getLike())
                 .build();
+    }
+
+    public static ReviewMyPageDto toReviewMyPageDto(EstimateDto estimateDto) {
+        return ReviewMyPageDto.builder()
+            .content(estimateDto.getReviewText())
+            .createDate(estimateDto.getReviewDate())
+            .gameSeq(estimateDto.getGameSeq())
+            .gameTitle(estimateDto.getGameTitle())
+            .gameTitleImageUrl(estimateDto.getGameTitleImageUrl())
+            .itemSeq(estimateDto.getReviewSeq())
+            .like(estimateDto.getLike())
+            .build();
     }
 }

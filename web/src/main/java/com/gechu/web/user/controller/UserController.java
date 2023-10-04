@@ -9,6 +9,7 @@ import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.service.EstimateService;
 import com.gechu.web.game.dto.GameResponseDto;
 import com.gechu.web.game.service.GameServiceClient;
+import com.gechu.web.review.dto.ReviewMyPageDto;
 import com.gechu.web.user.dto.UserProfileDto;
 import com.gechu.web.user.dto.UserUpdateDto;
 import com.gechu.web.user.entity.UsersEntity;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -163,7 +165,10 @@ public class UserController {
 						e.setGameTitle(gameDto.getGameTitle());
 						e.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
 					});
-			resultMap.put("estimates", estimates);
+			List<ReviewMyPageDto> reviewMyPageDtos = estimates.stream()
+				.map(EstimateDto::toReviewMyPageDto)
+				.collect(Collectors.toList());
+			resultMap.put("reviews", reviewMyPageDtos);
 			resultMap.put("success", true);
 			status = HttpStatus.OK;
 		} catch (Exception e) {
