@@ -17,9 +17,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewServiceImpl implements ReviewService{
-
-    private final UserRepository userRepository;
+public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final EstimateRepository estimateRepository;
@@ -63,5 +61,19 @@ public class ReviewServiceImpl implements ReviewService{
         logger.info("Text : " + reviewDto.getText() + " / EstimateSeq : " + reviewDto.getEstimateSeq() + " / GameSeq : " + reviewDto.getGameSeq() + " / UserSeq : " + reviewDto.getUserSeq());
 
         reviewRepository.save(ReviewDto.toEntity(reviewDto));
+    }
+
+    @Override
+    public void metaCriticReviews(String gameSlug, String reviews) {
+        Map<String, Object> logMap = new HashMap<>();
+        logMap.put("gameSlug", gameSlug);
+        logMap.put("reviews", reviews);
+
+        try {
+            String logJson = objectMapper.writeValueAsString(logMap);
+            logger.info(logJson);
+        } catch (Exception e) {
+            logger.error("Error converting log message to JSON", e);
+        }
     }
 }
