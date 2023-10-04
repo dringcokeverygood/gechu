@@ -15,6 +15,7 @@ import ReviewModalContainer from './containers/ReviewModalContainer';
 Chart.register(CategoryScale, LinearScale, BarElement, ChartjsPluginStacked100);
 
 interface GameReviewSummaryProps {
+	fetchReviews: () => void;
 	reviewCnt: number;
 	likeCnt: number;
 	dislikeCnt: number;
@@ -24,6 +25,7 @@ interface GameReviewSummaryProps {
 }
 
 const GameReviewSummary = ({
+	fetchReviews,
 	reviewCnt,
 	likeCnt,
 	dislikeCnt,
@@ -126,6 +128,7 @@ const GameReviewSummary = ({
 			{/* 모달창 */}
 			{modalFlag && (
 				<ReviewModalContainer
+					fetchReviews={fetchReviews}
 					onChangeModalFlag={onChangeModalFlag}
 					myEstim={myEstim}
 				/>

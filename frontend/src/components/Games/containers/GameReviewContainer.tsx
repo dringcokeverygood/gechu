@@ -52,6 +52,13 @@ const GameReviewContainer = () => {
 		dislikeCnt: 0,
 	});
 
+	const fetchReviews = () => {
+		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
+			setReviews(data.reviews);
+			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
+		});
+	};
+
 	useEffect(() => {
 		http
 			.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=${userInfo.userSeq}`)
@@ -59,17 +66,13 @@ const GameReviewContainer = () => {
 				console.log(data);
 				setMyEstim(data);
 			});
-		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
-			console.log(gameSeq + '번 게임의 리뷰정보:');
-			console.log(data);
-			setReviews(data.reviews);
-			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
-		});
+		fetchReviews();
 	}, []);
 
 	return (
 		<div>
 			<GameReviewSummary
+				fetchReviews={fetchReviews}
 				reviewCnt={reviews.length}
 				likeCnt={estimateRate.likeCnt}
 				dislikeCnt={estimateRate.dislikeCnt}

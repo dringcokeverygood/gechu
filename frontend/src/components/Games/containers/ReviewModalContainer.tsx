@@ -8,11 +8,16 @@ import { useRecoilValue } from 'recoil';
 import { GetEstimate } from './GameReviewContainer';
 
 type Props = {
+	fetchReviews: () => void;
 	onChangeModalFlag: () => void;
 	myEstim: GetEstimate;
 };
 
-const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
+const ReviewModalContainer = ({
+	fetchReviews,
+	onChangeModalFlag,
+	myEstim,
+}: Props) => {
 	const [preference, setPreference] = useState({
 		like: myEstim?.estimate?.like === 'like' ? true : false,
 		dislike: myEstim?.estimate?.like === 'dislike' ? true : false,
@@ -91,6 +96,8 @@ const ReviewModalContainer = ({ onChangeModalFlag, myEstim }: Props) => {
 					})
 					.then((res) => {
 						console.log(res);
+						fetchReviews();
+						onChangeModalFlag();
 					})
 					.catch((e) => {
 						console.log(e);
