@@ -9,7 +9,9 @@ import com.gechu.web.estimate.dto.EstimateDto;
 import com.gechu.web.estimate.service.EstimateService;
 import com.gechu.web.game.dto.GameResponseDto;
 import com.gechu.web.game.service.GameServiceClient;
+import com.gechu.web.user.dto.UserProfileDto;
 import com.gechu.web.user.dto.UserUpdateDto;
+import com.gechu.web.user.entity.UsersEntity;
 import com.gechu.web.user.service.UserService;
 import com.gechu.web.user.util.JwtToken;
 import com.gechu.web.user.util.JwtTokenProvider;
@@ -92,33 +94,33 @@ public class UserController {
 
 	private Mono<ResponseEntity<?>> authenticateWithKakao(String code) {
 		return userService.getTokenFromKakao(code)
-			.flatMap(tokens -> {
-				String accessToken = tokens.get("accessToken");
-				String refreshToken = tokens.get("refreshToken");
+				.flatMap(tokens -> {
+					String accessToken = tokens.get("accessToken");
+					String refreshToken = tokens.get("refreshToken");
 
-				if (accessToken == null) {
-					return Mono.just(ResponseEntity.badRequest().body("카카오로부터 액세스 토큰을 얻는데 실패했습니다."));
-				}
+					if (accessToken == null) {
+						return Mono.just(ResponseEntity.badRequest().body("카카오로부터 액세스 토큰을 얻는데 실패했습니다."));
+					}
 
-				log.info("accessToken: {}", accessToken);
+					log.info("accessToken: {}", accessToken);
 
-				// 액세스 토큰을 이용하여 사용자 정보 가져오기
-				return userService.getUserInfoFromKakao(accessToken)
-					.flatMap(userInfo -> {
-						if (userInfo == null) {
-							return Mono.just(ResponseEntity.badRequest().body("카카오로부터 사용자 정보를 불러오는데 실패했습니다."));
-						}
+					// 액세스 토큰을 이용하여 사용자 정보 가져오기
+					return userService.getUserInfoFromKakao(accessToken)
+							.flatMap(userInfo -> {
+								if (userInfo == null) {
+									return Mono.just(ResponseEntity.badRequest().body("카카오로부터 사용자 정보를 불러오는데 실패했습니다."));
+								}
 
-						// DTO or Map을 사용해서 응답 데이터를 구성
-						Map<String, Object> responseData = new HashMap<>();
-						responseData.put("accessToken", accessToken);
-						responseData.put("refreshToken", refreshToken);
-						responseData.put("userInfo", userInfo);
-						responseData.put("userSeq", userInfo.getSeq());
+								// DTO or Map을 사용해서 응답 데이터를 구성
+								Map<String, Object> responseData = new HashMap<>();
+								responseData.put("accessToken", accessToken);
+								responseData.put("refreshToken", refreshToken);
+								responseData.put("userInfo", userInfo);
+								responseData.put("userSeq", userInfo.getSeq());
 
-						return Mono.just(ResponseEntity.ok(responseData));
-					});
-			});
+								return Mono.just(ResponseEntity.ok(responseData));
+							});
+				});
 	}
 
 	@GetMapping("/users/{userSeq}/estimates")
@@ -129,12 +131,12 @@ public class UserController {
 		try {
 			List<EstimateDto> estimates = estimateService.findEstimatesByUserSeq(userSeq);
 			estimates
-				.forEach(e -> {
-					GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
-						Math.toIntExact(e.getGameSeq()));
-					e.setGameTitle(gameDto.getGameTitle());
-					e.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
-				});
+					.forEach(e -> {
+						GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
+								Math.toIntExact(e.getGameSeq()));
+						e.setGameTitle(gameDto.getGameTitle());
+						e.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
+					});
 			resultMap.put("estimates", estimates);
 			resultMap.put("success", true);
 			status = HttpStatus.OK;
@@ -155,12 +157,12 @@ public class UserController {
 		try {
 			List<EstimateDto> estimates = estimateService.findEstimatesWhereReviewIsNotNullByUserSeq(userSeq);
 			estimates
-				.forEach(e -> {
-					GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
-						Math.toIntExact(e.getGameSeq()));
-					e.setGameTitle(gameDto.getGameTitle());
-					e.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
-				});
+					.forEach(e -> {
+						GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
+								Math.toIntExact(e.getGameSeq()));
+						e.setGameTitle(gameDto.getGameTitle());
+						e.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
+					});
 			resultMap.put("estimates", estimates);
 			resultMap.put("success", true);
 			status = HttpStatus.OK;
@@ -182,12 +184,12 @@ public class UserController {
 
 			List<ArticleMyPageDto> articles = articleService.findArticlesByUserSeq(userSeq);
 			articles
-				.forEach(a -> {
-					GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
-						Math.toIntExact(a.getGameSeq()));
-					a.setGameTitle(gameDto.getGameTitle());
-					a.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
-				});
+					.forEach(a -> {
+						GameResponseDto gameDto = gameServiceClient.findGameTitleBySeq(
+								Math.toIntExact(a.getGameSeq()));
+						a.setGameTitle(gameDto.getGameTitle());
+						a.setGameTitleImageUrl(gameDto.getGameTitleImageUrl());
+					});
 
 			resultMap.put("articles", articles);
 			resultMap.put("success", true);
@@ -220,15 +222,7 @@ public class UserController {
 
 	@PutMapping(value = "/users/{userSeq}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
-		@RequestParam(value = "nickname", required = false) String nickname, @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
-		log.info("프로필 수정 컨트롤러 입장");
-		log.info("nickname -> {}", nickname);
-		if (multipartFile == null) {
-			log.info("multipartfile이 존재하지 않아용 ㅠㅠ");
-		} else {
-			log.info("multipartfile -> {}", multipartFile.getName());
-		}
-
+											   @RequestParam("nickname") String nickname, @RequestPart("file") MultipartFile multipartFile) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
 		UserUpdateDto userUpdate = new UserUpdateDto();
@@ -245,6 +239,23 @@ public class UserController {
 			status = HttpStatus.OK;
 		} catch (Exception e) {
 			resultMap.put("success", false);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(resultMap, status);
+	}
+
+	@GetMapping(value = "/users/{userSeq}")
+	public ResponseEntity<?> getUserProfile(@PathVariable("userSeq") Long userSeq) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status;
+		try {
+			UserProfileDto profile = userService.getUserProfile(userSeq);
+			resultMap.put("success", true);
+			resultMap.put("userProfile", profile);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("success", false);
+			resultMap.put("error", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<>(resultMap, status);

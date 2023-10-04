@@ -3,6 +3,7 @@ package com.gechu.web.user.service;
 import com.gechu.web.article.repository.ArticleRepository;
 import com.gechu.web.comment.dto.CommentResponseDto;
 import com.gechu.web.review.repository.ReviewRepository;
+import com.gechu.web.user.dto.UserProfileDto;
 import com.gechu.web.user.dto.UserUpdateDto;
 import com.gechu.web.user.entity.KakaoUserInfo;
 import com.gechu.web.user.entity.Role;
@@ -119,5 +120,14 @@ public class UserService {
         });
 
         usersEntity.updateProfile(userUpdate);
+    }
+
+    @Transactional
+    public UserProfileDto getUserProfile(Long userSeq) {
+        UsersEntity usersEntity = userRepository.findById(userSeq).orElseThrow(() -> {
+            throw new IllegalArgumentException("존재하지 않는 유저입니다, 유저 번호: " + userSeq);
+        });
+
+        return UsersEntity.toProfileDto(usersEntity);
     }
 }
