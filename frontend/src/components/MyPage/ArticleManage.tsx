@@ -6,9 +6,10 @@ import { images } from '../../constants/images';
 type Props = {
 	items: ManageCardItemType[];
 	nickname: string;
+	onClickDeleteBtn: (seq: number) => void;
 };
 
-const ArticleManage = ({ items, nickname }: Props) => {
+const ArticleManage = ({ items, nickname, onClickDeleteBtn }: Props) => {
 	return (
 		<div className="mt-[100px] flex w-[1000px] flex-col gap-6 text-white-100">
 			<p className="font-dungGeunMo text-[32px]">
@@ -20,7 +21,11 @@ const ArticleManage = ({ items, nickname }: Props) => {
 			{items.length > 0 ? (
 				<div className="flex flex-col gap-4">
 					{items.map((item) => (
-						<ManageCardItem key={item.type + item.itemSeq} item={item} />
+						<ManageCardItem
+							key={item.type + item.itemSeq}
+							item={item}
+							onClickDeleteBtn={onClickDeleteBtn}
+						/>
 					))}
 				</div>
 			) : (

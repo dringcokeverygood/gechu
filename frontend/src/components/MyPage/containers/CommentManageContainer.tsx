@@ -20,7 +20,6 @@ const CommentManageContainer = () => {
 			.get<GetComments>(`web/users/${userInfo.userSeq}/comments`)
 			.then((data) => {
 				const { comments } = data;
-				console.log(comments);
 				setMyComments(comments);
 			});
 	}, []);

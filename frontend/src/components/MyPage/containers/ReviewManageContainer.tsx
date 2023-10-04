@@ -4,9 +4,10 @@ import ReviewManage from '../ReviewManage';
 import { ManageCardItemType } from '../../../typedef/MyPage/myPage.types';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../../recoil/UserAtom';
+import Swal from 'sweetalert2';
 
 interface GetReviewList {
-	reviewList: ManageCardItemType[];
+	reviews: ManageCardItemType[];
 	success: boolean;
 	message: string;
 }
@@ -16,22 +17,41 @@ const ReviewManageContainer = () => {
 
 	const [myReviews, setMyReviews] = useState<ManageCardItemType[]>([]);
 
-	useEffect(() => {
+	const getMyReviews = () => {
 		http
 			.get<GetReviewList>(`web/users/${userInfo.userSeq}/reviews`)
 			.then((data) => {
-				const { reviewList } = data;
-				console.log(reviewList);
-				if (reviewList !== undefined) {
-					setMyReviews(reviewList);
-				}
+				const { reviews } = data;
+				setMyReviews(reviews);
 			})
 			.catch((err) => console.log(err));
+	};
+
+	const onClickDeleteBtn = (seq: number) => {
+		Swal.fire({
+			title: '리뷰 삭제',
+			text: '정말 삭제하시겠습니까?',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				http.delete(`web/reviews/${seq}`).then(() => {
+					getMyReviews();
+				});
+			}
+		});
+	};
+
+	useEffect(() => {
+		getMyReviews();
 	}, []);
 
 	return (
 		<div>
-			<ReviewManage items={myReviews} nickname={userInfo.userName} />
+			<ReviewManage
+				items={myReviews}
+				nickname={userInfo.userName}
+				onClickDeleteBtn={onClickDeleteBtn}
+			/>
 		</div>
 	);
 };
