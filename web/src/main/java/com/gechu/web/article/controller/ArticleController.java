@@ -62,7 +62,7 @@ public class ArticleController {
                 String url = awsS3Service.uploadFile(multipartFiles);
                 articleDto.setImageUrl(url);
             }
-            
+
             articleService.insertArticle(articleDto);
 
             resultMap.put("success", true);

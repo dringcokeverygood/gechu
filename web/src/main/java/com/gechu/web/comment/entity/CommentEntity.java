@@ -25,7 +25,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class CommentEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
     private String content;
     @CreationTimestamp
