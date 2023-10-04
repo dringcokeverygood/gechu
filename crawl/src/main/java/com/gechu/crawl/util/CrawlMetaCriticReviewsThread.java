@@ -2,6 +2,8 @@ package com.gechu.crawl.util;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -10,6 +12,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gechu.crawl.service.ReviewServiceClient;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +29,8 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 	private WebDriver driver;
 	private String driverPath = "usr/bin/chromedriver-linux64/chromedriver";
 	private static final String url = "https://www.metacritic.com/game/";
+	private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	public CrawlMetaCriticReviewsThread(int cnt, String gameSlug) {
 		this.cnt = cnt;
@@ -65,7 +75,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 
 		if (reviewCnt > 50) {
 			JavascriptExecutor js = (JavascriptExecutor)driver;
-			for (int i = 0; i < Math.min(reviewCnt / 40, 5); i++) {
+			for (int i = 0; i < 2; i++) {
 				js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
 				try {
 					Thread.sleep(500);
@@ -75,7 +85,7 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			}
 		}
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i <= (Math.min(reviewCnt, 200)); i++) {
+		for (int i = 1; i <= (Math.min(reviewCnt, 100)); i++) {
 
 			element = driver.findElement(By.xpath(
 				"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]/div[" + i
@@ -84,8 +94,18 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			sb.append(element.getText());
 			sb.append(' ');
 		}
-		log.info("{}번 쓰레드의 리뷰정보 일부 출력: {}", cnt, sb);
-		log.info("{}번 쓰레드 element 크롤링 끝", cnt);
+		Map<String, String> map = new HashMap<>();
+		map.put("gameSlug", gameSlug);
+		map.put("reviews", sb.toString());
+
+		try {
+			String logJson = objectMapper.writeValueAsString(map);
+			logger.info(logJson);
+		} catch (Exception e) {
+			logger.error("Error converting log message to JSON", e);
+		}
+
+		driver.close();
 		driver.quit();
 	}
 }

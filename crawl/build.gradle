@@ -41,6 +41,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.12.1'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	// logstash
+	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.3'
+
 }
 
 dependencyManagement {
