@@ -46,7 +46,7 @@ public class ArticleController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> insertArticle(@RequestParam("dto") String dto,
-        @RequestPart("file") MultipartFile multipartFiles) {
+        @RequestPart(value = "file", required = false) MultipartFile multipartFiles) {
         Map<String, Object> resultMap = new HashMap<>();
         HttpStatus status;
 
@@ -58,8 +58,11 @@ public class ArticleController {
 
             log.info("{} file {}", articleDto.toString(), (multipartFiles != null));
 
-            String url = awsS3Service.uploadFile(multipartFiles);
-            articleDto.setImageUrl(url);
+            if(multipartFiles != null) {
+                String url = awsS3Service.uploadFile(multipartFiles);
+                articleDto.setImageUrl(url);
+            }
+            
             articleService.insertArticle(articleDto);
 
             resultMap.put("success", true);
