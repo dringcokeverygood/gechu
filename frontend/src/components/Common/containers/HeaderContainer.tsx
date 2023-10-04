@@ -18,8 +18,6 @@ const HeaderContainer = () => {
 	const resetUserInfo = useResetRecoilState(userState);
 	const userInfo = useRecoilValue(userState);
 
-	console.log('로그인 정보', isLogin);
-
 	const onChangeSearchWord = useCallback(
 		(
 			e: React.ChangeEvent<HTMLInputElement>,
