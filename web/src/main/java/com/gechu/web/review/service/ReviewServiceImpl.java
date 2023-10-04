@@ -76,4 +76,9 @@ public class ReviewServiceImpl implements ReviewService {
             logger.error("Error converting log message to JSON", e);
         }
     }
+
+    @Override
+    public void deleteReview(Long reviewSeq) {
+        reviewRepository.deleteById(reviewSeq);
+    }
 }

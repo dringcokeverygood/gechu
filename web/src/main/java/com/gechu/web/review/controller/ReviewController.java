@@ -1,6 +1,5 @@
 package com.gechu.web.review.controller;
 
-import com.gechu.web.elasticsearch.service.ElasticsearchService;
 import com.gechu.web.review.dto.ReviewDto;
 import com.gechu.web.review.service.ReviewService;
 
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,6 +58,23 @@ public class ReviewController {
         }  catch (Exception e) {
             resultMap.put("success", false);
             resultMap.put("message", "게시글 등록 실패");
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+        return new ResponseEntity<>(resultMap, status);
+    }
+
+    @DeleteMapping("/{reviewSeq}")
+    public ResponseEntity<?> deleteReview(@PathVariable("reviewSeq") Long reviewSeq) {
+        Map<String, Object> resultMap = new HashMap<>();
+        HttpStatus status;
+
+        try {
+            reviewService.deleteReview(reviewSeq);
+            resultMap.put("success", true);
+            status = HttpStatus.CREATED;
+        }  catch (Exception e) {
+            resultMap.put("success", false);
+            resultMap.put("message", "리뷰 삭제 실패");
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return new ResponseEntity<>(resultMap, status);

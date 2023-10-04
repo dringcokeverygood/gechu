@@ -10,4 +10,6 @@ public interface ReviewService {
     public void updateReview(ReviewDto reviewDto);
 
     public void metaCriticReviews(String gameSlug, String reviews);
+
+	public void deleteReview(Long reviewSeq);
 }
