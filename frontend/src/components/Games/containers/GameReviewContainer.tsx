@@ -7,6 +7,7 @@ import { userState } from '../../../recoil/UserAtom';
 import GameReview from '../GameReview';
 import GameReviewSummary from '../GameReviewSummary';
 import { useRecoilValue } from 'recoil';
+import Swal from 'sweetalert2';
 
 interface GetReviews {
 	reviews: GameReviewType[];
@@ -53,19 +54,34 @@ const GameReviewContainer = () => {
 	});
 
 	const fetchReviews = () => {
-		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
-			setReviews(data.reviews);
-			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
-		});
-	};
-
-	useEffect(() => {
 		http
 			.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=${userInfo.userSeq}`)
 			.then((data) => {
 				console.log(data);
 				setMyEstim(data);
 			});
+
+		http.get<GetReviews>(`web/games/${gameSeq}/reviews`).then((data) => {
+			setReviews(data.reviews);
+			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
+		});
+	};
+
+	const onClickDeleteBtn = (seq: number) => {
+		Swal.fire({
+			title: '리뷰 삭제',
+			text: '정말 삭제하시겠습니까?',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				http.delete(`web/reviews/${seq}`).then(() => {
+					fetchReviews();
+				});
+			}
+		});
+	};
+
+	useEffect(() => {
 		fetchReviews();
 	}, []);
 
@@ -86,6 +102,7 @@ const GameReviewContainer = () => {
 						key={review.reviewSeq}
 						review={review}
 						isMine={userInfo.userSeq === review.userProfile.seq}
+						onClickDeleteBtn={onClickDeleteBtn}
 					/>
 				);
 			})}
