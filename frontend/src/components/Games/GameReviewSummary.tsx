@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetEstimate } from './containers/GameReviewContainer';
 // import type { ChartData, ChartOptions } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { CategoryScale, LinearScale, BarElement, Chart } from 'chart.js';
@@ -19,12 +20,8 @@ interface GameReviewSummaryProps {
 	dislikeCnt: number;
 	modalFlag: boolean;
 	onChangeModalFlag: () => void;
-	isReviewExists: boolean;
+	myEstim: GetEstimate;
 }
-// interface BarProps {
-// 	options: ChartOptions<'bar'>;
-// 	data: ChartData<'bar'>;
-// }
 
 const GameReviewSummary = ({
 	reviewCnt,
@@ -32,11 +29,15 @@ const GameReviewSummary = ({
 	dislikeCnt,
 	modalFlag,
 	onChangeModalFlag,
-	isReviewExists,
+	myEstim,
 }: GameReviewSummaryProps) => {
-	console.log(isReviewExists);
-	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
-	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
+	const totalCnt = likeCnt + dislikeCnt;
+	const likeRate =
+		totalCnt !== 0 ? ((100 * likeCnt) / totalCnt).toFixed(2) : '0.00';
+	const dislikeRate =
+		totalCnt !== 0 ? ((100 * dislikeCnt) / totalCnt).toFixed(2) : '0.00';
+
+	console.log(myEstim);
 
 	const options = {
 		indexAxis: 'y' as const,
@@ -91,13 +92,20 @@ const GameReviewSummary = ({
 	return (
 		<div className="flex flex-col pb-6 text-white-200">
 			{/* 바차트 */}
+			{/* 바차트 */}
 			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
 				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />
 					<p className="px-2 font-dungGeunMo">{likeRate}%</p>
 				</div>
 				<div className="flex w-full flex-row items-center justify-center">
-					<Bar options={options} data={data} className="flex justify-center" />
+					{totalCnt > 0 && (
+						<Bar
+							options={options}
+							data={data}
+							className="flex justify-center"
+						/>
+					)}
 				</div>
 				<div className="flex flex-row-reverse items-center text-2xl text-red-400">
 					<MdThumbDown />
@@ -105,9 +113,10 @@ const GameReviewSummary = ({
 				</div>
 			</div>
 			{/* 리뷰건수와 생성버튼 */}
+			{/* 리뷰건수와 생성버튼 */}
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
-				{!isReviewExists && (
+				{!myEstim?.estimate?.reviewSeq && (
 					<button onClick={onChangeModalFlag}>
 						<Icon icon="pixelarticons:edit-box" />
 					</button>
@@ -116,7 +125,10 @@ const GameReviewSummary = ({
 
 			{/* 모달창 */}
 			{modalFlag && (
-				<ReviewModalContainer onChangeModalFlag={onChangeModalFlag} />
+				<ReviewModalContainer
+					onChangeModalFlag={onChangeModalFlag}
+					myEstim={myEstim}
+				/>
 			)}
 		</div>
 	);
