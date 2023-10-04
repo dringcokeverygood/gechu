@@ -48,7 +48,7 @@ const GameReviewContainer = () => {
 		},
 	});
 	const [estimateRate, setEstimateRate] = useState({
-		likeCnt: 1,
+		likeCnt: 0,
 		dislikeCnt: 0,
 	});
 
