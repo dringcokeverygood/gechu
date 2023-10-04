@@ -44,6 +44,7 @@ public class EstimateServiceImpl implements EstimateService {
         try {
             estimateEntities = estimateRepository.findByGameSeq(gameSeq);
         } catch (Exception e) {
+            log.warn("findByGameSeq -> {}", e.getMessage());
             e.printStackTrace();
         }
         log.info("service -> {}", estimateEntities.get(0).getUserLike());
