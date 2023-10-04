@@ -103,15 +103,16 @@ public class CrawlMetaCriticReviewsThread implements Runnable {
 			"/html/body/div[1]/div/div/div[2]/div[1]/div[1]/section/div[6]"));
 
 		String reviewsAll = element.getText();
-		List<String> reviewsArr = Arrays.stream(reviewsAll.split("\n")).collect(Collectors.toList());
+		List<String> reviewsList = Arrays.stream(reviewsAll.split("\n")).collect(Collectors.toList());
 
-		for (int i = 0; i < reviewsArr.size(); i++) {
-			if (i % 5 == 2) {
-				sb.append(reviewsArr.get(i));
+		for (int i = 0; i < reviewsList.size(); i++) {
+			if (reviewsList.get(i).length() > 20) {
+				sb.append(reviewsList.get(i));
+				sb.append(" ");
 			}
 		}
 		log.info("{}의 리뷰 html정보", gameSlug);
-		log.info("{}", sb);
+		log.info("50개까지 크롤링 한것!, {}", sb);
 
 		Map<String, String> map = new HashMap<>();
 		map.put("gameSlug", gameSlug);
