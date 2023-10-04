@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface EstimateRepository extends JpaRepository<EstimateEntity, Long> {
-    List<EstimateEntity> findEstimatesByGameSeqAndUserLikeNotEquals(Long seq);
+    List<EstimateEntity> findEstimatesByGameSeqAndUserLikeNot(Long seq);
     List<EstimateEntity> findByUsers_Seq(Long seq);
 
     EstimateEntity findByGameSeqAndUsers_Seq(Long gameSeq, Long userSeq);

@@ -31,7 +31,7 @@ public class GameController {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
 		try {
-			List<EstimateDto> estimatesByGameSeq = estimateService.findEstimatesByGameSeqAndUserLikeNotEquals(gameSeq, "deleted");
+			List<EstimateDto> estimatesByGameSeq = estimateService.findEstimatesByGameSeqAndUserLikeNot(gameSeq, "deleted");
 			resultMap.put("estimates", estimatesByGameSeq);
 			resultMap.put("likeCnt", estimatesByGameSeq.stream().filter(e -> e.getLike().equals("like")).count());
 			resultMap.put("dislikeCnt", estimatesByGameSeq.stream().filter(e -> e.getLike().equals("dislike")).count());
