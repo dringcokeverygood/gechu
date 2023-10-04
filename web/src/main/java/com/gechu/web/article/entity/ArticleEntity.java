@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.catalina.User;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
@@ -35,7 +33,7 @@ public class ArticleEntity {
     private String articleContent;
     @CreationTimestamp
     private LocalDateTime createDate;
-    @ColumnDefault("false")
+    @Column(columnDefinition = "VARCHAR(10) DEFAULT 'false'")
     private String deleted;
 
     @ManyToOne

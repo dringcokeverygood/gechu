@@ -222,7 +222,8 @@ public class UserController {
 
 	@PutMapping(value = "/users/{userSeq}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> updateUserProfile(@PathVariable("userSeq") Long userSeq,
-											   @RequestParam("nickname") String nickname, @RequestPart("file") MultipartFile multipartFile) {
+		@RequestParam(value = "nickname", required = false) String nickname,
+		@RequestParam(value = "file", required = false) MultipartFile multipartFile) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status;
 		UserUpdateDto userUpdate = new UserUpdateDto();

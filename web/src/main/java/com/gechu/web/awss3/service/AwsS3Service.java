@@ -44,7 +44,7 @@ public class AwsS3Service {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
 		}
 
-		return fileName;
+		return "https://d3pibuye10e5xz.cloudfront.net/" + fileName;
 	}
 
 	public void deleteFile(String fileName) {
