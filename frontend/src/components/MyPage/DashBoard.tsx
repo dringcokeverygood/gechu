@@ -14,12 +14,12 @@ const DashBoard = ({ content }: { content: DashBoardType }) => {
 						선택한 선호 게임을 기반으로 게임 추천이 이루어집니다.
 					</p>
 				</div>
-				<button
+				{/* <button
 					className="h-10 rounded-xl bg-yellow-400 px-3 py-2 font-dungGeunMo text-[16px] text-white-950"
 					onClick={content.onClick}
 				>
 					선호 게임 설정
-				</button>
+				</button> */}
 			</div>
 
 			{content.LikeGames.length > 0 ? (

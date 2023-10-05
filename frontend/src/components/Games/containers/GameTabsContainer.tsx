@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import GameTabs from '../GameTabs';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export type GameTabItem = {
 	tabTitle: string;
@@ -23,11 +23,14 @@ const tabGroup: GameTabItem[] = [
 ];
 
 const GameTabsContainer = () => {
+	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const scrollRef = useRef(null);
 
 	const onClickTab = (url: string) => {
-		navigate(url);
+		if (!pathname.endsWith(url)) {
+			navigate(url);
+		}
 		// if (scrollRef.current) {
 		// 	window.scrollTo({ top: 320, behavior: 'smooth' });
 		// }
