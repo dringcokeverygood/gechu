@@ -36,7 +36,7 @@ const GameReviewContainer = () => {
 
 	const userInfo = useRecoilValue(userState);
 
-	const gameSeq = useParams().seq;
+	const gameSeq = Number(useParams().seq);
 	const [reviews, setReviews] = useState<GameReviewType[]>([]);
 	const [myEstim, setMyEstim] = useState<GetEstimate>({
 		success: false,
@@ -67,11 +67,17 @@ const GameReviewContainer = () => {
 		});
 	};
 
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
+
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
 			title: '리뷰 삭제',
 			text: '정말 삭제하시겠습니까?',
 			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/reviews/${seq}`).then(() => {
@@ -103,6 +109,10 @@ const GameReviewContainer = () => {
 						review={review}
 						isMine={userInfo.userSeq === review.userProfile.seq}
 						onClickDeleteBtn={onClickDeleteBtn}
+						updateModalFlag={updateModalFlag}
+						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+						gameSeq={gameSeq}
+						fetchReviews={fetchReviews}
 					/>
 				);
 			})}

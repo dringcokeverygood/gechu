@@ -21,7 +21,6 @@ const GameDetailContainer = () => {
 
 	useEffect(() => {
 		http.get<GameInfoType>(`game/games/seq/${gameSeq}`).then((res) => {
-			console.log(res);
 			setGameInfo(res);
 		});
 	}, []);

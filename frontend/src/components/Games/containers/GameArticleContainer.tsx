@@ -4,6 +4,8 @@ import { http } from '../../../utils/http';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
 import Swal from 'sweetalert2';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetArticle {
 	article: GameArticleType;
@@ -19,10 +21,16 @@ const GameArticleContainer = () => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
 	const articleSeq = useParams().articleSeq;
-	console.log(articleSeq, '번 글');
 	const onClickBack = () => {
 		navigate(-1);
 	};
+	const [itsMine, setItsMine] = useState(false);
+	const userInfo = useRecoilValue(userState);
+
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
 
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
@@ -45,6 +53,7 @@ const GameArticleContainer = () => {
 			title: '게시글 삭제',
 			text: '정말 삭제하시겠습니까?',
 			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/articles/${seq}`).then(() => {
@@ -56,11 +65,19 @@ const GameArticleContainer = () => {
 		});
 	};
 
-	useEffect(() => {
+	const getArticle = () => {
 		http.get<GetArticle>(`web/articles/${articleSeq}`).then((data) => {
 			setArticle(data.article);
 		});
+	};
+
+	useEffect(() => {
+		getArticle();
 	}, []);
+
+	useEffect(() => {
+		if (article.userProfile.seq === userInfo.userSeq) setItsMine(true);
+	}, [article]);
 
 	return (
 		<GameArticle
@@ -69,6 +86,10 @@ const GameArticleContainer = () => {
 			onChangeModalFlag={onChangeImgModalFlag}
 			onClickBack={onClickBack}
 			onClickDeleteBtn={onClickDeleteBtn}
+			updateModalFlag={updateModalFlag}
+			onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+			getArticle={getArticle}
+			itsMine={itsMine}
 		/>
 	);
 };
