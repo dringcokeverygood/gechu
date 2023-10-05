@@ -44,7 +44,8 @@ public class CommentEntity {
 
     public static CommentResponseDto toResponseDto(CommentEntity comment) {
         return CommentResponseDto.builder()
-            .articleSeq(comment.getSeq())
+            .articleSeq(comment.getArticle().getSeq())
+            .seq(comment.getSeq())
             .userProfile(UsersEntity.toProfileDto(comment.getUsers()))
             .createDate(comment.getCreateDate())
             .content(comment.getContent())

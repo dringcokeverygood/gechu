@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class CommentResponseDto {
 
 	private Long articleSeq;
+	private Long seq;
 	private String content;
 	private LocalDateTime createDate;
 	private UserProfileDto userProfile;
