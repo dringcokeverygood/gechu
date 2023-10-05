@@ -56,7 +56,7 @@ const MainRecommend = ({
 								>
 									<div className="group flex w-full justify-center ">
 										<img
-											className="h-64 w-64 bg-white-950 object-cover object-center group-hover:opacity-50"
+											className="h-64 w-64 bg-white-950 object-contain object-center group-hover:opacity-50"
 											src={game.gameTitleImageUrl}
 											alt={game.gameTitle}
 										/>

@@ -23,7 +23,6 @@ const GameArticleListContainer = () => {
 		http
 			.get<GetArticlePreview>(`web/games/${seq}/articles`)
 			.then((data) => {
-				console.log(data);
 				setArticles(data.articles);
 			})
 			.catch((e) => {
