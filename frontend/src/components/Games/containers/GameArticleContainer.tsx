@@ -18,7 +18,8 @@ const GameArticleContainer = () => {
 	const onChangeImgModalFlag = useCallback(() => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
-	const articleSeq = useParams().seq;
+	const articleSeq = useParams().articleSeq;
+	console.log(articleSeq, '번 글');
 	const onClickBack = () => {
 		navigate(-1);
 	};

@@ -29,7 +29,7 @@ const GameArticle = ({
 	onClickBack,
 	onClickDeleteBtn,
 }: Props) => {
-	console.log(article.userProfile);
+	console.log(article.createDate);
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
 			{/* 헤더 */}
@@ -40,7 +40,10 @@ const GameArticle = ({
 						onClick={onClickBack}
 						className="h-7 w-7 cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700"
 					/>
-					<UserProfileItem profile={article.userProfile} />
+					<UserProfileItem
+						profile={article.userProfile}
+						date={article.createDate}
+					/>
 				</div>
 				<Menu as="div" className="relative inline-block text-left ">
 					<div>
@@ -111,7 +114,7 @@ const GameArticle = ({
 				<div>{article.content}</div>
 			</div>
 
-			<GameCommentListContainer articleSeq={article.seq} />
+			<GameCommentListContainer />
 
 			{/* 이미지 모달 */}
 			{imgModalFlag && (

@@ -51,7 +51,10 @@ const GameCommentList = ({
 			</form>
 			<div className="rounded-lg bg-white-950">
 				{comments.map((comment) => {
-					return <GameCommentContainer key={comment.seq} comment={comment} />;
+					return (
+						// 응답에서 comment의 seq여야 하는 값이 articleSeq라는 key로 오고있음! 일단 unique key prop위해 수정
+						<GameCommentContainer key={comment.articleSeq} comment={comment} />
+					);
 				})}
 			</div>
 		</div>

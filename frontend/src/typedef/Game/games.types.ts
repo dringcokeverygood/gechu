@@ -39,6 +39,7 @@ export type GameArticlePreviewType = {
 	userProfile: UserProfileType;
 	articleTitle: string;
 	imageUrl: string;
+	commentCount: number;
 };
 
 export type GameArticleType = {

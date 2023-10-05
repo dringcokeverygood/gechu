@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { http } from '../../../utils/http';
+import { useParams } from 'react-router-dom';
 import { userState } from '../../../recoil/UserAtom';
 import { GameCommentType } from '../../../typedef/Game/games.types';
 import GameCommentList from '../GameCommentList';
@@ -10,9 +11,10 @@ interface GetComments {
 	success: string;
 }
 
-const GameCommentListContainer = ({ articleSeq }: { articleSeq: number }) => {
+const GameCommentListContainer = () => {
 	const [comments, setComments] = useState<GameCommentType[]>([]);
 	const userInfo = useRecoilValue(userState);
+	const articleSeq = useParams().articleSeq;
 
 	const fetchComments = () => {
 		http
