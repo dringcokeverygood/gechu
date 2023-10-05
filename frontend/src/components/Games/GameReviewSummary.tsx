@@ -39,8 +39,6 @@ const GameReviewSummary = ({
 	const dislikeRate =
 		totalCnt !== 0 ? ((100 * dislikeCnt) / totalCnt).toFixed(2) : '0.00';
 
-	console.log(myEstim);
-
 	const options = {
 		indexAxis: 'y' as const,
 		plugins: {

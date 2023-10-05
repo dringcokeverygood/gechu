@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import UserProfileItem from '../Common/UserProfileItem';
 import { GameReviewType } from '../../typedef/Game/games.types';
 import {
@@ -16,20 +16,20 @@ const GameReview = ({
 	review,
 	isMine,
 	onClickDeleteBtn,
-	updateModalFlag,
-	onChangeUpdateModalFlag,
 	gameSeq,
 	fetchReviews,
 }: {
 	review: GameReviewType;
 	isMine: boolean;
 	onClickDeleteBtn: (seq: number) => void;
-	updateModalFlag: boolean;
-	onChangeUpdateModalFlag: () => void;
 	gameSeq: number;
 	fetchReviews: () => void;
 }) => {
 	const isGood = () => review.like === 'like';
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
 	return (
 		<div className="mb-4 flex flex-col items-center space-y-4 rounded-md bg-white-900 px-6 py-4 text-white-200">
 			<div className="flex w-full items-center justify-between">

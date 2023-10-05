@@ -31,7 +31,6 @@ const GameReviewContainer = () => {
 	const [modalFlag, setModalFlag] = useState(false);
 	const onChangeModalFlag = useCallback(() => {
 		setModalFlag(!modalFlag);
-		console.log('모달', modalFlag);
 	}, [modalFlag]);
 
 	const userInfo = useRecoilValue(userState);
@@ -57,7 +56,6 @@ const GameReviewContainer = () => {
 		http
 			.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=${userInfo.userSeq}`)
 			.then((data) => {
-				console.log(data);
 				setMyEstim(data);
 			});
 
@@ -66,11 +64,6 @@ const GameReviewContainer = () => {
 			setEstimateRate({ likeCnt: data.likeCnt, dislikeCnt: data.dislikeCnt });
 		});
 	};
-
-	const [updateModalFlag, setUpdateModalFlag] = useState(false);
-	const onChangeUpdateModalFlag = useCallback(() => {
-		setUpdateModalFlag(!updateModalFlag);
-	}, [updateModalFlag]);
 
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
@@ -109,8 +102,6 @@ const GameReviewContainer = () => {
 						review={review}
 						isMine={userInfo.userSeq === review.userProfile.seq}
 						onClickDeleteBtn={onClickDeleteBtn}
-						updateModalFlag={updateModalFlag}
-						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
 						gameSeq={gameSeq}
 						fetchReviews={fetchReviews}
 					/>
