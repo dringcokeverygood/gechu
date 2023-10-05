@@ -1,16 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { LoginAtom } from '../../recoil/LoginAtom';
 import { ImSpinner2 } from 'react-icons/im';
 import { userState } from '../../recoil/UserAtom';
+import { UrlAtom } from '../../recoil/UrlAtom';
 
 const LoginCallBackPage = () => {
 	const navigate = useNavigate();
 	const code = new URL(window.location.href).searchParams.get('code');
 	const setIsLogin = useSetRecoilState(LoginAtom);
 	const setUserInfo = useSetRecoilState(userState);
+	const toUrl = useRecoilValue(UrlAtom);
 
 	//인가코드 백으로 보내는 코드
 	useEffect(() => {
@@ -34,7 +36,7 @@ const LoginCallBackPage = () => {
 						token: res.data.accessToken,
 					};
 					setUserInfo(userData);
-					navigate('/');
+					navigate(toUrl);
 				})
 				.catch((err) => {
 					console.log(err);

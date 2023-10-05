@@ -23,7 +23,7 @@ const GameArticlePreviewCard = ({
 				</div>
 				<div className="flex flex-row items-center space-x-2">
 					<LiaCommentDotsSolid size={20} />
-					<div className="font-dungGeunMo text-lg">00</div>
+					<div className="font-dungGeunMo text-lg">{article.commentCount}</div>
 				</div>
 			</div>
 		</div>
