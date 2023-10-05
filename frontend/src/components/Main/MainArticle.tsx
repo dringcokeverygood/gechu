@@ -55,7 +55,8 @@ const MainArticle = ({ articleList, onClickArticle }: MainNewsProps) => {
 										<div>
 											<p>{article.gameTitle}</p>
 											<p>
-												{article.createDate} {article.userProfile.nickName}
+												{article.createDate.slice(0, 10)}{' '}
+												{article.userProfile.nickName}
 											</p>
 										</div>
 									</div>
