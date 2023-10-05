@@ -61,10 +61,8 @@ public class ArticleEntity {
     }
 
     public static ArticleDto toDto(ArticleEntity articleEntity) {
-        log.info("articleSeq -> {}", articleEntity.getSeq());
 
-        List<CommentEntity> comments = articleEntity.getComments();
-        int commentCount = (int)comments.stream()
+        int commentCount = (int)articleEntity.getComments().stream()
             .filter(c -> c.getDeleted() == null || c.getDeleted().equals("false"))
             .count();
 
@@ -82,11 +80,16 @@ public class ArticleEntity {
 
     public static ArticlePreViewDto toPreviewDto(ArticleEntity articleEntity) {
         System.out.println("topreviewdto 호출" + articleEntity.getSeq());
+
+        int commentCount = (int)articleEntity.getComments().stream()
+            .filter(c -> c.getDeleted() == null || c.getDeleted().equals("false"))
+            .count();
+
         return ArticlePreViewDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
             .userProfile(UsersEntity.toProfileDto(articleEntity.getUsers()))
-            .commentCount(articleEntity.getComments().size())
+            .commentCount(commentCount)
             .articleTitle(articleEntity.getArticleTitle())
             .imageUrl(articleEntity.getImageUrl())
             .createDate(articleEntity.getCreateDate())
