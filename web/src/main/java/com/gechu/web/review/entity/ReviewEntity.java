@@ -48,4 +48,8 @@ public class ReviewEntity {
     public void updateEstimateEntity(EstimateEntity estimateEntity) {
         this.estimate = estimateEntity;
     }
+
+    public void updateText(String text) {
+        this.text = text;
+    }
 }
