@@ -24,7 +24,6 @@ const GameArticleContainer = () => {
 	const onClickBack = () => {
 		navigate(-1);
 	};
-	const [commentText, setCommentText] = useState('');
 	const [itsMine, setItsMine] = useState(false);
 	const userInfo = useRecoilValue(userState);
 
