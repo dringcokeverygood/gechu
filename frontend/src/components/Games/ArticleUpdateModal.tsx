@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { userState } from '../../recoil/UserAtom';
 import { http } from '../../utils/http';
 import { GameArticleType } from '../../typedef/Game/games.types';
@@ -10,6 +9,8 @@ import Swal from 'sweetalert2';
 type Props = {
 	onChangeUpdateModalFlag: () => void;
 	getArticle: () => void;
+	gameSeq: number;
+	articleSeq: number;
 };
 
 interface GetArticle {
@@ -18,9 +19,12 @@ interface GetArticle {
 	message: string;
 }
 
-const ArticleUpdateModal = ({ onChangeUpdateModalFlag, getArticle }: Props) => {
-	const gameSeq = Number(useParams().seq);
-	const articleSeq = Number(useParams().articleSeq);
+const ArticleUpdateModal = ({
+	onChangeUpdateModalFlag,
+	getArticle,
+	gameSeq,
+	articleSeq,
+}: Props) => {
 	const userInfo = useRecoilValue(userState);
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,

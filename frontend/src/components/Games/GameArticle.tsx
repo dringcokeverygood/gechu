@@ -163,6 +163,8 @@ const GameArticle = ({
 				<ArticleUpdateModal
 					onChangeUpdateModalFlag={onChangeUpdateModalFlag}
 					getArticle={getArticle}
+					articleSeq={article.seq}
+					gameSeq={article.gameSeq}
 				/>
 			)}
 		</div>
