@@ -32,6 +32,7 @@ const GameCommentListContainer = () => {
 	const [commentText, setCommentText] = useState('');
 
 	const onSubmitComment = () => {
+		if (commentText.length === 0) return;
 		//댓글 post로 전송하기
 		http
 			.post<GameCommentType>(`web/comments`, {
