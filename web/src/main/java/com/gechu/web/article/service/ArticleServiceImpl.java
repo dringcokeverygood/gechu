@@ -123,10 +123,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleDto> findRecentArticles() {
-		List<ArticleEntity> articleEntities = articleRepository.findTop4ByOrderByCreateDateDesc();
+		List<ArticleEntity> articleEntities = articleRepository.findTop10ByOrderByCreateDateDesc();
 		return articleEntities.stream().filter(a -> {
 			if (a.getDeleted() == null) return true;
 			return a.getDeleted().equals("false");
-		}).map(ArticleEntity::toDto).collect(Collectors.toList());
+		}).limit(4).map(ArticleEntity::toDto).collect(Collectors.toList());
 	}
 }
