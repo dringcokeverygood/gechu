@@ -29,7 +29,7 @@ const MainRecommendContainer = () => {
 		setLoading(true);
 
 		http
-			.get<GamePreviewType[]>(`game/games`)
+			.get<GamePreviewType[]>(`web/elasticsearch/recentGames`)
 			.then((data) => {
 				const gameList = data.slice(0, 20);
 				setRecommendGames(gameList);
