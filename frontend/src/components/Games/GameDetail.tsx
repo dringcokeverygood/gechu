@@ -14,7 +14,7 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 					<img
 						src={content.gameTitleImageUrl}
 						alt="game-title-image"
-						className="h-80"
+						className="max-w-60 max-h-80"
 					></img>
 					<div>
 						<h1 className="py-5 font-dungGeunMo text-4xl text-white-200">
@@ -63,10 +63,12 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 							src="https://11bitstudios.com/wp-content/uploads/2021/03/1280px-Metacritic_logo.svg-1.png"
 							alt=""
 						/>
-						<div className="w-[120px]">
+						<div className="w-[120px] font-dungGeunMo">
 							<CircularProgressbar
 								value={content.metaScore}
-								text={`${content.metaScore}/100`}
+								text={
+									content.metaScore > 0 ? `${content.metaScore}/100` : `Unrated`
+								}
 							/>
 						</div>
 					</div>

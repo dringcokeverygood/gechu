@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import SearchGameContainer from './SearchGameContainer';
 import SearchArticleContainer from './SearchArticleContainer';
-import SearchNewsContainer from './SearchNewsContainer';
+// import SearchNewsContainer from './SearchNewsContainer';
 import SearchResult from '../SearchResult';
 import { SearchWordAtom } from '../../../recoil/SearchWordAtom';
 import { useRecoilState } from 'recoil';
@@ -19,7 +19,8 @@ import {
 } from '../../../typedef/Game/games.types';
 import { useNavigate } from 'react-router-dom';
 
-const categories: string[] = ['게임', '게시글', '뉴스'];
+// const categories: string[] = ['게임', '게시글', '뉴스'];
+const categories: string[] = ['게임', '게시글'];
 
 const SearchResultContainer = () => {
 	const searchWordRef = useRef<string>('');
@@ -101,9 +102,10 @@ const SearchResultContainer = () => {
 		content = (
 			<SearchArticleContainer loading={loading} articles={searchArticles} />
 		);
-	} else if (activeTab === '뉴스') {
-		content = <SearchNewsContainer />;
 	}
+	// else if (activeTab === '뉴스') {
+	// 	content = <SearchNewsContainer />;
+	// }
 
 	return (
 		<SearchResult

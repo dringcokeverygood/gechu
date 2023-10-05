@@ -98,12 +98,16 @@ const GameReviewSummary = ({
 					<p className="px-2 font-dungGeunMo">{likeRate}%</p>
 				</div>
 				<div className="flex w-full flex-row items-center justify-center">
-					{totalCnt > 0 && (
+					{totalCnt > 0 ? (
 						<Bar
 							options={options}
 							data={data}
 							className="flex justify-center"
 						/>
+					) : (
+						<div className="flex w-full justify-center rounded-lg bg-white-600 font-dungGeunMo text-lg">
+							등록된 평가가 없습니다.
+						</div>
 					)}
 				</div>
 				<div className="flex flex-row-reverse items-center text-2xl text-red-400">
