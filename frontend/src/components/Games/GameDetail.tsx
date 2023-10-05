@@ -14,7 +14,7 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 					<img
 						src={content.gameTitleImageUrl}
 						alt="game-title-image"
-						className="h-80"
+						className="max-w-60 max-h-80"
 					></img>
 					<div>
 						<h1 className="py-5 font-dungGeunMo text-4xl text-white-200">
