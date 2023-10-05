@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,6 +62,7 @@ public class ArticleEntity {
 
     public static ArticleDto toDto(ArticleEntity articleEntity) {
         log.info("articleSeq -> {}", articleEntity.getSeq());
+
         return ArticleDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
@@ -68,7 +70,7 @@ public class ArticleEntity {
             .commentCount(articleEntity.getComments().stream().filter(c -> {
                 log.info("article toDto 메서드 내부에서 댓글 삭제여부 확인 -> {}", c.getDeleted());
                     if (c.getDeleted() == null) return true;
-                    return c.getDeleted().equals("false");
+                    return !c.getDeleted().equals("true");
             }).collect(Collectors.toList()).size())
             .articleTitle(articleEntity.getArticleTitle())
             .content(articleEntity.getArticleContent())
