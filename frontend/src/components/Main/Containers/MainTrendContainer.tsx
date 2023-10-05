@@ -4,6 +4,11 @@ import MainTrend from '../MainTrend';
 import { GamePreviewType } from '../../../typedef/Game/games.types';
 import { useNavigate } from 'react-router-dom';
 
+type GetTrend = {
+	games: GamePreviewType[];
+	success: boolean;
+};
+
 const MainTrendContainer = () => {
 	const [trendGames, setTrendGames] = useState<GamePreviewType[]>([]);
 	const [loading, setLoading] = useState(false);
@@ -18,10 +23,9 @@ const MainTrendContainer = () => {
 		setLoading(true);
 
 		http
-			.get<GamePreviewType[]>(`game/games`)
+			.get<GetTrend>(`web/elasticsearch/recentGames`)
 			.then((data) => {
-				const gameList = data.slice(0, 20);
-				setTrendGames(gameList);
+				setTrendGames(data.games);
 				setLoading(false);
 			})
 			.catch((err) => console.log(err));
