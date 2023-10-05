@@ -41,7 +41,7 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     public List<ReviewResponseDto> findReviewsByGameSeqAndUserLikeNot(Long gameSeq, String userLike) {
         List<EstimateEntity> estimateEntities = null;
-        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq, userLike);
+        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNotOrderByDesc(gameSeq, userLike);
         if (estimateEntities.size() == 0) {
             return new ArrayList<>();
         }
@@ -52,7 +52,7 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     public List<EstimateDto> findEstimatesByGameSeqAndUserLikeNot(Long gameSeq, String userLike) {
         List<EstimateEntity> estimateEntities = null;
-        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNot(gameSeq, userLike);
+        estimateEntities = estimateRepository.findEstimatesByGameSeqAndUserLikeNotOrderByDesc(gameSeq, userLike);
         if (estimateEntities.size() == 0) {
             return new ArrayList<>();
         }
