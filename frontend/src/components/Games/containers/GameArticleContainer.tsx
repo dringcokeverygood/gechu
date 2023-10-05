@@ -24,6 +24,11 @@ const GameArticleContainer = () => {
 	};
 	const [commentText, setCommentText] = useState('');
 
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
+
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
 		gameSeq: 1,
@@ -69,10 +74,14 @@ const GameArticleContainer = () => {
 		});
 	};
 
-	useEffect(() => {
+	const getArticle = () => {
 		http.get<GetArticle>(`web/articles/${articleSeq}`).then((data) => {
 			setArticle(data.article);
 		});
+	};
+
+	useEffect(() => {
+		getArticle();
 	}, []);
 
 	return (
@@ -85,6 +94,9 @@ const GameArticleContainer = () => {
 			handleCommentChange={handleCommentChange}
 			handleSubmitComment={handleSubmitComment}
 			onClickDeleteBtn={onClickDeleteBtn}
+			updateModalFlag={updateModalFlag}
+			onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+			getArticle={getArticle}
 		/>
 	);
 };
