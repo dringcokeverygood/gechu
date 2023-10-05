@@ -44,4 +44,9 @@ public class NewsService {
 		List<NewsEntity> newsEntities = newsRepository.findByGame_Seq(gameSeq);
 		return newsEntities.stream().map(NewsEntity::toResponseDto).collect(Collectors.toList());
 	}
+
+	public List<NewsResponseDto> findNewsByCount(Integer count) {
+		List<NewsEntity> newsEntities = newsRepository.findRandomEntities(count);
+		return newsEntities.stream().map(NewsEntity::toResponseDto).collect(Collectors.toList());
+	}
 }

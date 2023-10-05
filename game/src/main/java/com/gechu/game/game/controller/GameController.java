@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gechu.game.game.dto.GameResponseDto;
@@ -136,6 +137,17 @@ public class GameController {
 		List<NewsResponseDto> newsResponseDtos = null;
 		try {
 			newsResponseDtos = newsService.findNewsByGameSeq(gameSeq);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>(newsResponseDtos, HttpStatus.OK);
+	}
+
+	@GetMapping("/news/random")
+	public ResponseEntity<?> findRandomNews(@RequestParam("count") Integer count) {
+		List<NewsResponseDto> newsResponseDtos = null;
+		try {
+			newsResponseDtos = newsService.findNewsByCount(count);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
