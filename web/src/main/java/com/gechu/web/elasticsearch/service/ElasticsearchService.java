@@ -8,13 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.Order;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +42,7 @@ public class ElasticsearchService {
 
         // NativeSearchQuery 객체를 생성하고 Bool Query 설정
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
+        query.setMaxResults(500);
 
         // logstash 클래스 타입의 리스트로 반환
         List<LogDocument> matchedMessages = elasticsearchRestTemplate
@@ -65,7 +70,7 @@ public class ElasticsearchService {
 
         return gameSeqFrequencyMap.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(30)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
@@ -77,6 +82,7 @@ public class ElasticsearchService {
 
         // NativeSearchQuery 객체를 생성하고 Bool Query 설정
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
+        query.setMaxResults(2000);
 
         // logstash 클래스 타입의 리스트로 반환
         List<LogDocument> matchedMessages = elasticsearchRestTemplate
@@ -84,6 +90,8 @@ public class ElasticsearchService {
                 .stream()
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());
+
+        log.info("logdocument -> {}", matchedMessages.size());
 
         // message 필드를 Json 형태로 변환
         List<ReviewContent> reviewContents = matchedMessages.stream()
@@ -97,6 +105,8 @@ public class ElasticsearchService {
                 })
                 .filter(content -> content != null)
                 .collect(Collectors.toList());
+
+        log.info("reviewContents -> {}", reviewContents.size());
 
         return reviewContents.stream()
                 .sorted(Comparator.comparing(ReviewContent::getDates).reversed())
@@ -112,6 +122,7 @@ public class ElasticsearchService {
 
         // NativeSearchQuery 객체를 생성하고 Bool Query 설정
         NativeSearchQuery query = new NativeSearchQuery(boolQueryBuilder);
+        query.setMaxResults(200);
 
         // logstash 클래스 타입의 리스트로 반환
         List<LogDocument> matchedMessages = elasticsearchRestTemplate
