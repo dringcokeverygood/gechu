@@ -18,7 +18,7 @@ const GameArticleContainer = () => {
 	const onChangeImgModalFlag = useCallback(() => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
-	const articleSeq = useParams().seq;
+	const articleSeq = useParams().articleSeq;
 	const onClickBack = () => {
 		navigate(-1);
 	};
