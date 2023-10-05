@@ -35,7 +35,7 @@ public class CrawlNews {
 
 		for (Element article : articles) {
 			Element aTag = article.selectFirst("a[href]");
-			String url = "https://www.gamespot.com/" + aTag.attr("href");
+			String url = "https://www.gamespot.com" + aTag.attr("href");
 
 			Element imageElement = article.selectFirst("img");
 			String imageUrl = imageElement.attr("src");
