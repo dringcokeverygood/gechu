@@ -19,9 +19,6 @@ type Props = {
 	imgModalFlag: boolean;
 	onChangeModalFlag: (e: React.MouseEvent) => void;
 	onClickBack: () => void;
-	commentText: string;
-	handleCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSubmitComment: (e: React.FormEvent<HTMLFormElement>) => void;
 	onClickDeleteBtn: (seq: number) => void;
 };
 
@@ -30,11 +27,9 @@ const GameArticle = ({
 	imgModalFlag,
 	onChangeModalFlag,
 	onClickBack,
-	// commentText,
-	handleSubmitComment, // handleCommentChange,
 	onClickDeleteBtn,
 }: Props) => {
-	console.log(article.userProfile);
+	console.log(article.createDate);
 	return (
 		<div className="flex flex-col gap-4 space-y-2 rounded-lg bg-white-900 px-4 py-4 text-white-200">
 			{/* 헤더 */}
@@ -45,7 +40,10 @@ const GameArticle = ({
 						onClick={onClickBack}
 						className="h-7 w-7 cursor-pointer rounded-full transition duration-100 ease-out hover:bg-white-700"
 					/>
-					<UserProfileItem profile={article.userProfile} />
+					<UserProfileItem
+						profile={article.userProfile}
+						date={article.createDate}
+					/>
 				</div>
 				<Menu as="div" className="relative inline-block text-left ">
 					<div>
@@ -116,29 +114,7 @@ const GameArticle = ({
 				<div>{article.content}</div>
 			</div>
 
-			{/* 댓글 */}
-			<div className="font-dungGeunMo">댓글 00개</div>
-
-			{/* 댓글 입력폼 */}
-			<form onSubmit={handleSubmitComment}>
-				<div className="flex space-x-4">
-					<textarea
-						placeholder="댓글을 입력하세요."
-						// value={commentText}
-						// onChange={handleCommentChange}
-						className="h-[80px] flex-1 resize-none rounded-md bg-white-200 p-2 text-white-950 outline-none hover:bg-white-100"
-					/>
-					<button
-						type="submit"
-						className="text-white flex w-[100px] items-center justify-center rounded-md bg-blue-500 p-2 font-dungGeunMo text-xl"
-					>
-						{/* <MdSend size={32} /> */}
-						등록
-					</button>
-				</div>
-			</form>
-
-			<GameCommentListContainer articleSeq={article.seq} />
+			<GameCommentListContainer />
 
 			{/* 이미지 모달 */}
 			{imgModalFlag && (
