@@ -10,9 +10,15 @@ type Props = {
 	articles: GameArticlePreviewType[];
 	modalFlag: boolean;
 	onChangeModalFlag: () => void;
+	getArticles: () => void;
 };
 
-const GameArticleList = ({ articles, onChangeModalFlag, modalFlag }: Props) => {
+const GameArticleList = ({
+	articles,
+	onChangeModalFlag,
+	modalFlag,
+	getArticles,
+}: Props) => {
 	return (
 		<div className="flex flex-col">
 			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
@@ -32,7 +38,12 @@ const GameArticleList = ({ articles, onChangeModalFlag, modalFlag }: Props) => {
 			</div>
 
 			{/* 모달창 */}
-			{modalFlag && <ArticleModal onChangeModalFlag={onChangeModalFlag} />}
+			{modalFlag && (
+				<ArticleModal
+					onChangeModalFlag={onChangeModalFlag}
+					getArticles={getArticles}
+				/>
+			)}
 		</div>
 	);
 };
