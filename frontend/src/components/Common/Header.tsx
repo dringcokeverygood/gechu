@@ -133,14 +133,14 @@ const Header = ({
 													<div className="font-dungGeunMo">내 게시물</div>
 												</Popover.Button>
 											</li>
-											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
+											{/* <li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
 												<Popover.Button
 													as={Link}
 													to={'/my-page/comment-manage'}
 												>
 													<div className="font-dungGeunMo">내 댓글</div>
 												</Popover.Button>
-											</li>
+											</li> */}
 											<li className="px-4 py-2 transition duration-150 ease-in-out hover:bg-white-200 ">
 												<Popover.Button as={Link} to={'/my-page/review-manage'}>
 													<div className="font-dungGeunMo">내 리뷰</div>

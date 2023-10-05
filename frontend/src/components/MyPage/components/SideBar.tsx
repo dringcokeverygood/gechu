@@ -76,7 +76,7 @@ const SideBar = ({
 						<div className="font-dungGeunMo">게시글 관리</div>
 					</NavLink>
 				</li>
-				<li>
+				{/* <li>
 					<NavLink
 						to={`/my-page/comment-manage`}
 						className={({ isActive }) => navLinkClassName(isActive)}
@@ -88,7 +88,7 @@ const SideBar = ({
 						/>
 						<div className="font-dungGeunMo">댓글 관리</div>
 					</NavLink>
-				</li>
+				</li> */}
 				<li>
 					<NavLink
 						to={`/my-page/review-manage`}
