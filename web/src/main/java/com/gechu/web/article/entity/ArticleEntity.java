@@ -63,15 +63,16 @@ public class ArticleEntity {
     public static ArticleDto toDto(ArticleEntity articleEntity) {
         log.info("articleSeq -> {}", articleEntity.getSeq());
 
+        List<CommentEntity> comments = articleEntity.getComments();
+        int commentCount = (int)comments.stream()
+            .filter(c -> c.getDeleted() == null || c.getDeleted().equals("false"))
+            .count();
+
         return ArticleDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
             .userProfile(UsersEntity.toProfileDto(articleEntity.getUsers()))
-            .commentCount(articleEntity.getComments().stream().filter(c -> {
-                log.info("article toDto 메서드 내부에서 댓글 삭제여부 확인 -> {}", c.getDeleted());
-                    if (c.getDeleted() == null) return true;
-                    return !c.getDeleted().equals("true");
-            }).collect(Collectors.toList()).size())
+            .commentCount(commentCount)
             .articleTitle(articleEntity.getArticleTitle())
             .content(articleEntity.getArticleContent())
             .imageUrl(articleEntity.getImageUrl())
