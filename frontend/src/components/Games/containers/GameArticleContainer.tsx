@@ -21,12 +21,6 @@ const GameArticleContainer = () => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
 	const articleSeq = useParams().articleSeq;
-<<<<<<< frontend/src/components/Games/containers/GameArticleContainer.tsx
-=======
-	const onClickBack = () => {
-		navigate(-1);
-	};
->>>>>>> frontend/src/components/Games/containers/GameArticleContainer.tsx
 	const [itsMine, setItsMine] = useState(false);
 	const userInfo = useRecoilValue(userState);
 
@@ -68,13 +62,10 @@ const GameArticleContainer = () => {
 		});
 	};
 
-<<<<<<< frontend/src/components/Games/containers/GameArticleContainer.tsx
 	const onClickBack = () => {
 		navigate(`/game-detail/${article.gameSeq}/articles`, { replace: true });
 	};
 
-=======
->>>>>>> frontend/src/components/Games/containers/GameArticleContainer.tsx
 	const getArticle = () => {
 		http.get<GetArticle>(`web/articles/${articleSeq}`).then((data) => {
 			setArticle(data.article);
