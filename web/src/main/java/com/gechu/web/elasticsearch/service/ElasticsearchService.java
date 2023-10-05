@@ -110,7 +110,7 @@ public class ElasticsearchService {
 
         return reviewContents.stream()
                 .sorted(Comparator.comparing(ReviewContent::getDates).reversed())
-                .limit(10)
+                .limit(20)
                 .map(ReviewContent::getGameSlug)
                 .collect(Collectors.toList());
     }
