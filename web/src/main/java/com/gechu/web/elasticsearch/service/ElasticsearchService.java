@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,11 +61,24 @@ public class ElasticsearchService {
                 .filter(content -> content != null)
                 .collect(Collectors.toList());
 
-        Map<String, Long> gameSeqFrequencyMap = reviewContents.stream()
+        Map<String, Long> gameSeqFrequencyMapByGameSlug = reviewContents.stream()
+                .filter(content -> content.getGameSlug().contains(searchWord))
+                .collect(Collectors.groupingBy(ReviewContent::getGameSlug, Collectors.counting()));
+
+        Map<String, Long> gameSeqFrequencyMapByReviews = reviewContents.stream()
                 .filter(content -> content.getReviews().contains(searchWord))
                 .collect(Collectors.groupingBy(ReviewContent::getGameSlug, Collectors.counting()));
 
-        return gameSeqFrequencyMap.entrySet().stream()
+        gameSeqFrequencyMapByGameSlug.forEach((key, value) ->
+                gameSeqFrequencyMapByReviews.merge(key, value, Long::sum)
+        );
+
+        Map<String, Long> combinedMap = new HashMap<>(gameSeqFrequencyMapByGameSlug);
+        gameSeqFrequencyMapByReviews.forEach((key, value) ->
+                combinedMap.merge(key, value, Long::sum)
+        );
+
+        return combinedMap.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(30)
                 .map(Map.Entry::getKey)
