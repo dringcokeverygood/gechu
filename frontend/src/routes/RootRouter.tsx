@@ -38,7 +38,10 @@ const RootRouter = () => {
 						<Route path="" element={<Navigate replace to="reviews" />} />
 						<Route path="reviews" element={<GameReviewContainer />} />
 						<Route path="articles" element={<GameArticleListContainer />} />
-						<Route path="articles/:seq" element={<GameArticleContainer />} />
+						<Route
+							path="articles/:articleSeq"
+							element={<GameArticleContainer />}
+						/>
 					</Route>
 					<Route path="game-recommend" element={<GameRecommendPage />} />
 					<Route path="game-list" element={<GameListPage />} />

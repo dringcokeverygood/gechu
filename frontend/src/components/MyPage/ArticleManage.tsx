@@ -1,5 +1,5 @@
 import React from 'react';
-import ManageCardItem from './components/ManageCardItem';
+import ManageCardItemContainer from './containers/ManageCardItemContainer';
 import { ManageCardItemType } from '../../typedef/MyPage/myPage.types';
 import { images } from '../../constants/images';
 
@@ -7,9 +7,15 @@ type Props = {
 	items: ManageCardItemType[];
 	nickname: string;
 	onClickDeleteBtn: (seq: number) => void;
+	getMyArticleList: () => void;
 };
 
-const ArticleManage = ({ items, nickname, onClickDeleteBtn }: Props) => {
+const ArticleManage = ({
+	items,
+	nickname,
+	onClickDeleteBtn,
+	getMyArticleList,
+}: Props) => {
 	return (
 		<div className="mt-[100px] flex w-[1000px] flex-col gap-6 text-white-100">
 			<p className="font-dungGeunMo text-[32px]">
@@ -21,10 +27,11 @@ const ArticleManage = ({ items, nickname, onClickDeleteBtn }: Props) => {
 			{items.length > 0 ? (
 				<div className="flex flex-col gap-4">
 					{items.map((item) => (
-						<ManageCardItem
+						<ManageCardItemContainer
 							key={item.type + item.itemSeq}
 							item={item}
 							onClickDeleteBtn={onClickDeleteBtn}
+							getMyList={getMyArticleList}
 						/>
 					))}
 				</div>

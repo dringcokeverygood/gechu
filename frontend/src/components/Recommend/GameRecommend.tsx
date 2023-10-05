@@ -27,10 +27,12 @@ const GameRecommend = ({
 		// <>
 		// 	{isLogin ? (
 		<div className="flex w-[1200px] justify-center gap-[100px]">
-			<SideFilterBar
-				genreFilter={genreFilter}
-				platformFilter={platformFilter}
-			/>
+			<div>
+				<SideFilterBar
+					genreFilter={genreFilter}
+					platformFilter={platformFilter}
+				/>
+			</div>
 
 			<div className="flex w-[768px] flex-col gap-6">
 				<div className="flex max-w-full flex-wrap gap-3 pt-6">

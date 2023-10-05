@@ -4,6 +4,8 @@ import { http } from '../../../utils/http';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
 import Swal from 'sweetalert2';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetArticle {
 	article: GameArticleType;
@@ -18,11 +20,20 @@ const GameArticleContainer = () => {
 	const onChangeImgModalFlag = useCallback(() => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
-	const articleSeq = useParams().seq;
+	const articleSeq = useParams().articleSeq;
+<<<<<<< frontend/src/components/Games/containers/GameArticleContainer.tsx
+=======
 	const onClickBack = () => {
 		navigate(-1);
 	};
-	const [commentText, setCommentText] = useState('');
+>>>>>>> frontend/src/components/Games/containers/GameArticleContainer.tsx
+	const [itsMine, setItsMine] = useState(false);
+	const userInfo = useRecoilValue(userState);
+
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
 
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
@@ -40,23 +51,12 @@ const GameArticleContainer = () => {
 		createDate: '2023-09-14',
 	});
 
-	const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCommentText(e.target.value);
-	};
-
-	const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		// Here, you can handle the submission of the comment text, e.g., send it to a server or update the state.
-		// You can add your logic here.
-		// Reset the comment text field after submission.
-		setCommentText('');
-	};
-
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
 			title: '게시글 삭제',
 			text: '정말 삭제하시겠습니까?',
 			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/articles/${seq}`).then(() => {
@@ -68,11 +68,26 @@ const GameArticleContainer = () => {
 		});
 	};
 
-	useEffect(() => {
+<<<<<<< frontend/src/components/Games/containers/GameArticleContainer.tsx
+	const onClickBack = () => {
+		navigate(`/game-detail/${article.gameSeq}/articles`, { replace: true });
+	};
+
+=======
+>>>>>>> frontend/src/components/Games/containers/GameArticleContainer.tsx
+	const getArticle = () => {
 		http.get<GetArticle>(`web/articles/${articleSeq}`).then((data) => {
 			setArticle(data.article);
 		});
+	};
+
+	useEffect(() => {
+		getArticle();
 	}, []);
+
+	useEffect(() => {
+		if (article.userProfile.seq === userInfo.userSeq) setItsMine(true);
+	}, [article]);
 
 	return (
 		<GameArticle
@@ -80,10 +95,11 @@ const GameArticleContainer = () => {
 			imgModalFlag={imgModalFlag}
 			onChangeModalFlag={onChangeImgModalFlag}
 			onClickBack={onClickBack}
-			commentText={commentText}
-			handleCommentChange={handleCommentChange}
-			handleSubmitComment={handleSubmitComment}
 			onClickDeleteBtn={onClickDeleteBtn}
+			updateModalFlag={updateModalFlag}
+			onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+			getArticle={getArticle}
+			itsMine={itsMine}
 		/>
 	);
 };
