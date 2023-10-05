@@ -9,13 +9,13 @@ import GameRecommend from '../GameRecommend';
 const GameRecommendContainer = () => {
 	// 장르별 필터링을 위한 state
 	const [genreFilterState, setGenreFilterState] = useState<FilterObject>({
-		Action: {
+		Shooter: {
 			flag: false,
-			text: '액션',
+			text: 'FPS',
 		},
 		Strategy: {
 			flag: false,
-			text: '전략',
+			text: '전략 시뮬레이션',
 		},
 		Puzzle: {
 			flag: false,
@@ -23,11 +23,19 @@ const GameRecommendContainer = () => {
 		},
 		Adventure: {
 			flag: false,
-			text: '어드벤쳐',
+			text: '어드벤처',
 		},
-		Survival: {
+		RolePlaying: {
 			flag: false,
-			text: '생존',
+			text: 'RPG',
+		},
+		Sport: {
+			flag: false,
+			text: '스포츠',
+		},
+		Indie: {
+			flag: false,
+			text: '인디',
 		},
 	});
 
@@ -63,17 +71,17 @@ const GameRecommendContainer = () => {
 			flag: false,
 			text: 'Switch',
 		},
-		PlayStation: {
+		PlayStation5: {
 			flag: false,
-			text: 'PlayStation',
+			text: 'PlayStation 5',
 		},
 		PC: {
 			flag: false,
 			text: 'PC',
 		},
-		Mobile: {
+		Xbox: {
 			flag: false,
-			text: 'Mobile',
+			text: 'Xbox 360',
 		},
 	});
 
