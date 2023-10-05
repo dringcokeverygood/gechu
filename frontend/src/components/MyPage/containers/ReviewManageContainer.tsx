@@ -51,6 +51,7 @@ const ReviewManageContainer = () => {
 				items={myReviews}
 				nickname={userInfo.userName}
 				onClickDeleteBtn={onClickDeleteBtn}
+				getMyReviews={getMyReviews}
 			/>
 		</div>
 	);
