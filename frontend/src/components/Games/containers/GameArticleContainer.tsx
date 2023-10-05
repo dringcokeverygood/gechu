@@ -21,9 +21,6 @@ const GameArticleContainer = () => {
 		setImgModalFlag(!imgModalFlag);
 	}, [imgModalFlag]);
 	const articleSeq = useParams().articleSeq;
-	const onClickBack = () => {
-		navigate(-1);
-	};
 	const [itsMine, setItsMine] = useState(false);
 	const userInfo = useRecoilValue(userState);
 
@@ -63,6 +60,10 @@ const GameArticleContainer = () => {
 				});
 			}
 		});
+	};
+
+	const onClickBack = () => {
+		navigate(`/game-detail/${article.gameSeq}/articles`, { replace: true });
 	};
 
 	const getArticle = () => {
