@@ -5,9 +5,10 @@ import { Icon } from '@iconify/react';
 
 type Props = {
 	onClickLoginModalBtn: () => void;
+	onClickSetUrl: () => void;
 };
 
-const LoginModal = ({ onClickLoginModalBtn }: Props) => {
+const LoginModal = ({ onClickLoginModalBtn, onClickSetUrl }: Props) => {
 	return (
 		<div className="fixed left-0 top-0 z-50 flex h-full w-full text-white-950">
 			<div
@@ -25,7 +26,7 @@ const LoginModal = ({ onClickLoginModalBtn }: Props) => {
 					onClick={onClickLoginModalBtn}
 				/>
 				<div className="font-dungGeunMo text-[48px]">SNS LOGIN</div>
-				<div>
+				<div onClick={onClickSetUrl}>
 					<a
 						href="http://j9d203.p.ssafy.io:9090/oauth2/authorization/kakao?redirect_uri=http://j9d203.p.ssafy.io/oauth2/redirect"
 						className="flex flex-col items-center gap-3"
