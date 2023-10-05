@@ -63,10 +63,12 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 							src="https://11bitstudios.com/wp-content/uploads/2021/03/1280px-Metacritic_logo.svg-1.png"
 							alt=""
 						/>
-						<div className="w-[120px]">
+						<div className="w-[120px] font-dungGeunMo">
 							<CircularProgressbar
 								value={content.metaScore}
-								text={`${content.metaScore}/100`}
+								text={
+									content.metaScore > 0 ? `${content.metaScore}/100` : `Unrated`
+								}
 							/>
 						</div>
 					</div>
