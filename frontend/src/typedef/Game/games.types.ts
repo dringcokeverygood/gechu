@@ -64,8 +64,7 @@ export type GameListType = {
 export type GameCommentType = {
 	seq: number;
 	articleSeq: number;
-	userSeq: number;
-	userNickname: string;
+	userProfile: UserProfileType;
 	content: string;
 	createDate: string;
 };

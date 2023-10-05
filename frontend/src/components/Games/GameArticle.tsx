@@ -19,9 +19,6 @@ type Props = {
 	imgModalFlag: boolean;
 	onChangeModalFlag: (e: React.MouseEvent) => void;
 	onClickBack: () => void;
-	commentText: string;
-	handleCommentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSubmitComment: (e: React.FormEvent<HTMLFormElement>) => void;
 	onClickDeleteBtn: (seq: number) => void;
 };
 
@@ -30,8 +27,6 @@ const GameArticle = ({
 	imgModalFlag,
 	onChangeModalFlag,
 	onClickBack,
-	// commentText,
-	handleSubmitComment, // handleCommentChange,
 	onClickDeleteBtn,
 }: Props) => {
 	console.log(article.userProfile);
@@ -115,28 +110,6 @@ const GameArticle = ({
 				)}
 				<div>{article.content}</div>
 			</div>
-
-			{/* 댓글 */}
-			<div className="font-dungGeunMo">댓글 00개</div>
-
-			{/* 댓글 입력폼 */}
-			<form onSubmit={handleSubmitComment}>
-				<div className="flex space-x-4">
-					<textarea
-						placeholder="댓글을 입력하세요."
-						// value={commentText}
-						// onChange={handleCommentChange}
-						className="h-[80px] flex-1 resize-none rounded-md bg-white-200 p-2 text-white-950 outline-none hover:bg-white-100"
-					/>
-					<button
-						type="submit"
-						className="text-white flex w-[100px] items-center justify-center rounded-md bg-blue-500 p-2 font-dungGeunMo text-xl"
-					>
-						{/* <MdSend size={32} /> */}
-						등록
-					</button>
-				</div>
-			</form>
 
 			<GameCommentListContainer articleSeq={article.seq} />
 
