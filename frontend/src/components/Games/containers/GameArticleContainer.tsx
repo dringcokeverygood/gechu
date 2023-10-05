@@ -4,6 +4,8 @@ import { http } from '../../../utils/http';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
 import Swal from 'sweetalert2';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
 
 interface GetArticle {
 	article: GameArticleType;
@@ -23,6 +25,8 @@ const GameArticleContainer = () => {
 		navigate(-1);
 	};
 	const [commentText, setCommentText] = useState('');
+	const [itsMine, setItsMine] = useState(false);
+	const userInfo = useRecoilValue(userState);
 
 	const [updateModalFlag, setUpdateModalFlag] = useState(false);
 	const onChangeUpdateModalFlag = useCallback(() => {
@@ -84,6 +88,10 @@ const GameArticleContainer = () => {
 		getArticle();
 	}, []);
 
+	useEffect(() => {
+		if (article.userProfile.seq === userInfo.userSeq) setItsMine(true);
+	}, [article]);
+
 	return (
 		<GameArticle
 			article={article}
@@ -97,6 +105,7 @@ const GameArticleContainer = () => {
 			updateModalFlag={updateModalFlag}
 			onChangeUpdateModalFlag={onChangeUpdateModalFlag}
 			getArticle={getArticle}
+			itsMine={itsMine}
 		/>
 	);
 };
