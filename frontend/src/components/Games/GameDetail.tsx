@@ -66,7 +66,9 @@ const GameDetail = ({ content }: { content: GameInfoType }) => {
 						<div className="w-[120px]">
 							<CircularProgressbar
 								value={content.metaScore}
-								text={`${content.metaScore}/100`}
+								text={
+									content.metaScore > 0 ? `${content.metaScore}/100` : `Unrated`
+								}
 							/>
 						</div>
 					</div>
