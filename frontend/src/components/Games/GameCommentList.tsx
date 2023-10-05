@@ -33,7 +33,7 @@ const GameCommentList = ({
 						onSubmit();
 					}}
 				>
-					<div className="flex space-x-4">
+					<div className="mb-4 flex space-x-4">
 						<textarea
 							placeholder="댓글을 입력하세요."
 							value={commentText}
