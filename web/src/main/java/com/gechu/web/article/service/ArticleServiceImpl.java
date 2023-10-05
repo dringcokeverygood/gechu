@@ -124,6 +124,9 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<ArticleDto> findRecentArticles() {
 		List<ArticleEntity> articleEntities = articleRepository.findTop4ByOrderByCreateDateDesc();
-		return articleEntities.stream().map(ArticleEntity::toDto).collect(Collectors.toList());
+		return articleEntities.stream().filter(a -> {
+			if (a.getDeleted() == null) return true;
+			return a.getDeleted().equals("false");
+		}).map(ArticleEntity::toDto).collect(Collectors.toList());
 	}
 }
