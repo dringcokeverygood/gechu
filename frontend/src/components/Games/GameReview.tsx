@@ -10,16 +10,24 @@ import {
 } from 'react-icons/md';
 import { Menu, Transition } from '@headlessui/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Link } from 'react-router-dom';
+import ReviewUpdateModalContainer from './containers/ReviewUpdateModalContainer';
 
 const GameReview = ({
 	review,
 	isMine,
 	onClickDeleteBtn,
+	updateModalFlag,
+	onChangeUpdateModalFlag,
+	gameSeq,
+	fetchReviews,
 }: {
 	review: GameReviewType;
 	isMine: boolean;
 	onClickDeleteBtn: (seq: number) => void;
+	updateModalFlag: boolean;
+	onChangeUpdateModalFlag: () => void;
+	gameSeq: number;
+	fetchReviews: () => void;
 }) => {
 	const isGood = () => review.like === 'like';
 	return (
@@ -64,15 +72,17 @@ const GameReview = ({
 								<div className="flex flex-col">
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-800'
-												} flex items-center justify-center gap-4 rounded-t-md p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4 rounded-t-md p-2 font-dungGeunMo`}
+												onClick={() => {
+													onChangeUpdateModalFlag();
+												}}
 											>
 												<MdModeEdit size={20} />
 												수정
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 									<Menu.Item>
@@ -97,6 +107,16 @@ const GameReview = ({
 				)}
 			</div>
 			<div className="flex w-full flex-row justify-start">{review.content}</div>
+
+			{updateModalFlag && (
+				<ReviewUpdateModalContainer
+					preReview={review.content}
+					onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+					gameSeq={gameSeq}
+					reviewSeq={review.reviewSeq}
+					fetchReviews={fetchReviews}
+				/>
+			)}
 		</div>
 	);
 };
