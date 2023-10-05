@@ -7,14 +7,22 @@ import { Icon } from '@iconify/react';
 import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import dateFormatting from '../../../utils/dateFormatting';
+import ArticleUpdateModal from '../../Games/ArticleUpdateModal';
+import ReviewUpdateModalContainer from '../../Games/containers/ReviewUpdateModalContainer';
 
 // article인지 review인지 구분할 값 필요(navigate용)
 const ManageCardItem = ({
 	item,
 	onClickDeleteBtn,
+	updateModalFlag,
+	onChangeUpdateModalFlag,
+	getMyList,
 }: {
 	item: ManageCardItemType;
 	onClickDeleteBtn: (seq: number) => void;
+	updateModalFlag: boolean;
+	onChangeUpdateModalFlag: () => void;
+	getMyList: () => void;
 }) => {
 	return (
 		<div className="flex h-[250px] w-full gap-6 rounded-xl bg-white-100 p-6 text-white-950">
@@ -80,11 +88,13 @@ const ManageCardItem = ({
 								<div className="flex flex-col">
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-200'
-												} flex items-center justify-center gap-4 p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4 p-2 font-dungGeunMo`}
+												onClick={() => {
+													onChangeUpdateModalFlag();
+												}}
 											>
 												<Icon
 													icon="pixelarticons:edit-box"
@@ -92,7 +102,7 @@ const ManageCardItem = ({
 													height="20"
 												/>
 												수정
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 									<Menu.Item>
@@ -145,6 +155,24 @@ const ManageCardItem = ({
 					</p>
 				</div>
 			</div>
+
+			{updateModalFlag &&
+				(item.type === 'articles' ? (
+					<ArticleUpdateModal
+						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+						getArticle={getMyList}
+						gameSeq={item.gameSeq}
+						articleSeq={item.itemSeq}
+					/>
+				) : (
+					<ReviewUpdateModalContainer
+						preReview={item.content}
+						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+						gameSeq={item.gameSeq}
+						reviewSeq={item.itemSeq}
+						fetchReviews={getMyList}
+					/>
+				))}
 		</div>
 	);
 };

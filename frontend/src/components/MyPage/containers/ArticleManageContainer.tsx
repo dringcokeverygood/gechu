@@ -50,6 +50,7 @@ const ArticleManageContainer = () => {
 				items={myArticleList}
 				nickname={userInfo.userName}
 				onClickDeleteBtn={onClickDeleteBtn}
+				getMyArticleList={getMyArticleList}
 			/>
 		</div>
 	);
