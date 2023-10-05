@@ -98,7 +98,7 @@ const ArticleUpdateModal = ({
 					size={32}
 					onClick={onChangeUpdateModalFlag}
 				/>
-				<p className="text-start font-dungGeunMo text-4xl">게시물 등록</p>
+				<p className="text-start font-dungGeunMo text-4xl">게시글 수정</p>
 				<div className="flex h-full w-full flex-col">
 					<div className="flex h-12 items-center rounded-t-lg bg-white-100 text-xl ">
 						<input
