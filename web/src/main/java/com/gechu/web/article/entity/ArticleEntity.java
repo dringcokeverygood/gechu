@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -61,7 +62,10 @@ public class ArticleEntity {
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
             .userProfile(UsersEntity.toProfileDto(articleEntity.getUsers()))
-            .commentCount(articleEntity.getComments().size())
+            .commentCount(articleEntity.getComments().stream().filter(c -> {
+                if (c.getDeleted() == null) return true;
+                return c.getDeleted().equals("false");
+            }).collect(Collectors.toList()).size())
             .articleTitle(articleEntity.getArticleTitle())
             .content(articleEntity.getArticleContent())
             .imageUrl(articleEntity.getImageUrl())
