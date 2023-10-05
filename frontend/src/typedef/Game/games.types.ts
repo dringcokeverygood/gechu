@@ -39,6 +39,7 @@ export type GameArticlePreviewType = {
 	userProfile: UserProfileType;
 	articleTitle: string;
 	imageUrl: string;
+	commentCount: number;
 };
 
 export type GameArticleType = {
@@ -64,8 +65,7 @@ export type GameListType = {
 export type GameCommentType = {
 	seq: number;
 	articleSeq: number;
-	userSeq: number;
-	userNickname: string;
+	userProfile: UserProfileType;
 	content: string;
 	createDate: string;
 };
