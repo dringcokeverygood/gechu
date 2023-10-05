@@ -22,7 +22,6 @@ const GameArticleContainer = () => {
 	const onClickBack = () => {
 		navigate(-1);
 	};
-	const [commentText, setCommentText] = useState('');
 
 	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
@@ -39,18 +38,6 @@ const GameArticleContainer = () => {
 		imageUrl: '',
 		createDate: '2023-09-14',
 	});
-
-	const handleCommentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCommentText(e.target.value);
-	};
-
-	const handleSubmitComment = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		// Here, you can handle the submission of the comment text, e.g., send it to a server or update the state.
-		// You can add your logic here.
-		// Reset the comment text field after submission.
-		setCommentText('');
-	};
 
 	const onClickDeleteBtn = (seq: number) => {
 		Swal.fire({
@@ -80,9 +67,6 @@ const GameArticleContainer = () => {
 			imgModalFlag={imgModalFlag}
 			onChangeModalFlag={onChangeImgModalFlag}
 			onClickBack={onClickBack}
-			commentText={commentText}
-			handleCommentChange={handleCommentChange}
-			handleSubmitComment={handleSubmitComment}
 			onClickDeleteBtn={onClickDeleteBtn}
 		/>
 	);
