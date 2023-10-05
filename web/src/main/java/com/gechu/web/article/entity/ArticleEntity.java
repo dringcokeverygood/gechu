@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "article")
+@Slf4j
 public class ArticleEntity {
 
     @Id
@@ -58,13 +60,15 @@ public class ArticleEntity {
     }
 
     public static ArticleDto toDto(ArticleEntity articleEntity) {
+        log.info("articleSeq -> {}", articleEntity.getSeq());
         return ArticleDto.builder()
             .seq(articleEntity.getSeq())
             .gameSeq(articleEntity.getGameSeq())
             .userProfile(UsersEntity.toProfileDto(articleEntity.getUsers()))
             .commentCount(articleEntity.getComments().stream().filter(c -> {
-                if (c.getDeleted() == null) return true;
-                return c.getDeleted().equals("false");
+                log.info("article toDto 메서드 내부에서 댓글 삭제여부 확인 -> {}", c.getDeleted());
+                    if (c.getDeleted() == null) return true;
+                    return c.getDeleted().equals("false");
             }).collect(Collectors.toList()).size())
             .articleTitle(articleEntity.getArticleTitle())
             .content(articleEntity.getArticleContent())
