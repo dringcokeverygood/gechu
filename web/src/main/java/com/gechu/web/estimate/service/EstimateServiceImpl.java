@@ -26,7 +26,7 @@ public class EstimateServiceImpl implements EstimateService {
     @Override
     @Transactional
     public Long upsertEstimate(EstimateDto estimateDto) {
-        EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_Seq(estimateDto.getGameSeq(),
+        EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_SeqOrderBySeqDesc(estimateDto.getGameSeq(),
                 estimateDto.getUserSeq());
 
         if (estimateEntity != null) {
@@ -61,7 +61,7 @@ public class EstimateServiceImpl implements EstimateService {
     }
 
     public List<EstimateDto> findEstimatesWhereReviewIsNotNullByUserSeq(Long userSeq) {
-        List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_Seq(userSeq);
+        List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_SeqOrderBySeqDesc(userSeq);
         return estimateEntities.stream()
                 .filter(e -> e.getReviewEntity() != null)
                 .map(EstimateEntity::toDto)
@@ -69,13 +69,13 @@ public class EstimateServiceImpl implements EstimateService {
     }
 
     public List<EstimateDto> findEstimatesByUserSeq(Long userSeq) {
-        List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_Seq(userSeq);
+        List<EstimateEntity> estimateEntities = estimateRepository.findByUsers_SeqOrderBySeqDesc(userSeq);
         return estimateEntities.stream().map(EstimateEntity::toDto).collect(Collectors.toList());
     }
 
     @Override
     public EstimateDto findEstimateByUserSeqAndGameSeq(Long userSeq, Long gameSeq) {
-        EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_Seq(gameSeq, userSeq);
+        EstimateEntity estimateEntity = estimateRepository.findByGameSeqAndUsers_SeqOrderBySeqDesc(gameSeq, userSeq);
         return EstimateEntity.toDto(estimateEntity);
     }
 

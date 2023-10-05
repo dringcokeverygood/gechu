@@ -13,9 +13,6 @@ import com.gechu.web.article.dto.ArticleMyPageDto;
 import com.gechu.web.article.dto.ArticlePreViewDto;
 import com.gechu.web.article.entity.ArticleEntity;
 import com.gechu.web.article.repository.ArticleRepository;
-import com.gechu.web.estimate.entity.EstimateEntity;
-import com.gechu.web.review.dto.ReviewDto;
-import com.gechu.web.review.entity.ReviewEntity;
 
 import lombok.RequiredArgsConstructor;
 
@@ -79,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticlePreViewDto> findArticlesByGameSeq(Long gameSeq) {
-		List<ArticleEntity> articleEntities = articleRepository.findByGameSeq(gameSeq);
+		List<ArticleEntity> articleEntities = articleRepository.findByGameSeqOrderBySeqDesc(gameSeq);
 		List<ArticlePreViewDto> dto = null;
 		try {
 			dto = articleEntities.stream().filter(a -> {
@@ -95,7 +92,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public List<ArticleMyPageDto> findArticlesByUserSeq(Long userSeq) {
-		List<ArticleEntity> articleEntities = articleRepository.findByUsers_Seq(userSeq);
+		List<ArticleEntity> articleEntities = articleRepository.findByUsers_SeqOrderBySeqDesc(userSeq);
 
 		return articleEntities.stream().filter(a -> {
 			if (a.getDeleted() == null) return true;

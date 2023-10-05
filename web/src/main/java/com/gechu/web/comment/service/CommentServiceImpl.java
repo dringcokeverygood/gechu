@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentResponseDto> findCommentsByArticleSeq(Long articleSeq) {
-		List<CommentEntity> commentEntities = commentRepository.findByArticleSeq(articleSeq);
+		List<CommentEntity> commentEntities = commentRepository.findByArticleSeqOrderBySeqDesc(articleSeq);
 
 		return commentEntities.stream().filter(c -> {
 			if (c.getDeleted() == null) return true;
@@ -41,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<CommentResponseDto> findCommentsByUserSeq(Long userSeq) {
-		List<CommentEntity> commentEntities = commentRepository.findByUsers_Seq(userSeq);
+		List<CommentEntity> commentEntities = commentRepository.findByUsers_SeqOrderBySeqDesc(userSeq);
 
 		return commentEntities.stream().filter(c -> {
 			if (c.getDeleted() == null) return true;
