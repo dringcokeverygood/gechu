@@ -9,9 +9,10 @@ import Swal from 'sweetalert2';
 
 type Props = {
 	onChangeModalFlag: () => void;
+	getArticles: () => void;
 };
 
-const ArticleModal = ({ onChangeModalFlag }: Props) => {
+const ArticleModal = ({ onChangeModalFlag, getArticles }: Props) => {
 	const gameSeq = Number(useParams().seq);
 	const userInfo = useRecoilValue(userState);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,8 +80,9 @@ const ArticleModal = ({ onChangeModalFlag }: Props) => {
 
 			http
 				.post<GameArticleType>(`web/articles`, formData, headers)
-				.then((res) => {
-					console.log(res);
+				.then(() => {
+					getArticles();
+					onChangeModalFlag();
 				})
 				.catch((e) => {
 					console.log(e);

@@ -72,6 +72,7 @@ const GameReviewContainer = () => {
 			title: '리뷰 삭제',
 			text: '정말 삭제하시겠습니까?',
 			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/reviews/${seq}`).then(() => {

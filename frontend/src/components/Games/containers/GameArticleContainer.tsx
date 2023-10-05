@@ -57,6 +57,7 @@ const GameArticleContainer = () => {
 			title: '게시글 삭제',
 			text: '정말 삭제하시겠습니까?',
 			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				http.delete(`web/articles/${seq}`).then(() => {
