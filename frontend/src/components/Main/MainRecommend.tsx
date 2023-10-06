@@ -36,7 +36,7 @@ const MainRecommend = ({
 							onClick={onClickBtn}
 							className="w-24 rounded-lg bg-yellow-400 p-3 font-dungGeunMo text-[20px] text-white-950"
 						>
-							더보기
+							추천
 						</button>
 					</div>
 

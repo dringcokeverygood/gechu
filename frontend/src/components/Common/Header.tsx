@@ -44,14 +44,14 @@ const Header = ({
 			</Link>
 			<div className="flex items-center gap-8">
 				<ul className="flex gap-6">
-					<li>
+					{/* <li>
 						<NavLink
 							to={'/game-recommend'}
 							className="font-dungGeunMo text-[20px]"
 						>
 							RECOMMEND
 						</NavLink>
-					</li>
+					</li> */}
 					<li>
 						<NavLink to={'/game-list'} className="font-dungGeunMo text-[20px]">
 							GAMES

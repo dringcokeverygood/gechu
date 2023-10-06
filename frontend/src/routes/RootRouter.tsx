@@ -12,7 +12,7 @@ import GameListPage from '../pages/GameListPage';
 import GameArticleListContainer from '../components/Games/containers/GameArticleListContainer';
 import GameArticleContainer from '../components/Games/containers/GameArticleContainer';
 import SearchPage from '../pages/SearchPage';
-import GameRecommendPage from '../pages/GameRecommendPage';
+// import GameRecommendPage from '../pages/GameRecommendPage';
 import GameNewsPage from '../pages/GameNewsPage';
 
 // 마이페이지
@@ -43,7 +43,7 @@ const RootRouter = () => {
 							element={<GameArticleContainer />}
 						/>
 					</Route>
-					<Route path="game-recommend" element={<GameRecommendPage />} />
+					{/* <Route path="game-recommend" element={<GameRecommendPage />} /> */}
 					<Route path="game-list" element={<GameListPage />} />
 
 					<Route element={<PrivateRoutes redirectTo="/" />}>
