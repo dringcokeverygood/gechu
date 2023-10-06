@@ -1,36 +1,30 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import DashBoard from '../DashBoard';
 import { LikeGameItemType } from '../../../typedef/Game/games.types';
 import { DashBoardType } from '../../../typedef/MyPage/myPage.types';
+import { http } from '../../../utils/http';
+import { useRecoilState } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
+
+interface GetLikeGames {
+	estimates: LikeGameItemType[];
+	success: boolean;
+	message: string;
+}
 
 const DashBoardContainer = () => {
-	const dummy: LikeGameItemType[] = [
-		{
-			gameSeq: 1,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-		},
-		{
-			gameSeq: 2,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-		},
-		{
-			gameSeq: 3,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-		},
-		{
-			gameSeq: 4,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-		},
-		{
-			gameSeq: 5,
-			gameTitle: '젤다의 전설',
-			gameTitleImageUrl: '',
-		},
-	];
+	const [userInfo] = useRecoilState(userState);
+	const [LikeGames, setLikeGames] = useState<LikeGameItemType[]>([]);
+
+	useEffect(() => {
+		http
+			.get<GetLikeGames>(`web/users/${userInfo.userSeq}/estimates`)
+			.then((data) => {
+				const { estimates } = data;
+				setLikeGames(estimates);
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
 	const [modalFlag, setModalFlag] = useState(false);
 	const onChangeModalFlag = useCallback(() => {
@@ -38,7 +32,7 @@ const DashBoardContainer = () => {
 	}, [modalFlag]);
 
 	const content: DashBoardType = {
-		LikeGames: dummy,
+		LikeGames: LikeGames,
 		modalFlag: modalFlag,
 		onClick: onChangeModalFlag,
 	};

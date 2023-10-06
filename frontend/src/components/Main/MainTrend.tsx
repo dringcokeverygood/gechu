@@ -1,55 +1,63 @@
 import React from 'react';
+import { GamePreviewType } from '../../typedef/Game/games.types';
+import Slick from '../Common/Slick';
+import LoadingSlickCard from '../Common/LoadingSlickCard';
 
-interface SlideProps {
-	visibleImages: string[];
-	onClickSlidePre: () => void;
-	onClickSlideNext: () => void;
-}
+type TrendProps = {
+	games: GamePreviewType[];
+	onClickGame: (url: string) => void;
+	loading: boolean;
+};
 
-const MainTrend = ({
-	visibleImages,
-	onClickSlidePre,
-	onClickSlideNext,
-}: SlideProps) => {
+const MainTrend = ({ games, onClickGame, loading }: TrendProps) => {
+	const repeat = [1, 2, 3, 4];
 	return (
-		<div className="my-5 flex max-w-[1200px] flex-col items-center gap-4 ">
+		<div className="flex flex-col items-center gap-5 sm:w-[600px] lg:w-[1200px] ">
 			{/* 헤더 */}
-			<p className="h-12 flex-1 font-dungGeunMo text-[40px]">현재 유행 게임</p>
+			<div className="flex items-start justify-center gap-24 self-stretch ">
+				<p className="h-12 flex-1 font-dungGeunMo text-[40px]">
+					현재 유행 게임
+				</p>
+			</div>
 
 			{/* 슬라이드 */}
-			<div className=" flex items-center gap-6 py-10">
-				{visibleImages.map((image, index) => (
-					<div
-						key={index}
-						className="group flex h-64 w-64 columns-3 items-center"
-					>
-						<img
-							className="h-full w-full object-cover object-center  group-hover:opacity-40"
-							src={image}
-							alt={`게임${index + 1}`}
-						/>
-						<div className="text-white absolute items-center justify-center text-xl opacity-0 group-hover:opacity-100">
-							<p>게임정보</p>
+			{loading ? (
+				<div className="grid grid-cols-4 gap-10">
+					{repeat.map((i) => {
+						return <LoadingSlickCard key={'loading' + i} />;
+					})}
+				</div>
+			) : (
+				<Slick>
+					{games.map((game) => (
+						<div key={`trend${game.seq}`} className=" flex w-1/4 items-center">
+							<div className="group flex w-full justify-center ">
+								<img
+									className="h-64 w-64 bg-white-950 object-contain object-center group-hover:opacity-50"
+									src={game.gameTitleImageUrl}
+									alt={game.gameTitle}
+								/>
+								<div
+									className="text-white absolute flex h-full w-64 cursor-pointer flex-col justify-between break-words p-5 text-xl leading-6 opacity-0 group-hover:opacity-100"
+									onClick={() => onClickGame(`/game-detail/${game.seq}`)}
+								>
+									<p className="mb-2 line-clamp-2 border-y-2 border-solid bg-white-950 bg-opacity-40 py-2 font-dungGeunMo text-2xl ">
+										{game.gameTitle}
+									</p>
+									<div className="h-3/5  text-white-200">
+										<p className="mt-5 line-clamp-2 font-dungGeunMo ">
+											장르 : {game.genres.join(', ')}
+										</p>
+										<p className="mt-3 line-clamp-2 break-all font-dungGeunMo">
+											플랫폼 : {game.platforms.join(', ')}
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
-				))}
-			</div>
-
-			{/* 버튼 */}
-			<div className="flex items-center justify-center">
-				<button
-					className="bg-gray-400 mr-4 px-4 py-2 text-white-100"
-					onClick={onClickSlidePre}
-				>
-					이전
-				</button>
-				<button
-					className="bg-gray-400 px-4 py-2 text-white-100"
-					onClick={onClickSlideNext}
-				>
-					다음
-				</button>
-			</div>
+					))}
+				</Slick>
+			)}
 		</div>
 	);
 };

@@ -7,6 +7,8 @@ export type DashBoardType = {
 };
 
 export type SideBarType = {
+	userImageUrl: string;
+	nickname: string;
 	fileInput: React.MutableRefObject<HTMLInputElement>;
 	onClickUploadImgBtn: (e: React.MouseEvent) => void;
 	onClickUpdateNickname: () => void;
@@ -22,8 +24,7 @@ export type ManageCardItemType = {
 	title: string;
 	content: string;
 	createDate: string;
-	like: boolean;
-	unlike: boolean;
+	like: string;
 };
 
 export type ManageCommentCardItemType = {

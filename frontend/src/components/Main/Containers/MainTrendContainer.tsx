@@ -1,53 +1,38 @@
-import React, { useState } from 'react';
-import { images } from '../../../constants/images';
+import React, { useState, useEffect } from 'react';
+import { http } from '../../../utils/http';
 import MainTrend from '../MainTrend';
+import { GamePreviewType } from '../../../typedef/Game/games.types';
+import { useNavigate } from 'react-router-dom';
+
+type GetTrend = {
+	games: GamePreviewType[];
+	success: boolean;
+};
 
 const MainTrendContainer = () => {
-	const [slideIndex, setSlideIndex] = useState(0);
+	const [trendGames, setTrendGames] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
 
-	const slideImages = [
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-		images.dummy.gameImg7,
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-		images.dummy.gameImg7,
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-	];
+	const navigate = useNavigate();
 
-	const visibleImages = slideImages.slice(slideIndex, slideIndex + 4);
-
-	const onClickSlideNext = () => {
-		if (slideIndex + 4 < slideImages.length) {
-			setSlideIndex(slideIndex + 4);
-		}
+	const onClickGame = (url: string) => {
+		navigate(url);
 	};
 
-	const onClickSlidePre = () => {
-		if (slideIndex > 0) {
-			setSlideIndex(slideIndex - 4);
-		}
-	};
+	useEffect(() => {
+		setLoading(true);
+
+		http
+			.get<GetTrend>(`web/elasticsearch/recentGames`)
+			.then((data) => {
+				setTrendGames(data.games);
+				setLoading(false);
+			})
+			.catch((err) => console.log(err));
+	}, []);
 
 	return (
-		<MainTrend
-			visibleImages={visibleImages}
-			onClickSlidePre={onClickSlidePre}
-			onClickSlideNext={onClickSlideNext}
-		/>
+		<MainTrend games={trendGames} onClickGame={onClickGame} loading={loading} />
 	);
 };
 

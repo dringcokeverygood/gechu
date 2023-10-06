@@ -1,52 +1,58 @@
-import React, { useState } from 'react';
-import { images } from '../../../constants/images';
+import React, { useState, useEffect } from 'react';
+import { http } from '../../../utils/http';
+
+import { GamePreviewType } from '../../../typedef/Game/games.types';
 import MainRecommend from '../MainRecommend';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
+import { LoginAtom } from '../../../recoil/LoginAtom';
 
 const MainRecommendContainer = () => {
-	const [slideIndex, setSlideIndex] = useState(0);
+	const [recommendGames, setRecommendGames] = useState<GamePreviewType[]>([]);
+	const [loading, setLoading] = useState(false);
 
-	const slideImages = [
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-		images.dummy.gameImg7,
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-		images.dummy.gameImg7,
-		images.dummy.gameImg1,
-		images.dummy.gameImg2,
-		images.dummy.gameImg3,
-		images.dummy.gameImg4,
-		images.dummy.gameImg5,
-		images.dummy.gameImg6,
-	];
+	const userInfo = useRecoilValue(userState);
+	const isLogin = useRecoilValue(LoginAtom);
 
-	const visibleImages = slideImages.slice(slideIndex, slideIndex + 4);
+	const navigate = useNavigate();
 
-	const onClickSlideNext = () => {
-		if (slideIndex + 4 < slideImages.length) {
-			setSlideIndex(slideIndex + 4);
-		}
+	const onClickGame = (url: string) => {
+		navigate(url);
 	};
 
-	const onClickSlidePre = () => {
-		if (slideIndex > 0) {
-			setSlideIndex(slideIndex - 4);
-		}
+	useEffect(() => {
+		setLoading(true);
+		http
+			.get<GamePreviewType[]>(`game/games`)
+			.then((data) => {
+				const gameList = data.slice(0, 20);
+				setRecommendGames(gameList);
+				setLoading(false);
+			})
+			.catch((err) => console.log(err));
+	}, []);
+
+	const onClickBtn = () => {
+		setLoading(true);
+		http
+			.get<GamePreviewType[]>(`game/games`)
+			.then((data) => {
+				const gameList = data.slice(0, 20);
+				setRecommendGames(gameList);
+				setLoading(false);
+			})
+			.catch((err) => console.log(err));
 	};
 
 	return (
 		<MainRecommend
-			visibleImages={visibleImages}
-			onClickSlidePre={onClickSlidePre}
-			onClickSlideNext={onClickSlideNext}
+			games={recommendGames}
+			onClickBtn={onClickBtn}
+			onClickGame={onClickGame}
+			userInfo={userInfo}
+			isLogin={isLogin}
+			loading={loading}
 		/>
 	);
 };

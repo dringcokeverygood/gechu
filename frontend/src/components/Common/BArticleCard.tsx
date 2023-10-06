@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GameArticleType } from '../../typedef/Game/games.types';
+import { GameArticlePreviewType } from '../../typedef/Game/games.types';
 
-const BArticleCard = ({ article }: { article: GameArticleType }) => {
+const BArticleCard = ({ article }: { article: GameArticlePreviewType }) => {
 	return (
 		<Link
 			to={`/game-detail/${article.gameSeq}`}
@@ -27,7 +27,7 @@ const BArticleCard = ({ article }: { article: GameArticleType }) => {
 			<div className="flex w-full flex-col gap-2 overflow-hidden rounded-b-md bg-white-100 p-3  text-white-950">
 				<div className="truncate font-dungGeunMo">{article.articleTitle}</div>
 				<div className="truncate font-dungGeunMo">{article.gameTitle}</div>
-				<div className="truncate font-dungGeunMo">{article.userNickname}</div>
+				<div className="truncate font-dungGeunMo">{article.userProfile.nickName}</div>
 			</div>
 		</Link>
 	);

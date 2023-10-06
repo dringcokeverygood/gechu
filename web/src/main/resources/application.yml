@@ -1,0 +1,20 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: web
+
+  rabbitmq:
+    host: http://j9d203.p.ssafy.io
+    port: 5672
+    username: guest
+    password: guest
+
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://j9d203.p.ssafy.io:8888
+
+logging:
+  config: classpath:logback-spring.xml

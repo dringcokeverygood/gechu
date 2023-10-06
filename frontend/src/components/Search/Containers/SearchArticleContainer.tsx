@@ -2,66 +2,14 @@ import React from 'react';
 import SearchArticle from '../SearchArticle';
 import { GameArticlePreviewType } from '../../../typedef/Game/games.types';
 
-const SearchArticleContainer = () => {
-	const dummy: GameArticlePreviewType[] = [
-		{
-			seq: 1,
-			gameSeq: 1,
-			gameTitle: '게임 제목',
-			userSeq: 1,
-			userNickname: '유저 닉네임',
-			articleTitle: '게시글 제목',
-			content: '게시글 내용',
-			imageUrl: '',
-			createDate: '생성일',
-		},
-		{
-			seq: 5,
-			gameSeq: 1,
-			gameTitle: '게임 제목',
-			userSeq: 1,
-			userNickname: '유저 닉네임',
-			articleTitle: '게시글 제목',
-			content: '게시글 내용',
-			imageUrl: '',
-			createDate: '생성일',
-		},
-		{
-			seq: 4,
-			gameSeq: 1,
-			gameTitle: '게임 제목',
-			userSeq: 1,
-			userNickname: '유저 닉네임',
-			articleTitle: '게시글 제목',
-			content: '게시글 내용',
-			imageUrl: '',
-			createDate: '생성일',
-		},
-		{
-			seq: 3,
-			gameSeq: 1,
-			gameTitle: '게임 제목',
-			userSeq: 1,
-			userNickname: '유저 닉네임',
-			articleTitle: '게시글 제목',
-			content: '게시글 내용',
-			imageUrl: '',
-			createDate: '생성일',
-		},
-		{
-			seq: 2,
-			gameSeq: 1,
-			gameTitle: '게임 제목',
-			userSeq: 1,
-			userNickname: '유저 닉네임',
-			articleTitle: '게시글 제목',
-			content: '게시글 내용',
-			imageUrl: '',
-			createDate: '생성일',
-		},
-	];
-
-	return <SearchArticle articles={dummy} />;
+const SearchArticleContainer = ({
+	articles,
+	loading,
+}: {
+	articles: GameArticlePreviewType[];
+	loading: boolean;
+}) => {
+	return <SearchArticle loading={loading} articles={articles} />;
 };
 
 export default SearchArticleContainer;

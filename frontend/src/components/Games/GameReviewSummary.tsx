@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetEstimate } from './containers/GameReviewContainer';
 // import type { ChartData, ChartOptions } from 'chart.js';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { CategoryScale, LinearScale, BarElement, Chart } from 'chart.js';
@@ -9,26 +10,34 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 import { Icon } from '@iconify/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ChartjsPluginStacked100 from 'chartjs-plugin-stacked100';
+import ReviewModalContainer from './containers/ReviewModalContainer';
 
 Chart.register(CategoryScale, LinearScale, BarElement, ChartjsPluginStacked100);
 
 interface GameReviewSummaryProps {
+	fetchReviews: () => void;
 	reviewCnt: number;
 	likeCnt: number;
 	dislikeCnt: number;
+	modalFlag: boolean;
+	onChangeModalFlag: () => void;
+	myEstim: GetEstimate;
 }
-// interface BarProps {
-// 	options: ChartOptions<'bar'>;
-// 	data: ChartData<'bar'>;
-// }
 
-const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
+const GameReviewSummary = ({
+	fetchReviews,
 	reviewCnt,
 	likeCnt,
 	dislikeCnt,
-}) => {
-	const likeRate = ((100 * likeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
-	const dislikeRate = ((100 * dislikeCnt) / (likeCnt + dislikeCnt)).toFixed(2);
+	modalFlag,
+	onChangeModalFlag,
+	myEstim,
+}: GameReviewSummaryProps) => {
+	const totalCnt = likeCnt + dislikeCnt;
+	const likeRate =
+		totalCnt !== 0 ? ((100 * likeCnt) / totalCnt).toFixed(2) : '0.00';
+	const dislikeRate =
+		totalCnt !== 0 ? ((100 * dislikeCnt) / totalCnt).toFixed(2) : '0.00';
 
 	const options = {
 		indexAxis: 'y' as const,
@@ -81,33 +90,50 @@ const GameReviewSummary: React.FC<GameReviewSummaryProps> = ({
 		],
 	};
 	return (
-		<div className="flex flex-col pb-2 text-white-200">
+		<div className="flex flex-col pb-6 text-white-200">
+			{/* 바차트 */}
 			<div className="flex h-24 flex-row items-center justify-around space-x-2 px-24">
 				<div className="flex flex-row items-center text-2xl text-blue-400">
 					<MdThumbUp />
 					<p className="px-2 font-dungGeunMo">{likeRate}%</p>
 				</div>
 				<div className="flex w-full flex-row items-center justify-center">
-					<Bar
-						options={options}
-						data={data}
-						className="flex justify-center"
-						// style={{ height: '40px', width: '800px' }}
-					/>
+					{totalCnt > 0 ? (
+						<Bar
+							options={options}
+							data={data}
+							className="flex justify-center"
+						/>
+					) : (
+						<div className="flex w-full justify-center rounded-lg bg-white-600 font-dungGeunMo text-lg">
+							등록된 평가가 없습니다.
+						</div>
+					)}
 				</div>
 				<div className="flex flex-row-reverse items-center text-2xl text-red-400">
 					<MdThumbDown />
 					<p className="px-2 font-dungGeunMo">{dislikeRate}%</p>
 				</div>
 			</div>
-			<div className="flex flex-row items-center justify-start space-x-4 text-xl">
+			{/* 리뷰건수와 생성버튼 */}
+			<div className="flex flex-row items-center justify-start space-x-4 px-4 text-xl">
 				<div className="font-dungGeunMo">{reviewCnt}건</div>
-				<button>
-					<Icon icon="pixelarticons:edit-box" />
-				</button>
+				{!myEstim?.estimate?.reviewSeq && (
+					<button onClick={onChangeModalFlag}>
+						<Icon icon="pixelarticons:edit-box" />
+					</button>
+				)}
 			</div>
+
+			{/* 모달창 */}
+			{modalFlag && (
+				<ReviewModalContainer
+					fetchReviews={fetchReviews}
+					onChangeModalFlag={onChangeModalFlag}
+					myEstim={myEstim}
+				/>
+			)}
 		</div>
 	);
 };
-
 export default GameReviewSummary;

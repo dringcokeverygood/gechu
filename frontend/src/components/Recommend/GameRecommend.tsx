@@ -2,19 +2,35 @@ import React from 'react';
 import GameCardContainer from '../Common/containers/GameCardContainer';
 import SideFilterBar from '../Game/components/SideFilterBar';
 import CFilterLabel from '../Common/CFilterLabel';
-import { GameListType } from '../../typedef/Game/games.types';
+import LoadingGameCard from '../Common/LoadingGameCard';
+import { FilterType } from '../../typedef/Game/filter.types';
+import { GamePreviewType } from '../../typedef/Game/games.types';
+
+type Props = {
+	genreFilter: FilterType;
+	platformFilter: FilterType;
+	games: GamePreviewType[];
+	loading: boolean;
+	// isLogin: boolean;
+};
 
 const GameRecommend = ({
 	genreFilter,
 	platformFilter,
 	games,
-}: GameListType) => {
+	loading, // isLogin,
+}: Props) => {
+	const repeat = [
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+	];
 	return (
 		<div className="flex w-[1200px] justify-center gap-[100px]">
-			<SideFilterBar
-				genreFilter={genreFilter}
-				platformFilter={platformFilter}
-			/>
+			<div>
+				<SideFilterBar
+					genreFilter={genreFilter}
+					platformFilter={platformFilter}
+				/>
+			</div>
 
 			<div className="flex w-[768px] flex-col gap-6">
 				<div className="flex max-w-full flex-wrap gap-3 pt-6">
@@ -42,9 +58,17 @@ const GameRecommend = ({
 					)}
 				</div>
 				<div className="grid grid-cols-3 gap-6">
-					{games.map((game) => (
-						<GameCardContainer key={game.gameSeq} game={game} />
-					))}
+					{loading ? (
+						<>
+							{repeat.map((i) => {
+								return <LoadingGameCard key={'loading' + i} />;
+							})}
+						</>
+					) : (
+						games.map((game) => (
+							<GameCardContainer key={game.seq} game={game} />
+						))
+					)}
 				</div>
 			</div>
 		</div>

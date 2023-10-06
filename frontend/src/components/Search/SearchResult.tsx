@@ -43,26 +43,25 @@ const SearchResult = ({
 
 		{/* 검색 결과 */}
 		<div className="mt-4 w-full">
-			<div onChange={(index) => console.log('선택 탭 변경: ', index)}>
+			<div>
 				{/* 탭 버튼 */}
 				<div className="flex ">
 					{categories.map((category) => (
 						<button
 							key={category}
-							className={`h-16 w-32 border-b border-solid font-dungGeunMo  text-2xl ${
+							className={`h-16 w-32  border-solid font-dungGeunMo  text-2xl ${
 								activeTab === category
-									? ' border-b-red-700 text-white-100'
-									: 'border-b-white-400 text-white-400 hover:p-6 '
+									? ' border-b-[3px] border-b-red-700 text-white-100'
+									: 'border-b border-b-white-400 text-white-400 hover:p-6 '
 							}`}
 							onClick={() => {
-								console.log('탭 클릭: ', category);
 								setActiveTab(category);
 							}}
 						>
 							{category}
 						</button>
 					))}
-					<button className="h-16 flex-1 cursor-default border-b border-solid border-b-white-400"></button>
+					<button className="pointer-events-none h-16 flex-1 border-b border-solid border-b-white-400"></button>
 				</div>
 
 				{/* 탭 내용 */}
