@@ -16,8 +16,7 @@ const GameCommentContainer = ({
 	const deleteComment = (seq: number) => {
 		http
 			.delete(`web/comments/${seq}`)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				fetchComments();
 			})
 			.catch((e) => console.log(e));

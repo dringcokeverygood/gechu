@@ -20,7 +20,6 @@ const GameCommentListContainer = () => {
 		http
 			.get<GetComments>(`web/comments`, { articleSeq: articleSeq })
 			.then((data) => {
-				console.log(data);
 				setComments(data.comments);
 			});
 	};
@@ -40,8 +39,7 @@ const GameCommentListContainer = () => {
 				userSeq: userInfo.userSeq,
 				content: commentText,
 			})
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				setCommentText('');
 				fetchComments();
 			})

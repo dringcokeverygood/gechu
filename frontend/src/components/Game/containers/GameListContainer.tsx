@@ -150,7 +150,6 @@ const GameListContainer = () => {
 									genreFilterState[genre].flag &&
 									genreFilterState[genre].text === g
 								) {
-									console.log(element.gameTitle);
 									flag = true;
 									return;
 								}
@@ -163,7 +162,6 @@ const GameListContainer = () => {
 									platformFilterState[platform].flag &&
 									platformFilterState[platform].text === p
 								) {
-									console.log(element.gameTitle);
 									flag = true;
 									return;
 								}

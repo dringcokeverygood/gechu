@@ -44,7 +44,6 @@ const SearchResultContainer = () => {
 	}, []);
 
 	const handleSearch = () => {
-		console.log('검색 :', searchWord);
 		setRecoilSearchWord(searchWord);
 		navigate('/search');
 	};
@@ -71,7 +70,6 @@ const SearchResultContainer = () => {
 				)
 				.then((data) => {
 					const { games } = data;
-					console.log(games);
 					setSearchGames(games);
 
 					setLoading(false);
@@ -84,7 +82,6 @@ const SearchResultContainer = () => {
 				)
 				.then((data) => {
 					const { articles } = data;
-					console.log(articles);
 					setSearchArticles(articles);
 
 					setLoading(false);

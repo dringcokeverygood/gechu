@@ -37,8 +37,7 @@ const SideBarContainer = () => {
 				.put(`web/users/${userInfo.userSeq}`, formData, {
 					'Content-Type': 'multipart/form-data',
 				})
-				.then((data) => {
-					console.log(data);
+				.then(() => {
 					http
 						.get<GetUserInfo>(`web/users/${userInfo.userSeq}`)
 						.then((user) => {
@@ -68,9 +67,8 @@ const SideBarContainer = () => {
 						.put(`web/users/${userInfo.userSeq}`, formData, {
 							'Content-Type': 'multipart/form-data',
 						})
-						.then((data) => {
+						.then(() => {
 							// 닉네임 변경이 정상적으로 처리되었다면
-							console.log(data);
 							http
 								.get<GetUserInfo>(`web/users/${userInfo.userSeq}`)
 								.then((user) => {

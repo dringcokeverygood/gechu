@@ -43,7 +43,7 @@ const SearchResult = ({
 
 		{/* 검색 결과 */}
 		<div className="mt-4 w-full">
-			<div onChange={(index) => console.log('선택 탭 변경: ', index)}>
+			<div>
 				{/* 탭 버튼 */}
 				<div className="flex ">
 					{categories.map((category) => (
@@ -55,7 +55,6 @@ const SearchResult = ({
 									: 'border-b border-b-white-400 text-white-400 hover:p-6 '
 							}`}
 							onClick={() => {
-								console.log('탭 클릭: ', category);
 								setActiveTab(category);
 							}}
 						>

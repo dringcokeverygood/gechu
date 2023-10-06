@@ -53,7 +53,6 @@ const ReviewUpdateModalContainer = ({
 	});
 
 	const handleRadioBtn = (id: string) => {
-		console.log(selectedBefore, id);
 		if (selectedBefore === id) {
 			setSelectedBefore('');
 			return false;
@@ -122,8 +121,7 @@ const ReviewUpdateModalContainer = ({
 						userSeq: userInfo.userSeq,
 						text: reviewToPost.content,
 					})
-					.then((res) => {
-						console.log(res);
+					.then(() => {
 						fetchReviews();
 						onChangeUpdateModalFlag();
 					})
@@ -140,7 +138,6 @@ const ReviewUpdateModalContainer = ({
 		http
 			.get<GetEstimate>(`web/estimates/${gameSeq}?userSeq=${userInfo.userSeq}`)
 			.then((data) => {
-				console.log(data);
 				setMyEstim(data);
 			});
 	}, []);

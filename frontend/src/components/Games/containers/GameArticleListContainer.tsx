@@ -15,7 +15,6 @@ const GameArticleListContainer = () => {
 	const [modalFlag, setModalFlag] = useState(false);
 	const onChangeModalFlag = useCallback(() => {
 		setModalFlag(!modalFlag);
-		console.log('모달', modalFlag);
 	}, [modalFlag]);
 	const [articles, setArticles] = useState<GameArticlePreviewType[]>([]);
 

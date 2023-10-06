@@ -66,12 +66,7 @@ const HeaderContainer = () => {
 		setIsLogin(false);
 		setIsOpenLoginModal(false);
 		resetUserInfo();
-		console.log('로그아웃');
 	};
-
-	// useEffect(() => {
-	// 	console.log('userInfo :', userInfo);
-	// }, [userInfo]);
 
 	return (
 		<Header

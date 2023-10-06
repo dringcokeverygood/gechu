@@ -48,7 +48,6 @@ const ArticleModal = ({ onChangeModalFlag, getArticles }: Props) => {
 			const newFormData = new FormData();
 			newFormData.append('file', file);
 			setFormData(newFormData);
-			console.log('파일 : ', formData.get('file'));
 
 			const reader = new FileReader();
 			reader.readAsDataURL(file);

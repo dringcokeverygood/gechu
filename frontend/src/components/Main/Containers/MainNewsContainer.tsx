@@ -21,8 +21,6 @@ const MainNewsContainer = () => {
 			.get<GameNewsPreviewType[]>(`game/games/news/random?count=4`)
 			.then((data) => {
 				setGameNews(data);
-				// setLoading(false);
-				console.log('news', data);
 			})
 			.catch((err) => console.log(err));
 	}, []);

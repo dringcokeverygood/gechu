@@ -42,7 +42,6 @@ const ReviewModalContainer = ({
 	});
 
 	const handleRadioBtn = (id: string) => {
-		console.log(selectedBefore, id);
 		if (selectedBefore === id) {
 			setSelectedBefore('');
 			return false;
@@ -95,8 +94,6 @@ const ReviewModalContainer = ({
 			...prevState,
 			estimate: preference.like ? 'like' : 'dislike',
 		}));
-		console.log('post할 리뷰:');
-		console.log(reviewToPost);
 		//우선 estimate정보를 보냄
 		http
 			.post<{ estimateSeq: number }>(`web/estimates`, {
@@ -105,15 +102,12 @@ const ReviewModalContainer = ({
 				like: preference.like ? 'like' : 'dislike',
 			})
 			.then((estimateRes) => {
-				console.log('upsert 결과:');
-				console.log(estimateRes);
 				http
 					.post<GameReviewType>(`web/reviews`, {
 						estimateSeq: estimateRes.estimateSeq,
 						text: reviewToPost.content,
 					})
-					.then((res) => {
-						console.log(res);
+					.then(() => {
 						fetchReviews();
 						onChangeModalFlag();
 					})

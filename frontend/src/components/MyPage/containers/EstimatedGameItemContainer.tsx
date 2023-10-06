@@ -13,7 +13,6 @@ const SelectGameItemContainer = ({ game }: { game: LikeGameItemType }) => {
 	const [selectedBefore, setSelectedBefore] = useState('');
 
 	const handleRadioBtn = (id: string) => {
-		console.log(selectedBefore, id);
 		if (selectedBefore === id) {
 			setSelectedBefore('');
 			return false;
