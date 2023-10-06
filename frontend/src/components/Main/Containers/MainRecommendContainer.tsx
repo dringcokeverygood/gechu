@@ -17,17 +17,12 @@ const MainRecommendContainer = () => {
 
 	const navigate = useNavigate();
 
-	const onClickBtn = () => {
-		navigate('/game-recommend');
-	};
-
 	const onClickGame = (url: string) => {
 		navigate(url);
 	};
 
 	useEffect(() => {
 		setLoading(true);
-
 		http
 			.get<GamePreviewType[]>(`game/games`)
 			.then((data) => {
@@ -37,6 +32,18 @@ const MainRecommendContainer = () => {
 			})
 			.catch((err) => console.log(err));
 	}, []);
+
+	const onClickBtn = () => {
+		setLoading(true);
+		http
+			.get<GamePreviewType[]>(`game/games`)
+			.then((data) => {
+				const gameList = data.slice(0, 20);
+				setRecommendGames(gameList);
+				setLoading(false);
+			})
+			.catch((err) => console.log(err));
+	};
 
 	return (
 		<MainRecommend
