@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.15'
+	id 'org.springframework.boot' version '2.7.16'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -27,23 +27,24 @@ ext {
 
 dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.5'
-	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter'
+	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-	implementation 'io.github.husnjak:igdb-api-jvm:1.0.11'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.5'
+	implementation 'org.jsoup:jsoup:1.14.3'
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.12.1'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	// logstash
+	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.3'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 
-	// aws
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 dependencyManagement {
