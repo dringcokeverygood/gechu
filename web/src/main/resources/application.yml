@@ -16,8 +16,5 @@ spring:
   config:
     import: optional:configserver:http://j9d203.p.ssafy.io:8888
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+logging:
+  config: classpath:logback-spring.xml
