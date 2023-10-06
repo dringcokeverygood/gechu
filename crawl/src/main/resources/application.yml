@@ -1,5 +1,5 @@
 server:
-  port: 9091
+  port: 9999
 
 spring:
   application:
@@ -15,16 +15,3 @@ spring:
     active: dev
   config:
     import: optional:configserver:http://j9d203.p.ssafy.io:8888
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://j9d203.p.ssafy.io:8761/eureka
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
