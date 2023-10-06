@@ -46,10 +46,10 @@ const MainTrend = ({ games, onClickGame, loading }: TrendProps) => {
 									</p>
 									<div className="h-3/5  text-white-200">
 										<p className="mt-5 line-clamp-2 font-dungGeunMo ">
-											장르 : {game.genres}
+											장르 : {game.genres.join(', ')}
 										</p>
 										<p className="mt-3 line-clamp-2 break-all font-dungGeunMo">
-											플랫폼 : {game.platforms}
+											플랫폼 : {game.platforms.join(', ')}
 										</p>
 									</div>
 								</div>
