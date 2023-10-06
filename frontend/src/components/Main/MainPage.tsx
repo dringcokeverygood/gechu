@@ -9,8 +9,8 @@ const MainPage = () => {
 		<div className="my-20 flex flex-col gap-24">
 			<MainTrendContainer />
 			<MainRecommendContainer />
-			<MainNewsContainer />
 			<MainArticleContainer />
+			<MainNewsContainer />
 		</div>
 	);
 };
