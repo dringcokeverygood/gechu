@@ -30,32 +30,32 @@ const MainNews = ({ newsList, onClickNewTab, onClickBtn }: MainNewsProps) => {
 			<div className="flex w-full items-center justify-center p-3">
 				<Tab.Group>
 					<Tab.List className="flex w-1/2 flex-col items-start self-stretch">
-						{newsList.map((news, index) => (
+						{newsList.map((news) => (
 							<Tab
-								key={index}
+								key={`newsTab${news.url}`}
 								className={({ selected }) =>
 									classNames(
 										'flex w-full flex-row font-dungGeunMo text-sm ',
 										'ring-0 focus:outline-none',
 										`${
 											selected
-												? 'bg-white-100 text-white-950'
+												? 'cursor-default bg-white-100 text-white-950'
 												: 'hover:bg-yellow-400'
 										} rounded-l-lg`,
 									)
 								}
 							>
-								<li key={index} className="item group flex p-2 ">
+								<li key={`news${news.url}`} className="item group flex p-2 ">
 									<img
 										className="h-20 w-20 object-cover"
-										src={news.image_url}
+										src={news.imageUrl}
 										alt="기사 이미지"
 									/>
 									<div className="ml-2 flex h-20 flex-col items-start justify-between text-start">
 										<p className="self-stretch text-[20px]">{news.headline}</p>
-										<p>
+										{/* <p>
 											{news.upload_date} {news.company}
-										</p>
+										</p> */}
 									</div>
 								</li>
 							</Tab>
@@ -74,8 +74,8 @@ const MainNews = ({ newsList, onClickNewTab, onClickBtn }: MainNewsProps) => {
 										{news.headline}
 									</p>
 									<img
-										className="h-64 w-full object-cover"
-										src={news.image_url}
+										className="h-64 w-full object-contain"
+										src={news.imageUrl}
 										alt="뉴스 이미지"
 									/>
 									<p className="h-15 mt-2 line-clamp-2 overflow-ellipsis text-lg">

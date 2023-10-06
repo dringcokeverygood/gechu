@@ -1,24 +1,98 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { http } from '../../../utils/http';
 import { GameArticleType } from '../../../typedef/Game/games.types';
 import GameArticle from '../GameArticle';
+import Swal from 'sweetalert2';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../../../recoil/UserAtom';
+
+interface GetArticle {
+	article: GameArticleType;
+	success: boolean;
+	message: string;
+}
 
 const GameArticleContainer = () => {
-	//추후 seq기반으로 fetch해오기
-	const article: GameArticleType = {
+	const navigate = useNavigate();
+
+	const [imgModalFlag, setImgModalFlag] = useState(false);
+	const onChangeImgModalFlag = useCallback(() => {
+		setImgModalFlag(!imgModalFlag);
+	}, [imgModalFlag]);
+	const articleSeq = useParams().articleSeq;
+	const [itsMine, setItsMine] = useState(false);
+	const userInfo = useRecoilValue(userState);
+
+	const [updateModalFlag, setUpdateModalFlag] = useState(false);
+	const onChangeUpdateModalFlag = useCallback(() => {
+		setUpdateModalFlag(!updateModalFlag);
+	}, [updateModalFlag]);
+
+	const [article, setArticle] = useState<GameArticleType>({
 		seq: 1,
 		gameSeq: 1,
-		gameTitle: '갓게임',
-		userSeq: 1,
-		userNickname: '재밌으면 우는 애옹이',
-		articleTitle: '재밌다옹',
-		content:
-			'애오옹애옹애오옹애오옹애옹애오옹애오옹애옹애오옹애오옹애옹애오옹야옹야옹애오옹야옹야옹애오옹야옹야옹애오옹야옹야옹애옹야옹애옹야옹애옹야옹애옹',
-		imageUrl:
-			'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
+		gameTitle: '',
+		userProfile: {
+			imageUrl: '',
+			nickName: '',
+			seq: 1,
+			userId: '',
+		},
+		articleTitle: '',
+		content: '',
+		imageUrl: '',
 		createDate: '2023-09-14',
+	});
+
+	const onClickDeleteBtn = (seq: number) => {
+		Swal.fire({
+			title: '게시글 삭제',
+			text: '정말 삭제하시겠습니까?',
+			showCancelButton: true,
+			confirmButtonColor: '#1F771E',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				http.delete(`web/articles/${seq}`).then(() => {
+					navigate(`/game-detail/${article.gameSeq}/articles`, {
+						replace: true,
+					});
+				});
+			}
+		});
 	};
 
-	return <GameArticle article={article} />;
+	const onClickBack = () => {
+		navigate(`/game-detail/${article.gameSeq}/articles`, { replace: true });
+	};
+
+	const getArticle = () => {
+		http.get<GetArticle>(`web/articles/${articleSeq}`).then((data) => {
+			setArticle(data.article);
+		});
+	};
+
+	useEffect(() => {
+		getArticle();
+	}, []);
+
+	useEffect(() => {
+		if (article.userProfile.seq === userInfo.userSeq) setItsMine(true);
+	}, [article]);
+
+	return (
+		<GameArticle
+			article={article}
+			imgModalFlag={imgModalFlag}
+			onChangeModalFlag={onChangeImgModalFlag}
+			onClickBack={onClickBack}
+			onClickDeleteBtn={onClickDeleteBtn}
+			updateModalFlag={updateModalFlag}
+			onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+			getArticle={getArticle}
+			itsMine={itsMine}
+		/>
+	);
 };
 
 export default GameArticleContainer;

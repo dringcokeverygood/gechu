@@ -6,11 +6,11 @@ import MainArticleContainer from './Containers/MainArticleContainer';
 
 const MainPage = () => {
 	return (
-		<div className="my-20 flex max-w-[1200px] flex-col gap-24 ">
+		<div className="my-20 flex flex-col gap-24">
 			<MainTrendContainer />
 			<MainRecommendContainer />
-			<MainNewsContainer />
 			<MainArticleContainer />
+			<MainNewsContainer />
 		</div>
 	);
 };

@@ -6,9 +6,24 @@ import { MdMoreVert } from 'react-icons/md';
 import { Icon } from '@iconify/react';
 import { MdThumbUpOffAlt, MdThumbDownOffAlt } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import dateFormatting from '../../../utils/dateFormatting';
+import ArticleUpdateModal from '../../Games/ArticleUpdateModal';
+import ReviewUpdateModalContainer from '../../Games/containers/ReviewUpdateModalContainer';
 
-// article인지 comment인지 review인지 구분할 값 필요(navigate용)
-const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
+// article인지 review인지 구분할 값 필요(navigate용)
+const ManageCardItem = ({
+	item,
+	onClickDeleteBtn,
+	updateModalFlag,
+	onChangeUpdateModalFlag,
+	getMyList,
+}: {
+	item: ManageCardItemType;
+	onClickDeleteBtn: (seq: number) => void;
+	updateModalFlag: boolean;
+	onChangeUpdateModalFlag: () => void;
+	getMyList: () => void;
+}) => {
 	return (
 		<div className="flex h-[250px] w-full gap-6 rounded-xl bg-white-100 p-6 text-white-950">
 			<div className="h-full w-[200px]">
@@ -35,13 +50,13 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 						>
 							{item.gameTitle}
 						</Link>
-						{item.type === 'reviews' && item.like ? (
+						{item.type === 'reviews' && item.like === 'like' ? (
 							<p
 								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-blue-500 px-2 py-1 font-dungGeunMo text-[16px] text-blue-500`}
 							>
 								좋아요 <MdThumbUpOffAlt size={16} id="like" />
 							</p>
-						) : item.type === 'reviews' && item.unlike ? (
+						) : item.type === 'reviews' && item.like === 'dislike' ? (
 							<p
 								className={`flex cursor-pointer items-center gap-1 rounded-full border-2 border-solid border-red-400 px-2 py-1 font-dungGeunMo text-[16px] text-red-400`}
 							>
@@ -73,11 +88,13 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 								<div className="flex flex-col">
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-200'
-												} flex items-center justify-center gap-4 p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4 p-2 font-dungGeunMo`}
+												onClick={() => {
+													onChangeUpdateModalFlag();
+												}}
 											>
 												<Icon
 													icon="pixelarticons:edit-box"
@@ -85,16 +102,18 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 													height="20"
 												/>
 												수정
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 									<Menu.Item>
 										{({ active }) => (
-											<Link
+											<div
 												className={`${
 													active && 'bg-white-200'
-												} flex items-center justify-center gap-4 p-2 font-dungGeunMo`}
-												to="/"
+												} flex cursor-pointer items-center justify-center gap-4 p-2 font-dungGeunMo`}
+												onClick={() => {
+													onClickDeleteBtn(item.itemSeq);
+												}}
 											>
 												<Icon
 													icon="pixelarticons:close-box"
@@ -102,7 +121,7 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 													height="20"
 												/>
 												삭제
-											</Link>
+											</div>
 										)}
 									</Menu.Item>
 								</div>
@@ -123,10 +142,7 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 						className="flex h-full w-full flex-col gap-3"
 					>
 						{item.title && (
-							<p className="w-[728px] truncate font-bold">
-								{item.title}
-								ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-							</p>
+							<p className="w-[728px] truncate font-bold">{item.title}</p>
 						)}
 						<p className="line-clamp-5 w-[728px] overflow-hidden whitespace-pre-wrap break-all">
 							{item.content}
@@ -134,9 +150,29 @@ const ManageCardItem = ({ item }: { item: ManageCardItemType }) => {
 					</Link>
 				</div>
 				<div>
-					<p className="text-[12px] text-white-400">{item.createDate}</p>
+					<p className="text-[12px] text-white-400">
+						{dateFormatting(item.createDate)}
+					</p>
 				</div>
 			</div>
+
+			{updateModalFlag &&
+				(item.type === 'articles' ? (
+					<ArticleUpdateModal
+						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+						getArticle={getMyList}
+						gameSeq={item.gameSeq}
+						articleSeq={item.itemSeq}
+					/>
+				) : (
+					<ReviewUpdateModalContainer
+						preReview={item.content}
+						onChangeUpdateModalFlag={onChangeUpdateModalFlag}
+						gameSeq={item.gameSeq}
+						reviewSeq={item.itemSeq}
+						fetchReviews={getMyList}
+					/>
+				))}
 		</div>
 	);
 };
